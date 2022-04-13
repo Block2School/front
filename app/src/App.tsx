@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
 function App() {
+
+  const [text, setText] = useState("");
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setText(event.target.value);
+  }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -18,6 +25,12 @@ function App() {
         >
           Learn React
         </a>
+        <input id="salutbg" type="text" value={text} onChange={handleChange} />
+        <br></br>
+        <br></br>
+        <text id="inputvaluetext">{ text }</text>
+        <br></br>
+        <br></br>
       </header>
     </div>
   );
