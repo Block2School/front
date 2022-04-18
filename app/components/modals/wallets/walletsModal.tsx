@@ -23,7 +23,7 @@ const SelectWalletModal = ({
 }: { isOpen: boolean, closeModal: any }) => {
   const { activate } = useWeb3React();
 
-  const setProvider = (type) => {
+  const setProvider = (type: any) => {
     window.localStorage.setItem('provider', type);
   }
 
