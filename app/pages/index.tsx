@@ -70,6 +70,7 @@ import { useWeb3React } from '@web3-react/core';
 import { connectors } from '../components/wallet/injectors';
 import { CheckCircleIcon, WarningIcon } from "@chakra-ui/icons";
 import { Tooltip } from '@chakra-ui/react';
+import Balance from '../components/balance/balance';
 
 const Home: NextPage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -147,6 +148,39 @@ const Home: NextPage = () => {
               <WarningIcon color="#cd5700" />
             )}
           </HStack>
+          <HStack>
+            <Text>{`Account: `}</Text>
+            {active ? (
+              <Text>{account}</Text>
+            ) : (
+              <Text>{`Not Connected`}</Text>
+            )}
+          </HStack>
+          <HStack>
+            <Text>{`Network: `}</Text>
+            {active ? (
+              <Text>{chainId}</Text>
+            ) : (
+              <Text>{`Not Connected`}</Text>
+            )}
+          </HStack>
+          <HStack>
+            <Text>{`Library: `}</Text>
+            {active ? (
+              <Text>{library.name}</Text>
+            ) : (
+              <Text>{`Not Connected`}</Text>
+            )}
+          </HStack>
+          <HStack>
+            {active ? (
+              <Text>{'0.00'} BNB</Text>
+            ) : (
+              <Text>0.00 BNB</Text>
+            )}
+          </HStack>
+          {/* <Balance {account: account, library: library}/>{} */}
+          <Balance account={account} library={library} />
         </VStack>
       </VStack>
       <SelectWalletModal isOpen={isOpen} closeModal={onClose} />

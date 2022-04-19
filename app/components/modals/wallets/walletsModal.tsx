@@ -26,7 +26,8 @@ const SelectWalletModal = ({
   const setProvider = (type: any) => {
     window.localStorage.setItem('provider', type);
   }
-
+  console.log('isOpen', isOpen);
+  // console.log('closeModal', closeModal);
   return (
     <Modal isOpen={isOpen} onClose={closeModal} isCentered>
       <ModalOverlay />
@@ -112,7 +113,7 @@ const SelectWalletModal = ({
         </ModalBody>
       </ModalContent>
     </Modal>
-  )
+  );
 };
 
 export default SelectWalletModal;
