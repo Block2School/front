@@ -28,6 +28,9 @@ const SelectWalletModal = ({
   }
   console.log('isOpen', isOpen);
   // console.log('closeModal', closeModal);
+  if (isOpen === false) {
+    return null;
+  }
   return (
     <Modal isOpen={isOpen} onClose={closeModal} isCentered>
       <ModalOverlay />
@@ -46,6 +49,7 @@ const SelectWalletModal = ({
                 activate(connectors.coinbaseWallet);
                 setProvider('coinbaseWallet');
                 closeModal();
+                isOpen = false;
               }}
               w="100%"
             >
@@ -69,6 +73,7 @@ const SelectWalletModal = ({
                 activate(connectors.injected);
                 setProvider('injected');
                 closeModal();
+                isOpen = false;
               }}
               w="100%"
             >
@@ -92,6 +97,7 @@ const SelectWalletModal = ({
                 activate(connectors.binanceWallet);
                 setProvider('binanceWallet');
                 closeModal();
+                isOpen = false;
               }}
               w="100%"
             >
