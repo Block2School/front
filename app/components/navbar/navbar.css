@@ -1,5 +1,6 @@
 #navbar-component {
   background-color: black;
+  inset: 0px 0px 20px;
   display: block;
   overflow: visible;
   position: sticky;
