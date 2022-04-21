@@ -1,12 +1,12 @@
-import React from "react";
 import Footer from "../components/footer/footer";
 import Navbar from "../components/navbar/navbar";
-import Home from "../pages/home";
 
-export default function App() {
+export default function FAQ() {
   return (
     <>
-      <Home />
+      <Navbar />
+      <h1>FAQ</h1>
+      <Footer />
     </>
   );
 }

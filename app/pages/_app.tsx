@@ -1,15 +1,16 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+import "../styles/globals.css";
+import "../components/navbar/navbar.css";
+import type { AppProps } from "next/app";
 
-import { Web3ReactProvider } from '@web3-react/core'
-import Web3 from 'web3'
-import { provider } from 'web3-core'
+import { Web3ReactProvider } from "@web3-react/core";
+import Web3 from "web3";
+import { provider } from "web3-core";
 
-import { ChakraProvider } from '@chakra-ui/react'
+import { ChakraProvider } from "@chakra-ui/react";
 
 const getLibrary = (provider: provider) => {
   return new Web3(provider);
-}
+};
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -21,4 +22,4 @@ function MyApp({ Component, pageProps }: AppProps) {
   );
 }
 
-export default MyApp
+export default MyApp;
