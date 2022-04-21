@@ -35,13 +35,13 @@ export const getFullDisplayBalance = (balance: BigNumber, decimals = 18, display
   return getBalanceAmount(balance, decimals).toFixed(displayDecimals)
 }
 
-export const formatNumber = (number: number, minPrecision = 2, maxPrecision = 2) => {
-  const options = {
-    minimumFractionDigits: minPrecision,
-    maximumFractionDigits: maxPrecision,
-  }
-  return number.toLocaleString(undefined, options)
-}
+// export const formatNumber = (number: number, minPrecision = 2, maxPrecision = 2) => {
+//   const options = {
+//     minimumFractionDigits: minPrecision,
+//     maximumFractionDigits: maxPrecision,
+//   }
+//   return number.toLocaleString(undefined, options)
+// }
 
 /**
  * Method to format the display of wei given an EthersBigNumber object
