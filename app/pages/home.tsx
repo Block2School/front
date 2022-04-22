@@ -1,12 +1,15 @@
 import React from "react";
 import Footer from "../components/footer/footer";
 import Navbar from "../components/navbar/navbar";
-import Home from "../pages/home";
 
-export default function App() {
+export default function Home() {
   return (
     <>
-      <Home />
+      <Navbar />
+      <div style={{ height: "100vh" }}>
+        <h1>Home</h1>
+      </div>
+      <Footer />
     </>
   );
 }

@@ -1,0 +1,76 @@
+#faq-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+}
+
+#faq-header {
+  width: 100%;
+  height: 100px;
+  background-color: rgb(25, 25, 25);
+  display: block;
+  height: 200px;
+}
+
+#faq-header span {
+  color: white;
+  font-size: 50px;
+  font-weight: bold;
+  display: flex;
+  margin: 0px auto;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-family: "Segoe UI", sans-serif;
+}
+
+#faq-body {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  background-color: rgb(25, 25, 25);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#faq-questions {
+  width: 75%;
+  height: inherit;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.faq-question {
+  width: 45%;
+  height: 300px;
+  background-color: rgb(25, 25, 25);
+  display: block;
+  border: 1px solid white;
+  border-radius: 10px;
+  text-align: center;
+  margin: 20px 0 20px 0;
+}
+
+.faq-question h2 {
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+  height: 25%;
+  display: flex;
+  margin: 0px auto;
+  align-items: center;
+  justify-content: center;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.faq-question p {
+  color: white;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Segoe UI", sans-serif;
+}

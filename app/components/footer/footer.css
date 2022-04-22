@@ -1,0 +1,38 @@
+#footer-component {
+  background-color: black;
+  inset: 0px 0px 20px;
+  display: block;
+  overflow: visible;
+  z-index: 999;
+  border-top: 1px solid white;
+}
+
+#footer-container {
+  margin: 0px auto;
+  max-width: 992px;
+  width: 100%;
+  -moz-box-align: center;
+  align-items: center;
+  -moz-box-pack: justify;
+  justify-content: space-between;
+  display: flex;
+}
+
+#footer-logo-container {
+  max-width: 100%;
+  max-height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.footer-text {
+  display: flex;
+  -moz-box-align: center;
+  align-items: center;
+  height: 40px;
+  padding: 0px 20px;
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+  font-family: "Euclid Circular B", sans-serif;
+  font-size: 20px;
+}
