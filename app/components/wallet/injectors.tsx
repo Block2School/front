@@ -20,14 +20,6 @@ const coinbaseWallet = new WalletLinkConnector({
   supportedChainIds: [97], // Testnet
 });
 
-// const binanceWallet = new WalletLinkConnector({
-//   // url: 'https://bsc-dataseed1.binance.org:443', // Mainnet
-//   url: 'https://data-seed-prebsc-1-s1.binance.org:8545', // Testnet
-//   appName: "Block2School",
-//   // supportedChainIds: [56], // Mainnet
-//   supportedChainIds: [97], // Testnet
-// });
-
 const binanceWallet = new BscConnector({
   // supportedChainIds: [56], // Mainnet
   supportedChainIds: [97], // Testnet

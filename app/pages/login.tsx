@@ -8,6 +8,7 @@ import { connectors } from "../components/wallet/injectors";
 import { CheckCircleIcon, WarningIcon } from "@chakra-ui/icons";
 import Navbar from "../components/navbar/navbar";
 import Footer from "../components/footer/footer";
+import Balance from "../components/balance/balance";
 
 const Login: NextPage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -58,7 +59,7 @@ const Login: NextPage = () => {
             sx={{
               background: "linear-gradient(90deg, #1652f0 0%, #b9cbfb 70.35%)",
               WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
+              WebkitTextFillColor: "transparent"
             }}
           >
             Web3-React
@@ -80,6 +81,39 @@ const Login: NextPage = () => {
               <WarningIcon color="#cd5700" />
             )}
           </HStack>
+          <HStack>
+            <Text>{`Account: `}</Text>
+            {active ? (
+              <Text>{account}</Text>
+            ) : (
+              <Text>{`Not Connected`}</Text>
+            )}
+          </HStack>
+          <HStack>
+            <Text>{`Network: `}</Text>
+            {active ? (
+              <Text>{chainId}</Text>
+            ) : (
+              <Text>{`Not Connected`}</Text>
+            )}
+          </HStack>
+          <HStack>
+            <Text>{`Library: `}</Text>
+            {active ? (
+              <Text>{library.name}</Text>
+            ) : (
+              <Text>{`Not Connected`}</Text>
+            )}
+          </HStack>
+          <HStack>
+            {active ? (
+              <Text>{'0.00'} BNB</Text>
+            ) : (
+              <Text>0.00 BNB</Text>
+            )}
+          </HStack>
+          {/* <Balance {account: account, library: library}/>{} */}
+          <Balance account={account} library={library} />
         </VStack>
       </VStack>
       <SelectWalletModal isOpen={isOpen} closeModal={onClose} />
