@@ -5,6 +5,7 @@
   overflow: visible;
   position: sticky;
   z-index: 999;
+  border-bottom: 1px solid white;
 }
 
 #navbar-container {
@@ -45,4 +46,10 @@
   cursor: pointer;
   font-family: "Euclid Circular B", sans-serif;
   font-size: 20px;
+}
+
+.navbar-text:hover {
+  background: linear-gradient(90deg, red, blue);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
