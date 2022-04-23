@@ -9,11 +9,7 @@ import {
   ModalCloseButton,
   Button,
   Text,
-  Input,
-  Select,
-  Box
 } from '@chakra-ui/react';
-
 import { Image } from '@chakra-ui/react';
 import { useWeb3React } from '@web3-react/core';
 import { connectors } from '../../wallet/injectors';
@@ -27,7 +23,6 @@ const SelectWalletModal = ({
     window.localStorage.setItem('provider', type);
   }
   console.log('isOpen', isOpen);
-  // console.log('closeModal', closeModal);
   if (isOpen === false) {
     return null;
   }

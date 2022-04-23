@@ -9,6 +9,7 @@ import { CheckCircleIcon, WarningIcon } from "@chakra-ui/icons";
 import Navbar from "../components/navbar/navbar";
 import Footer from "../components/footer/footer";
 import Balance from "../components/balance/balance";
+import Web3 from "web3";
 
 const Login: NextPage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -33,10 +34,18 @@ const Login: NextPage = () => {
     deactivate();
   };
 
+  const handleConnection = async (error: Error): Promise<void> => {
+    console.log('error: ', error);
+    console.log('error.name: ', error.name);
+    if (error.name === 'UnsupportedChainIdError') {
+      // display warning
+    }
+  }
+
   useEffect(() => {
     const provider = window.localStorage.getItem("provider");
-    if (provider) activate(connectors[provider]);
-  }, []);
+    if (provider) activate(connectors[provider], handleConnection);
+  });
 
   return (
     <>
