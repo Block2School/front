@@ -1,20 +1,17 @@
-import useSWR from "swr";
-import fetcher from "../swr/srwWrapper";
 import { HStack, Text } from "@chakra-ui/react";
-import { formatEther } from "ethers/lib/utils";
 import { FunctionComponent, useEffect, useState } from "react";
 import Web3 from "web3";
-import {Contract} from 'web3-eth-contract';
+import { Contract } from 'web3-eth-contract';
 import getTokenContract from "../../utils/tokens";
 import { getFullDisplayBalance } from "../../utils/format";
-import CountUp, { useCountUp } from 'react-countup';
+import CountUp from 'react-countup';
 
 type BalanceProps = {
   account: string | null | undefined,
   library: any
 }
 
-const Balance: FunctionComponent<BalanceProps> = ({account, library}) => {
+const Balance: FunctionComponent<BalanceProps> = ({ account, library }) => {
   // const web3 = new Web3('https://bsc-dataseed1.binance.org:443'); // MAINNET
   const web3 = new Web3('https://data-seed-prebsc-1-s1.binance.org:8545'); // TESTNET
   const [balanceBNB, setBalanceBNB] = useState("");
@@ -42,7 +39,7 @@ const Balance: FunctionComponent<BalanceProps> = ({account, library}) => {
       }
     }
   }, [account]);
-  
+
   if (account == null || account == undefined || account == '') {
     return (
       <>

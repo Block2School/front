@@ -9,17 +9,16 @@ import { CheckCircleIcon, WarningIcon } from "@chakra-ui/icons";
 import Navbar from "../components/navbar/navbar";
 import Footer from "../components/footer/footer";
 import Balance from "../components/balance/balance";
-import Web3 from "web3";
 
 const Login: NextPage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { library, chainId, account, activate, deactivate, active } =
     useWeb3React();
   const [signature, setSignature] = useState("");
-  const [error, setError] = useState("");
+  // const [error, setError] = useState("");
   const [network, setNetwork] = useState(undefined);
   const [message, setMessage] = useState("");
-  const [signedMessage, setSignedMessage] = useState("");
+  // const [signedMessage, setSignedMessage] = useState("");
   const [verified, setVerified] = useState();
 
   const refreshState = () => {
