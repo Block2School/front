@@ -27,7 +27,7 @@ const SelectWalletModal = ({
     return null;
   }
   return (
-    <Modal isOpen={isOpen} onClose={closeModal} isCentered>
+    <Modal isOpen={isOpen} onClose={closeModal} isCentered preserveScrollBarGap>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Select Wallet</ModalHeader>

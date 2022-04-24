@@ -2,7 +2,40 @@ import Link from "next/link";
 import Image from "next/image";
 import * as logoWhite from "/public/B2S_white.png";
 
+import SelectWalletModal from "../modals/wallets/walletsModal";
+import Balance from "../balance/balance";
+import { useWeb3React } from "@web3-react/core";
+import { connectors } from "../wallet/injectors";
+import { Button, HStack, useDisclosure } from "@chakra-ui/react";
+import { useEffect } from "react";
+
 export default function Navbar() {
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { library, chainId, account, activate, deactivate, active } = useWeb3React();
+  
+  const refreshState = () => {
+    window.localStorage.setItem("provider", "undefined");
+  };
+
+  const disconnect = () => {
+    refreshState();
+    deactivate();
+  }
+
+  const handleConnection = async (error: Error): Promise<void> => {
+    console.log('error: ', error);
+    console.log('error.name: ', error.name);
+    if (error.name === 'UnsupportedChainIdError') {
+      // display warning
+    }
+  }
+
+  useEffect(() => {
+    const provider = window.localStorage.getItem("provider");
+    if (provider) activate(connectors[provider], handleConnection);
+  });
+
   return (
     <>
       <div id="navbar-component">
@@ -26,8 +59,18 @@ export default function Navbar() {
               </Link>
             </div>
           </div>
+          <div className="navbar-login-button">
+            <HStack>
+              {!active ? (
+                <Button onClick={onOpen}>Connect Wallet</Button>
+              ) : (
+                <Button onClick={disconnect}>Disconnect</Button>
+              )}
+            </HStack>
+          </div>
         </div>
       </div>
+      <SelectWalletModal isOpen={isOpen} closeModal={onClose} />
     </>
   );
 }
