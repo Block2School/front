@@ -8,6 +8,7 @@ import { useWeb3React } from "@web3-react/core";
 import { connectors } from "../wallet/injectors";
 import { Button, HStack, useDisclosure } from "@chakra-ui/react";
 import { useEffect } from "react";
+import ConnectionButton from "../wallet/connectionButton";
 
 export default function Navbar() {
 
@@ -60,17 +61,18 @@ export default function Navbar() {
             </div>
           </div>
           <div className="navbar-login-button">
-            <HStack>
+            {/* <HStack>
               {!active ? (
                 <Button onClick={onOpen}>Connect Wallet</Button>
               ) : (
                 <Button onClick={disconnect}>Disconnect</Button>
               )}
-            </HStack>
+            </HStack> */}
+            <ConnectionButton/>
           </div>
         </div>
       </div>
-      <SelectWalletModal isOpen={isOpen} closeModal={onClose} />
+      {/* <SelectWalletModal isOpen={isOpen} closeModal={onClose} /> */}
     </>
   );
 }
