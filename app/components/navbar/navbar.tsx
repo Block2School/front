@@ -9,6 +9,7 @@ import { connectors } from "../wallet/injectors";
 import { Button, HStack, useDisclosure } from "@chakra-ui/react";
 import { useEffect } from "react";
 import ConnectionButton from "../wallet/connectionButton";
+import NavbarBalance from "../wallet/navbarBalance";
 
 export default function Navbar() {
 
@@ -61,18 +62,13 @@ export default function Navbar() {
             </div>
           </div>
           <div className="navbar-login-button">
-            {/* <HStack>
-              {!active ? (
-                <Button onClick={onOpen}>Connect Wallet</Button>
-              ) : (
-                <Button onClick={disconnect}>Disconnect</Button>
-              )}
-            </HStack> */}
-            <ConnectionButton/>
+            <HStack>
+              <NavbarBalance />
+              <ConnectionButton/>
+            </HStack>
           </div>
         </div>
       </div>
-      {/* <SelectWalletModal isOpen={isOpen} closeModal={onClose} /> */}
     </>
   );
 }

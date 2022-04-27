@@ -54,7 +54,6 @@ export default function ConnectionButton() {
             width="50%"
             paddingRight={2}
           />Connect Wallet</Button>
-          // <Button onClick={onOpen}><WarningTwoIcon color="red" paddingRight="1"/>Connect Wallet</Button>
         ) : (
           <Button onClick={disconnect} background="rgb(53, 53, 71)" _hover={{ bg: 'rgb(77 77 86)' }} _focus={{
             boxShadow:
