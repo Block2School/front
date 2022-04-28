@@ -15,10 +15,10 @@ const Login: NextPage = () => {
   const { library, chainId, account, activate, deactivate, active } =
     useWeb3React();
   const [signature, setSignature] = useState("");
-  const [error, setError] = useState("");
+  // const [error, setError] = useState("");
   const [network, setNetwork] = useState(undefined);
   const [message, setMessage] = useState("");
-  const [signedMessage, setSignedMessage] = useState("");
+  // const [signedMessage, setSignedMessage] = useState("");
   const [verified, setVerified] = useState();
 
   const refreshState = () => {
@@ -33,10 +33,18 @@ const Login: NextPage = () => {
     deactivate();
   };
 
+  const handleConnection = async (error: Error): Promise<void> => {
+    console.log('error: ', error);
+    console.log('error.name: ', error.name);
+    if (error.name === 'UnsupportedChainIdError') {
+      // display warning
+    }
+  }
+
   useEffect(() => {
     const provider = window.localStorage.getItem("provider");
-    if (provider) activate(connectors[provider]);
-  }, []);
+    if (provider) activate(connectors[provider], handleConnection);
+  });
 
   return (
     <>
