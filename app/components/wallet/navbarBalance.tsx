@@ -69,10 +69,10 @@ export default function NavbarBalance() {
                 style={{ color: 'white'}}
               />
               <Image
-                src="/Binance-BNB-Icon2-Logo.wine.svg"
-                alt="BNB logo"
-                height={55}
-                width={55}
+                src="/ethereum-eth-logo.svg"
+                alt="ETH logo"
+                height={35}
+                width={35}
               />
               <CountUp
                 start={0}
@@ -86,14 +86,22 @@ export default function NavbarBalance() {
               <Image
                 src="/Binance-BNB-Icon2-Logo.wine.svg"
                 alt="BNB logo"
-                height={55}
-                width={55}
+                height={35}
+                width={35}
               />
             </HStack>
           </>
         ) : (
           <>
             <HStack>
+              <Text color="white"> 0.0000</Text>
+              <Image
+                src="/ethereum-eth-logo.svg"
+                alt="ETH logo"
+                height={35}
+                width={35}
+                style={{ color: 'white'}}
+              />
               <Text color="white"> 0.0000</Text>
               <Image
                 src="/Binance-BNB-Icon2-Logo.wine.svg"
