@@ -3,7 +3,7 @@ import { useWeb3React } from "@web3-react/core";
 import { connectors } from "../wallet/injectors";
 import { Button, HStack, Image, useDisclosure } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { WarningTwoIcon } from "@chakra-ui/icons";
+import { Tooltip } from '@chakra-ui/react';
 
 export default function ConnectionButton() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -44,16 +44,18 @@ export default function ConnectionButton() {
               '0 0 1px 2px rgba(88, 144, 255, .75), 0 1px 1px rgba(0, 0, 0, .15)',
           }} color="white">Connect Wallet</Button>
         ): !active && isError === true ? (
-          <Button onClick={onOpen} background="rgb(53, 53, 71)" _hover={{ bg: 'rgb(77 77 86)' }} _focus={{
-            boxShadow:
-              '0 0 1px 2px rgba(88, 144, 255, .75), 0 1px 1px rgba(0, 0, 0, .15)',
-          }} color="white"><Image
-            src="/warning-sign-svgrepo-com.svg"
-            alt="warning"
-            height="50%"
-            width="50%"
-            paddingRight={2}
-          />Connect Wallet</Button>
+          <Tooltip label="Wrong Network" placement="top" hasArrow>
+            <Button onClick={onOpen} background="rgb(53, 53, 71)" _hover={{ bg: 'rgb(77 77 86)' }} _focus={{
+              boxShadow:
+                '0 0 1px 2px rgba(88, 144, 255, .75), 0 1px 1px rgba(0, 0, 0, .15)',
+            }} color="white"><Image
+              src="/warning-sign-svgrepo-com.svg"
+              alt="warning"
+              height="50%"
+              width="50%"
+              paddingRight={2}
+            />Connect Wallet</Button>
+          </Tooltip>
         ) : (
           <Button onClick={disconnect} background="rgb(53, 53, 71)" _hover={{ bg: 'rgb(77 77 86)' }} _focus={{
             boxShadow:
