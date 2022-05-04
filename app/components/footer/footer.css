@@ -36,3 +36,18 @@
   font-family: "Euclid Circular B", sans-serif;
   font-size: 20px;
 }
+
+#footer-links-container {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+#footer-community-container {
+  min-width: 10%;
+}
+
+#footer-community-main {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}

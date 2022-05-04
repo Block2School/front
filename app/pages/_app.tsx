@@ -1,3 +1,5 @@
+import "../styles/terms-of-use.css";
+import "../styles/privacy-policy.css";
 import "../styles/globals.css";
 import "../styles/faq.css";
 import "../components/navbar/navbar.css";
