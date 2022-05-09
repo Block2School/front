@@ -1,6 +1,10 @@
-# front
+# Front
 
-# dependencies
+## Requirements
+- `node`
+- `yarn`
+
+## Dependencies
 - install all dependencies :
 - `yarn`
 
