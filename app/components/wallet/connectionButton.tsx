@@ -4,6 +4,7 @@ import { connectors } from "../wallet/injectors";
 import { Button, HStack, Image, useDisclosure } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Tooltip } from '@chakra-ui/react';
+import axios from 'axios';
 
 export default function ConnectionButton() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -31,13 +32,29 @@ export default function ConnectionButton() {
   }
 
   useEffect(() => {
+    console.log('NIQUE TA MERE ACTIVATE == ', active);
+    if (active === true) {
+      axios({
+        method: 'post',
+        url: 'http://localhost:8080/login',
+        data: {
+          wallet_address: account,
+          encrypted_wallet: account
+        }
+      })
+      // console.log('acocunt == ', account);
+    }
+  }, [active]);
+
+  useEffect(() => {
     const provider = window.localStorage.getItem("provider");
     if (provider) activate(connectors[provider], handleConnection);
+    console.log('hi there');
   });
 
   return (
     <>
-      <HStack>
+      <HStack id="connectionButton">
         {!active && isError === false ? (
           <Button onClick={onOpen} background="rgb(53, 53, 71)" _hover={{ bg: 'rgb(77 77 86)' }} _focus={{
             boxShadow:

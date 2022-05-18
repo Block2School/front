@@ -67,6 +67,7 @@ export default function NavbarBalance() {
                 decimal="."
                 decimals={4}
                 style={{ color: 'white'}}
+                className="ETH_BALANCE"
               />
               <Image
                 src="/ethereum-eth-logo.svg"
@@ -82,6 +83,7 @@ export default function NavbarBalance() {
                 decimal="."
                 decimals={4}
                 style={{ color: 'white'}}
+                className="BNB_BALANCE"
               />
               <Image
                 src="/Binance-BNB-Icon2-Logo.wine.svg"
@@ -94,7 +96,7 @@ export default function NavbarBalance() {
         ) : (
           <>
             <HStack>
-              <Text color="white"> 0.0000</Text>
+              <Text color="white" className="ETH_BALANCE"> 0.0000</Text>
               <Image
                 src="/ethereum-eth-logo.svg"
                 alt="ETH logo"
@@ -102,7 +104,7 @@ export default function NavbarBalance() {
                 width={35}
                 style={{ color: 'white'}}
               />
-              <Text color="white"> 0.0000</Text>
+              <Text color="white" className="BNB_BALANCE"> 0.0000</Text>
               <Image
                 src="/Binance-BNB-Icon2-Logo.wine.svg"
                 alt="BNB logo"
