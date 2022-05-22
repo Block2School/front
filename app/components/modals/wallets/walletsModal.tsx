@@ -35,6 +35,7 @@ const SelectWalletModal = ({
           _focus={{
             boxShadow: 'none',
           }}
+          id="close-modal"
         />
         <ModalBody paddingBottom="1.5rem">
           <VStack>

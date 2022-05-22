@@ -59,7 +59,7 @@ export default function ConnectionButton() {
           <Button onClick={onOpen} background="rgb(53, 53, 71)" _hover={{ bg: 'rgb(77 77 86)' }} _focus={{
             boxShadow:
               '0 0 1px 2px rgba(88, 144, 255, .75), 0 1px 1px rgba(0, 0, 0, .15)',
-          }} color="white">Connect Wallet</Button>
+          }} color="white" className="CONNECT_WALLET">Connect Wallet</Button>
         ): !active && isError === true ? (
           <Tooltip label="Wrong Network" placement="top" hasArrow>
             <Button onClick={onOpen} background="rgb(53, 53, 71)" _hover={{ bg: 'rgb(77 77 86)' }} _focus={{
