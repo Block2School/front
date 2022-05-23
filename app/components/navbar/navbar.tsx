@@ -59,6 +59,9 @@ export default function Navbar() {
               <Link href={"/login"} passHref>
                 <span className="navbar-text">Login</span>
               </Link>
+              <Link href={"/markdown"} passHref>
+                <span className="navbar-text">Markdown</span>
+              </Link>
             </div>
           </div>
           <div className="navbar-login-button">
