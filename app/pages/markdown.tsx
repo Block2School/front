@@ -12,6 +12,7 @@ import {docco} from 'react-syntax-highlighter/dist/cjs/styles/hljs'
 import {atomOneDark} from 'react-syntax-highlighter/dist/cjs/styles/hljs'
 import { vscDarkPlus } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import ChakraUIRenderer from 'chakra-ui-markdown-renderer';
+import { calc } from "@chakra-ui/react";
 
 export default function Markdown() {
   const link = "https://raw.githubusercontent.com/Block2School/tutorials/master/en/introduction_tutorial.md";
@@ -39,7 +40,7 @@ import React from 'react';\n\
       {/* <ReactMarkdown
           remarkPlugins={[remarkGfm]}
         >{markdown}</ReactMarkdown> */}
-      <div style={{ height: "100%", width: "50%", backgroundColor: 'black', color: 'white' }}>
+      <div style={{ height: '90vh', width: "50%", backgroundColor: '#0c1118', color: 'white', boxSizing: 'content-box', overflow: 'hidden scroll', flexWrap: 'nowrap', paddingLeft: '25px', paddingRight: '25px' }}>
         <ReactMarkdown
           remarkPlugins={[remarkGfm]}
           
@@ -63,7 +64,27 @@ import React from 'react';\n\
           //   }
           // }}
           components={
-            ChakraUIRenderer()
+            ChakraUIRenderer(
+              {
+                code: ({ node, inline, className, children, ...props }) => {
+                  const match = /language-(\w+)/.exec(className || '')
+                  return !inline && match ? (
+                    <SyntaxHighlighter
+                      style={vscDarkPlus}
+                      language={match[1]}
+                      PreTag="div"
+                      {...props}
+                    >
+                      {String(children).replace(/\n$/, '')}
+                    </SyntaxHighlighter>
+                  ) : (
+                    <code className={className} {...props}>
+                      {children}
+                    </code>
+                  )
+                }
+              }
+            )
           }
         >
           {markdown}
