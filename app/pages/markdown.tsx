@@ -5,16 +5,15 @@ import ReactMarkdown from "react-markdown";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import remarkGfm from 'remark-gfm'
-// import SyntaxHighlighter from 'react-syntax-highlighter';
 import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter'
 import {dark} from 'react-syntax-highlighter/dist/cjs/styles/prism'
 import {docco} from 'react-syntax-highlighter/dist/cjs/styles/hljs'
 import {atomOneDark} from 'react-syntax-highlighter/dist/cjs/styles/hljs'
 import { vscDarkPlus } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import ChakraUIRenderer from 'chakra-ui-markdown-renderer';
-import { calc } from "@chakra-ui/react";
+import MarkdownRenderer from "../components/markdown/markdown";
 
-export default function Markdown() {
+export default function MarkdownTest() {
   const link = "https://raw.githubusercontent.com/Block2School/tutorials/master/en/introduction_tutorial.md";
   const link2 = "https://raw.githubusercontent.com/Block2School/tutorials/master/en/test_file.md";
 
@@ -37,32 +36,9 @@ import React from 'react';\n\
   return (
     <>
       <Navbar />
-      {/* <ReactMarkdown
-          remarkPlugins={[remarkGfm]}
-        >{markdown}</ReactMarkdown> */}
       <div style={{ height: '90vh', width: "50%", backgroundColor: '#0c1118', color: 'white', boxSizing: 'content-box', overflow: 'hidden scroll', flexWrap: 'nowrap', paddingLeft: '25px', paddingRight: '25px' }}>
-        <ReactMarkdown
+        {/* <ReactMarkdown
           remarkPlugins={[remarkGfm]}
-          
-          // components={{
-          //   code({ node, inline, className, children, ...props }) {
-          //     const match = /language-(\w+)/.exec(className || '')
-          //     return !inline && match ? (
-          //       <SyntaxHighlighter
-          //         style={vscDarkPlus}
-          //         language={match[1]}
-          //         PreTag="div"
-          //         {...props}
-          //       >
-          //         {String(children).replace(/\n$/, '')}
-          //       </SyntaxHighlighter>
-          //     ) : (
-          //       <code className={className} {...props}>
-          //         {children}
-          //       </code>
-          //     )
-          //   }
-          // }}
           components={
             ChakraUIRenderer(
               {
@@ -88,7 +64,8 @@ import React from 'react';\n\
           }
         >
           {markdown}
-        </ReactMarkdown>
+        </ReactMarkdown> */}
+        <MarkdownRenderer source={markdown}/>
       </div>
       <Footer />
     </>
