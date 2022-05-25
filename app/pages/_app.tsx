@@ -2,9 +2,9 @@ import "../styles/terms-of-use.css";
 import "../styles/privacy-policy.css";
 import "../styles/globals.css";
 import "../styles/faq.css";
+import "../styles/tutorial.css";
 import "../components/navbar/navbar.css";
 import "../components/footer/footer.css";
-import "../styles/tutorial.css";
 import "bootstrap/dist/css/bootstrap.css"
 import type { AppProps } from "next/app";
 
