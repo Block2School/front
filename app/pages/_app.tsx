@@ -4,6 +4,8 @@ import "../styles/globals.css";
 import "../styles/faq.css";
 import "../components/navbar/navbar.css";
 import "../components/footer/footer.css";
+import "../styles/tutorial.css";
+import "bootstrap/dist/css/bootstrap.css"
 import type { AppProps } from "next/app";
 
 import { Web3ReactProvider } from "@web3-react/core";

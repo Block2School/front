@@ -1,0 +1,85 @@
+html,
+body {
+  height: 100%;
+  width: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif,
+    Euclid Circular B, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+#__next{
+  height: 100%;
+  width: 100%;
+}
+
+#screen {
+  height: 100%;
+  width: 100%;
+  background-color: red;
+}
+
+#content {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  height: 89.5%;
+  width: 100%;
+}
+
+#navbar{
+  height:10.5%;
+  width: 100%;
+}
+
+#subject{
+  height: 100%;
+  width:50%;
+  background-color: aqua;
+}
+
+#editor_opt {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  height:5%;
+  width:100%;
+}
+
+#editor_edit{
+  height:95%;
+  width:100%;
+}
+
+#editor{
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height:100%;
+  width:50%;
+  background-color: greenyellow;
+}
+
+#tutorial-content {
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  background-color: #202020;
+}
+
+#text {
+  color: whitesmoke;
+}
+
+#zone-text {
+  padding: 15px 30px;
+  color: white;
+}
