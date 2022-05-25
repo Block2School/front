@@ -15,7 +15,7 @@ export default function Navbar() {
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { library, chainId, account, activate, deactivate, active } = useWeb3React();
-  
+
   const refreshState = () => {
     window.localStorage.setItem("provider", "undefined");
   };
@@ -26,10 +26,9 @@ export default function Navbar() {
   }
 
   const handleConnection = async (error: Error): Promise<void> => {
-    console.log('error: ', error);
-    console.log('error.name: ', error.name);
     if (error.name === 'UnsupportedChainIdError') {
       // display warning
+      console.log('ERROR WRONG CHAIN')
     }
   }
 
@@ -59,15 +58,20 @@ export default function Navbar() {
               <Link href={"/login"} passHref>
                 <span className="navbar-text">Login</span>
               </Link>
-              <Link href={"/markdown"} passHref>
-                <span className="navbar-text">Markdown</span>
+              <Link href={{
+                pathname: "/tutorial",
+                query: {
+                  tutorialId: 2
+                }
+              }} passHref>
+                <span className="navbar-text">Tutorial</span>
               </Link>
             </div>
           </div>
           <div className="navbar-login-button">
             <HStack>
               <NavbarBalance />
-              <ConnectionButton/>
+              <ConnectionButton />
             </HStack>
           </div>
         </div>

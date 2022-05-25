@@ -10,6 +10,7 @@ type MarkdownRendererProps = {
 };
 
 const MarkdownRenderer: FunctionComponent<MarkdownRendererProps> = ({ source }) => {
+  console.log('source == ', source);
   return (
     <>
       <ReactMarkdown
