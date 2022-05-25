@@ -6,6 +6,7 @@ import Footer from "../components/footer/footer";
 import Navbar from "../components/navbar/navbar";
 import MarkdownRenderer from "../components/markdown/markdown";
 import { useRouter } from "next/router";
+import { Text } from "@chakra-ui/react";
 
 export default function Tutorial() {
   const [theme, setTheme] = useState('vs-dark');
@@ -109,7 +110,13 @@ export default function Tutorial() {
   return (
     (isLoading === true) ?
       <>
-        <Spinner animation="border" role="status" style={{ top: 0, bottom: 0, left: 0, right: 0, margin: 'auto', position: 'absolute' }} />
+        <div id="screen">
+          <Spinner animation="border" role="status" style={{ top: 0, bottom: 0, left: 0, right: 0, margin: 'auto', position: 'absolute' }}>
+          </Spinner>
+          <div id="loading-text-tutorial">
+            <Text>Loading ...</Text>
+          </div>
+        </div>
       </> :
       <div id="screen">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossOrigin="anonymous"></script>

@@ -63,3 +63,15 @@
   padding: 15px 30px;
   color: white;
 }
+
+#loading-text-tutorial {
+  /* align text to center of the screen (both vertically and horizontally */
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  /* set the font size to 30px */
+  font-size: 30px;
+  height: 100%;
+  padding-top: 10%;
+}
