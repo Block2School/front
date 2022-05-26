@@ -35,8 +35,6 @@ export default function Tutorial() {
     enabled: false
   });
 
-  console.log("tutorialId == ", tutorialId);
-
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -63,13 +61,69 @@ export default function Tutorial() {
 
   function changeLang(lang: React.SetStateAction<string>) {
     setLang(lang);
-    console.log(lang);
+    // console.log(lang);
   }
 
   function changeTheme() {
     setSwitchText(theme === 'vs-light' ? 'Switch to Light Mode' : 'Switch to Dark Mode');
     setTheme(theme === 'vs-dark' ? 'vs-light' : 'vs-dark');
   }
+
+  // const getAPI = async (url) => {  /* À décommenter plus tard pour get les datas du back */
+  //   try {
+  //     let response = await axios.get(
+  //       url,
+  //       {
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //           'Access-Control-Allow-Origin': '*',
+  //           'Access-Control-Allow-Headers': '*'
+  //         }
+  //       }
+  //     );
+  //     return response;
+  //   } catch (error) {
+  //     console.log(error);
+  //     return { success: false };
+  //   }
+  // };
+  
+  const postAPI = async (url, data) => {
+    try {
+      let response = await axios.post(
+        url,
+        JSON.stringify(data),
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Headers': '*'
+          }
+        }
+      );
+      return response;
+    } catch (error) {
+      console.log(error);
+      return {success: false};
+    }
+  };
+
+  const sendRobotRawCode = async (code) => {
+    try {
+      const url = `${process.env.REACT_APP_API_URL}/tuto/complete`;
+      let response = await postAPI(url, { code: code });
+    
+      if (response['status'] === '200') {
+        console.log('200');
+        return true;
+      }
+      console.log(response['status']);
+      return false;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  };
 
   async function uploadCode() {
     if (editorValue.length === 0) {
@@ -81,13 +135,14 @@ export default function Tutorial() {
       setIsUploading(false);
       return;
     }
-    console.log("editorValue", editorValue);
+    // console.log("editorValue", editorValue);
     if (editorValue.length > 0) {
-      let res = await sendRobotRawCode(robot, editorValue);
+      let res = await sendRobotRawCode(editorValue); /* insert function to send code to fast api here */
       if (res === true) {
         setShowError(true);
         setVariant('success');
         setErrorMessage('Code uploaded successfully');
+        console.log("success");
         setTimeout(() => {
           setShowError(false);
           setVariant('danger');
@@ -154,7 +209,7 @@ export default function Tutorial() {
                 defaultValue={defaultValue}
                 onChange={(editorValue) => {
                   setEditorValue(editorValue);
-                  console.log(editorValue)
+                  // console.log(editorValue)
                 }}
               />
             </div>
