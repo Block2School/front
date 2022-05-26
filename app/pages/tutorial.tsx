@@ -136,7 +136,7 @@ export default function Tutorial() {
       return;
     }
     // console.log("editorValue", editorValue);
-    if (editorValue.length > 0) {
+    if (editorValue.length > 0 && tutorialInfos.shouldBeChecked === false) {
       let res = await sendRobotRawCode(editorValue); /* insert function to send code to fast api here */
       if (res === true) {
         setShowError(true);
