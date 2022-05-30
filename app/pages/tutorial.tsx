@@ -7,6 +7,7 @@ import Navbar from "../components/navbar/navbar";
 import MarkdownRenderer from "../components/markdown/markdown";
 import { useRouter } from "next/router";
 import { Text } from "@chakra-ui/react";
+import { getAPI, postAPI } from "../utils/api-utils";
 
 export default function Tutorial() {
   const [theme, setTheme] = useState('vs-dark');
@@ -31,7 +32,7 @@ export default function Tutorial() {
     category: "",
     answer: "",
     startCode: "",
-    shouldBeChecked: false,
+    shouldBeCheck: false,
     enabled: false
   });
 
@@ -56,8 +57,9 @@ export default function Tutorial() {
       res.status === 200 ? setMarkdown(res.data) : setMarkdown("");
       setDefaultValue(tutorialInfos.startCode);
       setTimeout(() => setIsLoading(false), 1000);
+      setTimeout(() => console.log('tutorialInfos : ', tutorialInfos), 1000);
     });
-  }, [tutorialInfos, markdown]);
+    }, [tutorialInfos, markdown]);
 
   function changeLang(lang: React.SetStateAction<string>) {
     setLang(lang);
@@ -69,46 +71,7 @@ export default function Tutorial() {
     setTheme(theme === 'vs-dark' ? 'vs-light' : 'vs-dark');
   }
 
-  // const getAPI = async (url) => {  /* À décommenter plus tard pour get les datas du back */
-  //   try {
-  //     let response = await axios.get(
-  //       url,
-  //       {
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //           'Access-Control-Allow-Origin': '*',
-  //           'Access-Control-Allow-Headers': '*'
-  //         }
-  //       }
-  //     );
-  //     return response;
-  //   } catch (error) {
-  //     console.log(error);
-  //     return { success: false };
-  //   }
-  // };
-  
-  const postAPI = async (url, data) => {
-    try {
-      let response = await axios.post(
-        url,
-        JSON.stringify(data),
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Headers': '*'
-          }
-        }
-      );
-      return response;
-    } catch (error) {
-      console.log(error);
-      return {success: false};
-    }
-  };
-
-  const sendRobotRawCode = async (code) => {
+  const sendUserCode = async (code: string) => {
     try {
       const url = `${process.env.REACT_APP_API_URL}/tuto/complete`;
       let response = await postAPI(url, { code: code });
@@ -136,8 +99,8 @@ export default function Tutorial() {
       return;
     }
     // console.log("editorValue", editorValue);
-    if (editorValue.length > 0 && tutorialInfos.shouldBeChecked === false) {
-      let res = await sendRobotRawCode(editorValue); /* insert function to send code to fast api here */
+    if (editorValue.length > 0 && tutorialInfos.shouldBeCheck === false) {
+      let res = await sendUserCode(editorValue); /* insert function to send code to fast api here */
       if (res === true) {
         setShowError(true);
         setVariant('success');
@@ -158,6 +121,12 @@ export default function Tutorial() {
       }
       setIsUploading(false);
       return;
+    } else if (editorValue.length > 0 && tutorialInfos.shouldBeCheck === true) {
+      if (editorValue === tutorialInfos.answer) {
+        alert('Correct answer');
+      } else {
+        alert('Wrong answer');
+      }
     }
   }
 
@@ -207,7 +176,7 @@ export default function Tutorial() {
                 theme={theme}
                 lang={lang}
                 defaultValue={defaultValue}
-                onChange={(editorValue) => {
+                onChange={(editorValue: string) => {
                   setEditorValue(editorValue);
                   // console.log(editorValue)
                 }}
