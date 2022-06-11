@@ -9,22 +9,26 @@ import {
   ModalCloseButton,
   Button,
   Text,
-} from '@chakra-ui/react';
-import { Image } from '@chakra-ui/react';
-import { useWeb3React } from '@web3-react/core';
-import { connectors } from '../../wallet/injectors';
+} from '@chakra-ui/react'
+import { Image } from '@chakra-ui/react'
+import { useWeb3React } from '@web3-react/core'
+import { connectors } from '../../wallet/injectors'
 
 const SelectWalletModal = ({
-  isOpen, closeModal
-}: { isOpen: boolean, closeModal: any }) => {
-  const { activate } = useWeb3React();
+  isOpen,
+  closeModal,
+}: {
+  isOpen: boolean
+  closeModal: any
+}) => {
+  const { activate } = useWeb3React()
 
   const setProvider = (type: any) => {
-    window.localStorage.setItem('provider', type);
+    window.localStorage.setItem('provider', type)
   }
-  console.log('isOpen', isOpen);
+  // console.log('isOpen', isOpen);
   if (isOpen === false) {
-    return null;
+    return null
   }
   return (
     <Modal isOpen={isOpen} onClose={closeModal} isCentered preserveScrollBarGap>
@@ -42,17 +46,14 @@ const SelectWalletModal = ({
             <Button
               variant="outline"
               onClick={() => {
-                activate(connectors.coinbaseWallet);
-                setProvider('coinbaseWallet');
-                closeModal();
-                isOpen = false;
+                activate(connectors.coinbaseWallet)
+                setProvider('coinbaseWallet')
+                closeModal()
+                isOpen = false
               }}
               w="100%"
             >
-              <HStack
-                w="100%"
-                justifyContent="center"
-              >
+              <HStack w="100%" justifyContent="center">
                 <Image
                   src="/coinbase_wallet_appicon.svg"
                   alt="Coinbase Wallet Logo"
@@ -66,17 +67,14 @@ const SelectWalletModal = ({
             <Button
               variant="outline"
               onClick={() => {
-                activate(connectors.injected);
-                setProvider('injected');
-                closeModal();
-                isOpen = false;
+                activate(connectors.injected)
+                setProvider('injected')
+                closeModal()
+                isOpen = false
               }}
               w="100%"
             >
-              <HStack
-                w="100%"
-                justifyContent="center"
-              >
+              <HStack w="100%" justifyContent="center">
                 <Image
                   src="metamask_appicon.svg"
                   alt="MetaMask Logo"
@@ -90,17 +88,14 @@ const SelectWalletModal = ({
             <Button
               variant="outline"
               onClick={() => {
-                activate(connectors.binanceWallet);
-                setProvider('binanceWallet');
-                closeModal();
-                isOpen = false;
+                activate(connectors.binanceWallet)
+                setProvider('binanceWallet')
+                closeModal()
+                isOpen = false
               }}
               w="100%"
             >
-              <HStack
-                w="100%"
-                justifyContent="center"
-              >
+              <HStack w="100%" justifyContent="center">
                 <Image
                   src="binance_wallet_appicon.svg"
                   alt="Binance Wallet Logo"
@@ -115,7 +110,7 @@ const SelectWalletModal = ({
         </ModalBody>
       </ModalContent>
     </Modal>
-  );
-};
+  )
+}
 
-export default SelectWalletModal;
+export default SelectWalletModal
