@@ -7,56 +7,90 @@ import { Contract } from 'web3-eth-contract'
 import getTokenContract from '../utils/tokens'
 import { getFullDisplayBalance } from '../utils/format'
 import $ from 'jquery'
+import axios from 'axios'
+import SelectWalletModal from '../components/modals/wallets/walletsModal'
 
 export default function Profile() {
-  const {
-    account,
-    library,
-    chainId,
-    activate,
-    deactivate,
-    active,
-  } = useWeb3React()
+  const { account } = useWeb3React()
   const web3 = new Web3('https://data-seed-prebsc-1-s1.binance.org:8545') // TESTNET
 
-  const [address, setAddress] = useState('')
-  const [balanceBNB, setBalanceBNB] = useState('')
-  const [balanceETH, setBalanceETH] = useState(0)
-  const [username, setUsername] = useState('goub le bg')
-  const [email, setEmail] = useState('goub@dogo.com')
-  const wallet = [
-    { symbol: 'ETH', balance: 80, startTilt: 0, endTilt: 0, tilt: 0 },
-    { symbol: 'BNB', balance: 90, startTilt: 0, endTilt: 0, tilt: 0 },
-    { symbol: 'ZLDKC', balance: 100, startTilt: 0, endTilt: 0, tilt: 0 },
-    { symbol: 'USD', balance: 280, startTilt: 0, endTilt: 0, tilt: 0 },
-    { symbol: 'EUR', balance: 10, startTilt: 0, endTilt: 0, tilt: 0 },
+  const [username, setUsername] = useState('')
+  const [email, setEmail] = useState('')
+  var wallet = [
+    {
+      symbol: 'ETH',
+      balance: 10,
+      startTilt: 0,
+      endTilt: 0,
+      tilt: 0,
+      contract: getTokenContract('ETH', true),
+    },
+    {
+      symbol: 'BNB',
+      balance: 20,
+      startTilt: 0,
+      endTilt: 0,
+      tilt: 0,
+      contract: getTokenContract('BNB', true),
+    },
+    {
+      symbol: 'BTCB',
+      balance: 30,
+      startTilt: 0,
+      endTilt: 0,
+      tilt: 0,
+      contract: getTokenContract('BTCB', true),
+    },
+    {
+      symbol: 'ZLDKC',
+      balance: 100,
+      startTilt: 0,
+      endTilt: 0,
+      tilt: 0,
+      contract: getTokenContract('ZLDKC', true),
+    },
   ]
 
-  useEffect(() => {
-    if (account !== '' && account !== undefined && account !== null) {
-      web3.eth.getBalance(account ? account : '').then((res: any) => {
-        console.log('HERE => ')
-        console.log(res)
-        setBalanceBNB(web3.utils.fromWei(res, 'ether'))
-      })
-    }
-  }, [account])
+  // useEffect(() => {
+  //   if (account !== '' && account !== undefined && account !== null) {
+  // for (let i = 0; i < wallet.length; i++) {
+  //   if (wallet[i].symbol == 'BNB') {
+  //     web3.eth.getBalance(account).then((balance) => {
+  //       console.log(wallet[i].balance)
+  //       wallet[i].balance = parseFloat(web3.utils.fromWei(balance, 'ether'))
+  //       console.log('AFTER ')
+  //       console.log(wallet[i].balance)
+  //     })
+  //   } else if (wallet[i] && wallet[i].contract) {
+  //     wallet[i].contract.methods
+  //       .balanceOf(account)
+  //       .call()
+  //       .then((balance: any) => {
+  //         wallet[i].balance = parseFloat(
+  //           getFullDisplayBalance(balance, 8, 2),
+  //         )
+  //       })
+  //   }
+  // }
+  //   }
+  // }, [account])
 
   useEffect(() => {
     if (account !== '' && account !== undefined && account !== null) {
-      let contract: Contract | undefined = getTokenContract('ETH', true)
-      if (contract) {
-        contract.methods
-          .balanceOf(account)
-          .call()
-          .then((res: any) => {
-            // console.log('ETH BALANCE : ', res)
-            // console.log('ETH : getFullDisplayBalance : ', getFullDisplayBalance(res, 8, 2),)
-            let r: number = parseFloat(web3.utils.fromWei(res, 'ether'))
-            // console.log('CustomTokenBalance r: ', r)
-            setBalanceETH(r)
-          })
-      }
+      axios
+        .get(`http://localhost:8080/user/profile`, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+          },
+        })
+        .then((res) => {
+          if (res.status === 200) {
+            setUsername(res.data.username)
+            setEmail(res.data.email)
+          }
+        })
     }
   }, [account])
 
@@ -108,22 +142,61 @@ export default function Profile() {
             '</div>',
         )
       }
-      $('#profile-balance-container').append(
-        '<div style="display: flex; width: 100%; height: 50px; align-items: center;justify-content: center;">' +
-          '<div style="display: flex;justify-content: end;width: 30%;">' +
-          '<div style="width: 30px; height: 30px; display: flex; border-radius: 50%; border: 1px solid white; background-color: purple">' +
-          '</div>' +
-          '</div>' +
-          '<div style="display: flex;justify-content: start;width: 70%;">' +
-          '<span style="color: white;font-size: 150%;font-weight: bold;display: flex;margin-left: 10px;align-items: center;justify-content: center;height: 100%;font-family: "Segoe UI", sans-serif;">Other</span>' +
-          '</div>' +
-          '</div>',
-      )
+      // $('#profile-balance-container').append(
+      //   '<div style="display: flex; width: 100%; height: 50px; align-items: center;justify-content: center;">' +
+      //     '<div style="display: flex;justify-content: end;width: 30%;">' +
+      //     '<div style="width: 30px; height: 30px; display: flex; border-radius: 50%; border: 1px solid white; background-color: purple">' +
+      //     '</div>' +
+      //     '</div>' +
+      //     '<div style="display: flex;justify-content: start;width: 70%;">' +
+      //     '<span style="color: white;font-size: 150%;font-weight: bold;display: flex;margin-left: 10px;align-items: center;justify-content: center;height: 100%;font-family: "Segoe UI", sans-serif;">Other</span>' +
+      //     '</div>' +
+      //     '</div>',
+      // )
       cssDonut +=
         'purple ' + top4Wallet[top4Wallet.length - 1].endTilt + 'deg 360deg'
       $('#profile-donut').css('background', 'conic-gradient(' + cssDonut + ')')
     }
-  }, [])
+  }, [account])
+
+  function saveModal() {
+    var newUsername = $('#new-username-input').val()
+    var newEmail = $('#new-email-input').val()
+    axios
+      .patch(
+        `http://localhost:8080/user/profile`,
+        {
+          username: newUsername,
+          email: newEmail,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+          },
+        },
+      )
+      .then((res) => {
+        if (res.status === 200) {
+          setUsername(newUsername)
+          setEmail(newEmail)
+          closeModal(newUsername, newEmail)
+        }
+      })
+  }
+
+  function closeModal(newUsername: string = '', newEmail: string = '') {
+    if (newUsername !== '') $('#new-username-input').val(newUsername)
+    else $('#new-username-input').val(username)
+    if (newEmail !== '') $('#new-email-input').val(newEmail)
+    else $('#new-email-input').val(email)
+    $('#modal-change-infos').hide()
+  }
+
+  function openModal() {
+    $('#modal-change-infos').show()
+  }
 
   return (
     <>
@@ -131,7 +204,7 @@ export default function Profile() {
       {account !== '' && account !== undefined && account !== null ? (
         <div id="profile-container">
           <div id="profile-header">
-            <span>Your address : {account}</span>
+            <span>Your wallet address : {account}</span>
           </div>
           <div id="profile-body">
             <div id="profile-body-left">
@@ -140,7 +213,7 @@ export default function Profile() {
                 <span className="profile-infos-text">{email}</span>
               </div>
               <div id="profile-infos-button">
-                <button onClick={() => {}}>Change infos</button>
+                <button onClick={openModal}>Change infos</button>
               </div>
             </div>
             <div id="profile-body-separator"></div>
@@ -153,9 +226,44 @@ export default function Profile() {
               <div id="profile-balance-container"></div>
             </div>
           </div>
+          <div id="modal-change-infos">
+            <div id="modal-change-infos-header">
+              <span>Change infos</span>
+              <button
+                onClick={() => {
+                  closeModal()
+                }}
+              >
+                Close
+              </button>
+            </div>
+            <div id="modal-change-infos-body">
+              <div className="modal-change-infos-row">
+                <span>Username</span>
+                <input id="new-username-input" defaultValue={username}></input>
+              </div>
+              <div className="modal-change-infos-row">
+                <span>Email</span>
+                <input id="new-email-input" defaultValue={email}></input>
+              </div>
+            </div>
+            <div id="modal-change-infos-footer">
+              <button onClick={saveModal}>Apply changes</button>
+            </div>
+          </div>
         </div>
       ) : (
-        <div></div>
+        <div
+          style={{
+            height: '81vh',
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <span>You must be connected to access profile page </span>
+        </div>
       )}
       <Footer />
     </>
