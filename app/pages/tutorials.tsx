@@ -17,7 +17,7 @@ export default function Tutorials() {
   useEffect(() => {
     setIsLoading(true);
     console.log('HELLL MAN')
-    axios.get('http://localhost:8080/tuto/category/', {
+    axios.get('http://localhost:8080/tuto/category/all', {
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
