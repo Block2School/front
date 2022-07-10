@@ -52,7 +52,7 @@ export default function Tutorials() {
       </> :
       <>
         <Navbar />
-        <div style={{ padding: "2%" }}>
+        <div style={{ padding: "2%", minHeight: "80vh" }}>
           <Center>
             <Grid templateColumns='repeat(3, 1fr)' alignSelf='center' alignItems='center' alignContent='center' gap={10}>
               {categories.map((item: { name: string, image: string, description: string }) => {

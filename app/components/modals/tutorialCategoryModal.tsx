@@ -45,6 +45,7 @@ const TutorialCategoryModal = ({
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    if (!category) { return; }
     setIsLoading(true);
     axios.get(`http://localhost:8080/tuto/category/${category}`, {
       headers: {
