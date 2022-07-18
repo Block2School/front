@@ -3,6 +3,7 @@ import "../styles/privacy-policy.css";
 import "../styles/globals.css";
 import "../styles/faq.css";
 import "../styles/tutorial.css";
+import "../styles/profile.css";
 import "../components/navbar/navbar.css";
 import "../components/footer/footer.css";
 import "bootstrap/dist/css/bootstrap.css"

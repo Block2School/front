@@ -32,7 +32,7 @@ export default function ConnectionButton() {
   }
 
   useEffect(() => {
-    console.log('NIQUE TA MERE ACTIVATE == ', active);
+    // console.log('NIQUE TA MERE ACTIVATE == ', active);
     if (active === true) {
       axios({
         method: 'post',
@@ -40,6 +40,10 @@ export default function ConnectionButton() {
         data: {
           wallet_address: account,
           encrypted_wallet: account
+        }
+      }).then(res => {
+        if (res.status === 200) {
+          sessionStorage.setItem('token', res.data.access_token);
         }
       })
       // console.log('acocunt == ', account);
@@ -49,7 +53,7 @@ export default function ConnectionButton() {
   useEffect(() => {
     const provider = window.localStorage.getItem("provider");
     if (provider) activate(connectors[provider], handleConnection);
-    console.log('hi there');
+    // console.log('hi there');
   });
 
   return (
