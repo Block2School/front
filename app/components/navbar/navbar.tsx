@@ -61,20 +61,17 @@ export default function Navbar() {
               <Link href={'/login'} passHref>
                 <span className="navbar-text">Login</span>
               </Link>
-              <Link
-                href={{
-                  pathname: '/tutorial',
-                  query: {
-                    tutorialId: 2,
-                  },
-                }}
-                passHref
-              >
+              <Link href={'/tutorials'} passHref>
+                <span className="navbar-text">Tutorials</span>
+              </Link>
+              {/* <Link href={{
+                pathname: "/tutorial",
+                query: {
+                  tutorialId: 2
+                }
+              }} passHref>
                 <span className="navbar-text">Tutorial</span>
-              </Link>
-              <Link href={'/profile'} passHref>
-                <span className="navbar-text">Profile</span>
-              </Link>
+              </Link> */}
             </div>
           </div>
           <div className="navbar-login-button">
