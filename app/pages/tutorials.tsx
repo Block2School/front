@@ -32,7 +32,6 @@ export default function Tutorials() {
   }, []);
 
   const showCategoryTutorialsModal = (category: string) => {
-    console.log('JE VAIS TE GOUMER FDP')
     setCurrentCategory(category);
     onOpen();
   };
@@ -53,8 +52,8 @@ export default function Tutorials() {
       <>
         <Navbar />
         <div style={{ padding: "2%", minHeight: "80vh" }}>
-          <Center>
-            <Grid templateColumns='repeat(3, 1fr)' alignSelf='center' alignItems='center' alignContent='center' gap={10}>
+          {/* <Center> */}
+            <Grid templateColumns='repeat(1, 1fr)' alignSelf='start' alignItems='start' alignContent='start' gap={5} paddingLeft="10%" paddingRight="10%">
               {categories.map((item: { name: string, image: string, description: string }) => {
                 return (
                   // eslint-disable-next-line react/jsx-key
@@ -67,7 +66,7 @@ export default function Tutorials() {
                 )
               })}
             </Grid>
-          </Center>
+          {/* </Center> */}
         </div>
         <Footer />
         <TutorialCategoryModal isOpen={isOpen} closeModal={onClose} category={currentCategory} />

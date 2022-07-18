@@ -1,12 +1,12 @@
 import axios from "axios";
 import React, { useState, useRef, useEffect } from 'react';
 import MyEditor from '../components/editor/editor';
-import { Form, Button, Card, Dropdown, DropdownButton, Alert, Spinner } from 'react-bootstrap';
+import { Form, Button, Card, Dropdown, DropdownButton, Spinner } from 'react-bootstrap';
 import Footer from "../components/footer/footer";
 import Navbar from "../components/navbar/navbar";
 import MarkdownRenderer from "../components/markdown/markdown";
 import { useRouter } from "next/router";
-import { Text } from "@chakra-ui/react";
+import { Text, Alert, AlertIcon } from "@chakra-ui/react";
 import { getAPI, postAPI } from "../utils/api-utils";
 
 export default function Tutorial() {
@@ -20,8 +20,8 @@ export default function Tutorial() {
   const [errorMessage, setErrorMessage] = useState('');
   const [variant, setVariant] = useState('danger');
   const [markdown, setMarkdown] = useState('nothing');
-  const link = "https://raw.githubusercontent.com/Block2School/tutorials/master/en/introduction_tutorial.md";
-  const link2 = "https://raw.githubusercontent.com/Block2School/tutorials/master/en/test_file.md";
+  // const link = "https://raw.githubusercontent.com/Block2School/tutorials/master/en/introduction_tutorial.md";
+  // const link2 = "https://raw.githubusercontent.com/Block2School/tutorials/master/en/test_file.md";
   const router = useRouter();
   const { tutorialId } = router.query;
 
@@ -48,14 +48,19 @@ export default function Tutorial() {
     }).then(res => {
       setTutorialInfos(res.data);
       setIsLoading(false);
+      setShowError(false);
+    }).catch(err => {
+      setShowError(true);
     })
   }, [tutorialId]);
 
   useEffect(() => {
+    if (showError === true || !tutorialId) { return; }
     setIsLoading(true);
     axios.get(tutorialInfos.markdownUrl).then(res => {
       res.status === 200 ? setMarkdown(res.data) : setMarkdown("");
       setDefaultValue(tutorialInfos.startCode);
+      setShowError(false);
       setTimeout(() => setIsLoading(false), 1000);
       setTimeout(() => console.log('tutorialInfos : ', tutorialInfos), 1000);
     });
@@ -132,16 +137,28 @@ export default function Tutorial() {
 
 
   return (
-    (isLoading === true) ?
+    (isLoading === true && showError === false) ?
       <>
         <div id="screen">
+          <Navbar />
           <Spinner animation="border" role="status" style={{ top: 0, bottom: 0, left: 0, right: 0, margin: 'auto', position: 'absolute' }}>
           </Spinner>
           <div id="loading-text-tutorial">
             <Text>Loading ...</Text>
           </div>
         </div>
-      </> :
+      </> : (showError === true) ?
+      <>
+        <div id="screen">
+          <Navbar />
+          <Spinner animation="border" role="status" style={{ top: 0, bottom: 0, left: 0, right: 0, margin: 'auto', position: 'absolute' }}>
+          </Spinner>
+          <Alert status='error'>
+            <AlertIcon />
+              There was an error processing your request. Try to refresh the page or contact the administrator.
+            </Alert>
+        </div>
+      </>:
       <div id="screen">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossOrigin="anonymous"></script>
         <div id="navbar">
