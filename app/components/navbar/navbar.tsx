@@ -64,6 +64,9 @@ export default function Navbar() {
               <Link href={'/tutorials'} passHref>
                 <span className="navbar-text">Tutorials</span>
               </Link>
+              <Link href={'/blog'} passHref>
+                <span className="navbar-text">Blog</span>
+              </Link>
               {/* <Link href={{
                 pathname: "/tutorial",
                 query: {
