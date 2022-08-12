@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { useState, useEffect, useRef } from "react";
-import { useRouter } from "next/router";
 import Navbar from "../components/navbar/navbar";
 import Footer from "../components/footer/footer";
 import { Grid, Text } from "@chakra-ui/react";
@@ -18,7 +17,8 @@ export default function Blog() {
       {
         id: 1,
         title: "Introduction to Block2School",
-        markdownUrl: "https://raw.githubusercontent.com/Block2School/Blog/master/2022-08-22.md",
+        // markdownUrl: "https://raw.githubusercontent.com/Block2School/Blog/master/2022-08-22.md",
+        markdownUrl: 'https://raw.githubusercontent.com/Block2School/tutorials/master/en/introduction_tutorial.md',
         publicationDate: "2022-06-22",
         shortDescription: "This is a short description of the article"
       },
@@ -55,14 +55,15 @@ export default function Blog() {
         <Grid templateColumns='repeat(1, 1fr)' alignSelf='start' alignItems='start' justifyItems='center' alignContent='start' gap={5} paddingLeft="10%" paddingRight="10%" paddingTop="2%" paddingBottom="2%">
           {articles.map((item: {id: number, title: string, markdownUrl: string, publicationDate: string, shortDescription: string}) => {
             return (
-              // eslint-disable-next-line react/jsx-key
-                <BlogCard
-                  id={item.id}
-                  title={item.title}
-                  publicationDate={item.publicationDate}
-                  shortDescription={item.shortDescription}
-                />
-            )
+              <BlogCard
+                key={item.id}
+                id={item.id}
+                title={item.title}
+                markdownUrl={item.markdownUrl}
+                publicationDate={item.publicationDate}
+                shortDescription={item.shortDescription}
+              />
+            );
           })}
         </Grid>
       </div>
