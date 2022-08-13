@@ -14,11 +14,11 @@ const BlogCard = ({
     <Link href={{
       pathname: '/article',
       query: {
-        // articleId: id,
-        // articleTitle: title,
+        articleId: id,
+        articleTitle: title,
         articleMarkdownUrl: markdownUrl,
-        // articlePublicationDate: publicationDate,
-        // articleShortDescription: shortDescription
+        articlePublicationDate: publicationDate,
+        articleShortDescription: shortDescription
       }
     }} passHref>
       <Box maxWidth="80%" minWidth="80%" pb={5} pl={10} pr={10} pt={5} borderWidth={1} borderRadius="lg" overflow='hidden' key={id}>
