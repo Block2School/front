@@ -40,6 +40,7 @@ export default function Navbar() {
 
   useEffect(() => {
     const provider = window.localStorage.getItem('provider')
+    // @ts-ignore
     if (provider) activate(connectors[provider], handleConnection)
   })
 

@@ -24,6 +24,7 @@ const MarkdownRenderer: FunctionComponent<MarkdownRendererProps> = ({ source }) 
                 const match = /language-(\w+)/.exec(className || '')
                 return !inline && match ? (
                   <SyntaxHighlighter
+                    // @ts-ignore
                     style={vscDarkPlus}
                     language={match[1]}
                     PreTag="div"

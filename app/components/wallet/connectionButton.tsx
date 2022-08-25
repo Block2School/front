@@ -52,6 +52,7 @@ export default function ConnectionButton() {
 
   useEffect(() => {
     const provider = window.localStorage.getItem("provider");
+    // @ts-ignore
     if (provider) activate(connectors[provider], handleConnection);
     // console.log('hi there');
   });

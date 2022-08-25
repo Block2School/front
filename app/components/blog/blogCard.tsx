@@ -7,8 +7,8 @@ import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
 
 const BlogCard = ({
-  id, title, markdownUrl, publicationDate, shortDescription
-}: { id: number, title: string, markdownUrl: string, publicationDate: string, shortDescription: string }) => {
+  id, title, author, markdownUrl, publicationDate, shortDescription, editDate
+}: { id: number, title: string, author: string, markdownUrl: string, publicationDate: number, shortDescription: string, editDate: number }) => {
   return (
     // eslint-disable-next-line react/jsx-key
     <Link href={{
@@ -16,12 +16,13 @@ const BlogCard = ({
       query: {
         articleId: id,
         articleTitle: title,
+        articleAuthor: author,
         articleMarkdownUrl: markdownUrl,
         articlePublicationDate: publicationDate,
-        articleShortDescription: shortDescription
+        articleEditDate: editDate
       }
     }} passHref>
-      <Box maxWidth="80%" minWidth="80%" pb={5} pl={10} pr={10} pt={5} borderWidth={1} borderRadius="lg" overflow='hidden' key={id}>
+      <Box style={{cursor: 'pointer'}} maxWidth="80%" minWidth="80%" pb={5} pl={10} pr={10} pt={5} borderWidth={1} borderRadius="lg" overflow='hidden' key={id}>
         <Text
           fontWeight='bold'
           fontSize='x-large'
