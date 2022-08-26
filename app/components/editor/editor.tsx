@@ -1,6 +1,6 @@
 import Editor from "@monaco-editor/react";
 
-export default function MyEditor ({ theme, lang, onChange, defaultValue}) {
+export default function MyEditor ({ theme, lang, onChange, defaultValue }: { theme: any, lang: any, onChange: any, defaultValue: any }) {
 
     return (
         <>

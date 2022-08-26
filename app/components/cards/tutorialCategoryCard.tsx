@@ -31,7 +31,7 @@ export default function TutorialCategoryCard({ name, image, description, callbac
   //   </Box>
   // );
   return (
-    <Box borderWidth={1} overflow='hidden' borderRadius="lg" onClick={callback}>
+    <Box style={{cursor: 'pointer'}} borderWidth={1} overflow='hidden' borderRadius="lg" onClick={callback}>
       <div style={{ display: 'flex', alignContent: 'center', alignItems: 'center', alignSelf: 'center' }}>
         <div style={{ paddingRight: '2%' }}>
           <Image src={image} alt={name} minWidth="210px" minHeight="100px" width="210px" height="100px"/>

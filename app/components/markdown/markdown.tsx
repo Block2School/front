@@ -1,5 +1,6 @@
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import rehypeRaw from "rehype-raw";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import ChakraUIRenderer from "chakra-ui-markdown-renderer";
@@ -15,6 +16,7 @@ const MarkdownRenderer: FunctionComponent<MarkdownRendererProps> = ({ source }) 
     <>
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
+        rehypePlugins={[rehypeRaw]}
         components={
           ChakraUIRenderer(
             {
@@ -22,6 +24,7 @@ const MarkdownRenderer: FunctionComponent<MarkdownRendererProps> = ({ source }) 
                 const match = /language-(\w+)/.exec(className || '')
                 return !inline && match ? (
                   <SyntaxHighlighter
+                    // @ts-ignore
                     style={vscDarkPlus}
                     language={match[1]}
                     PreTag="div"

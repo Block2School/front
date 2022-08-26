@@ -40,6 +40,7 @@ export default function Navbar() {
 
   useEffect(() => {
     const provider = window.localStorage.getItem('provider')
+    // @ts-ignore
     if (provider) activate(connectors[provider], handleConnection)
   })
 
@@ -63,6 +64,9 @@ export default function Navbar() {
               </Link>
               <Link href={'/tutorials'} passHref>
                 <span className="navbar-text">Tutorials</span>
+              </Link>
+              <Link href={'/blog'} passHref>
+                <span className="navbar-text">Blog</span>
               </Link>
               {/* <Link href={{
                 pathname: "/tutorial",
