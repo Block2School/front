@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import Navbar from "../components/navbar/navbar";
+import Footer from "../components/footer/footer";
 import axios from 'axios';
 
 const BackOffice = () => {
@@ -31,14 +33,19 @@ const BackOffice = () => {
   }, []);
 
   return (
-    (isAdmin === false) ?
-      <>
-        <h1>Sorry, this page is for admin only</h1>
-      </>
-      :
-      <>
-        <h1>BackOffice</h1>
-      </>
+    // (isAdmin === false) ?
+    //   <>
+    //     <h1>Sorry, this page is for admin only</h1>
+    //   </>
+    //   :
+    <>
+      <Navbar />
+      <div style={{ height: "100vh" }}>
+        <h1>Back Office</h1>
+      </div>
+      <Footer />
+    </>
+
   );
 }
 
