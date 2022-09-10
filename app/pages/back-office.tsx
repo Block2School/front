@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from "../components/navbar/navbar";
 import Footer from "../components/footer/footer";
+import Sidebar from "../components/sidebar/sidebar";
+
+
 import axios from 'axios';
 
 const BackOffice = () => {
@@ -40,8 +43,11 @@ const BackOffice = () => {
     //   :
     <>
       <Navbar />
-      <div style={{ height: "100vh" }}>
-        <h1>Back Office</h1>
+      <div style={{display:"flex"}}>
+        <Sidebar/>
+        <div style={{ height: "100vh" }}>
+          <h1>Back Offie Dashboard</h1>
+        </div>
       </div>
       <Footer />
     </>

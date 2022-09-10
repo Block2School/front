@@ -1,0 +1,30 @@
+.sidebar-component {
+  background-color: black;
+  height: 700px;
+  width: 200px;
+  margin: 10px;
+  border-radius: 20px;
+}
+
+.sidebar-title {
+  color: white;
+}
+
+.sidebar-item {
+  padding-left: 20px;
+}
+
+.sidebar-item-title {
+  color: white;
+}
+
+.sidebar-container {
+  margin: 0px auto;
+  max-width: 992px;
+  width: 100%;
+  -moz-box-align: center;
+  align-items: center;
+  -moz-box-pack: justify;
+  justify-content: space-between;
+  display: flex;
+}

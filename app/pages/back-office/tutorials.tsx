@@ -4,14 +4,14 @@ import Footer from "../../components/footer/footer";
 import Sidebar from "../../components/sidebar/sidebar";
 
 
-const UsersPage = () => {
+const TutorialsPage = () => {
   return (
     <>
       <Navbar />
       <div style={{display:"flex"}}>
         <Sidebar/>
         <div style={{ height: "100vh" }}>
-          <h1>Users</h1>
+          <h1>Tutorials</h1>
         </div>
       </div>
       <Footer />
@@ -19,4 +19,4 @@ const UsersPage = () => {
   );
 }
 
-export default UsersPage;
+export default TutorialsPage;
