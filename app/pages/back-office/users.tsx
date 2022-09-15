@@ -2,17 +2,16 @@ import React from 'react';
 import Navbar from "../../components/navbar/navbar";
 import Footer from "../../components/footer/footer";
 import Sidebar from "../../components/sidebar/sidebar";
+import UsersAdmin from "../../components/usersAdminWidget/usersAdmin"
 
 
-const UsersPage = () => {
+const UsersPage = () => {  
   return (
     <>
       <Navbar />
       <div style={{display:"flex"}}>
         <Sidebar/>
-        <div style={{ height: "100vh" }}>
-          <h1>Users</h1>
-        </div>
+        <UsersAdmin/>
       </div>
       <Footer />
     </>

@@ -11,7 +11,21 @@
 }
 
 .sidebar-item {
-  padding-left: 20px;
+  display: flex;
+  -moz-box-align: center;
+  align-items: center;
+  height: 40px;
+  padding: 0px 20px;
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+  font-family: "Euclid Circular B", sans-serif;
+  font-size: 20px;
+}
+
+.sidebar-item:hover {
+  background: linear-gradient(90deg, red, blue);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .sidebar-item-title {

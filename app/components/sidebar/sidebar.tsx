@@ -10,22 +10,22 @@ export default function Sidebar() {
                   <span className="sidebar-item-title">Admin</span>
           </Link>
         </div>
-        <div>
+        <div className='sidebar-item'>
           <Link href={'/back-office/users'} passHref>
                   <span className="sidebar-item-title">Users</span>
           </Link>
         </div>
-        <div>
+        <div className='sidebar-item'>
           <Link href={'/back-office/tutorials'} passHref>
                   <span className="sidebar-item-title">Tutorials</span>
           </Link>
         </div>
-        <div>
+        <div className='sidebar-item'>
           <Link href={'/back-office/admin-users'} passHref>
                   <span className="sidebar-item-title">Admin Users</span>
           </Link>
         </div>
-        <div>
+        <div className='sidebar-item'>
           <Link href={'/back-office/blog'} passHref>
                   <span className="sidebar-item-title">Blog</span>
           </Link>

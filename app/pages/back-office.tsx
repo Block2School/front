@@ -46,7 +46,7 @@ const BackOffice = () => {
       <div style={{display:"flex"}}>
         <Sidebar/>
         <div style={{ height: "100vh" }}>
-          <h1>Back Offie Dashboard</h1>
+          <h1>Back Office Dashboard</h1>
         </div>
       </div>
       <Footer />

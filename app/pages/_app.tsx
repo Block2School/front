@@ -6,6 +6,7 @@ import "../styles/tutorial.css";
 import "../styles/profile.css";
 import "../components/navbar/navbar.css";
 import "../components/sidebar/sidebar.css";
+import "../components/usersAdminWidget/usersAdmin.css";
 import "../components/footer/footer.css";
 import "bootstrap/dist/css/bootstrap.css"
 import type { AppProps } from "next/app";
