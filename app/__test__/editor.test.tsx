@@ -1,5 +1,5 @@
 import renderer from 'react-test-renderer'
-import React from 'react'
+import React, { useState } from 'react'
 import MyEditor from '../components/editor/editor'
 import { configure } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
@@ -9,9 +9,23 @@ import { render, screen } from '@testing-library/react';
 
 
 describe('<MyEditor/>', () => {
-  test('should render correctly', () => {
+  let wrapper: any;
+
+  test('should render correctly with no arg', () => {
+    wrapper = shallow(<MyEditor theme={undefined} lang={undefined} onChange={undefined} defaultValue={undefined} />)
+  });
+
+  test('should render correctly with args', () => {
     const theme = 'vs-dark';
     const lang = 'javascript';
-    shallow(<MyEditor theme={theme} lang={lang} onChange={undefined} defaultValue={undefined} />)
-  });
+    shallow(<MyEditor 
+      theme={theme} 
+      lang={lang} 
+      onChange={undefined}
+      defaultValue={''} />)
+  })
+
+  test('match snapshot', () => {
+    expect(wrapper).toMatchSnapshot();
+  }) 
 })

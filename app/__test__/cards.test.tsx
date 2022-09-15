@@ -9,7 +9,12 @@ import TutorialCategoryCard from '../components/cards/tutorialCategoryCard';
 
 
 describe('<TutorialCategoryCard/>', () => {
+  let wrapper: any;
   test('should render correctly', () => {
-    shallow(<TutorialCategoryCard name={''} image={''} description={''} callback={undefined} />)
+    wrapper = shallow(<TutorialCategoryCard name={''} image={''} description={''} callback={undefined} />)
   });
+
+  test('match snapshot', () => {
+    expect(wrapper).toMatchSnapshot();
+  })
 })

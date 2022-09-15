@@ -10,7 +10,12 @@ import SelectWalletModal from '../components/modals/wallets/walletsModal';
 
 
 describe('<SelectWalletModal/>', () => {
+  let wrapper: any;
   test('should render correctly', () => {
-    shallow(<SelectWalletModal isOpen={false} closeModal={undefined}/>)
+    wrapper = shallow(<SelectWalletModal isOpen={false} closeModal={undefined}/>)
   });
+
+  test('match snapshot', () => {
+    expect(wrapper).toMatchSnapshot();
+  }) 
 })
