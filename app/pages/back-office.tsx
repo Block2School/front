@@ -8,17 +8,16 @@ import AdminDashboard from '../components/adminDashboard/adminDashboard';
 import axios from 'axios';
 
 const BackOffice = () => {
-
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false)
 
   useEffect(() => {
-    const token: string | null = sessionStorage.getItem('token');
+    const token: string | null = sessionStorage.getItem('token')
     if (token === null) {
-      setIsAdmin(false);
-      return;
+      setIsAdmin(false)
+      return
     }
 
-    // axios.get('http://localhost:8080/isAdmin', {
+    // axios.get(`${serverURL}:8080/isAdmin`, {
     //   headers: {
     //     'Authorization': `Bearer ${token}`,
     //     'Content-Type': 'application/json',
@@ -33,8 +32,8 @@ const BackOffice = () => {
     //   setIsAdmin(false);
     //   console.log('ERR: ', err);
     // });
-    setIsAdmin(true);
-  }, []);
+    setIsAdmin(true)
+  }, [])
 
   return (
     // (isAdmin === false) ?
@@ -54,4 +53,4 @@ const BackOffice = () => {
   );
 }
 
-export default BackOffice;
+export default BackOffice
