@@ -148,8 +148,6 @@ export default function userAdmin() {
 
   const personList = userList.map(person => <UserCard person={person}/>);
   const bannedPersonList = bannedList.map(person => <BannedUserCard person={person}/>);
-
-
   
   return (
     <div className="usersAdmin-component">
