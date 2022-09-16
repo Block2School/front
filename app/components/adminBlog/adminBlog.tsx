@@ -5,6 +5,8 @@ export default function adminBlog() {
     <div className="usersAdmin-component">
         <div className="usersAdmin-title-div">
           <h1 className="usersAdmin-title">Blog</h1>
+          <div className='admin-dashboard-grid'>
+          </div>
         </div>
     </div>
   )
