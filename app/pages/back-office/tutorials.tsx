@@ -2,6 +2,7 @@ import React from 'react';
 import Navbar from "../../components/navbar/navbar";
 import Footer from "../../components/footer/footer";
 import Sidebar from "../../components/sidebar/sidebar";
+import AdminTutorials from '../../components/adminTutorials/adminTutorials';
 
 
 const TutorialsPage = () => {
@@ -10,9 +11,7 @@ const TutorialsPage = () => {
       <Navbar />
       <div style={{display:"flex"}}>
         <Sidebar/>
-        <div style={{ height: "100vh" }}>
-          <h1>Tutorials</h1>
-        </div>
+        <AdminTutorials/>
       </div>
       <Footer />
     </>

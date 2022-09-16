@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Navbar from "../components/navbar/navbar";
 import Footer from "../components/footer/footer";
 import Sidebar from "../components/sidebar/sidebar";
+import AdminDashboard from '../components/adminDashboard/adminDashboard';
 
 
 import axios from 'axios';
@@ -45,9 +46,7 @@ const BackOffice = () => {
       <Navbar />
       <div style={{display:"flex"}}>
         <Sidebar/>
-        <div style={{ height: "100vh" }}>
-          <h1>Back Office Dashboard</h1>
-        </div>
+        <AdminDashboard/>
       </div>
       <Footer />
     </>
