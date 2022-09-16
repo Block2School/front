@@ -1,6 +1,11 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
-import { serverURL } from '../utils/globals'
+import React, { useEffect, useState } from 'react';
+import Navbar from "../components/navbar/navbar";
+import Footer from "../components/footer/footer";
+import Sidebar from "../components/sidebar/sidebar";
+import AdminDashboard from '../components/adminDashboard/adminDashboard';
+
+
+import axios from 'axios';
 
 const BackOffice = () => {
   const [isAdmin, setIsAdmin] = useState(false)
@@ -30,15 +35,22 @@ const BackOffice = () => {
     setIsAdmin(true)
   }, [])
 
-  return isAdmin === false ? (
+  return (
+    // (isAdmin === false) ?
+    //   <>
+    //     <h1>Sorry, this page is for admin only</h1>
+    //   </>
+    //   :
     <>
-      <h1>Sorry, this page is for admin only</h1>
+      <Navbar />
+      <div style={{display:"flex"}}>
+        <Sidebar/>
+        <AdminDashboard/>
+      </div>
+      <Footer />
     </>
-  ) : (
-    <>
-      <h1>BackOffice</h1>
-    </>
-  )
+
+  );
 }
 
 export default BackOffice
