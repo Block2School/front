@@ -5,13 +5,15 @@ import { Form, Button, Card, Dropdown, DropdownButton, Spinner } from 'react-boo
 import Footer from "../components/footer/footer";
 import Navbar from "../components/navbar/navbar";
 import MarkdownRenderer from "../components/markdown/markdown";
+import ScoreBoardModal from "../components/modals/tutorialScoreBoardModal";
+import TutorialCategoryCard from "../components/cards/tutorialCategoryCard";
 import { useRouter } from "next/router";
-import { Text, Alert, AlertIcon } from "@chakra-ui/react";
+import { Text, Alert, AlertIcon, useDisclosure, List } from "@chakra-ui/react";
 import { getAPI, postAPI } from "../utils/api-utils";
 
 export default function Tutorial() {
   const [theme, setTheme] = useState('vs-dark');
-  const [lang, setLang] = useState('javascript');
+  const [lang, setLang] = useState('js');
   const [switchText, setSwitchText] = useState('Switch to Light Mode');
   const [editorValue, setEditorValue] = useState('');
   const [defaultValue, setDefaultValue] = useState('');
@@ -20,8 +22,9 @@ export default function Tutorial() {
   const [errorMessage, setErrorMessage] = useState('');
   const [variant, setVariant] = useState('danger');
   const [markdown, setMarkdown] = useState('nothing');
-  // const link = "https://raw.githubusercontent.com/Block2School/tutorials/master/en/introduction_tutorial.md";
-  // const link2 = "https://raw.githubusercontent.com/Block2School/tutorials/master/en/test_file.md";
+  const [scoreBoard, setScoreBoard] = useState<{data: [{uuid: string, tutorial_id: number, language:string, characters:number, lines:number}]}>({data: [{uuid: "", tutorial_id: 0, language:"", characters:0, lines:0}]});
+  const [isLoading, setIsLoading] = useState(true);
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const router = useRouter();
   const { tutorialId } = router.query;
 
@@ -35,8 +38,6 @@ export default function Tutorial() {
     shouldBeCheck: false,
     enabled: false
   });
-
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     setIsLoading(true);
@@ -76,25 +77,41 @@ export default function Tutorial() {
     setTheme(theme === 'vs-dark' ? 'vs-light' : 'vs-dark');
   }
 
-  const sendUserCode = async (code: string) => {
-    try {
-      const url = `${process.env.REACT_APP_API_URL}/tuto/complete`;
-      let response = await postAPI(url, { code: code });
-    
-      if (response['status'] === '200') {
-        console.log('200');
-        return true;
+  function scoring () {
+    console.log("zeubi");
+    setIsLoading(true);
+    console.log("zeubi after");
+    axios.get(`http://localhost:8080/tuto/scoreboard/me`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        Authorization: 'Bearer ' + sessionStorage.getItem('token'),
       }
-      console.log(response['status']);
-      return false;
-    } catch (error) {
-      console.log(error);
-      return false;
-    }
-  };
+    }).then(res => {
+      console.log("hello");
+      setScoreBoard(res.data);
+      console.log(res.data);
+      setIsLoading(false);
+      setShowError(false);
+      //onOpen();
+    })
+  }
 
-  async function uploadCode() {
-    if (editorValue.length === 0) {
+  async function sendUserCode (code: string) {
+    let res = await axios.post(`http://localhost:8080/tuto/complete`, {
+      source_code: code, tutorial_id: Number(tutorialId), is_already_checked: false, language:lang
+    },{
+      headers:{
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        Authorization: 'Bearer ' + sessionStorage.getItem('token')
+      }
+    },)
+    return res.data;
+  } // FUNCTION WORKING
+
+  async function uploadCode() { // MODIFY PROBLEM ON AWAIT of sendUserCode()
+    if (editorValue.length == 0) {
       setShowError(true);
       setErrorMessage('Please enter some code or some blocks before uploading');
       setTimeout(() => {
@@ -103,20 +120,24 @@ export default function Tutorial() {
       setIsUploading(false);
       return;
     }
-    // console.log("editorValue", editorValue);
-    if (editorValue.length > 0 && tutorialInfos.shouldBeCheck === false) {
+    if (editorValue.length > 0 && tutorialInfos.shouldBeCheck == false) {
+      console.log('chi')
+      console.log(tutorialInfos.answer)
       let res = await sendUserCode(editorValue); /* insert function to send code to fast api here */
-      if (res === true) {
+      console.log('pi');
+      console.log(res);
+      console.log('pou');
+      if (res.is_correct == true) {
         setShowError(true);
         setVariant('success');
         setErrorMessage('Code uploaded successfully');
-        console.log("success");
         setTimeout(() => {
           setShowError(false);
           setVariant('danger');
         }, 3000);
         setIsUploading(false);
       } else {
+        console.log('zeeeeeeuuuuubiiiiiiii')
         setShowError(true);
         setVariant('danger');
         setErrorMessage('Error while uploading code');
@@ -126,7 +147,9 @@ export default function Tutorial() {
       }
       setIsUploading(false);
       return;
-    } else if (editorValue.length > 0 && tutorialInfos.shouldBeCheck === true) {
+    } else if (editorValue.length > 0 && tutorialInfos.shouldBeCheck == true) {
+      console.log('tout est bon sauf le code')
+      console.log(tutorialInfos.answer);
       if (editorValue === tutorialInfos.answer) {
         alert('Correct answer');
       } else {
@@ -134,7 +157,6 @@ export default function Tutorial() {
       }
     }
   }
-
 
   return (
     (isLoading === true && showError === false) ?
@@ -174,12 +196,13 @@ export default function Tutorial() {
           </div>
           <div id="editor">
             <div id="editor_opt">
-              <DropdownButton id="dropdown-language" variant="dark" title={(lang !== '') ? lang : "Chose Language"}>
-                <Dropdown.Item as="button" onClick={() => changeLang('javascript')}>javascript</Dropdown.Item>
+              <Button onClick={() => scoring()}>ScoreBoard</Button>
+              <DropdownButton id="lang_choice" variant="dark" title={(lang !== '') ? lang : "Chose Language"}>
+                <Dropdown.Item as="button" onClick={() => changeLang('js')}>javascript</Dropdown.Item>
                 <Dropdown.Item as="button" onClick={() => changeLang('cpp')}>cpp</Dropdown.Item>
                 <Dropdown.Item as="button" onClick={() => changeLang('python')}>python</Dropdown.Item>
               </DropdownButton>
-              <Form>
+              <Form id="theme_choice">
                 <Form.Check
                   type="switch"
                   id="custom-switch"
@@ -195,19 +218,18 @@ export default function Tutorial() {
                 defaultValue={defaultValue}
                 onChange={(editorValue: string) => {
                   setEditorValue(editorValue);
-                  // console.log(editorValue)
                 }}
               />
             </div>
             <div id="submit-button">
-              <Button id="simulate" size="lg" variant="outline-success">Simulate</Button>
-              {(isUploading === false) ? <Button id="upload" size="lg" disabled={isUploading} variant="success" onClick={uploadCode}>Upload</Button> : <Spinner animation="border" role="status">
+              {(isUploading === false) ? <Button id="upload" size="lg" disabled={isUploading} variant="success" onClick={uploadCode}>Submit</Button> : <Spinner animation="border" role="status">
                 <span className="visually-hidden">Loading...</span>
               </Spinner>}
             </div>
           </div>
         </div>
         {/* <Footer/> */}
+        {/* <ScoreBoardModal isOpen={isOpen} closeModal={onClose}></ScoreBoardModal> */}
       </div>
   );
 }

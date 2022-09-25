@@ -1,11 +1,15 @@
 import axios from "axios";
+import Image from 'next/image'
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/navbar/navbar";
 import Footer from "../components/footer/footer";
 import { Spinner } from "react-bootstrap";
 import { calc, Center, Grid, Text, useDisclosure } from "@chakra-ui/react";
 import TutorialCategoryCard from "../components/cards/tutorialCategoryCard";
+import TutorialCategoryCardSmall from "../components/cards/tutorialCategoryCardSmall";
 import TutorialCategoryModal from "../components/modals/tutorialCategoryModal";
+import Icon from '/public/MoreCategoryIcon.svg'
+import IconW from '/public/MoreCategoryIconWhite.svg'
 
 export default function Tutorials() {
   const [isLoading, setIsLoading] = useState(true);
@@ -13,28 +17,34 @@ export default function Tutorials() {
   const [isModalContentLoading, setIsModalContentLoading] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [currentCategory, setCurrentCategory] = useState('');
+  const [currentImage, setCurrentImage] = useState(Icon);
 
   useEffect(() => {
     setIsLoading(true);
-    console.log('HELLL MAN')
     axios.get('http://localhost:8080/tuto/category/all', {
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
       }
     }).then(res => {
-      // setCategories([...categories, res.data.data]);
       setCategories(res.data.data);
       console.log('categories1: ', res.data.data);
-      // setIsLoading(false);
       setTimeout(() => { setIsLoading(false); console.log('categories2: ', categories) }, 500);
     })
   }, []);
+
+
 
   const showCategoryTutorialsModal = (category: string) => {
     setCurrentCategory(category);
     onOpen();
   };
+
+  function handleMouse(imagePath:any) {
+    return () => {
+        setCurrentImage(imagePath);
+    };
+  }
 
   return (
     (isLoading === true) ?
@@ -51,25 +61,242 @@ export default function Tutorials() {
       </> :
       <>
         <Navbar />
-        <div style={{ padding: "2%", minHeight: "80vh" }}>
-          {/* <Center> */}
-            <Grid templateColumns='repeat(1, 1fr)' alignSelf='start' alignItems='start' alignContent='start' gap={5} paddingLeft="10%" paddingRight="10%">
-              {categories.map((item: { name: string, image: string, description: string }) => {
-                return (
-                  // eslint-disable-next-line react/jsx-key
-                  <TutorialCategoryCard
-                    name={item.name}
-                    image={item.image}
-                    description={item.description}
-                    callback={() => showCategoryTutorialsModal(item.name)}
-                  />
-                )
-              })}
-            </Grid>
-          {/* </Center> */}
+        <div id='content'>
+          <div id='wrapper-flex'>
+            <div id="suggestions">
+              <div id="category-title">
+                <h1>SUGGESTIONS</h1>
+              </div>
+              <div id="wrapper-suggestions-cards">
+                <div id="suggestions-cards">
+                  {categories.map((item: { name: string, image: string, description: string }) => {
+                    return (
+                      <TutorialCategoryCard
+                        name={item.name}
+                        image={item.image}
+                        description={item.description}
+                        callback={() => showCategoryTutorialsModal(item.name)}
+                      />
+                    )},
+                    ).at(10)
+                  }
+                </div>
+                <div id="suggestions-cards">
+                  {categories.map((item: { name: string, image: string, description: string }) => {
+                    return (
+                      <TutorialCategoryCard
+                        name={item.name}
+                        image={item.image}
+                        description={item.description}
+                        callback={() => showCategoryTutorialsModal(item.name)}
+                      />
+                    )},
+                    ).at(1)
+                  }
+                </div>
+              </div>
+            </div>
+            <div id="easy">
+                <div id="category-header">
+                  <div id="category-title">
+                    <h1>LEVEL EASY</h1>
+                  </div>
+                  <div id="more-tutorials" onMouseOver={handleMouse(IconW)} onMouseOut={handleMouse(Icon)}>
+                    <Image width="25" height="25" src={currentImage} alt="logo"></Image>
+                    <a id="link" href="/tutorials/easy">VOIR PLUS</a>
+                  </div>
+                </div>
+                <div id="wrapper-easy-cards">
+                  <div id="easy-cards">
+                    {categories.map((item: { name: string, image: string, description: string }) => {
+                      return (
+                        <TutorialCategoryCardSmall
+                          name={item.name}
+                          image={item.image}
+                          description={item.description}
+                          callback={() => showCategoryTutorialsModal(item.name)}
+                        />
+                      )},
+                      ).at(0)
+                    }
+                  </div>
+                  <div id="easy-cards">
+                    {categories.map((item: { name: string, image: string, description: string }) => {
+                      return (
+                        <TutorialCategoryCardSmall
+                          name={item.name}
+                          image={item.image}
+                          description={item.description}
+                          callback={() => showCategoryTutorialsModal(item.name)}
+                        />
+                      )},
+                      ).at(0)
+                    }
+                  </div>
+                  <div id="easy-cards">
+                    {categories.map((item: { name: string, image: string, description: string }) => {
+                      return (
+                        <TutorialCategoryCardSmall
+                          name={item.name}
+                          image={item.image}
+                          description={item.description}
+                          callback={() => showCategoryTutorialsModal(item.name)}
+                        />
+                      )},
+                      ).at(0)
+                    }
+                  </div>
+                  <div id="easy-cards">
+                    {categories.map((item: { name: string, image: string, description: string }) => {
+                      return (
+                        <TutorialCategoryCardSmall
+                          name={item.name}
+                          image={item.image}
+                          description={item.description}
+                          callback={() => showCategoryTutorialsModal(item.name)}
+                        />
+                      )},
+                      ).at(0)
+                    }
+                  </div>
+              </div>
+            </div>
+            <div id="medium">
+                <div id="category-header">
+                  <div id="category-title">
+                    <h1>LEVEL MEDIUM</h1>
+                  </div>
+                  <div id="more-tutorials" onMouseOver={handleMouse(IconW)} onMouseOut={handleMouse(Icon)}>
+                    <Image width="25" height="25" src={currentImage} alt="logo"></Image>
+                    <a id="link" href="/tutorials/medium">VOIR PLUS</a>
+                  </div>
+                </div>
+                <div id="wrapper-easy-cards">
+                  <div id="easy-cards">
+                    {categories.map((item: { name: string, image: string, description: string }) => {
+                      return (
+                        <TutorialCategoryCardSmall
+                          name={item.name}
+                          image={item.image}
+                          description={item.description}
+                          callback={() => showCategoryTutorialsModal(item.name)}
+                        />
+                      )},
+                      ).at(0)
+                    }
+                  </div>
+                  <div id="easy-cards">
+                    {categories.map((item: { name: string, image: string, description: string }) => {
+                      return (
+                        <TutorialCategoryCardSmall
+                          name={item.name}
+                          image={item.image}
+                          description={item.description}
+                          callback={() => showCategoryTutorialsModal(item.name)}
+                        />
+                      )},
+                      ).at(0)
+                    }
+                  </div>
+                  <div id="easy-cards">
+                    {categories.map((item: { name: string, image: string, description: string }) => {
+                      return (
+                        <TutorialCategoryCardSmall
+                          name={item.name}
+                          image={item.image}
+                          description={item.description}
+                          callback={() => showCategoryTutorialsModal(item.name)}
+                        />
+                      )},
+                      ).at(0)
+                    }
+                  </div>
+                  <div id="easy-cards">
+                    {categories.map((item: { name: string, image: string, description: string }) => {
+                      return (
+                        <TutorialCategoryCardSmall
+                          name={item.name}
+                          image={item.image}
+                          description={item.description}
+                          callback={() => showCategoryTutorialsModal(item.name)}
+                        />
+                      )},
+                      ).at(0)
+                    }
+                  </div>
+              </div>
+            </div>
+            <div id="hard">
+                <div id="category-header">
+                  <div id="category-title">
+                    <h1>LEVEL HARD</h1>
+                  </div>
+                  <div id="more-tutorials" onMouseOver={handleMouse(IconW)} onMouseOut={handleMouse(Icon)}>
+                    <a id="link" href="/tutorials/hard">
+                      <Image id="icon" width="30" height="30" src={currentImage} alt="logo"></Image>
+                      <span id="title">VOIR PLUS</span>
+                    </a>
+                  </div>
+                </div>
+                <div id="wrapper-easy-cards">
+                  <div id="easy-cards">
+                    {categories.map((item: { name: string, image: string, description: string }) => {
+                      return (
+                        <TutorialCategoryCardSmall
+                          name={item.name}
+                          image={item.image}
+                          description={item.description}
+                          callback={() => showCategoryTutorialsModal(item.name)}
+                        />
+                      )},
+                      ).at(0)
+                    }
+                  </div>
+                  <div id="easy-cards">
+                    {categories.map((item: { name: string, image: string, description: string }) => {
+                      return (
+                        <TutorialCategoryCardSmall
+                          name={item.name}
+                          image={item.image}
+                          description={item.description}
+                          callback={() => showCategoryTutorialsModal(item.name)}
+                        />
+                      )},
+                      ).at(0)
+                    }
+                  </div>
+                  <div id="easy-cards">
+                    {categories.map((item: { name: string, image: string, description: string }) => {
+                      return (
+                        <TutorialCategoryCardSmall
+                          name={item.name}
+                          image={item.image}
+                          description={item.description}
+                          callback={() => showCategoryTutorialsModal(item.name)}
+                        />
+                      )},
+                      ).at(0)
+                    }
+                  </div>
+                  <div id="easy-cards">
+                    {categories.map((item: { name: string, image: string, description: string }) => {
+                      return (
+                        <TutorialCategoryCardSmall
+                          name={item.name}
+                          image={item.image}
+                          description={item.description}
+                          callback={() => showCategoryTutorialsModal(item.name)}
+                        />
+                      )},
+                      ).at(0)
+                    }
+                  </div>
+              </div>
+            </div>
+          </div>
         </div>
         <Footer />
         <TutorialCategoryModal isOpen={isOpen} closeModal={onClose} category={currentCategory} />
       </>
-  );
+  )
 }

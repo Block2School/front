@@ -71,7 +71,7 @@ const TutorialCategoryModal = ({
           _focus={{
             boxShadow: 'none',
           }}
-          id="close-modal"
+          id="close-modal-tuto"
         />
         <ModalBody>
           {isLoading ? <Text>Loading...</Text> :

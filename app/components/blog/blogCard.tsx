@@ -22,7 +22,7 @@ const BlogCard = ({
         articleEditDate: editDate
       }
     }} passHref>
-      <Box style={{cursor: 'pointer'}} maxWidth="80%" minWidth="80%" pb={5} pl={10} pr={10} pt={5} borderWidth={1} borderRadius="lg" overflow='hidden' key={id}>
+      <Box style={{cursor: 'pointer', backgroundColor:'#ffe6c4'}} maxWidth="80%" minWidth="80%" pb={5} pl={10} pr={10} pt={5} borderWidth={1} borderRadius="lg" overflow='hidden' key={id}>
         <Text
           fontWeight='bold'
           fontSize='x-large'
