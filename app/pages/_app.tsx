@@ -10,6 +10,10 @@ import "../components/wallet/connectionButton.css";
 import "../components/modals/tutorialCategoryModal.css";
 import "../components/modals/wallets/walletsModal.css";
 import "../components/navbar/navbar.css";
+import "../components/sidebar/sidebar.css";
+import "../components/usersAdminWidget/usersAdmin.css";
+import "../components/adminBlog/adminBlog.css"
+import "../components/adminDashboard/adminDashboard.css"
 import "../components/footer/footer.css";
 import "bootstrap/dist/css/bootstrap.css"
 import type { AppProps } from "next/app";

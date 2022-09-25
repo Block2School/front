@@ -1,42 +1,63 @@
-import axios from "axios";
-import React, { useState, useEffect, useRef } from "react";
-import Navbar from "../components/navbar/navbar";
-import Footer from "../components/footer/footer";
-import { Grid, Text } from "@chakra-ui/react";
-import BlogCard from "../components/blog/blogCard";
-import moment from "moment";
+import axios from 'axios'
+import React, { useState, useEffect, useRef } from 'react'
+import Navbar from '../components/navbar/navbar'
+import Footer from '../components/footer/footer'
+import { Grid, Text } from '@chakra-ui/react'
+import BlogCard from '../components/blog/blogCard'
+import moment from 'moment'
+import { serverURL } from '../utils/globals'
 
 interface BlogProps {
-  id: number,
-  title: string,
-  markdownUrl: string,
-  shortDescription: string,
-  author: string,
-  publicationDate: number,
+  id: number
+  title: string
+  markdownUrl: string
+  shortDescription: string
+  author: string
+  publicationDate: number
   editDate: number
 }
 
 export default function Blog() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [articles, setArticles] = useState<BlogProps[]>([{id: 0, title: "", markdownUrl: "", shortDescription: "", author: "",  publicationDate: 0, editDate: 0}]);
+  const [isLoading, setIsLoading] = useState(true)
+  const [articles, setArticles] = useState<BlogProps[]>([
+    {
+      id: 0,
+      title: '',
+      markdownUrl: '',
+      shortDescription: '',
+      author: '',
+      publicationDate: 0,
+      editDate: 0,
+    },
+  ])
 
   useEffect(() => {
-    setIsLoading(true);
+    setIsLoading(true)
     // axios
-    axios.get('http://localhost:8080/article/all', {
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
-      }
-    }).then(res => {
-      console.log('articles: ', res.data.data);
-      setArticles(res.data.data?.sort((a: BlogProps, b: BlogProps) => b.id - a.id).map((item: BlogProps) => {
-        return {
-          ...item, publicationDate: moment(item.publicationDate * 1000).format('LLL'), editDate: moment(item.editDate * 1000).format('LLL')
-        }
-      }));
-      setIsLoading(false);
-    })
+    axios
+      .get(`${serverURL}:8080/article/all`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        },
+      })
+      .then((res) => {
+        console.log('articles: ', res.data.data)
+        setArticles(
+          res.data.data
+            ?.sort((a: BlogProps, b: BlogProps) => b.id - a.id)
+            .map((item: BlogProps) => {
+              return {
+                ...item,
+                publicationDate: moment(item.publicationDate * 1000).format(
+                  'LLL',
+                ),
+                editDate: moment(item.editDate * 1000).format('LLL'),
+              }
+            }),
+        )
+        setIsLoading(false)
+      })
 
     // const articls = [
     //   {
@@ -47,7 +68,7 @@ export default function Blog() {
     //     shortDescription: "This is a really long short description that is supposed to be short bot is not short at all"
     //   }
     // ];
-  }, []);
+  }, [])
 
   return (
     <>
@@ -66,7 +87,7 @@ export default function Blog() {
                 shortDescription={item.shortDescription}
                 editDate={item.editDate}
               />
-            );
+            )
           })}
         </Grid>
       </div>

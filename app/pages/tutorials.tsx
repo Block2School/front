@@ -1,5 +1,6 @@
 import axios from "axios";
 import Image from 'next/image'
+import { serverURL } from "../utils/globals";
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/navbar/navbar";
 import Footer from "../components/footer/footer";
@@ -21,7 +22,7 @@ export default function Tutorials() {
 
   useEffect(() => {
     setIsLoading(true);
-    axios.get('http://localhost:8080/tuto/category/all', {
+    axios.get(`${serverURL}:8080/tuto/category/all`, {
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
@@ -33,12 +34,10 @@ export default function Tutorials() {
     })
   }, []);
 
-
-
   const showCategoryTutorialsModal = (category: string) => {
-    setCurrentCategory(category);
-    onOpen();
-  };
+    setCurrentCategory(category)
+    onOpen()
+  }
 
   function handleMouse(imagePath:any) {
     return () => {

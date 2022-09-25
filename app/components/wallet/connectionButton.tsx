@@ -1,33 +1,41 @@
-import SelectWalletModal from "../modals/wallets/walletsModal";
-import { useWeb3React } from "@web3-react/core";
-import { connectors } from "../wallet/injectors";
-import { Button, HStack, Image, useDisclosure } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import { Tooltip } from '@chakra-ui/react';
-import axios from 'axios';
+import SelectWalletModal from '../modals/wallets/walletsModal'
+import { useWeb3React } from '@web3-react/core'
+import { connectors } from '../wallet/injectors'
+import { Button, HStack, Image, useDisclosure } from '@chakra-ui/react'
+import { useEffect, useState } from 'react'
+import { Tooltip } from '@chakra-ui/react'
+import axios from 'axios'
+import { serverURL } from '../../utils/globals'
 
 export default function ConnectionButton() {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const { library, chainId, account, activate, deactivate, active } = useWeb3React();
-  const [ isError, setIsError ] = useState(false);
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const {
+    library,
+    chainId,
+    account,
+    activate,
+    deactivate,
+    active,
+  } = useWeb3React()
+  const [isError, setIsError] = useState(false)
 
   const refreshState = () => {
-    window.localStorage.setItem("provider", "undefined");
-    setIsError(false);
-  };
+    window.localStorage.setItem('provider', 'undefined')
+    setIsError(false)
+  }
 
   const disconnect = () => {
-    refreshState();
-    deactivate();
-  };
+    refreshState()
+    deactivate()
+  }
 
   const handleConnection = async (error: Error): Promise<void> => {
-    console.log("error: ", error);
-    console.log("error.name: ", error.name);
-    if (error.name === "UnsupportedChainIdError") {
+    console.log('error: ', error)
+    console.log('error.name: ', error.name)
+    if (error.name === 'UnsupportedChainIdError') {
       // display warning
-      console.log("UnsupportedChainIdError");
-      setIsError(true);
+      console.log('UnsupportedChainIdError')
+      setIsError(true)
     }
   }
 
@@ -36,26 +44,26 @@ export default function ConnectionButton() {
     if (active === true) {
       axios({
         method: 'post',
-        url: 'http://localhost:8080/login',
+        url: `${serverURL}:8080/login`,
         data: {
           wallet_address: account,
-          encrypted_wallet: account
-        }
-      }).then(res => {
+          encrypted_wallet: account,
+        },
+      }).then((res) => {
         if (res.status === 200) {
-          sessionStorage.setItem('token', res.data.access_token);
+          sessionStorage.setItem('token', res.data.access_token)
         }
       })
       // console.log('acocunt == ', account);
     }
-  }, [active]);
+  }, [active])
 
   useEffect(() => {
-    const provider = window.localStorage.getItem("provider");
+    const provider = window.localStorage.getItem('provider')
     // @ts-ignore
-    if (provider) activate(connectors[provider], handleConnection);
+    if (provider) activate(connectors[provider], handleConnection)
     // console.log('hi there');
-  });
+  })
 
   return (
     <>
@@ -76,5 +84,5 @@ export default function ConnectionButton() {
       </HStack>
       <SelectWalletModal isOpen={isOpen} closeModal={onClose} />
     </>
-  );
+  )
 }

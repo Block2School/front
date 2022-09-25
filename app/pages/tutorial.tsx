@@ -1,4 +1,5 @@
 import axios from "axios";
+import { serverURL } from "../utils/globals";
 import React, { useState, useRef, useEffect } from 'react';
 import MyEditor from '../components/editor/editor';
 import { Form, Button, Card, Dropdown, DropdownButton, Spinner } from 'react-bootstrap';
@@ -22,7 +23,7 @@ export default function Tutorial() {
   const [errorMessage, setErrorMessage] = useState('');
   const [variant, setVariant] = useState('danger');
   const [markdown, setMarkdown] = useState('nothing');
-  const [scoreBoard, setScoreBoard] = useState<{data: [{uuid: string, tutorial_id: number, language:string, characters:number, lines:number}]}>({data: [{uuid: "", tutorial_id: 0, language:"", characters:0, lines:0}]});
+  const [scoreBoard, setScoreBoard] = useState<{ data: [{ uuid: string, tutorial_id: number, language: string, characters: number, lines: number }] }>({ data: [{ uuid: "", tutorial_id: 0, language: "", characters: 0, lines: 0 }] });
   const [isLoading, setIsLoading] = useState(true);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const router = useRouter();
@@ -30,58 +31,63 @@ export default function Tutorial() {
 
   const [tutorialInfos, setTutorialInfos] = useState({
     id: 0,
-    title: "",
-    markdownUrl: "",
-    category: "",
-    answer: "",
-    startCode: "",
+    title: '',
+    markdownUrl: '',
+    category: '',
+    answer: '',
+    startCode: '',
     shouldBeCheck: false,
-    enabled: false
-  });
+    enabled: false,
+  })
 
   useEffect(() => {
-    setIsLoading(true);
-    axios.get(`http://localhost:8080/tuto/${tutorialId}`, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
-      }
-    }).then(res => {
-      setTutorialInfos(res.data);
-      setIsLoading(false);
-      setShowError(false);
-    }).catch(err => {
-      setShowError(true);
+    setIsLoading(true)
+    axios
+      .get(`${serverURL}:8080/tuto/${tutorialId}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        },
+      })
+      .then((res) => {
+        setTutorialInfos(res.data)
+        setIsLoading(false)
+        setShowError(false)
+      })
+      .catch((err) => {
+        setShowError(true)
+      })
+  }, [tutorialId])
+
+  useEffect(() => {
+    if (showError === true || !tutorialId) {
+      return
+    }
+    setIsLoading(true)
+    axios.get(tutorialInfos.markdownUrl).then((res) => {
+      res.status === 200 ? setMarkdown(res.data) : setMarkdown('')
+      setDefaultValue(tutorialInfos.startCode)
+      setShowError(false)
+      setTimeout(() => setIsLoading(false), 1000)
+      setTimeout(() => console.log('tutorialInfos : ', tutorialInfos), 1000)
     })
-  }, [tutorialId]);
-
-  useEffect(() => {
-    if (showError === true || !tutorialId) { return; }
-    setIsLoading(true);
-    axios.get(tutorialInfos.markdownUrl).then(res => {
-      res.status === 200 ? setMarkdown(res.data) : setMarkdown("");
-      setDefaultValue(tutorialInfos.startCode);
-      setShowError(false);
-      setTimeout(() => setIsLoading(false), 1000);
-      setTimeout(() => console.log('tutorialInfos : ', tutorialInfos), 1000);
-    });
-    }, [tutorialInfos, markdown]);
+  }, [tutorialInfos, markdown])
 
   function changeLang(lang: React.SetStateAction<string>) {
-    setLang(lang);
+    setLang(lang)
     // console.log(lang);
   }
 
   function changeTheme() {
-    setSwitchText(theme === 'vs-light' ? 'Switch to Light Mode' : 'Switch to Dark Mode');
-    setTheme(theme === 'vs-dark' ? 'vs-light' : 'vs-dark');
+    setSwitchText(
+      theme === 'vs-light' ? 'Switch to Light Mode' : 'Switch to Dark Mode',
+    )
+    setTheme(theme === 'vs-dark' ? 'vs-light' : 'vs-dark')
   }
 
-  function scoring () {
-    console.log("zeubi");
+  function scoring() {
     setIsLoading(true);
-    console.log("zeubi after");
-    axios.get(`http://localhost:8080/tuto/scoreboard/me`, {
+    axios.get(`${serverURL}:8080/tuto/scoreboard/me`, {
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
@@ -97,11 +103,11 @@ export default function Tutorial() {
     })
   }
 
-  async function sendUserCode (code: string) {
-    let res = await axios.post(`http://localhost:8080/tuto/complete`, {
-      source_code: code, tutorial_id: Number(tutorialId), is_already_checked: false, language:lang
-    },{
-      headers:{
+  async function sendUserCode(code: string) {
+    let res = await axios.post(`${serverURL}:8080/tuto/complete`, {
+      source_code: code, tutorial_id: tutorialId, is_already_checked: false, language: lang
+    }, {
+      headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
         Authorization: 'Bearer ' + sessionStorage.getItem('token')
@@ -115,10 +121,10 @@ export default function Tutorial() {
       setShowError(true);
       setErrorMessage('Please enter some code or some blocks before uploading');
       setTimeout(() => {
-        setShowError(false);
-      }, 3000);
-      setIsUploading(false);
-      return;
+        setShowError(false)
+      }, 3000)
+      setIsUploading(false)
+      return
     }
     if (editorValue.length > 0 && tutorialInfos.shouldBeCheck == false) {
       console.log('chi')
@@ -132,28 +138,25 @@ export default function Tutorial() {
         setVariant('success');
         setErrorMessage('Code uploaded successfully');
         setTimeout(() => {
-          setShowError(false);
-          setVariant('danger');
-        }, 3000);
-        setIsUploading(false);
+          setShowError(false)
+          setVariant('danger')
+        }, 3000)
+        setIsUploading(false)
       } else {
-        console.log('zeeeeeeuuuuubiiiiiiii')
-        setShowError(true);
-        setVariant('danger');
-        setErrorMessage('Error while uploading code');
+        setShowError(true)
+        setVariant('danger')
+        setErrorMessage('Error while uploading code')
         setTimeout(() => {
-          setShowError(false);
-        }, 3000);
+          setShowError(false)
+        }, 3000)
       }
-      setIsUploading(false);
-      return;
-    } else if (editorValue.length > 0 && tutorialInfos.shouldBeCheck == true) {
-      console.log('tout est bon sauf le code')
-      console.log(tutorialInfos.answer);
+      setIsUploading(false)
+      return
+    } else if (editorValue.length > 0 && tutorialInfos.shouldBeCheck === true) {
       if (editorValue === tutorialInfos.answer) {
-        alert('Correct answer');
+        alert('Correct answer')
       } else {
-        alert('Wrong answer');
+        alert('Wrong answer')
       }
     }
   }
@@ -170,22 +173,19 @@ export default function Tutorial() {
           </div>
         </div>
       </> : (showError === true) ?
-      <>
-        <div id="screen">
-          <Navbar />
-          <Spinner animation="border" role="status" style={{ top: 0, bottom: 0, left: 0, right: 0, margin: 'auto', position: 'absolute' }}>
-          </Spinner>
-          <Alert status='error'>
-            <AlertIcon />
+        <>
+          <div id="screen">
+            <Navbar />
+            <Spinner animation="border" role="status" style={{ top: 0, bottom: 0, left: 0, right: 0, margin: 'auto', position: 'absolute' }}>
+            </Spinner>
+            <Alert status='error'>
+              <AlertIcon />
               There was an error processing your request. Try to refresh the page or contact the administrator.
             </Alert>
-        </div>
-      </>:
-      <div id="screen">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossOrigin="anonymous"></script>
-        <div id="navbar">
+          </div>
+        </> :
+        <div id ="screen">
           <Navbar />
-        </div>
         <div id="content">
           <div id="subject">
             <div id="tutorial-content">
@@ -228,9 +228,6 @@ export default function Tutorial() {
             </div>
           </div>
         </div>
-        {/* <Footer/> */}
-        {/* <ScoreBoardModal isOpen={isOpen} closeModal={onClose}></ScoreBoardModal> */}
-      </div>
-  );
+        </div>
+  )
 }
-// <Footer/>

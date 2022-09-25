@@ -9,6 +9,7 @@ import { getFullDisplayBalance } from '../utils/format'
 import $ from 'jquery'
 import axios from 'axios'
 import SelectWalletModal from '../components/modals/wallets/walletsModal'
+import { serverURL } from '../utils/globals'
 
 export default function Profile() {
   const { account } = useWeb3React()
@@ -78,7 +79,7 @@ export default function Profile() {
   useEffect(() => {
     if (account !== '' && account !== undefined && account !== null) {
       axios
-        .get(`http://localhost:8080/user/profile`, {
+        .get(`${serverURL}:8080/user/profile`, {
           headers: {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': '*',
@@ -164,7 +165,7 @@ export default function Profile() {
     var newEmail = $('#new-email-input').val()
     axios
       .patch(
-        `http://localhost:8080/user/profile`,
+        `${serverURL}:8080/user/profile`,
         {
           username: newUsername,
           email: newEmail,

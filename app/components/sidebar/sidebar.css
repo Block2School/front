@@ -1,0 +1,44 @@
+.sidebar-component {
+  background-color: black;
+  height: 700px;
+  width: 200px;
+  margin: 10px;
+  border-radius: 20px;
+}
+
+.sidebar-title {
+  color: white;
+}
+
+.sidebar-item {
+  display: flex;
+  -moz-box-align: center;
+  align-items: center;
+  height: 40px;
+  padding: 0px 20px;
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+  font-family: "Euclid Circular B", sans-serif;
+  font-size: 20px;
+}
+
+.sidebar-item:hover {
+  background: linear-gradient(90deg, red, blue);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.sidebar-item-title {
+  color: white;
+}
+
+.sidebar-container {
+  margin: 0px auto;
+  max-width: 992px;
+  width: 100%;
+  -moz-box-align: center;
+  align-items: center;
+  -moz-box-pack: justify;
+  justify-content: space-between;
+  display: flex;
+}

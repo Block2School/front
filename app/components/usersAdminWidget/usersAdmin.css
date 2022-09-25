@@ -1,0 +1,72 @@
+.usersAdmin-component {
+    background-color: white;
+    margin: 10px;
+    border-radius: 20px;
+    width: 100%;
+    border: solid black 2px;
+}
+
+.usersAdmin-title {
+    display: flex;
+    -moz-box-align: center;
+    align-items: center;
+    height: 40px;
+    padding: 0px 20px;
+    color: white;
+    cursor: pointer;
+    font-family: "Euclid Circular B", sans-serif;
+    font-size: 20px;
+} 
+
+.usersAdmin-title-div {
+    background-color: black;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.user-lists-div {
+    display: flex;
+    max-height: 100%;
+    overflow-y: scroll;
+}
+
+.person-list-div {
+    width: 50%;
+    max-height: 800px;
+    overflow-y: scroll;
+}
+
+.banned-list-div {
+    width: 50%;
+    max-height: 800px;
+    overflow-y: scroll;
+}
+
+.user-card-div {
+    border-bottom: solid black 1px;
+    margin: 5px;
+    height: 40px;
+    display: flex;
+}
+
+.ban-button {
+    background-color: red;
+    border-radius: 5px;
+    height: fit-content;
+    width: fit-content;
+    margin-left: auto;
+    padding: 5px;
+}
+
+.unban-button {
+    background-color: green;
+    border-radius: 5px;
+    height: fit-content;
+    width: fit-content;
+    margin-left: auto;
+    padding: 5px;
+}
+
+.background-modal {
+    transition: top 1s ease-out;
+}
