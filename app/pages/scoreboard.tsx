@@ -1,4 +1,5 @@
 import axios from "axios";
+import { serverURL } from "../utils/globals";
 import React, { useState, useEffect, useRef } from "react";
 import Navbar from "../components/navbar/navbar";
 import Footer from "../components/footer/footer";
@@ -12,7 +13,7 @@ export default function ScoreBoard() {
   useEffect(() => {
     setIsLoading(true);
     // axios
-    axios.get('http://localhost:8080/article/all', {
+    axios.get(`${serverURL}:8080/article/all`, {
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
