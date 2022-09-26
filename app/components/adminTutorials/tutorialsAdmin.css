@@ -30,36 +30,22 @@
     overflow-y: scroll;
 }
 
-.person-list-div {
-    width: 50%;
-    max-height: 800px;
-    overflow-y: scroll;
-}
-
-.banned-list-div {
-    width: 50%;
-    max-height: 800px;
-    overflow-y: scroll;
-}
-
-.user-card-div {
-    border-bottom: solid black 1px;
+.tutorial-widget {
+    border: 1px solid black;
+    border-radius: 20px;
     margin: 5px;
-    height: 40px;
-    display: flex;
-}
-
-.ban-button {
-    background-color: red;
-    border-radius: 5px;
     height: fit-content;
-    width: fit-content;
-    margin-left: auto;
-    padding: 5px;
+    padding: 10px;
 }
 
-.unban-button {
-    background-color: green;
+.uplaod-form {
+    padding: 10px;
+    margin: 10px;
+}
+
+.submit-button {
+    color: white;
+    background-color: black;
     border-radius: 5px;
     height: fit-content;
     width: fit-content;
