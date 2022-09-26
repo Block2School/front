@@ -31,19 +31,19 @@ const SelectWalletModal = ({
     return null
   }
   return (
-    <Modal isOpen={isOpen} onClose={closeModal} isCentered preserveScrollBarGap>
+    <Modal id="modal_popup" isOpen={isOpen} onClose={closeModal} isCentered preserveScrollBarGap>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Select Wallet</ModalHeader>
+        <ModalHeader id="modal_popup">Select Wallet</ModalHeader>
         <ModalCloseButton
           _focus={{
             boxShadow: 'none',
           }}
           id="close-modal"
         />
-        <ModalBody paddingBottom="1.5rem">
+        <ModalBody id="modal_popup" paddingBottom="1.5rem">
           <VStack>
-            <Button
+            <Button id="coinbase"
               variant="outline"
               onClick={() => {
                 activate(connectors.coinbaseWallet)
@@ -64,7 +64,7 @@ const SelectWalletModal = ({
                 <Text>Coinbase Wallet</Text>
               </HStack>
             </Button>
-            <Button
+            <Button id="metamask"
               variant="outline"
               onClick={() => {
                 activate(connectors.injected)
@@ -85,7 +85,7 @@ const SelectWalletModal = ({
                 <Text>MetaMask</Text>
               </HStack>
             </Button>
-            <Button
+            <Button id="binance"
               variant="outline"
               onClick={() => {
                 activate(connectors.binanceWallet)

@@ -66,9 +66,6 @@ export default function Article() {
             }
           </Center>
         </div>
-        <div style={{ position: 'sticky', bottom: '0%', width: '100%' }}>
-          <Footer/>
-        </div>
       </div>
     </>
   );

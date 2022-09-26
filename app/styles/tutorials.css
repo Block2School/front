@@ -1,0 +1,123 @@
+#content {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    height: 100%;
+    width: 100%;
+    background-color: #343434;
+}
+
+#wrapper-flex {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+#category-title {
+    display: flex;
+    color: #ffe6c4;
+    align-content: center;
+}
+
+#category-header {
+    width :100%;
+    justify-content: space-between;
+    display: flex;
+    flex-direction: row;
+}
+
+#more-tutorials {
+    display: flex;
+    color: #ffe6c4;
+}
+
+#more-tutorials:hover {
+    display: flex;
+    color: #ffe6c4;
+}
+
+#icon:hover {
+    src: '/public/MoreCategoryIconWhite.svg';
+}
+
+#link {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+}
+
+#link:hover {
+    text-decoration: none;
+    color :white;
+}
+
+#wrapper-suggestions-cards {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
+    padding-top: 10px;
+}
+
+#suggestions {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    height: 50%;
+    width: 70%;
+}
+
+#suggestions-cards {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    height: 100%;
+    width: 48%;
+}
+
+#easy {
+    padding: 0px 20px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    height: 25%;
+    width: 70%;
+}
+
+#medium {
+    padding: 0px 20px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    height: 25%;
+    width: 70%;
+}
+
+#hard {
+    padding: 0px 20px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    height: 25%;
+    width: 70%;
+}
+
+#easy-cards {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    height: 80%;
+    width: 24%;
+}
+
+#wrapper-easy-cards {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height:100%;
+    width: 100%;
+    padding-top: 10px;
+}

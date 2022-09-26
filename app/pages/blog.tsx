@@ -73,19 +73,8 @@ export default function Blog() {
   return (
     <>
       <Navbar />
-      <div style={{ height: '100%', minHeight: '90vh' }}>
-        <Grid
-          templateColumns="repeat(1, 1fr)"
-          alignSelf="start"
-          alignItems="start"
-          justifyItems="center"
-          alignContent="start"
-          gap={5}
-          paddingLeft="10%"
-          paddingRight="10%"
-          paddingTop="2%"
-          paddingBottom="2%"
-        >
+      <div style={{ height: '100%', minHeight: '90vh', backgroundColor: '#343434' }}>
+        <Grid templateColumns='repeat(1, 1fr)' alignSelf='start' alignItems='start' justifyItems='center' alignContent='start' gap={5} paddingLeft="10%" paddingRight="10%" paddingTop="2%" paddingBottom="2%">
           {articles.map((item: BlogProps) => {
             return (
               <BlogCard
@@ -102,9 +91,6 @@ export default function Blog() {
           })}
         </Grid>
       </div>
-      <div style={{ position: 'relative', bottom: '0%', width: '100%' }}>
-        <Footer />
-      </div>
-    </>
-  )
+    </>  
+  );
 }

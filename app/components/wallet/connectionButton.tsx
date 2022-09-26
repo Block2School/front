@@ -69,54 +69,17 @@ export default function ConnectionButton() {
     <>
       <HStack id="connectionButton">
         {!active && isError === false ? (
-          <Button
-            onClick={onOpen}
-            background="rgb(53, 53, 71)"
-            _hover={{ bg: 'rgb(77 77 86)' }}
-            _focus={{
-              boxShadow:
-                '0 0 1px 2px rgba(88, 144, 255, .75), 0 1px 1px rgba(0, 0, 0, .15)',
-            }}
-            color="white"
-            className="CONNECT_WALLET"
-          >
-            Connect Wallet
-          </Button>
-        ) : !active && isError === true ? (
+          <Button id='login_button' onClick={onOpen} className="CONNECT_WALLET">Connect Wallet</Button>
+        ): !active && isError === true ? (
           <Tooltip label="Wrong Network" placement="top" hasArrow>
-            <Button
-              onClick={onOpen}
-              background="rgb(53, 53, 71)"
-              _hover={{ bg: 'rgb(77 77 86)' }}
-              _focus={{
-                boxShadow:
-                  '0 0 1px 2px rgba(88, 144, 255, .75), 0 1px 1px rgba(0, 0, 0, .15)',
-              }}
-              color="white"
-            >
-              <Image
-                src="/warning-sign-svgrepo-com.svg"
-                alt="warning"
-                height="50%"
-                width="50%"
-                paddingRight={2}
-              />
-              Connect Wallet
-            </Button>
+            <Button id='login_mode_select' onClick={onOpen} color="white"><Image
+              src="/warning-sign-svgrepo-com.svg"
+              alt="warning"
+              paddingRight={2}
+            />Connect Wallet</Button>
           </Tooltip>
         ) : (
-          <Button
-            onClick={disconnect}
-            background="rgb(53, 53, 71)"
-            _hover={{ bg: 'rgb(77 77 86)' }}
-            _focus={{
-              boxShadow:
-                '0 0 1px 2px rgba(88, 144, 255, .75), 0 1px 1px rgba(0, 0, 0, .15)',
-            }}
-            color="white"
-          >
-            Disconnect Wallet
-          </Button>
+          <Button onClick={disconnect}>Disconnect Wallet</Button>
         )}
       </HStack>
       <SelectWalletModal isOpen={isOpen} closeModal={onClose} />

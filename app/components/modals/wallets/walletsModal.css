@@ -1,0 +1,46 @@
+
+/* MODIFY: 
+    - border thickness maybe
+*/
+
+#coinbase {
+    color: #ffe6c4;
+    border-color: #1e1e1e;
+}
+
+#metamask {
+    color: #ffe6c4;
+    border-color: #1e1e1e;
+}
+
+#binance {
+    color: #ffe6c4;
+    border-color: #1e1e1e;
+}
+
+#coinbase:hover {
+    background-color: #ffe6c4;
+    border-color: black;
+    color:#343434;
+}
+
+#metamask:hover {
+    background-color: #ffe6c4;
+    border-color: black;
+    color:#343434;
+}
+
+#binance:hover {
+    background-color: #ffe6c4;
+    border-color: black;
+    color:#343434;
+}
+
+#modal_popup {
+    background-color: #343434;
+    color: #ffe6c4;
+}
+
+#close-modal {
+    color: #ffe6c4;
+}

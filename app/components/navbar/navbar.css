@@ -1,5 +1,6 @@
 #navbar-component {
   background-color: black;
+  border-color: rgba(0,0,0,0);
   inset: 0px 0px 20px;
   display: block;
   overflow: visible;
@@ -16,6 +17,7 @@
   -moz-box-pack: justify;
   justify-content: space-between;
   display: flex;
+  border-color: rgba(0,0,0,0);
 }
 
 #navbar-logo-container {
@@ -48,7 +50,7 @@
 }
 
 .navbar-text:hover {
-  background: linear-gradient(90deg, red, blue);
+  background: #ffe6c4;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }

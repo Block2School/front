@@ -1,5 +1,5 @@
 #screen {
-  height: calc(100vh - 95.44px);
+  height: calc(100vh - 96px);
   width: 100%;
 }
 
@@ -14,20 +14,88 @@
 #subject{
   height: 100%;
   width:50%;
-  background-color: aqua;
 }
 
 #editor_opt {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   flex: 1;
   height:5%;
   width:100%;
 }
 
+#lang_choice {
+  display: flex;
+  align-items: center;
+  margin-left: 25px;
+}
+
+#theme_choice {
+  display: flex;
+  align-items: center;
+  padding-right: 50px;
+}
+
+.form-check-label{
+  color: #ffe6c4;
+}
+
+.form-check-input{
+  box-shadow: 0 0 0.75em 0 rgba(255, 230, 196, 0) !important;
+  border-color: #ffe6c4 !important;
+  background-color: #202020 !important;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba%28255, 230, 196, 255' /%3e%3c/svg%3e") !important;
+}
+
+.form-switch .form-check-input:focus {
+  background-color: #ffe6c4;
+  /* background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba%280, 0, 0, 255'/%3e%3c/svg%3e") !important; */
+}
+
+.form-check-input:checked {
+  box-shadow: 0 0 0.75em 0 rgb(255, 230, 196) !important;
+  background-color: #ffe6c4 !important;
+  border-color: #ffe6c4 !important;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba%280, 0, 0, 255'/%3e%3c/svg%3e") !important;
+}
+
 #editor_edit{
   height:85%;
   width:100%;
+}
+
+#simulate{
+  color: #ffe6c4;
+  border-color: rgba(0,0,0,0);
+}
+
+#simulate:focus {
+  box-shadow: 0 0 0.75em 0 rgb(255, 230, 196);
+  border-color: #ffe6c4;
+}
+
+#simulate:hover{
+  box-shadow: 1% 1% 1% 1% #ffe6c4;
+  background-color: #ffe6c4;
+  color: #202020;
+}
+
+#upload{
+  color: black;
+  background-color: #ffe6c4;
+  border-color: rgba(0,0,0,0);
+}
+
+#upload:focus {
+  box-shadow: 0 0 0.75em 0 rgb(255, 230, 196);
+  border-color: black;
+}
+
+#upload:hover{
+  background-color:black;
+  color: #ffe6c4;
 }
 
 #editor{
@@ -36,7 +104,7 @@
   flex: 1;
   height:100%;
   width:50%;
-  background-color: greenyellow;
+  background-color: #343434;
 }
 
 #submit-button {

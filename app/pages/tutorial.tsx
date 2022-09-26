@@ -1,37 +1,33 @@
-import axios from 'axios'
-import React, { useState, useRef, useEffect } from 'react'
-import MyEditor from '../components/editor/editor'
-import {
-  Form,
-  Button,
-  Card,
-  Dropdown,
-  DropdownButton,
-  Spinner,
-} from 'react-bootstrap'
-import Footer from '../components/footer/footer'
-import Navbar from '../components/navbar/navbar'
-import MarkdownRenderer from '../components/markdown/markdown'
-import { useRouter } from 'next/router'
-import { Text, Alert, AlertIcon } from '@chakra-ui/react'
-import { getAPI, postAPI } from '../utils/api-utils'
-import { serverURL } from '../utils/globals'
+import axios from "axios";
+import { serverURL } from "../utils/globals";
+import React, { useState, useRef, useEffect } from 'react';
+import MyEditor from '../components/editor/editor';
+import { Form, Button, Card, Dropdown, DropdownButton, Spinner } from 'react-bootstrap';
+import Footer from "../components/footer/footer";
+import Navbar from "../components/navbar/navbar";
+import MarkdownRenderer from "../components/markdown/markdown";
+import ScoreBoardModal from "../components/modals/tutorialScoreBoardModal";
+import TutorialCategoryCard from "../components/cards/tutorialCategoryCard";
+import { useRouter } from "next/router";
+import { Text, Alert, AlertIcon, useDisclosure, List } from "@chakra-ui/react";
+import { getAPI, postAPI } from "../utils/api-utils";
 
 export default function Tutorial() {
-  const [theme, setTheme] = useState('vs-dark')
-  const [lang, setLang] = useState('javascript')
-  const [switchText, setSwitchText] = useState('Switch to Light Mode')
-  const [editorValue, setEditorValue] = useState('')
-  const [defaultValue, setDefaultValue] = useState('')
-  const [isUploading, setIsUploading] = useState(false)
-  const [showError, setShowError] = useState(false)
-  const [errorMessage, setErrorMessage] = useState('')
-  const [variant, setVariant] = useState('danger')
-  const [markdown, setMarkdown] = useState('nothing')
-  // const link = "https://raw.githubusercontent.com/Block2School/tutorials/master/en/introduction_tutorial.md";
-  // const link2 = "https://raw.githubusercontent.com/Block2School/tutorials/master/en/test_file.md";
-  const router = useRouter()
-  const { tutorialId } = router.query
+  const [theme, setTheme] = useState('vs-dark');
+  const [lang, setLang] = useState('js');
+  const [switchText, setSwitchText] = useState('Switch to Light Mode');
+  const [editorValue, setEditorValue] = useState('');
+  const [defaultValue, setDefaultValue] = useState('');
+  const [isUploading, setIsUploading] = useState(false);
+  const [showError, setShowError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [variant, setVariant] = useState('danger');
+  const [markdown, setMarkdown] = useState('nothing');
+  const [scoreBoard, setScoreBoard] = useState<{ data: [{ uuid: string, tutorial_id: number, language: string, characters: number, lines: number }] }>({ data: [{ uuid: "", tutorial_id: 0, language: "", characters: 0, lines: 0 }] });
+  const [isLoading, setIsLoading] = useState(true);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const router = useRouter();
+  const { tutorialId } = router.query;
 
   const [tutorialInfos, setTutorialInfos] = useState({
     id: 0,
@@ -43,8 +39,6 @@ export default function Tutorial() {
     shouldBeCheck: false,
     enabled: false,
   })
-
-  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     setIsLoading(true)
@@ -91,43 +85,58 @@ export default function Tutorial() {
     setTheme(theme === 'vs-dark' ? 'vs-light' : 'vs-dark')
   }
 
-  const sendUserCode = async (code: string) => {
-    try {
-      const url = `${process.env.REACT_APP_API_URL}/tuto/complete`
-      let response = await postAPI(url, { code: code })
-
-      if (response['status'] === '200') {
-        console.log('200')
-        return true
+  function scoring() {
+    setIsLoading(true);
+    axios.get(`${serverURL}:8080/tuto/scoreboard/me`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        Authorization: 'Bearer ' + sessionStorage.getItem('token'),
       }
-      console.log(response['status'])
-      return false
-    } catch (error) {
-      console.log(error)
-      return false
-    }
+    }).then(res => {
+      console.log("hello");
+      setScoreBoard(res.data);
+      console.log(res.data);
+      setIsLoading(false);
+      setShowError(false);
+      //onOpen();
+    })
   }
 
-  async function uploadCode() {
-    if (editorValue.length === 0) {
-      setShowError(true)
-      setErrorMessage('Please enter some code or some blocks before uploading')
+  async function sendUserCode(code: string) {
+    let res = await axios.post(`${serverURL}:8080/tuto/complete`, {
+      source_code: code, tutorial_id: tutorialId, is_already_checked: false, language: lang
+    }, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        Authorization: 'Bearer ' + sessionStorage.getItem('token')
+      }
+    },)
+    return res.data;
+  } // FUNCTION WORKING
+
+  async function uploadCode() { // MODIFY PROBLEM ON AWAIT of sendUserCode()
+    if (editorValue.length == 0) {
+      setShowError(true);
+      setErrorMessage('Please enter some code or some blocks before uploading');
       setTimeout(() => {
         setShowError(false)
       }, 3000)
       setIsUploading(false)
       return
     }
-    // console.log("editorValue", editorValue);
-    if (editorValue.length > 0 && tutorialInfos.shouldBeCheck === false) {
-      let res = await sendUserCode(
-        editorValue,
-      ) /* insert function to send code to fast api here */
-      if (res === true) {
-        setShowError(true)
-        setVariant('success')
-        setErrorMessage('Code uploaded successfully')
-        console.log('success')
+    if (editorValue.length > 0 && tutorialInfos.shouldBeCheck == false) {
+      console.log('chi')
+      console.log(tutorialInfos.answer)
+      let res = await sendUserCode(editorValue); /* insert function to send code to fast api here */
+      console.log('pi');
+      console.log(res);
+      console.log('pou');
+      if (res.is_correct == true) {
+        setShowError(true);
+        setVariant('success');
+        setErrorMessage('Code uploaded successfully');
         setTimeout(() => {
           setShowError(false)
           setVariant('danger')
@@ -152,132 +161,73 @@ export default function Tutorial() {
     }
   }
 
-  return isLoading === true && showError === false ? (
-    <>
-      <div id="screen">
-        <Navbar />
-        <Spinner
-          animation="border"
-          role="status"
-          style={{
-            top: 0,
-            bottom: 0,
-            left: 0,
-            right: 0,
-            margin: 'auto',
-            position: 'absolute',
-          }}
-        ></Spinner>
-        <div id="loading-text-tutorial">
-          <Text>Loading ...</Text>
+  return (
+    (isLoading === true && showError === false) ?
+      <>
+        <div id="screen">
+          <Navbar />
+          <Spinner animation="border" role="status" style={{ top: 0, bottom: 0, left: 0, right: 0, margin: 'auto', position: 'absolute' }}>
+          </Spinner>
+          <div id="loading-text-tutorial">
+            <Text>Loading ...</Text>
+          </div>
         </div>
-      </div>
-    </>
-  ) : showError === true ? (
-    <>
-      <div id="screen">
-        <Navbar />
-        <Spinner
-          animation="border"
-          role="status"
-          style={{
-            top: 0,
-            bottom: 0,
-            left: 0,
-            right: 0,
-            margin: 'auto',
-            position: 'absolute',
-          }}
-        ></Spinner>
-        <Alert status="error">
-          <AlertIcon />
-          There was an error processing your request. Try to refresh the page or
-          contact the administrator.
-        </Alert>
-      </div>
-    </>
-  ) : (
-    <div id="screen">
-      <script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-        crossOrigin="anonymous"
-      ></script>
-      <div id="navbar">
-        <Navbar />
-      </div>
-      <div id="content">
-        <div id="subject">
-          <div id="tutorial-content">
-            <div id="zone-text">
-              <MarkdownRenderer source={markdown} />
+      </> : (showError === true) ?
+        <>
+          <div id="screen">
+            <Navbar />
+            <Spinner animation="border" role="status" style={{ top: 0, bottom: 0, left: 0, right: 0, margin: 'auto', position: 'absolute' }}>
+            </Spinner>
+            <Alert status='error'>
+              <AlertIcon />
+              There was an error processing your request. Try to refresh the page or contact the administrator.
+            </Alert>
+          </div>
+        </> :
+        <div id ="screen">
+          <Navbar />
+        <div id="content">
+          <div id="subject">
+            <div id="tutorial-content">
+              <div id="zone-text">
+                <MarkdownRenderer source={markdown} />
+              </div>
+            </div>
+          </div>
+          <div id="editor">
+            <div id="editor_opt">
+              <Button onClick={() => scoring()}>ScoreBoard</Button>
+              <DropdownButton id="lang_choice" variant="dark" title={(lang !== '') ? lang : "Chose Language"}>
+                <Dropdown.Item as="button" onClick={() => changeLang('js')}>javascript</Dropdown.Item>
+                <Dropdown.Item as="button" onClick={() => changeLang('cpp')}>cpp</Dropdown.Item>
+                <Dropdown.Item as="button" onClick={() => changeLang('python')}>python</Dropdown.Item>
+              </DropdownButton>
+              <Form id="theme_choice">
+                <Form.Check
+                  type="switch"
+                  id="custom-switch"
+                  label={switchText}
+                  onChange={changeTheme}
+                />
+              </Form>
+            </div>
+            <div id="editor_edit">
+              <MyEditor
+                theme={theme}
+                lang={lang}
+                defaultValue={defaultValue}
+                onChange={(editorValue: string) => {
+                  setEditorValue(editorValue);
+                }}
+              />
+            </div>
+            <div id="submit-button">
+              {(isUploading === false) ? <Button id="upload" size="lg" disabled={isUploading} variant="success" onClick={uploadCode}>Submit</Button> : <Spinner animation="border" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </Spinner>}
             </div>
           </div>
         </div>
-        <div id="editor">
-          <div id="editor_opt">
-            <DropdownButton
-              id="dropdown-language"
-              variant="dark"
-              title={lang !== '' ? lang : 'Chose Language'}
-            >
-              <Dropdown.Item
-                as="button"
-                onClick={() => changeLang('javascript')}
-              >
-                javascript
-              </Dropdown.Item>
-              <Dropdown.Item as="button" onClick={() => changeLang('cpp')}>
-                cpp
-              </Dropdown.Item>
-              <Dropdown.Item as="button" onClick={() => changeLang('python')}>
-                python
-              </Dropdown.Item>
-            </DropdownButton>
-            <Form>
-              <Form.Check
-                type="switch"
-                id="custom-switch"
-                label={switchText}
-                onChange={changeTheme}
-              />
-            </Form>
-          </div>
-          <div id="editor_edit">
-            <MyEditor
-              theme={theme}
-              lang={lang}
-              defaultValue={defaultValue}
-              onChange={(editorValue: string) => {
-                setEditorValue(editorValue)
-                // console.log(editorValue)
-              }}
-            />
-          </div>
-          <div id="submit-button">
-            <Button id="simulate" size="lg" variant="outline-success">
-              Simulate
-            </Button>
-            {isUploading === false ? (
-              <Button
-                id="upload"
-                size="lg"
-                disabled={isUploading}
-                variant="success"
-                onClick={uploadCode}
-              >
-                Upload
-              </Button>
-            ) : (
-              <Spinner animation="border" role="status">
-                <span className="visually-hidden">Loading...</span>
-              </Spinner>
-            )}
-          </div>
         </div>
-      </div>
-      {/* <Footer/> */}
-    </div>
   )
 }
-// <Footer/>
