@@ -7,12 +7,14 @@ import Footer from "../components/footer/footer";
 import Navbar from "../components/navbar/navbar";
 import MarkdownRenderer from "../components/markdown/markdown";
 import ScoreBoardModal from "../components/modals/tutorialScoreBoardModal";
-import TutorialCategoryCard from "../components/cards/tutorialCategoryCard";
+import TutorialScoreBoardCard from "../components/cards/tutorialScoreBoardCard";
 import { useRouter } from "next/router";
 import { Text, Alert, AlertIcon, useDisclosure, List } from "@chakra-ui/react";
 import { getAPI, postAPI } from "../utils/api-utils";
+import { STATUS_CODES } from "http";
 
 export default function Tutorial() {
+  const customHTMLRef = useRef(null);
   const [theme, setTheme] = useState('vs-dark');
   const [lang, setLang] = useState('js');
   const [switchText, setSwitchText] = useState('Switch to Light Mode');
@@ -20,6 +22,7 @@ export default function Tutorial() {
   const [defaultValue, setDefaultValue] = useState('');
   const [isUploading, setIsUploading] = useState(false);
   const [showError, setShowError] = useState(false);
+  const [lineCount, setLineCount] = useState();
   const [errorMessage, setErrorMessage] = useState('');
   const [variant, setVariant] = useState('danger');
   const [markdown, setMarkdown] = useState('nothing');
@@ -73,6 +76,11 @@ export default function Tutorial() {
     })
   }, [tutorialInfos, markdown])
 
+  function editorDidMount(editor) {
+    setLineCount(editor.getModel().getLineCount());
+    customHTMLRef.current = editor;
+  }
+
   function changeLang(lang: React.SetStateAction<string>) {
     setLang(lang)
     // console.log(lang);
@@ -86,26 +94,14 @@ export default function Tutorial() {
   }
 
   function scoring() {
-    setIsLoading(true);
-    axios.get(`${serverURL}:8080/tuto/scoreboard/me`, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-        Authorization: 'Bearer ' + sessionStorage.getItem('token'),
-      }
-    }).then(res => {
-      console.log("hello");
-      setScoreBoard(res.data);
-      console.log(res.data);
-      setIsLoading(false);
-      setShowError(false);
-      //onOpen();
-    })
+    onOpen();
   }
 
   async function sendUserCode(code: string) {
+    console.log("check =>")
+    console.log(editorValue.length)
     let res = await axios.post(`${serverURL}:8080/tuto/complete`, {
-      source_code: code, tutorial_id: tutorialId, is_already_checked: false, language: lang
+      source_code: code, tutorial_id: tutorialId, is_already_checked: false, language: lang, characters:editorValue.length, lines:lineCount
     }, {
       headers: {
         'Content-Type': 'application/json',
@@ -113,8 +109,9 @@ export default function Tutorial() {
         Authorization: 'Bearer ' + sessionStorage.getItem('token')
       }
     },)
+    console.log(res.data)
     return res.data;
-  } // FUNCTION WORKING
+  }
 
   async function uploadCode() { // MODIFY PROBLEM ON AWAIT of sendUserCode()
     if (editorValue.length == 0) {
@@ -129,7 +126,7 @@ export default function Tutorial() {
     if (editorValue.length > 0 && tutorialInfos.shouldBeCheck == false) {
       console.log('chi')
       console.log(tutorialInfos.answer)
-      let res = await sendUserCode(editorValue); /* insert function to send code to fast api here */
+      let res = await sendUserCode(editorValue);
       console.log('pi');
       console.log(res);
       console.log('pou');
@@ -216,9 +213,14 @@ export default function Tutorial() {
                 theme={theme}
                 lang={lang}
                 defaultValue={defaultValue}
+                options={{
+                  wordWrap: true
+                }}
                 onChange={(editorValue: string) => {
                   setEditorValue(editorValue);
+                  setLineCount(customHTMLRef.current.getModel().getLineCount());
                 }}
+                onMount={editorDidMount}
               />
             </div>
             <div id="submit-button">
@@ -228,6 +230,7 @@ export default function Tutorial() {
             </div>
           </div>
         </div>
+        <ScoreBoardModal isOpen={isOpen} closeModal={onClose}/>
         </div>
   )
 }

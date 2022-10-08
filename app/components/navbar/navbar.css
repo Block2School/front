@@ -38,12 +38,13 @@
 }
 
 .navbar-text {
+  --bs-navbar-color:white;
   display: flex;
   -moz-box-align: center;
   align-items: center;
   height: 40px;
   padding: 0px 20px;
-  color: rgb(255, 255, 255);
+  background-clip: text;
   cursor: pointer;
   font-family: "Euclid Circular B", sans-serif;
   font-size: 20px;
