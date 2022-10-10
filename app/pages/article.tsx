@@ -33,7 +33,7 @@ export default function Article() {
 
   return (
     <>
-      <div id="screen">
+      <div style={{backgroundColor:'#343434'}}>
         <Navbar />
         <div>
           <Center>
@@ -45,7 +45,7 @@ export default function Article() {
                   <Text>Loading...</Text>
                 </div>
               </>
-            :  <div style={{ borderColor: 'grey', borderLeftWidth: '0.1px', borderRightWidth: '0.1px', padding: '2%' }}>
+            :  <div style={{ backgroundColor:'white', borderColor: 'grey', borderLeftWidth: '0.1px', borderRightWidth: '0.1px', padding: '2%' }}>
                 <Heading fontSize={'6xl'}>
                   {articleTitle}
                 </Heading>

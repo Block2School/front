@@ -7,7 +7,6 @@ import Footer from "../components/footer/footer";
 import Navbar from "../components/navbar/navbar";
 import MarkdownRenderer from "../components/markdown/markdown";
 import ScoreBoardModal from "../components/modals/tutorialScoreBoardModal";
-import TutorialScoreBoardCard from "../components/cards/tutorialScoreBoardCard";
 import { useRouter } from "next/router";
 import { Text, Alert, AlertIcon, useDisclosure, List } from "@chakra-ui/react";
 import { getAPI, postAPI } from "../utils/api-utils";

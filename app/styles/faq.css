@@ -46,16 +46,17 @@
 .faq-question {
   width: 45%;
   height: 300px;
-  background-color: rgb(25, 25, 25);
+  background-color: #ffe6c4;
   display: block;
-  border: 1px solid white;
+  border: 1px solid #ffe6c4;
   border-radius: 10px;
   text-align: center;
   margin: 20px 0 20px 0;
+  align-items: center;
 }
 
 .faq-question h2 {
-  color: white;
+  color: #343434;
   font-size: 30px;
   font-weight: bold;
   height: 25%;
@@ -67,7 +68,7 @@
 }
 
 .faq-question p {
-  color: white;
+  color: #343434;
   font-size: 20px;
   display: flex;
   align-items: center;
