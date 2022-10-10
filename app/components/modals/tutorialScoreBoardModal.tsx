@@ -7,6 +7,9 @@ import {
     ModalCloseButton,
     Text,
     Box,
+    Stack,
+    VStack,
+    HStack,
     Center,
     Grid
 } from '@chakra-ui/react';
@@ -15,16 +18,6 @@ import axios from 'axios';
 import Link from 'next/link';
 import { serverURL } from '../../utils/globals'
 
-const ScoreCard = ({
-  language, characters, lines
-}: { language:string, characters:number, lines:number}) => {
-  return (
-    <Box maxW='sm' p={10} borderWidth={1} borderRadius="lg" overflow='hidden'>
-      <Text>lang : {language} || char : {characters} || lines : {lines}</Text>
-    </Box>
-  );
-}
-  
 const ScoreBoardModal = ({
   isOpen, closeModal
 }: {isOpen:boolean, closeModal:any}) => {
@@ -38,7 +31,29 @@ const ScoreBoardModal = ({
         lines:1000000
       }
     ]
-  }
+}
+
+const ScoreCard = ({
+  language, characters, lines
+}: { language:string, characters:number, lines:number}) => {
+  return (
+    <Box>
+      <Box alignItems="baseline">
+        <Text as='b' fontSize='3xl' color='#ffe6c4'> My ScoreBoard</Text>
+      </Box>
+      <Box bg='#ffe5c4' alignItems='center' maxW='sm' p={10} borderWidth={1} borderRadius="lg" overflow='hidden' display='flex'>
+        <HStack display='flex' flexDirection='row' spacing='100px'>
+          <Box borderRadius="lg" alignItems='center' paddingLeft='30px'>
+            <Text fontSize='2xl' color='#343434'>{language}</Text>
+          </Box>
+          <Box>
+            <Text color='#343434'>char : {characters} lines : {lines}</Text>
+          </Box>
+        </HStack>
+      </Box>
+    </Box>
+  );
+}
 
   const [score, setScore] = useState(data);
   const [request, setRequest] = useState(true);
@@ -63,7 +78,7 @@ const ScoreBoardModal = ({
   return (
     <Modal isOpen={isOpen} onClose={closeModal} isCentered preserveScrollBarGap>
       <ModalOverlay />
-      <ModalContent>
+      <ModalContent bg='#343434'>
         <ModalHeader>
         </ModalHeader>
         <ModalCloseButton
