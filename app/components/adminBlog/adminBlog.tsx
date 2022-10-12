@@ -106,7 +106,7 @@ export default function AdminBlog() {
   return (
     <div className="usersAdmin-component">
       <div className="usersAdmin-title-div">
-        <h1 className="usersAdmin-title">Blog</h1>
+        <h1 className="usersAdmin-title">Create an Article!</h1>
       </div>
       <div style={{
         borderWidth: '1px', display: 'flex',

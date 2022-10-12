@@ -52,3 +52,46 @@
     margin-left: auto;
     padding: 5px;
 }
+
+.tutorial-navbar {
+    background-color: white;
+    display: flex;
+    height: fit-content;
+    padding: 10px;
+}
+
+.next-button {
+    margin-left: auto;
+}
+
+.tutorial-title-stage {
+    color: Black;
+    cursor: pointer;
+    font-family: "Euclid Circular B", sans-serif;
+    font-size: 30px;
+}
+
+.tutorial-title-div {
+    width: 100%;
+    text-align: center;
+}
+
+.publish-button {
+    margin-left: auto;
+    color: red;
+    margin: 20px;
+}
+
+.input-nav-bar {
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.input-navbar-div {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.editor-div {
+    height: 700px;
+}
