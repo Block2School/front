@@ -82,7 +82,6 @@ export default function Tutorial() {
 
   function changeLang(lang: React.SetStateAction<string>) {
     setLang(lang)
-    // console.log(lang);
   }
 
   function changeTheme() {
@@ -112,7 +111,7 @@ export default function Tutorial() {
     return res.data;
   }
 
-  async function uploadCode() { // MODIFY PROBLEM ON AWAIT of sendUserCode()
+  async function uploadCode() {
     if (editorValue.length == 0) {
       setShowError(true);
       setErrorMessage('Please enter some code or some blocks before uploading');
