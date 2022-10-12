@@ -68,14 +68,6 @@ export default function Navbar() {
               <Link href={'/blog'} passHref>
                 <span className="navbar-text">Blog</span>
               </Link>
-              {/* <Link href={{
-                pathname: "/tutorial",
-                query: {
-                  tutorialId: 2
-                }
-              }} passHref>
-                <span className="navbar-text">Tutorial</span>
-              </Link> */}
             </div>
           </div>
           <div className="navbar-login-button">

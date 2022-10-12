@@ -1,9 +1,9 @@
 #screen {
-  height: calc(100vh - 96px);
+  height: calc(100vh - 95px);
   width: 100%;
 }
 
-#content {
+#content { 
   display: flex;
   flex-direction: row;
   flex: 1;
@@ -13,7 +13,7 @@
 
 #subject{
   height: 100%;
-  width:50%;
+  width: 50%;
 }
 
 #editor_opt {
@@ -23,6 +23,12 @@
   align-items: center;
   flex: 1;
   height:5%;
+  width:100%;
+}
+
+#editor_edit{
+  display:flex;
+  height:85%;
   width:100%;
 }
 
@@ -51,7 +57,6 @@
 
 .form-switch .form-check-input:focus {
   background-color: #ffe6c4;
-  /* background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba%280, 0, 0, 255'/%3e%3c/svg%3e") !important; */
 }
 
 .form-check-input:checked {
@@ -59,11 +64,6 @@
   background-color: #ffe6c4 !important;
   border-color: #ffe6c4 !important;
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba%280, 0, 0, 255'/%3e%3c/svg%3e") !important;
-}
-
-#editor_edit{
-  height:85%;
-  width:100%;
 }
 
 #simulate{
@@ -133,12 +133,10 @@
 }
 
 #loading-text-tutorial {
-  /* align text to center of the screen (both vertically and horizontally */
   display: flex;
   align-items: center;
   align-content: center;
   justify-content: center;
-  /* set the font size to 30px */
   font-size: 30px;
   height: 100%;
   padding-top: 10%;
