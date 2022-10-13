@@ -21,4 +21,7 @@ jobs:
             git pull origin production
             export PATH=$PATH:/home/ubuntu/.nvm/versions/node/v16.17.0/bin/
             source ~/.bashrc
-            pm2 restart 2
+            cd app/
+            yarn build
+            pm2 delete front
+            pm2 start "yarn start" --name front
