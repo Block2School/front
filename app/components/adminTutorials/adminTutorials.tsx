@@ -90,10 +90,10 @@ export default function AdminBlog() {
 
   const publishTutorial = () => {
     console.log("posting tutorial")
-    
+
     axios({
       method: 'POST',
-      url: `http://www.localhost:8080/admin/tutorial/create`,
+      url: `${serverURL}:8080/admin/tutorial/create`,
       data: {
         title: tutorialTitle,
         author: tutorialAuthor,

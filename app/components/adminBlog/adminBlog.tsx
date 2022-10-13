@@ -20,8 +20,30 @@ export default function AdminBlog() {
   useEffect(() => {
     setToken(sessionStorage.getItem('token') || '');
     setTitle(moment().format('YYYY-MM-DD'));
-    setAvailableMarkdowns([]);
-    // ToDo: get markdown list
+  }, []);
+
+  useEffect(() => {
+    axios({
+      method: 'GET',
+      url: `${serverURL}:8080/admin/article/available_markdown`,
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        Authorization: `Bearer ${sessionStorage.getItem('token')}`,
+      }
+    }).then((res) => {
+      let markdowns_: Array<{title: string, markdown_url: string}> = res.data.markdown_list;
+      let _markdown_: Array<string> = markdowns_.map((element: any) => {
+        console.log(element.markdown_url)
+        return element.markdown_url;
+      });
+      let _availableMarkdowns = availableMarkdowns.filter((element: string) => {
+        return element !== '';
+      });
+      setAvailableMarkdowns([..._availableMarkdowns, ..._markdown_]);
+    }).catch((err) => {
+      console.log('err == ', err);
+    })
   }, []);
 
   const createArticle = () => {
@@ -50,26 +72,6 @@ export default function AdminBlog() {
       if (markdownUrl) {
         setAvailableMarkdowns([...availableMarkdowns, markdownUrl]);
       }
-      // axios({
-      //   method: 'POST',
-      //   url: `${serverURL}:8080/article/create`,
-      //   data: {
-      //     id: -1,
-      //     title: title,
-      //     markdown_url: markdownUrl,
-      //     author: author,
-      //     shortDescription: shortDescription
-      //   },
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //     'Access-Control-Allow-Origin': '*',
-      //     Authorization: `Bearer ${token}`,
-      //   },
-      // }).then((res) => {
-      //   if (res.data.success === true) {
-      //     alert('Article created successfully');
-      //   }
-      // })
     });
   }
 
@@ -94,7 +96,7 @@ export default function AdminBlog() {
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
-        Authorization: `Bearer ${token}`,
+        'Authorization': `Bearer ${token}`,
       },
     }).then((res) => {
       if (res.data.success === true) {
