@@ -137,17 +137,20 @@ export default function Tutorial() {
           setVariant('danger')
         }, 3000)
         setIsUploading(false)
+        alert('Correct answer')
       } else {
+        console.log("zeuuuubi")
         setShowError(true)
         setVariant('danger')
         setErrorMessage('Error while uploading code')
         setTimeout(() => {
           setShowError(false)
         }, 3000)
+        alert('Wrong answer')
       }
       setIsUploading(false)
       return
-    } else if (editorValue.length > 0 && tutorialInfos.shouldBeCheck === true) {
+    } else if (editorValue.length > 0 && tutorialInfos.shouldBeCheck == true) {
       if (editorValue === tutorialInfos.answer) {
         alert('Correct answer')
       } else {
