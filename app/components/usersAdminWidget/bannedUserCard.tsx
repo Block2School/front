@@ -15,13 +15,12 @@ export default function userCard({person}:any) {
   }, []);
 
     const handleClick = () => {
-      console.log("UnBanning user: " + person.name);
-      console.log("Unbanning user ID: " +person.id);
+      console.log("Unbanning user ID: " +person.uuid);
       axios({
         method: 'POST',
         url: `${serverURL}:8080/admin/unban`,
         data: {
-          uuid: person.id,
+          uuid: person.uuid,
           reason: banReason
         },
         headers: {

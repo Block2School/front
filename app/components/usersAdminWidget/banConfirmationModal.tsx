@@ -15,13 +15,12 @@ export default function banModal({person, closeModal}:any) {
   }, []);
 
   const handleClick = () => {
-    console.log("Banning user: " + person.name);
-    console.log("banning user ID: " +person.id);
+    console.log("banning user ID: " +person.uuid);
     axios({
       method: 'POST',
       url: `${serverURL}:8080/admin/ban`,
       data: {
-        uuid: person.id,
+        uuid: person.uuid,
         reason: banReason
       },
       headers: {
@@ -37,7 +36,7 @@ export default function banModal({person, closeModal}:any) {
     <div className='background-modal'>
       <div className='modal-container'>
         <div className='modal-title'>
-          <h1>Are you sure you want to ban {person.name}?</h1>
+          <h1>Are you sure you want to ban {person.uuid}?</h1>
         </div>
         <div className='modal-body'>
           <h4>Please put a reason:</h4>
