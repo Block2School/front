@@ -102,47 +102,47 @@ export default function userAdmin() {
     {
       id:1,
       name:"Nayeon",
-      isBanned:false
+      isBanned:true
     },
     {
       id:2,
       name:"Jeongyeon",
-      isBanned:false
+      isBanned:true
     },
     {
       id:3,
       name:"Momo",
-      isBanned:false
+      isBanned:true
     },
     {
       id:4,
       name:"Sana",
-      isBanned:false
+      isBanned:true
     },
     {
       id:5,
       name:"Jihyo",
-      isBanned:false
+      isBanned:true
     },
     {
       id:6,
       name:"Mina",
-      isBanned:false
+      isBanned:true
     },
     {
       id:7,
       name:"Dahyun",
-      isBanned:false
+      isBanned:true
     },
     {
       id:8,
       name:"Chaeyoung",
-      isBanned:false
+      isBanned:true
     },
     {
       id:9,
       name:"Tzuyu",
-      isBanned:false
+      isBanned:true
     },
   ]
 

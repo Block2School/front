@@ -7,18 +7,6 @@ export default function userCard({person}:any) {
 
     const [openModal, setOpenModal] = useState(false);
     const handleClick = () => {
-        // console.log("Banning user: " + person.name);
-        // console.log("banning user ID: " +person.id);
-        // axios({
-        //   method: 'post',
-        //   url: "http://www.localhost:8080/ban",
-        //   headers: {}, 
-        //   data: {
-        //     uuid: person.id,
-        //     reason: "Being a Little bitch"
-        //   }
-        // });
-        // window.location.reload();
         setOpenModal(true);
       }
 

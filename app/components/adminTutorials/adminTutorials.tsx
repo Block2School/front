@@ -93,7 +93,7 @@ export default function AdminBlog() {
 
     axios({
       method: 'POST',
-      url: `${serverURL}:8080/admin/tutorial/create`,
+      url: `${serverURL}:8080/admin/tuto/create`,
       data: {
         title: tutorialTitle,
         author: tutorialAuthor,

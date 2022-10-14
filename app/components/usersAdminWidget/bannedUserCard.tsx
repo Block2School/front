@@ -1,24 +1,37 @@
 import React from 'react'
 import axios from 'axios'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { serverURL } from '../../utils/globals'
+
 
 export default function userCard({person}:any) {
-    const [banReason, setBanReason] = useState();
+
+  const [token, setToken] = useState('');
+  const [banReason, setBanReason] = useState('');
+
+  useEffect(() => {
+    setToken(sessionStorage.getItem('token') || '');
+    // ToDo: get markdown list
+  }, []);
 
     const handleClick = () => {
-        console.log("Banning user: " + person.name);
-        console.log("banning user ID: " +person.id);
-        axios({
-          method: 'post',
-          url: "http://www.localhost:8080/unban",
-          headers: {}, 
-          data: {
-            uuid: person.id,
-            reason: "Being a Little bitch"
-          }
-        });
-        window.location.reload();
-      }
+      console.log("UnBanning user: " + person.name);
+      console.log("Unbanning user ID: " +person.id);
+      axios({
+        method: 'POST',
+        url: `${serverURL}:8080/admin/unban`,
+        data: {
+          uuid: person.id,
+          reason: banReason
+        },
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      window.location.reload();
+    }
 
   return (
     <div className='user-card-div'>
