@@ -1,20 +1,18 @@
 import UserCard from "./userCard"
 import BannedUserCard from "./bannedUserCard"
 import { serverURL } from '../../utils/globals'
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 
-
-
-export default function userAdmin() {
+export default function UserAdmin() {
 
   const [token, setToken] = useState('');
   const [allUserList, setAllUserList] = useState([]);
-  const [userList, setUserList] = useState([]);
-  const [bannedUserList, setBannedUserList] = useState([]);
+  const [userList, setUserList] = useState([{}]);
+  const [bannedUserList, setBannedUserList] = useState([{}]);
 
-  let userList_ : Array<{uuid: string, wallet_address: string, is_banned: number}> = [] ;
-  let bannedUserList_: Array<{uuid: string, wallet_address: string, is_banned: number}> = [] ;
+  // let userList_ : Array<{uuid: string, wallet_address: string, is_banned: number}> = [] ;
+  // let bannedUserList_: Array<{uuid: string, wallet_address: string, is_banned: number}> = [] ;
 
 
   useEffect(() => {
@@ -25,14 +23,14 @@ export default function userAdmin() {
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${sessionStorage.getItem('token')}`,
       },
     }).then((res) => {
       let userList_ : Array<{uuid: string, wallet_address: string, is_banned: number}> = [] ;
       let bannedUserList_: Array<{uuid: string, wallet_address: string, is_banned: number}> = [] ;
 
       // console.log(res.data.data)
-      res.data.data.forEach(e => {
+      res.data.data.forEach((e: any) => {
         if (e.is_banned == 0) {
           userList_.push(e);
         } else {
@@ -41,14 +39,13 @@ export default function userAdmin() {
       });
       setUserList(userList_);
       setBannedUserList(bannedUserList_);
-
     }
     );
     // ToDo: get markdown list
   }, []);
 
   const personList = userList.map(person => <UserCard person={person}/>);
-  const bannedPersonList = bannedUserList_.map(person => <BannedUserCard person={person}/>);
+  const bannedPersonList = bannedUserList.map(person => <BannedUserCard person={person}/>);
   
   return (
     <div className="usersAdmin-component">
