@@ -1,153 +1,51 @@
 import UserCard from "./userCard"
 import BannedUserCard from "./bannedUserCard"
+import { serverURL } from '../../utils/globals'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios'
+
+export default function UserAdmin() {
+
+  const [token, setToken] = useState('');
+  const [allUserList, setAllUserList] = useState([]);
+  const [userList, setUserList] = useState([{}]);
+  const [bannedUserList, setBannedUserList] = useState([{}]);
+
+  // let userList_ : Array<{uuid: string, wallet_address: string, is_banned: number}> = [] ;
+  // let bannedUserList_: Array<{uuid: string, wallet_address: string, is_banned: number}> = [] ;
 
 
-export default function userAdmin() {
+  useEffect(() => {
+    setToken(sessionStorage.getItem('token') || '');
+    axios({
+      method: 'GET',
+      url: `${serverURL}:8080/admin/users`,
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        Authorization: `Bearer ${sessionStorage.getItem('token')}`,
+      },
+    }).then((res) => {
+      let userList_ : Array<{uuid: string, wallet_address: string, is_banned: number}> = [] ;
+      let bannedUserList_: Array<{uuid: string, wallet_address: string, is_banned: number}> = [] ;
 
-
-  const userList = [
-    {
-      id:1,
-      name:"Nayeon",
-      isBanned:false
-    },
-    {
-      id:2,
-      name:"Jeongyeon",
-      isBanned:false
-    },
-    {
-      id:3,
-      name:"Momo",
-      isBanned:false
-    },
-    {
-      id:4,
-      name:"Sana",
-      isBanned:false
-    },
-    {
-      id:5,
-      name:"Jihyo",
-      isBanned:false
-    },
-    {
-      id:6,
-      name:"Mina",
-      isBanned:false
-    },
-    {
-      id:7,
-      name:"Dahyun",
-      isBanned:false
-    },
-    {
-      id:8,
-      name:"Chaeyoung",
-      isBanned:false
-    },
-    {
-      id:9,
-      name:"Tzuyu",
-      isBanned:false
-    },
-    {
-      id:1,
-      name:"Nayeon",
-      isBanned:false
-    },
-    {
-      id:2,
-      name:"Jeongyeon",
-      isBanned:false
-    },
-    {
-      id:3,
-      name:"Momo",
-      isBanned:false
-    },
-    {
-      id:4,
-      name:"Sana",
-      isBanned:false
-    },
-    {
-      id:5,
-      name:"Jihyo",
-      isBanned:false
-    },
-    {
-      id:6,
-      name:"Mina",
-      isBanned:false
-    },
-    {
-      id:7,
-      name:"Dahyun",
-      isBanned:false
-    },
-    {
-      id:8,
-      name:"Chaeyoung",
-      isBanned:false
-    },
-    {
-      id:9,
-      name:"Tzuyu",
-      isBanned:false
-    },
-  ]
-
-  const bannedList = [
-    {
-      id:1,
-      name:"Nayeon",
-      isBanned:false
-    },
-    {
-      id:2,
-      name:"Jeongyeon",
-      isBanned:false
-    },
-    {
-      id:3,
-      name:"Momo",
-      isBanned:false
-    },
-    {
-      id:4,
-      name:"Sana",
-      isBanned:false
-    },
-    {
-      id:5,
-      name:"Jihyo",
-      isBanned:false
-    },
-    {
-      id:6,
-      name:"Mina",
-      isBanned:false
-    },
-    {
-      id:7,
-      name:"Dahyun",
-      isBanned:false
-    },
-    {
-      id:8,
-      name:"Chaeyoung",
-      isBanned:false
-    },
-    {
-      id:9,
-      name:"Tzuyu",
-      isBanned:false
-    },
-  ]
+      // console.log(res.data.data)
+      res.data.data.forEach((e: any) => {
+        if (e.is_banned == 0) {
+          userList_.push(e);
+        } else {
+          bannedUserList_.push(e);
+        }
+      });
+      setUserList(userList_);
+      setBannedUserList(bannedUserList_);
+    }
+    );
+    // ToDo: get markdown list
+  }, []);
 
   const personList = userList.map(person => <UserCard person={person}/>);
-  const bannedPersonList = bannedList.map(person => <BannedUserCard person={person}/>);
+  const bannedPersonList = bannedUserList.map(person => <BannedUserCard person={person}/>);
   
   return (
     <div className="usersAdmin-component">

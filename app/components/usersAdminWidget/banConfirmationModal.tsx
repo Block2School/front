@@ -1,23 +1,34 @@
 import React from 'react'
 import axios from 'axios'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { serverURL } from '../../utils/globals'
+
 
 export default function banModal({person, closeModal}:any) {
 
+  const [token, setToken] = useState('');
   const [banReason, setBanReason] = useState('');
 
+  useEffect(() => {
+    setToken(sessionStorage.getItem('token') || '');
+    // ToDo: get markdown list
+  }, []);
+
   const handleClick = () => {
-    console.log("Banning user: " + person.name);
-    console.log("banning user ID: " +person.id);
+    console.log("banning user ID: " +person.uuid);
     axios({
-      method: 'post',
-      url: "http://www.localhost:8080/ban",
-      headers: {}, 
+      method: 'POST',
+      url: `${serverURL}:8080/admin/ban`,
       data: {
-        uuid: person.id,
+        uuid: person.uuid,
         reason: banReason
-      }
-    });
+      },
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        Authorization: `Bearer ${token}`,
+      },
+    })
     window.location.reload();
   }
 
@@ -25,7 +36,7 @@ export default function banModal({person, closeModal}:any) {
     <div className='background-modal'>
       <div className='modal-container'>
         <div className='modal-title'>
-          <h1>Are you sure you want to ban {person.name}?</h1>
+          <h1>Are you sure you want to ban {person.uuid}?</h1>
         </div>
         <div className='modal-body'>
           <h4>Please put a reason:</h4>
