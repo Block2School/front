@@ -35,7 +35,7 @@ export default function userCard({person}:any) {
 
   return (
     <div className='user-card-div'>
-        <h1>{person.name}</h1>
+        <h1>{person.id}</h1>
         <button onClick={handleClick} className='unban-button'>Unban User</button>
     </div>
   )

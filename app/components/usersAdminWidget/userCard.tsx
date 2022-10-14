@@ -13,7 +13,7 @@ export default function userCard({person}:any) {
   return (
     <div>
       <div className='user-card-div'>
-          <h1>{person.name}</h1>
+          <h1>{person.uuid}</h1>
           <button onClick={handleClick} className='ban-button'>Ban User</button>
       </div>
       {openModal && <BanModal person={person} closeModal={setOpenModal}/>}
