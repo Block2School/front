@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+:root {
+  --light: #d0d1d3;
+  --dark: #040d14;
+  --gold: #bdce21;
+}
+
+h1 {
+  color: var(--gold);
+}
+
+form {
+  margin-top: 80px;
+  background: var(--dark);
+}
+
+.ContactForm{
+  background: var(--dark);
+}
+
+p {
+  color: #636363;
+  font-size: 20px;
+  padding-top: 20px;
+}
+
+.info-text{
+  font-family: 'Helvetica Neue', sans-serif; font-size: 40px; 
+  font-weight: bold; 
+  letter-spacing: -1px; 
+  line-height: 1; 
+  text-align: center;
+  padding-top: 25px;
+}
+
+
+.container{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 480px;
+  height: 100%;
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+  background: var(--dark);
+  padding-left: 60px;
+  text-align: center;
+  padding-bottom: 45px;
+}
+
+.card{
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  height: 50%;
+  border-radius: 5px; /* 5px rounded corners */
+  background: blue;
+}
+
+.formRow {
+  margin: 50px 0 50px 0;
+}
+
+.formInput {
+  padding: 15px 10px;
+  background-color: var(--dark);
+  box-shadow: 0 0 0 0.5px var(--gold);
+  border: none;
+  color: var(--gold);
+}
+
+.formInput:focus {
+  background-color: var(--dark);
+  outline: none;
+  box-shadow: 0 0 0 0.5px var(--gold);
+  color: var(--light);
+}
+
+.formInput::placeholder {
+  color: var(--gold);
+  opacity: 1;
+}
+
+.formInput:focus::placeholder {
+  color: var(--light);
+  opacity: 1;
+}
+
+.errorMessage {
+  color: #f45532;
+  font-size: 14px;
+  margin: 0;
+  padding: 0;
+}
+
+#notifyToast {
+  color: #fff;
+  border-radius: 6px;
+  width: 200px;
+  margin-left: 75px;
+  background-color: var(--gold);
+}
+
+.submit-btn {
+  background-color: var(--dark);
+  color: var(--gold) !important;
+  padding: 15px 50px;
+  border: 2px solid var(--gold);
+  border-radius: 10px;
+  margin-bottom: 25px;
+}
+
+.submit-btn:hover {
+  background-color: var(--gold);
+  color: var(--dark) !important;
+  border: 2px solid var(--green);
+}
+
+.submit-btn:disabled:hover {
+  background-color: var(--gold);
+  color: var(--green) !important;
+  cursor: wait;
+}
+
+@media (max-width: 768px) {
+  .submit-message {
+    width: 125px;
+    margin-left: 200px;
+  }
+}

@@ -5,6 +5,7 @@ import "../styles/faq.css";
 import "../styles/tutorial.css";
 import "../styles/tutorials.css";
 import "../styles/profile.css";
+import "../styles/form.css"
 // import "../styles/scoreboard.css";
 import "../components/wallet/connectionButton.css";
 import "../components/modals/tutorialCategoryModal.css";

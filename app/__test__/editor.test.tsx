@@ -27,5 +27,5 @@ describe('<MyEditor/>', () => {
 
   test('match snapshot', () => {
     expect(wrapper).toMatchSnapshot();
-  }) 
+  })
 })
