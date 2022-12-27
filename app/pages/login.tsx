@@ -22,7 +22,7 @@ const Login: NextPage = () => {
   const [verified, setVerified] = useState();
 
   const refreshState = () => {
-    window.localStorage.setItem("provider", "undefined");
+    window.sessionStorage.setItem("provider", "undefined");
     setMessage("");
     setSignature("");
     setVerified(undefined);
@@ -42,7 +42,8 @@ const Login: NextPage = () => {
   }
 
   useEffect(() => {
-    const provider = window.localStorage.getItem("provider");
+    const provider = window.sessionStorage.getItem("provider");
+    console.log('provider2: ', provider)
     if (provider) activate(connectors[provider], handleConnection);
   });
 

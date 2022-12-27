@@ -21,7 +21,7 @@ export default function Navbar() {
   } = useWeb3React()
 
   const refreshState = () => {
-    window.localStorage.setItem('provider', 'undefined')
+    window.sessionStorage.setItem('provider', 'undefined')
   }
 
   const disconnect = () => {
@@ -37,10 +37,12 @@ export default function Navbar() {
   }
 
   useEffect(() => {
-    const provider = window.localStorage.getItem('provider')
+    const provider = window.sessionStorage.getItem('provider')
     // @ts-ignore
+    console.log('here')
+    console.log('provider == ', provider)
     if (provider) activate(connectors[provider], handleConnection)
-  })
+  }, [])
 
   return (
     <>

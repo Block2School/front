@@ -20,7 +20,7 @@ export default function ConnectionButton() {
   const [isError, setIsError] = useState(false)
 
   const refreshState = () => {
-    window.localStorage.setItem('provider', 'undefined')
+    window.sessionStorage.setItem('provider', 'undefined')
     setIsError(false)
   }
 
@@ -58,12 +58,13 @@ export default function ConnectionButton() {
     }
   }, [active])
 
-  useEffect(() => {
-    const provider = window.localStorage.getItem('provider')
-    // @ts-ignore
-    if (provider) activate(connectors[provider], handleConnection)
-    // console.log('hi there');
-  })
+  // useEffect(() => {
+  //   const provider = window.sessionStorage.getItem('provider')
+  //   // @ts-ignore
+  //   console.log('salut')
+  //   if (provider) activate(connectors[provider], handleConnection)
+  //   // console.log('hi there');
+  // })
 
   return (
     <>
