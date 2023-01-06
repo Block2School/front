@@ -5,10 +5,9 @@ import SelectWalletModal from '../modals/wallets/walletsModal'
 import Balance from '../balance/balance'
 import { useWeb3React } from '@web3-react/core'
 import { connectors } from '../wallet/injectors'
-import { Button, HStack, useDisclosure } from '@chakra-ui/react'
 import { useEffect } from 'react'
 import ConnectionButton from '../wallet/connectionButton'
-import NavbarBalance from '../wallet/navbarBalance'
+import NavbarAllBalances from '../wallet/navbarAllBalances'
 
 export default function Navbar() {
   const {
@@ -70,12 +69,8 @@ export default function Navbar() {
               </Link>
             </div>
           </div>
-          <div className="navbar-login-button">
-            <HStack>
-              <NavbarBalance />
-              <ConnectionButton />
-            </HStack>
-          </div>
+            <NavbarAllBalances/>
+            <ConnectionButton/>
         </div>
       </div>
     </>

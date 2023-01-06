@@ -1,6 +1,8 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
+// Changer le path pour les SVG absolument dégueulasse
+
 export default function Footer() {
   return (
     <>

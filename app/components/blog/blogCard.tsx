@@ -10,7 +10,6 @@ const BlogCard = ({
   id, title, author, markdownUrl, publicationDate, shortDescription, editDate
 }: { id: number, title: string, author: string, markdownUrl: string, publicationDate: number, shortDescription: string, editDate: number }) => {
   return (
-    // eslint-disable-next-line react/jsx-key
     <Link href={{
       pathname: '/article',
       query: {

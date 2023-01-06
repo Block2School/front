@@ -11,7 +11,7 @@
 
 #navbar-container {
   margin: 0px auto;
-  max-width: 992px;
+  max-width: 1100px;
   width: 100%;
   -moz-box-align: center;
   align-items: center;
@@ -55,4 +55,10 @@
   background: #ffe6c4;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+#balances {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
