@@ -33,7 +33,6 @@ export default function Blog() {
 
   useEffect(() => {
     setIsLoading(true)
-    // axios
     axios
       .get(`${serverURL}:8080/article/all`, {
         headers: {

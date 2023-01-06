@@ -20,34 +20,31 @@
     display: flex;
     color: #ffe6c4;
     align-content: center;
+    padding-top: 4px;
 }
 
 #category-header {
     width :100%;
-    justify-content: space-between;
     display: flex;
     flex-direction: row;
+    text-align: center;
+    align-items: center;
+    justify-content: space-between;
 }
 
 #more-tutorials {
     display: flex;
-    color: #ffe6c4;
 }
 
 #more-tutorials:hover {
     display: flex;
-    color: #ffe6c4;
-}
-
-#icon:hover {
-    src: '/public/MoreCategoryIconWhite.svg';
 }
 
 #link {
-    justify-content: center;
-    align-items: center;
     display: flex;
     flex-direction: row;
+    padding-top: 4px;
+    color: #ffe6c4;
 }
 
 #link:hover {
@@ -69,55 +66,93 @@
     display: flex;
     justify-content: space-between;
     flex-direction: column;
-    height: 50%;
     width: 70%;
 }
 
 #suggestions-cards {
     display: flex;
     justify-content: space-between;
-    flex-direction: column;
-    height: 100%;
+    flex-direction: row;
     width: 48%;
 }
 
-#easy {
-    padding: 0px 20px 20px 20px;
-    display: flex;
-    flex-direction: column;
-    height: 25%;
-    width: 70%;
-}
-
-#medium {
-    padding: 0px 20px 20px 20px;
-    display: flex;
-    flex-direction: column;
-    height: 25%;
-    width: 70%;
-}
-
-#hard {
-    padding: 0px 20px 20px 20px;
-    display: flex;
-    flex-direction: column;
-    height: 25%;
-    width: 70%;
-}
-
-#easy-cards {
+#cards {
     display: flex;
     justify-content: space-between;
     flex-direction: column;
-    height: 80%;
-    width: 24%;
+    height: 100%;
+    width: 67.8%;
 }
 
-#wrapper-easy-cards {
+#wrapper-cards {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     height:100%;
     width: 100%;
     padding-top: 10px;
+}
+
+#card {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    width: 24%;
+}
+
+#modal-card-header {
+    color: #ffe6c4;
+    background: #343434;
+}
+
+#modal-card-body {
+    background: #343434;
+}
+
+#box-tuto {
+    color: #343434;
+    background: #ffe6c4;
+    font-weight: bold;
+}
+
+#box-tuto:hover {
+    color: #343434;
+    background: #ffe6c4;
+    box-shadow: 0 0 0.75em 0 rgb(255, 230, 196) !important;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#box-tuto:focus {
+    color: black;
+    background: white;
+    box-shadow: 0 0 0.75em 0 rgb(255, 230, 196) !important;
+    font-weight: bold;
+}
+
+#close-modal-tuto {
+    box-shadow: none;  
+    color: #ffe6c4;
+}
+
+#loading-screen {
+    height: 100vh;
+    background-color: #343434;
+}
+
+#loading-screen-spinner {
+    top: calc(50% - 24px);
+    left: calc(50% - 24px);
+    position: sticky;
+}
+
+#loading-screen-text {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    font-size: 30px;
+    height: 100%;
+    padding-top: 3%;
+    color: #ffe6c4;
 }

@@ -1,18 +1,15 @@
 import {
   VStack,
-  HStack,
   Modal,
   ModalOverlay,
   ModalContent,
   ModalHeader,
   ModalBody,
   ModalCloseButton,
-  Button,
-  Text,
 } from '@chakra-ui/react'
-import { Image } from '@chakra-ui/react'
 import { useWeb3React } from '@web3-react/core'
 import { connectors } from '../../wallet/injectors'
+import CustomButton from '../../button/button'
 
 const SelectWalletModal = ({
   isOpen,
@@ -43,69 +40,27 @@ const SelectWalletModal = ({
         />
         <ModalBody id="modal_popup" paddingBottom="1.5rem">
           <VStack>
-            <Button id="coinbase"
-              variant="outline"
-              onClick={() => {
-                activate(connectors.coinbaseWallet)
-                setProvider('coinbaseWallet')
-                closeModal()
-                isOpen = false
-              }}
-              w="100%"
-            >
-              <HStack w="100%" justifyContent="center">
-                <Image
-                  src="/coinbase_wallet_appicon.svg"
-                  alt="Coinbase Wallet Logo"
-                  width={25}
-                  height={25}
-                  borderRadius="3px"
-                />
-                <Text>Coinbase Wallet</Text>
-              </HStack>
-            </Button>
-            <Button id="metamask"
-              variant="outline"
-              onClick={() => {
-                activate(connectors.injected)
-                setProvider('injected')
-                closeModal()
-                isOpen = false
-              }}
-              w="100%"
-            >
-              <HStack w="100%" justifyContent="center">
-                <Image
-                  src="metamask_appicon.svg"
-                  alt="MetaMask Logo"
-                  width={25}
-                  height={25}
-                  borderRadius="3px"
-                />
-                <Text>MetaMask</Text>
-              </HStack>
-            </Button>
-            <Button id="binance"
-              variant="outline"
-              onClick={() => {
-                activate(connectors.binanceWallet)
-                setProvider('binanceWallet')
-                closeModal()
-                isOpen = false
-              }}
-              w="100%"
-            >
-              <HStack w="100%" justifyContent="center">
-                <Image
-                  src="binance_wallet_appicon.svg"
-                  alt="Binance Wallet Logo"
-                  width={25}
-                  height={25}
-                  borderRadius="3px"
-                />
-                <Text>Binance Wallet</Text>
-              </HStack>
-            </Button>
+            <CustomButton id='coinbase' srcImg="/coinbase_wallet_appicon.svg" alt="Coinbase Wallet Logo" wImg={25} hImg={25} gap={3} name="Coinbase Wallet" variant="outline" borderRadius="3px" onClick={() => {
+              activate(connectors.coinbaseWallet)
+              setProvider('coinbaseWallet')
+              closeModal()
+              isOpen = false
+            } } size={undefined} disabled={undefined}/>
+            <CustomButton name="MetaMask" id="metamask"
+            variant="outline"
+            onClick={() => {
+              activate(connectors.injected)
+              setProvider('injected')
+              closeModal()
+              isOpen = false
+            } } srcImg="metamask_appicon.svg" alt="MetaMask Logo" wImg={25} hImg={25} gap={3} size={undefined} disabled={undefined} borderRadius={undefined}/>
+            <CustomButton name="Binance Wallet" id="binance" variant="outline"
+            onClick={() => {
+              activate(connectors.binanceWallet)
+              setProvider('binanceWallet')
+              closeModal()
+              isOpen = false
+            } } srcImg="binance_wallet_appicon.svg" alt="Binance Wallet Logo" wImg={25} hImg={25} gap={3} size={undefined} disabled={undefined} borderRadius={undefined}/>
           </VStack>
         </ModalBody>
       </ModalContent>
