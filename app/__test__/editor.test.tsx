@@ -1,6 +1,6 @@
 import renderer from 'react-test-renderer'
 import React, { useState } from 'react'
-import MyEditor from '../components/editor/editor'
+import MyEditor from '../components/editor/monacoEditor'
 import { configure } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 configure({ adapter: new Adapter() });

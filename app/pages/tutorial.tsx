@@ -1,16 +1,17 @@
 import axios from "axios";
 import { serverURL } from "../utils/globals";
 import React, { useState, useRef, useEffect } from 'react';
-import MonacoEditor from '../components/editor/editor';
-import { Form } from 'react-bootstrap';
+import MonacoEditor from '../components/editor/monacoEditor';
 import Navbar from "../components/navbar/navbar";
 import MarkdownRenderer from "../components/markdown/markdown";
-import ScoreBoardModal from "../components/modals/tutorialScoreBoardModal";
+import ScoreBoardModal from "../components/modals/scoreboard/tutorialScoreBoardModal";
 import { useRouter } from "next/router";
 import { useDisclosure, Spinner, Select, Switch, HStack, Text} from "@chakra-ui/react";
 import CustomButton from '../components/button/button';
 import CustomSwitch from "../components/switch/customSwitch";
 import LoadingScreen from "../components/loading/loadingScreen";
+import OptionEditor from "../components/editor/optionEditor";
+import UploadEditor from "../components/editor/uploadEditor";
 
 export default function Tutorial() {
   const customHTMLRef = useRef(null);
@@ -174,16 +175,7 @@ export default function Tutorial() {
             </div>
           </div>
           <div id="editor">
-            <div id="editor_opt">
-              <CustomButton name="ScoreBoard" id="upload" onClick={() => scoring()}/>
-              <Select w="30" variant="filled" id="lang_choice">
-                <option selected hidden disabled value="">Chose Language</option>
-                <option onClick={() => changeLang('js')}>javascript</option>
-                <option onClick={() => changeLang('cpp')}>cpp</option>
-                <option onClick={() => changeLang('python')}>python</option>
-              </Select>
-              <CustomSwitch switchText={switchText} changeTheme={changeTheme}/>
-            </div>
+            <OptionEditor changeLang={changeLang} scoring={scoring} switchText={switchText} changeTheme={changeTheme}/>
             <div id="editor_edit">
               <MonacoEditor
                 theme={theme}
@@ -199,12 +191,7 @@ export default function Tutorial() {
                 onMount={editorDidMount}
               />
             </div>
-            <div id="submit-button">
-              {(isUploading === false) ? <CustomButton name="Submit" id="upload" size="lg" disabled={isUploading} variant="success" onClick={uploadCode} gap={undefined} srcImg={undefined} alt={undefined} hImg={undefined} wImg={undefined} borderRadius={undefined}/> :
-                <Spinner animation="border" role="status">
-                  <span className="visually-hidden">Loading...</span>
-                </Spinner>}
-            </div>
+            <UploadEditor isUploading={isUploading} uploadCode={uploadCode}/>
           </div>
         </div>
         <ScoreBoardModal isOpen={isOpen} closeModal={onClose}/>

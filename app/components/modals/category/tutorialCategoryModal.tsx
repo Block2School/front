@@ -10,8 +10,8 @@ import {
 } from '@chakra-ui/react'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
-import { serverURL } from '../../utils/globals'
-import TutorialCards from '../cards/tutorialCards'
+import { serverURL } from '../../../utils/globals'
+import TutorialCards from '../../cards/tutorialCards'
 
 const TutorialCategoryModal = ({
   isOpen,
