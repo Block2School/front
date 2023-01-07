@@ -10,90 +10,9 @@ import $ from 'jquery'
 import axios from 'axios'
 import SelectWalletModal from '../components/modals/wallets/walletsModal'
 import { serverURL } from '../utils/globals'
+import {closeModal, openModal, saveModal, account, wallet, username, email} from '../utils/profil-utils'
 
 export default function Profile() {
-  const { account } = useWeb3React()
-  const web3 = new Web3('https://data-seed-prebsc-1-s1.binance.org:8545') // TESTNET
-
-  const [username, setUsername] = useState('')
-  const [email, setEmail] = useState('')
-  var wallet = [
-    {
-      symbol: 'ETH',
-      balance: 10,
-      startTilt: 0,
-      endTilt: 0,
-      tilt: 0,
-      contract: getTokenContract('ETH', true),
-    },
-    {
-      symbol: 'BNB',
-      balance: 20,
-      startTilt: 0,
-      endTilt: 0,
-      tilt: 0,
-      contract: getTokenContract('BNB', true),
-    },
-    {
-      symbol: 'BTCB',
-      balance: 30,
-      startTilt: 0,
-      endTilt: 0,
-      tilt: 0,
-      contract: getTokenContract('BTCB', true),
-    },
-    {
-      symbol: 'ZLDKC',
-      balance: 100,
-      startTilt: 0,
-      endTilt: 0,
-      tilt: 0,
-      contract: getTokenContract('ZLDKC', true),
-    },
-  ]
-
-  // useEffect(() => {
-  //   if (account !== '' && account !== undefined && account !== null) {
-  // for (let i = 0; i < wallet.length; i++) {
-  //   if (wallet[i].symbol == 'BNB') {
-  //     web3.eth.getBalance(account).then((balance) => {
-  //       console.log(wallet[i].balance)
-  //       wallet[i].balance = parseFloat(web3.utils.fromWei(balance, 'ether'))
-  //       console.log('AFTER ')
-  //       console.log(wallet[i].balance)
-  //     })
-  //   } else if (wallet[i] && wallet[i].contract) {
-  //     wallet[i].contract.methods
-  //       .balanceOf(account)
-  //       .call()
-  //       .then((balance: any) => {
-  //         wallet[i].balance = parseFloat(
-  //           getFullDisplayBalance(balance, 8, 2),
-  //         )
-  //       })
-  //   }
-  // }
-  //   }
-  // }, [account])
-
-  useEffect(() => {
-    if (account !== '' && account !== undefined && account !== null) {
-      axios
-        .get(`${serverURL}:8080/user/profile`, {
-          headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            Authorization: 'Bearer ' + sessionStorage.getItem('token'),
-          },
-        })
-        .then((res) => {
-          if (res.status === 200) {
-            setUsername(res.data.username)
-            setEmail(res.data.email)
-          }
-        })
-    }
-  }, [account])
 
   useEffect(() => {
     if (account !== '' && account !== undefined && account !== null) {
@@ -143,61 +62,11 @@ export default function Profile() {
             '</div>',
         )
       }
-      // $('#profile-balance-container').append(
-      //   '<div style="display: flex; width: 100%; height: 50px; align-items: center;justify-content: center;">' +
-      //     '<div style="display: flex;justify-content: end;width: 30%;">' +
-      //     '<div style="width: 30px; height: 30px; display: flex; border-radius: 50%; border: 1px solid white; background-color: purple">' +
-      //     '</div>' +
-      //     '</div>' +
-      //     '<div style="display: flex;justify-content: start;width: 70%;">' +
-      //     '<span style="color: white;font-size: 150%;font-weight: bold;display: flex;margin-left: 10px;align-items: center;justify-content: center;height: 100%;font-family: "Segoe UI", sans-serif;">Other</span>' +
-      //     '</div>' +
-      //     '</div>',
-      // )
       cssDonut +=
         'purple ' + top4Wallet[top4Wallet.length - 1].endTilt + 'deg 360deg'
       $('#profile-donut').css('background', 'conic-gradient(' + cssDonut + ')')
     }
   }, [account])
-
-  function saveModal() {
-    var newUsername = $('#new-username-input').val()
-    var newEmail = $('#new-email-input').val()
-    axios
-      .patch(
-        `${serverURL}:8080/user/profile`,
-        {
-          username: newUsername,
-          email: newEmail,
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            Authorization: 'Bearer ' + sessionStorage.getItem('token'),
-          },
-        },
-      )
-      .then((res) => {
-        if (res.status === 200) {
-          setUsername(newUsername)
-          setEmail(newEmail)
-          closeModal(newUsername, newEmail)
-        }
-      })
-  }
-
-  function closeModal(newUsername: string = '', newEmail: string = '') {
-    if (newUsername !== '') $('#new-username-input').val(newUsername)
-    else $('#new-username-input').val(username)
-    if (newEmail !== '') $('#new-email-input').val(newEmail)
-    else $('#new-email-input').val(email)
-    $('#modal-change-infos').hide()
-  }
-
-  function openModal() {
-    $('#modal-change-infos').show()
-  }
 
   return (
     <>

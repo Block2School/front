@@ -9,16 +9,15 @@ import { CheckCircleIcon, WarningIcon } from "@chakra-ui/icons";
 import Navbar from "../components/navbar/navbar";
 import Footer from "../components/footer/footer";
 import Balance from "../components/balance/balance";
+import LoginTitle from "../components/login/loginTitle";
+import LoginInformation from "../components/login/loginInformation";
 
 const Login: NextPage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { library, chainId, account, activate, deactivate, active } =
-    useWeb3React();
+  const { library, chainId, account, activate, deactivate, active }=useWeb3React();
   const [signature, setSignature] = useState("");
-  // const [error, setError] = useState("");
   const [network, setNetwork] = useState(undefined);
   const [message, setMessage] = useState("");
-  // const [signedMessage, setSignedMessage] = useState("");
   const [verified, setVerified] = useState();
 
   const refreshState = () => {
@@ -51,79 +50,14 @@ const Login: NextPage = () => {
     <>
       <Navbar />
       <VStack justifyContent="center" alignItems="center" h="100vh">
-        <HStack marginBottom="10px">
-          <Text
-            margin="0"
-            lineHeight="1.15"
-            fontSize={["1.5em", "2em", "3em", "4em"]}
-            fontWeight="600"
-          >
-            Lets connect with
-          </Text>
-          <Text
-            margin="0"
-            lineHeight="1.15"
-            fontSize={["1.5em", "2em", "3em", "4em"]}
-            fontWeight="600"
-            sx={{
-              background: "linear-gradient(90deg, #1652f0 0%, #b9cbfb 70.35%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent"
-            }}
-          >
-            Web3-React
-          </Text>
-        </HStack>
-        <HStack>
-          {!active ? (
-            <Button onClick={onOpen}>Connect Wallet</Button>
-          ) : (
-            <Button onClick={disconnect}>Disconnect</Button>
-          )}
-        </HStack>
-        <VStack justifyContent="center" alignItems="center" padding="10px 0">
-          <HStack>
-            <Text>{`Connection Status: `}</Text>
-            {active ? (
-              <CheckCircleIcon color="green" />
-            ) : (
-              <WarningIcon color="#cd5700" />
-            )}
-          </HStack>
-          <HStack>
-            <Text>{`Account: `}</Text>
-            {active ? (
-              <Text>{account}</Text>
-            ) : (
-              <Text>{`Not Connected`}</Text>
-            )}
-          </HStack>
-          <HStack>
-            <Text>{`Network: `}</Text>
-            {active ? (
-              <Text>{chainId}</Text>
-            ) : (
-              <Text>{`Not Connected`}</Text>
-            )}
-          </HStack>
-          <HStack>
-            <Text>{`Library: `}</Text>
-            {active ? (
-              <Text>{library.name}</Text>
-            ) : (
-              <Text>{`Not Connected`}</Text>
-            )}
-          </HStack>
-          <HStack>
-            {active ? (
-              <Text>{'0.00'} BNB</Text>
-            ) : (
-              <Text>0.00 BNB</Text>
-            )}
-          </HStack>
-          {/* <Balance {account: account, library: library}/>{} */}
-          <Balance account={account} library={library} />
-        </VStack>
+        <LoginTitle/>
+        <LoginInformation
+          account={account}
+          library={library}
+          chainId={chainId}
+          active={active}
+          onOpen={onOpen}
+          disconnect={disconnect}/>
       </VStack>
       <SelectWalletModal isOpen={isOpen} closeModal={onClose} />
       <Footer />

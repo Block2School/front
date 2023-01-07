@@ -1,10 +1,10 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import { Center, Heading, Text, VStack, HStack } from '@chakra-ui/react';
+import { Center } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import Navbar from '../components/navbar/navbar';
-import MarkdownRenderer from '../components/markdown/markdown';
-import { Spinner } from 'react-bootstrap';
+import ArticleBody from '../components/article/articleBody';
+import LoadingScreen from '../components/loading/loadingScreen';
 import Footer from '../components/footer/footer';
 
 export default function Article() {
@@ -21,7 +21,6 @@ export default function Article() {
 
   useEffect(() => {
     setIsLoading(true);
-    console.log(articleMarkdownUrl);
     if (!articleMarkdownUrl || typeof articleMarkdownUrl !== 'string') {
       return;
     }
@@ -39,33 +38,20 @@ export default function Article() {
           <Center>
             {isLoading ?
               <>
-                <Spinner animation="border" role="status" style={{ position: 'absolute' }}>
-                </Spinner>
-                <div style={{ paddingTop: '8%', justifyItems: 'center', display: 'flex', alignItems: 'center', alignContent: 'center' }}>
-                  <Text>Loading...</Text>
-                </div>
+                <LoadingScreen showError={false}/>
               </>
-            :  <div style={{ backgroundColor:'white', borderColor: 'grey', borderLeftWidth: '0.1px', borderRightWidth: '0.1px', padding: '2%' }}>
-                <Heading fontSize={'6xl'}>
-                  {articleTitle}
-                </Heading>
-                <HStack>
-                  <Text>
-                    Author:
-                  </Text>
-                  <Text fontWeight={800}>{articleAuthor}</Text>
-                </HStack>
-                <Text>
-                  Published on: {articlePublicationDate}
-                </Text>
-                <Text fontSize={'small'}>
-                  Edited on: {articleEditDate}
-                </Text>
-                <MarkdownRenderer source={markdownSource} />
-              </div>
+            :  
+              <ArticleBody 
+                articleTitle={articleTitle}
+                articleAuthor={articleAuthor}
+                articleEditDate={articleEditDate}
+                articlePublicationDate={articlePublicationDate}
+                markdownSource={markdownSource}
+              />
             }
           </Center>
         </div>
+        <Footer/>
       </div>
     </>
   );

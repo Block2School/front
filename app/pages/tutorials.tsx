@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../components/navbar/navbar";
 import Footer from "../components/footer/footer";
 import { useDisclosure } from "@chakra-ui/react";
-import TutorialCategoryModal from "../components/modals/tutorialCategoryModal";
+import TutorialCategoryModal from "../components/modals/category/tutorialCategoryModal";
 import LevelTutorial from "../components/tutorialsList/levelDifficulty";
 import SuggestionTutorial from "../components/tutorialsList/levelSuggestion";
 import LoadingScreen from "../components/loading/loadingScreen";
