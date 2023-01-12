@@ -1,4 +1,5 @@
 import { Spinner } from "react-bootstrap"
+import CustomButton from '../button/button'
 
 
 export default function UploadEditor ({isUploading, uploadCode}:{isUploading:any, uploadCode:any}) {
