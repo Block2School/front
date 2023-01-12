@@ -10,9 +10,72 @@ import $ from 'jquery'
 import axios from 'axios'
 import SelectWalletModal from '../components/modals/wallets/walletsModal'
 import { serverURL } from '../utils/globals'
-import {closeModal, openModal, saveModal, account, wallet, username, email} from '../utils/profil-utils'
+import {wallet} from '../utils/profil-utils'
 
 export default function Profile() {
+
+  const { account } = useWeb3React()
+  const web3 = new Web3('https://data-seed-prebsc-1-s1.binance.org:8545') // TESTNET
+  const [username, setUsername] = useState('')
+  const [email, setEmail] = useState('')
+
+  useEffect(() => {
+    if (account !== '' && account !== undefined && account !== null) {
+      axios
+        .get(`${serverURL}:8080/user/profile`, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+          },
+        })
+        .then((res) => {
+          if (res.status === 200) {
+            setUsername(res.data.username)
+            setEmail(res.data.email)
+          }
+        })
+    }
+  }, [account])
+  
+  function saveModal() {
+      var newUsername = $('#new-username-input').val()
+      var newEmail = $('#new-email-input').val()
+      axios
+        .patch(
+          `${serverURL}:8080/user/profile`,
+          {
+            username: newUsername,
+            email: newEmail,
+          },
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              'Access-Control-Allow-Origin': '*',
+              Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+            },
+          },
+      )
+        .then((res) => {
+          if (res.status === 200) {
+            setUsername(newUsername)
+            setEmail(newEmail)
+            closeModal(newUsername, newEmail)
+          }
+      })
+  }
+  
+  function closeModal(newUsername: string = '', newEmail: string = '') {
+      if (newUsername !== '') $('#new-username-input').val(newUsername)
+      else $('#new-username-input').val(username)
+      if (newEmail !== '') $('#new-email-input').val(newEmail)
+      else $('#new-email-input').val(email)
+      $('#modal-change-infos').hide()
+  }
+  
+  function openModal() {
+    $('#modal-change-infos').show()
+  }
 
   useEffect(() => {
     if (account !== '' && account !== undefined && account !== null) {
@@ -139,3 +202,4 @@ export default function Profile() {
     </>
   )
 }
+
