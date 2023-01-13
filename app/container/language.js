@@ -4,14 +4,22 @@ import React, { useState, createContext, useContext } from 'react';
 import { languageOptions, dictionaryList } from '../languages';
 
 export const LanguageContext = createContext({
-  userLanguage: 'fr',
-  dictionary: dictionaryList.fr
+  userLanguage: 'en',
+  dictionary: dictionaryList.en
 });
 
 // it provides the language context to app
 export function LanguageProvider({ children }) {
-  const defaultLanguage = window.localStorage.getItem('rcml-lang');
-  const [userLanguage, setUserLanguage] = useState(defaultLanguage || 'en');
+  var defaultLanguage= '';
+  if (typeof window !== 'undefined') {
+    console.log("On the browser ✅")
+    defaultLanguage = window.localStorage.getItem('rcml-lang');
+  } else {
+    console.log("On the server ❌ don't use window")
+    defaultLanguage = 'fr'
+  }
+
+  const [userLanguage, setUserLanguage] = useState(defaultLanguage || 'fr');
 
   const provider = {
     userLanguage,
