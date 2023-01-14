@@ -6,11 +6,14 @@ import Balance from '../balance/balance'
 import { useWeb3React } from '@web3-react/core'
 import { connectors } from '../wallet/injectors'
 import { Button, HStack, useDisclosure } from '@chakra-ui/react'
-import { useEffect } from 'react'
+import { useContext, useEffect } from 'react'
 import ConnectionButton from '../wallet/connectionButton'
 import NavbarBalance from '../wallet/navbarBalance'
+import { LanguageContext } from '../../container/language'
 
 export default function Navbar() {
+  const { dictionary } = useContext(LanguageContext);
+  
   const {
     library,
     chainId,
