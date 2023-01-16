@@ -8,10 +8,14 @@ export const LanguageContext = createContext({
   dictionary: dictionaryList.en
 });
 
+
 // it provides the language context to app
 export function LanguageProvider({ children }) {
+
+  var defaultLanguage = LanguageContext.userLanguage;
+
   useEffect(() => {
-    const defaultLanguage = window.localStorage.getItem('rcml-lang');
+    defaultLanguage = window.localStorage.getItem('rcml-lang');
     // @ts-ignore
     if (defaultLanguage) activate(connectors[provider], handleConnection)
   })

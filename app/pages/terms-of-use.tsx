@@ -51,32 +51,14 @@ export default function TermsOfUse() {
             {dictionary["terms-of-use"].access_to_the_site.fifth_content}
           </p>
         </div>
-        <h2>User Content</h2>
+        <h2>{dictionary["terms-of-use"].user_content.tilte}</h2>
         <div className="terms-of-use-box">
           <p>
-            <strong>User Content.</strong> "User Content" means any and all
-            information and content that a user submits to the Site. You are
-            exclusively responsible for your User Content. You bear all risks
-            associated with use of your User Content. You hereby certify that
-            your User Content does not violate our Acceptable Use Policy. You
-            may not represent or imply to others that your User Content is in
-            any way provided, sponsored or endorsed by Company. Because you
-            alone are responsible for your User Content, you may expose yourself
-            to liability. Company is not obliged to backup any User Content that
-            you post; also, your User Content may be deleted at any time without
-            prior notice to you. You are solely responsible for making your own
-            backup copies of your User Content if you desire.
+            <strong>{dictionary["terms-of-use"].user_content.tilte}</strong> {dictionary["terms-of-use"].user_content.first_content}
           </p>
 
           <p>
-            You hereby grant to Company an irreversible, nonexclusive,
-            royalty-free and fully paid, worldwide license to reproduce,
-            distribute, publicly display and perform, prepare derivative works
-            of, incorporate into other works, and otherwise use and exploit your
-            User Content, and to grant sublicenses of the foregoing rights,
-            solely for the purposes of including your User Content in the Site.
-            You hereby irreversibly waive any claims and assertions of moral
-            rights or attribution with respect to your User Content.
+          {dictionary["terms-of-use"].user_content.second_content}
           </p>
 
           <p>

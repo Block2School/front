@@ -5,6 +5,21 @@
     "login": "Connexion",
     "tutorials": "Tutoriaux"
   },
+  "wallet": {
+    "connect_wallet": "Connection wallet",
+    "disconnect_wallet": "Déconnexion wallet"
+  },
+  "faq": {
+    "faq": "Foire Au Question",
+    "first_block_title": "Qu'est-ce que la blockchain ?",
+    "first_block_contain": "La blockchain est un grand livre distribué qui constitue un registre public des transactions. C'est un système d'enregistrement qui est ouvert, immuable et vérifiable.",
+    "second_block_title": "Qu'est-ce qu'un smart contract ?",
+    "second_block_contain": "Un smart contract est un contrat écrit en code et exécuté sur une blockchain.",
+    "third_block_title": "Qu'est-ce que la norme ERC20 ?",
+    "third_block_contain": "ERC20 est une norme pour la tokenisation des actifs numériques.",
+    "fourth_block_title": "Qu'est-ce qu'un token?",
+    "fourth_block_contain": "Un token est un actif numérique qui est émis par une entreprise de blockchain."
+  },
   "terms-of-use": {
     "website": {
       "title": "Conditions d'utilisation du site web",

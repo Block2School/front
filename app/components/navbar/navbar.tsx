@@ -61,10 +61,10 @@ export default function Navbar() {
                 <span className="navbar-text">FAQ</span>
               </Link>
               <Link href={'/login'} passHref>
-                <span className="navbar-text">Login</span>
+                <span className="navbar-text">{dictionary.navbar.login}</span>
               </Link>
               <Link href={'/tutorials'} passHref>
-                <span className="navbar-text">Tutorials</span>
+                <span className="navbar-text">{dictionary.navbar.tutorials}</span>
               </Link>
               <Link href={'/blog'} passHref>
                 <span className="navbar-text">Blog</span>

@@ -2,12 +2,15 @@ import SelectWalletModal from '../modals/wallets/walletsModal'
 import { useWeb3React } from '@web3-react/core'
 import { connectors } from '../wallet/injectors'
 import { Button, HStack, Image, useDisclosure } from '@chakra-ui/react'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Tooltip } from '@chakra-ui/react'
 import axios from 'axios'
 import { serverURL } from '../../utils/globals'
 
+import { LanguageContext } from '../../container/language'
+
 export default function ConnectionButton() {
+  const { dictionary } = useContext(LanguageContext);
   const { isOpen, onOpen, onClose } = useDisclosure()
   const {
     library,
@@ -69,17 +72,17 @@ export default function ConnectionButton() {
     <>
       <HStack id="connectionButton">
         {!active && isError === false ? (
-          <Button id='login_button' onClick={onOpen} className="CONNECT_WALLET">Connect Wallet</Button>
+          <Button id='login_button' onClick={onOpen} className="CONNECT_WALLET">{dictionary.wallet.connect_wallet}</Button>
         ): !active && isError === true ? (
           <Tooltip label="Wrong Network" placement="top" hasArrow>
             <Button id='login_mode_select' onClick={onOpen} color="white"><Image
               src="/warning-sign-svgrepo-com.svg"
               alt="warning"
               paddingRight={2}
-            />Connect Wallet</Button>
+            />{dictionary.wallet.connect_wallet}</Button>
           </Tooltip>
         ) : (
-          <Button onClick={disconnect}>Disconnect Wallet</Button>
+          <Button onClick={disconnect}>{dictionary.wallet.disconnect_wallet}</Button>
         )}
       </HStack>
       <SelectWalletModal isOpen={isOpen} closeModal={onClose} />

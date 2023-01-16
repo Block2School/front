@@ -1,40 +1,39 @@
 import Footer from '../components/footer/footer'
 import Navbar from '../components/navbar/navbar'
+import { LanguageContext } from '../container/language'
+import { useContext } from 'react';
 
 export default function FAQ() {
+  const { dictionary } = useContext(LanguageContext)
   return (
     <>
       <Navbar />
       <div id="faq-container">
         <div id="faq-header">
-          <span>Frequently Asked Questions</span>
+          <span>{dictionary.faq.faq}</span>
         </div>
         <div id="faq-body">
           <div id="faq-questions">
             <div className="faq-question">
-              <h2>What is Blockchain</h2>
+              <h2>{dictionary.faq.first_block_title}</h2>
               <p>
-                Blockchain is a distributed ledger that is a public ledger of
-                transactions. It is a system of record that is open, immutable,
-                and verifiable.
+              {dictionary.faq.first_block_contain}
               </p>
             </div>
             <div className="faq-question">
-              <h2>What is a smart contract?</h2>
+              <h2>{dictionary.faq.second_block_title}</h2>
               <p>
-                A smart contract is a contract that is written in code and
-                executed on a blockchain.
+              {dictionary.faq.second_block_contain}
               </p>
             </div>
             <div className="faq-question">
-              <h2>What is ERC20 norm?</h2>
-              <p>ERC20 is a standard for tokenization of digital assets.</p>
+              <h2>{dictionary.faq.third_block_title}</h2>
+              <p>{dictionary.faq.third_block_contain}</p>
             </div>
             <div className="faq-question">
-              <h2>What is a token?</h2>
+              <h2>{dictionary.faq.fourth_block_title}</h2>
               <p>
-                A token is a digital asset that is issued by a blockchain
-                company.
+              {dictionary.faq.fourth_block_contain}
               </p>
             </div>
             <div className="faq-question">
