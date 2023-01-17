@@ -15,6 +15,6 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "./custom.d.ts", "jest.config.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "./custom.d.ts", "jest.config.js", "components/LanguageSwitcher/LanguageSwitcher.js"],
   "exclude": ["node_modules"]
 }

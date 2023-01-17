@@ -1,36 +1,36 @@
 import Footer from '../components/footer/footer'
 import Navbar from '../components/navbar/navbar'
 import Question from '../components/faq/faqQuestion'
+import { useContext } from 'react';
+import { LanguageContext } from "../components/LanguageSwitcher/language";
 
 export default function FAQ() {
+  const { dictionary } = useContext(LanguageContext);
+
   return (
     <>
       <Navbar />
       <div id="faq-container">
         <div id="faq-header">
-          <span>Frequently Asked Questions</span>
+          <span>{dictionary.faq.faq}</span>
         </div>
         <div id="faq-body">
           <div id="faq-questions">
             <Question
-              question="What is Blockchain ?"
-              answer="Blockchain is a distributed ledger that is a public
-                      ledger oftransactions. It is a system of record that
-                      is open, immutable, and verifiable."
+              question={dictionary.faq.first_block_title}
+              answer={dictionary.faq.first_block_contain}
             />
             <Question
-              question="What is a smart contract ?"
-              answer="A smart contract is a contract that is written in code and
-              executed on a blockchain."
+              question={dictionary.faq.second_block_title}
+              answer={dictionary.faq.second_block_contain}
             />
             <Question
-              question="What is ERC20 norm ?"
-              answer="ERC20 is a standard for tokenization of digital assets."
+              question={dictionary.faq.third_block_title}
+              answer={dictionary.faq.third_block_contain}
             />
             <Question
-              question="What is a token ?"
-              answer="A token is a digital asset that is issued by a blockchain
-              company."
+              question={dictionary.faq.fourth_block_title}
+              answer={dictionary.faq.fourth_block_contain}
             />
             <Question question="TEST" answer="test"/>
             <Question question="TEST" answer="test"/>

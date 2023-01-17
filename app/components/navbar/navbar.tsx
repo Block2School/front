@@ -5,11 +5,15 @@ import SelectWalletModal from '../modals/wallets/walletsModal'
 import Balance from '../balance/balance'
 import { useWeb3React } from '@web3-react/core'
 import { connectors } from '../wallet/injectors'
-import { useEffect } from 'react'
+import { useEffect, useContext } from 'react'
 import ConnectionButton from '../wallet/connectionButton'
 import NavbarAllBalances from '../wallet/navbarAllBalances'
+import { LanguageContext, LanguageSwitcher } from "../LanguageSwitcher/language";
 
 export default function Navbar() {
+
+  const { dictionary } = useContext(LanguageContext);
+
   const {
     library,
     chainId,
@@ -59,10 +63,10 @@ export default function Navbar() {
                 <span className="navbar-text">FAQ</span>
               </Link>
               <Link href={'/login'} passHref>
-                <span className="navbar-text">Login</span>
+                <span className="navbar-text">{dictionary.navbar.login}</span>
               </Link>
               <Link href={'/tutorials'} passHref>
-                <span className="navbar-text">Tutorials</span>
+                <span className="navbar-text">{dictionary.navbar.tutorials}</span>
               </Link>
               <Link href={'/blog'} passHref>
                 <span className="navbar-text">Blog</span>
@@ -71,6 +75,7 @@ export default function Navbar() {
           </div>
             <NavbarAllBalances/>
             <ConnectionButton/>
+            <LanguageSwitcher/>
         </div>
       </div>
     </>
