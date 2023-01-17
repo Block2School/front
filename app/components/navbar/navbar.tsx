@@ -10,6 +10,7 @@ import { useContext, useEffect } from 'react'
 import ConnectionButton from '../wallet/connectionButton'
 import NavbarBalance from '../wallet/navbarBalance'
 import { LanguageContext } from '../../container/language'
+import LanguageSelector from '../languageSelector/languageSelector'
 
 export default function Navbar() {
   const { dictionary } = useContext(LanguageContext);
