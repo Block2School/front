@@ -1,6 +1,6 @@
 import SelectWalletModal from '../modals/wallets/walletsModal'
 import { useWeb3React } from '@web3-react/core'
-import { useDisclosure } from '@chakra-ui/react'
+import { useColorModeValue, useDisclosure } from '@chakra-ui/react'
 import CustomButton from '../button/button'
 import { useEffect, useState } from 'react'
 import { Tooltip } from '@chakra-ui/react'
