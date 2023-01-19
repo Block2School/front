@@ -22,7 +22,7 @@ export default function userAdmin() {
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${sessionStorage.getItem('token')}`,
       },
     }).then((res) => {
       let userList_ : Array<{uuid: string, wallet_address: string, is_banned: number}> = [] ;

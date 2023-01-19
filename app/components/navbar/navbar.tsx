@@ -1,18 +1,15 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import * as logoWhite from '/public/B2S_white.png'
 
 import SelectWalletModal from '../modals/wallets/walletsModal'
 import Balance from '../balance/balance'
 import { useWeb3React } from '@web3-react/core'
 import { connectors } from '../wallet/injectors'
-import { Button, HStack, useDisclosure } from '@chakra-ui/react'
 import { useEffect } from 'react'
 import ConnectionButton from '../wallet/connectionButton'
-import NavbarBalance from '../wallet/navbarBalance'
+import NavbarAllBalances from '../wallet/navbarAllBalances'
 
 export default function Navbar() {
-  const { isOpen, onOpen, onClose } = useDisclosure()
   const {
     library,
     chainId,
@@ -23,7 +20,7 @@ export default function Navbar() {
   } = useWeb3React()
 
   const refreshState = () => {
-    window.localStorage.setItem('provider', 'undefined')
+    window.sessionStorage.setItem('provider', 'undefined')
   }
 
   const disconnect = () => {
@@ -39,17 +36,19 @@ export default function Navbar() {
   }
 
   useEffect(() => {
-    const provider = window.localStorage.getItem('provider')
+    const provider = window.sessionStorage.getItem('provider')
     // @ts-ignore
+    console.log('here')
+    console.log('provider == ', provider)
     if (provider) activate(connectors[provider], handleConnection)
-  })
+  }, [])
 
   return (
     <>
       <div id="navbar-component">
         <div id="navbar-container">
           <div id="navbar-logo-container">
-            <Image src={logoWhite} alt="logo" height="100%" width="100%" />
+            <Image src="/B2S_white.png" alt="logo" height="100%" width="100%" />
             <Link href={'/'} passHref>
               <span className="navbar-text">Block2School</span>
             </Link>
@@ -70,12 +69,8 @@ export default function Navbar() {
               </Link>
             </div>
           </div>
-          <div className="navbar-login-button">
-            <HStack>
-              <NavbarBalance />
-              <ConnectionButton />
-            </HStack>
-          </div>
+            <NavbarAllBalances/>
+            <ConnectionButton/>
         </div>
       </div>
     </>

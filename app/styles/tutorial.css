@@ -35,7 +35,27 @@
 #lang_choice {
   display: flex;
   align-items: center;
-  margin-left: 25px;
+  background:#ffe6c4;
+  color: #202020;
+  font-weight: bold;
+}
+
+#lang_choice:hover {
+  display: flex;
+  align-items: center;
+  box-shadow: 0 0 0.75em 0 rgb(255, 230, 196) !important;
+  background:#ffe6c4;
+  color: #202020;
+  font-weight: bold;
+}
+
+#lang_choice:focus {
+  display: flex;
+  align-items: center;
+  box-shadow: 0 0 0.75em 0 rgb(255, 230, 196) !important;
+  background:white;
+  color:black;
+  font-weight: bold;
 }
 
 #theme_choice {
@@ -44,42 +64,39 @@
   padding-right: 50px;
 }
 
-.form-check-label{
+#switch-text {
+  display: inline-flex;
+  text-align: center;
+  align-items: center;
   color: #ffe6c4;
+  padding-right: 10px;
+  padding-top: 3px;
 }
 
-.form-check-input{
-  box-shadow: 0 0 0.75em 0 rgba(255, 230, 196, 0) !important;
-  border-color: #ffe6c4 !important;
-  background-color: #202020 !important;
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba%28255, 230, 196, 255' /%3e%3c/svg%3e") !important;
-}
-
-.form-switch .form-check-input:focus {
-  background-color: #ffe6c4;
-}
-
-.form-check-input:checked {
-  box-shadow: 0 0 0.75em 0 rgb(255, 230, 196) !important;
+.chakra-switch__thumb {
   background-color: #ffe6c4 !important;
-  border-color: #ffe6c4 !important;
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba%280, 0, 0, 255'/%3e%3c/svg%3e") !important;
 }
 
-#simulate{
-  color: #ffe6c4;
-  border-color: rgba(0,0,0,0);
+.chakra-switch__track {
+  background-color: black !important;
+  --chakra-shadows-outline: #ffe6c4 !important;
 }
 
-#simulate:focus {
-  box-shadow: 0 0 0.75em 0 rgb(255, 230, 196);
-  border-color: #ffe6c4;
+.chakra-switch__track[data-checked] {
+  background-color: white !important;
+  --chakra-shadows-outline: #ffe6c4 !important;
 }
 
-#simulate:hover{
-  box-shadow: 1% 1% 1% 1% #ffe6c4;
-  background-color: #ffe6c4;
-  color: #202020;
+.chakra-switch__track:hover{
+  box-shadow: 0 0 0.75em 0 rgb(255, 230, 196) !important;
+  background-color: black !important;
+  --chakra-shadows-outline: #ffe6c4 !important;
+}
+
+.chakra-switch__track:hover[data-checked] {
+  box-shadow: 0 0 0.75em 0 rgb(255, 230, 196) !important;
+  background-color: white !important;
+  --chakra-shadows-outline: #ffe6c4 !important;
 }
 
 #upload{
@@ -89,13 +106,15 @@
 }
 
 #upload:focus {
-  box-shadow: 0 0 0.75em 0 rgb(255, 230, 196);
-  border-color: black;
+  box-shadow: 0 0 0.75em 0 rgb(255, 230, 196) !important;
+  background:white ;
+  color:black;
 }
 
 #upload:hover{
-  background-color:black;
-  color: #ffe6c4;
+  box-shadow: 0 0 0.75em 0 rgb(255, 230, 196) !important;
+  background:#ffe6c4;
+  color: #202020;
 }
 
 #editor{
@@ -130,14 +149,4 @@
 #zone-text {
   padding: 15px 30px;
   color: white;
-}
-
-#loading-text-tutorial {
-  display: flex;
-  align-items: center;
-  align-content: center;
-  justify-content: center;
-  font-size: 30px;
-  height: 100%;
-  padding-top: 10%;
 }

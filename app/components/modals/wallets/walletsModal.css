@@ -6,16 +6,25 @@
 #coinbase {
     color: #ffe6c4;
     border-color: #1e1e1e;
+    width: 100%;
+    text-align: center;
+    justify-content: center;
 }
 
 #metamask {
     color: #ffe6c4;
     border-color: #1e1e1e;
+    width: 100%;
+    text-align: center;
+    justify-content: center;
 }
 
 #binance {
     color: #ffe6c4;
     border-color: #1e1e1e;
+    width: 100%;
+    text-align: center;
+    justify-content: center;
 }
 
 #coinbase:hover {

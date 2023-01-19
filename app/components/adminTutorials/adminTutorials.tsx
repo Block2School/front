@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import moment from 'moment'
 import axios from 'axios'
 import { serverURL } from '../../utils/globals'
-import MyEditor from '../editor/editor'
+import MyEditor from '../editor/monacoEditor'
 import MarkdownRenderer from '../markdown/markdown'
 import TutorialNavBar from './adminTutorialNavBar'
 

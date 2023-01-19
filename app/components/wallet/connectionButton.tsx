@@ -1,7 +1,7 @@
 import SelectWalletModal from '../modals/wallets/walletsModal'
 import { useWeb3React } from '@web3-react/core'
-import { connectors } from '../wallet/injectors'
-import { Button, HStack, Image, useDisclosure } from '@chakra-ui/react'
+import { useDisclosure } from '@chakra-ui/react'
+import CustomButton from '../button/button'
 import { useEffect, useState } from 'react'
 import { Tooltip } from '@chakra-ui/react'
 import axios from 'axios'
@@ -20,7 +20,7 @@ export default function ConnectionButton() {
   const [isError, setIsError] = useState(false)
 
   const refreshState = () => {
-    window.localStorage.setItem('provider', 'undefined')
+    window.sessionStorage.setItem('provider', 'undefined')
     setIsError(false)
   }
 
@@ -33,14 +33,12 @@ export default function ConnectionButton() {
     console.log('error: ', error)
     console.log('error.name: ', error.name)
     if (error.name === 'UnsupportedChainIdError') {
-      // display warning
       console.log('UnsupportedChainIdError')
       setIsError(true)
     }
   }
 
   useEffect(() => {
-    // console.log('NIQUE TA MERE ACTIVATE == ', active);
     if (active === true) {
       axios({
         method: 'post',
@@ -54,34 +52,20 @@ export default function ConnectionButton() {
           sessionStorage.setItem('token', res.data.access_token)
         }
       })
-      // console.log('acocunt == ', account);
     }
   }, [active])
 
-  useEffect(() => {
-    const provider = window.localStorage.getItem('provider')
-    // @ts-ignore
-    if (provider) activate(connectors[provider], handleConnection)
-    // console.log('hi there');
-  })
-
   return (
     <>
-      <HStack id="connectionButton">
-        {!active && isError === false ? (
-          <Button id='login_button' onClick={onOpen} className="CONNECT_WALLET">Connect Wallet</Button>
-        ): !active && isError === true ? (
-          <Tooltip label="Wrong Network" placement="top" hasArrow>
-            <Button id='login_mode_select' onClick={onOpen} color="white"><Image
-              src="/warning-sign-svgrepo-com.svg"
-              alt="warning"
-              paddingRight={2}
-            />Connect Wallet</Button>
-          </Tooltip>
-        ) : (
-          <Button onClick={disconnect}>Disconnect Wallet</Button>
-        )}
-      </HStack>
+      {!active && isError === false ? (
+        <CustomButton id='login_button' name="Connect Wallet" onClick={onOpen}/>
+      ): !active && isError === true ? (
+        <Tooltip label="Wrong Network" placement="top" hasArrow>
+          <CustomButton id="login_mode_select" name="Connect Wallet" onClick={onOpen} srcImg="/warning-sign-svgrepo-com.svg" alt="warning"/>
+        </Tooltip>
+      ) : (
+        <CustomButton id='login_button' name="Disconnect Wallet" onClick={disconnect}/>
+      )}
       <SelectWalletModal isOpen={isOpen} closeModal={onClose} />
     </>
   )

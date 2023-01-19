@@ -1,16 +1,17 @@
 import axios from "axios";
 import { serverURL } from "../utils/globals";
 import React, { useState, useRef, useEffect } from 'react';
-import MyEditor from '../components/editor/editor';
-import { Form, Button, Card, Dropdown, DropdownButton, Spinner } from 'react-bootstrap';
-import Footer from "../components/footer/footer";
+import MonacoEditor from '../components/editor/monacoEditor';
 import Navbar from "../components/navbar/navbar";
 import MarkdownRenderer from "../components/markdown/markdown";
-import ScoreBoardModal from "../components/modals/tutorialScoreBoardModal";
+import ScoreBoardModal from "../components/modals/scoreboard/tutorialScoreBoardModal";
 import { useRouter } from "next/router";
-import { Text, Alert, AlertIcon, useDisclosure, List } from "@chakra-ui/react";
-import { getAPI, postAPI } from "../utils/api-utils";
-import { STATUS_CODES } from "http";
+import { useDisclosure, Spinner, Select, Switch, HStack, Text} from "@chakra-ui/react";
+import CustomButton from '../components/button/button';
+import CustomSwitch from "../components/switch/customSwitch";
+import LoadingScreen from "../components/loading/loadingScreen";
+import OptionEditor from "../components/editor/optionEditor";
+import UploadEditor from "../components/editor/uploadEditor";
 
 export default function Tutorial() {
   const customHTMLRef = useRef(null);
@@ -114,7 +115,7 @@ export default function Tutorial() {
   async function uploadCode() {
     if (editorValue.length == 0) {
       setShowError(true);
-      setErrorMessage('Please enter some code or some blocks before uploading');
+      setErrorMessage('Please enter some code before uploading');
       setTimeout(() => {
         setShowError(false)
       }, 3000)
@@ -122,7 +123,6 @@ export default function Tutorial() {
       return
     }
     if (editorValue.length > 0 && tutorialInfos.shouldBeCheck == false) {
-      console.log('chi')
       console.log(tutorialInfos.answer)
       let res = await sendUserCode(editorValue);
       console.log('pi');
@@ -160,28 +160,10 @@ export default function Tutorial() {
   }
 
   return (
-    (isLoading === true && showError === false) ?
+    (isLoading === true) ?
       <>
-        <div id="screen">
-          <Navbar />
-          <Spinner animation="border" role="status" style={{ top: 0, bottom: 0, left: 0, right: 0, margin: 'auto', position: 'absolute' }}>
-          </Spinner>
-          <div id="loading-text-tutorial">
-            <Text>Loading ...</Text>
-          </div>
-        </div>
-      </> : (showError === true) ?
-        <>
-          <div id="screen">
-            <Navbar />
-            <Spinner animation="border" role="status" style={{ top: 0, bottom: 0, left: 0, right: 0, margin: 'auto', position: 'absolute' }}>
-            </Spinner>
-            <Alert status='error'>
-              <AlertIcon />
-              There was an error processing your request. Try to refresh the page or contact the administrator.
-            </Alert>
-          </div>
-        </> :
+        <LoadingScreen showError={showError}/>
+      </> :
         <div id ="screen">
           <Navbar />
         <div id="content">
@@ -193,24 +175,9 @@ export default function Tutorial() {
             </div>
           </div>
           <div id="editor">
-            <div id="editor_opt">
-              <Button onClick={() => scoring()}>ScoreBoard</Button>
-              <DropdownButton id="lang_choice" variant="dark" title={(lang !== '') ? lang : "Chose Language"}>
-                <Dropdown.Item as="button" onClick={() => changeLang('js')}>javascript</Dropdown.Item>
-                <Dropdown.Item as="button" onClick={() => changeLang('cpp')}>cpp</Dropdown.Item>
-                <Dropdown.Item as="button" onClick={() => changeLang('python')}>python</Dropdown.Item>
-              </DropdownButton>
-              <Form id="theme_choice">
-                <Form.Check
-                  type="switch"
-                  id="custom-switch"
-                  label={switchText}
-                  onChange={changeTheme}
-                />
-              </Form>
-            </div>
+            <OptionEditor changeLang={changeLang} scoring={scoring} switchText={switchText} changeTheme={changeTheme}/>
             <div id="editor_edit">
-              <MyEditor
+              <MonacoEditor
                 theme={theme}
                 lang={lang}
                 defaultValue={defaultValue}
@@ -224,11 +191,7 @@ export default function Tutorial() {
                 onMount={editorDidMount}
               />
             </div>
-            <div id="submit-button">
-              {(isUploading === false) ? <Button id="upload" size="lg" disabled={isUploading} variant="success" onClick={uploadCode}>Submit</Button> : <Spinner animation="border" role="status">
-                <span className="visually-hidden">Loading...</span>
-              </Spinner>}
-            </div>
+            <UploadEditor isUploading={isUploading} uploadCode={uploadCode}/>
           </div>
         </div>
         <ScoreBoardModal isOpen={isOpen} closeModal={onClose}/>
