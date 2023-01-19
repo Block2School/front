@@ -2,16 +2,11 @@ import { useForm } from 'react-hook-form';
 import emailjs from 'emailjs-com';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
-import { template } from '@babel/core';
 
 
-const serviceId:any = process.env.SERVICE_ID
-const templateId:string = process.env.TEMPLATE_ID as string
-const userId:string = process.env.USER_ID as string
-const test:string = process.env.NEXT_PUBLIC_SERVER_URL as string
-
-console.log("this is test", test);
-console.log("this is userId", userId);
+const serviceId:any = process.env.NEXT_PUBLIC_SERVICE_ID
+const templateId:string = process.env.NEXT_PUBLIC_TEMPLATE_ID as string
+const userId:string = process.env.NEXT_PUBLIC_USER_ID as string
 
 const ContactForm = () => {
   const {
@@ -20,8 +15,7 @@ const ContactForm = () => {
     reset,
     formState: { errors }
   } = useForm();
-  
-  // Function that displays a success toast on bottom right of the page when form submission is successful
+
   const toastifySuccess = () => {
     toast('Form sent!', {
       position: 'bottom-right',
@@ -34,11 +28,9 @@ const ContactForm = () => {
       toastId: 'notifyToast'
     });
   };
-  
-  // Function called on submit that uses emailjs to send email of valid contact form
+
   const onSubmit = async (data: any) => {
-    // Destrcture data object
-    console.log("I'm here")
+
     const { name, email, subject, message } = data;
     try {
       const templateParams = {
