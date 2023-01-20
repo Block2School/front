@@ -23,6 +23,7 @@
 }
 
 #blog-contact-modal {
+  display: none;
   position: fixed;
   width: 600px;
   height: 600px;
