@@ -1,0 +1,18 @@
+#donate_address {
+    color: #ffe6c4;
+}
+
+#donate_amount_input {
+    color: #ffe6c4;
+}
+
+#donate_button_modal {
+    background: #ffe6c4;
+    color: black;
+}
+
+#donate_button_modal:hover {
+    box-shadow: 0 0 0.75em 0 rgb(255, 230, 196) !important;
+    background: #ffe6c4;
+    color: #202020;
+}
