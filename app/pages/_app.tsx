@@ -21,13 +21,20 @@ import 'bootstrap/dist/css/bootstrap.css'
 import type { AppProps } from 'next/app'
 
 import { Web3ReactProvider } from '@web3-react/core'
+import { Web3Provider } from '@ethersproject/providers'
 import Web3 from 'web3'
 import { provider } from 'web3-core'
 
 import { ChakraProvider } from '@chakra-ui/react'
 
-const getLibrary = (provider: provider) => {
-  return new Web3(provider)
+// const getLibrary = (provider: provider) => {
+//   return new Web3(provider)
+// }
+
+const getLibrary = (provider: any): Web3Provider => {
+  const library = new Web3Provider(provider)
+  library.pollingInterval = 12000
+  return library
 }
 
 function MyApp({ Component, pageProps }: AppProps) {
