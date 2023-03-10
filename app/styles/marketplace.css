@@ -3,8 +3,22 @@
     border: 2px solid #ffe6c4;
 }
 
+#buyB2ST:hover {
+    box-shadow: 0 0 0.75em 0 rgb(255, 230, 196) !important;
+}
+
 #buyB2ST2 {
     border: 2px solid #ffe6c4;
     background-color: #ffe6c4;
     color: #000;
+}
+
+#buyB2ST2:hover {
+    box-shadow: 0 0 0.75em 0 rgb(255, 230, 196) !important;
+}
+
+#erroralert {
+    /* background-color: #ffe6c4; */
+    border: 2px solid #ffe6c4;
+    background-color: #343434;
 }

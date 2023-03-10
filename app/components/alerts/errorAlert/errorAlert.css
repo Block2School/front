@@ -1,0 +1,11 @@
+#erroralert {
+    /* background-color: #ffe6c4; */
+    border: 2px solid #ffe6c4;
+    /* backgroundColor: #343434; */
+}
+
+#errorAlertCloseButton {
+    color: #ffe6c4;
+    background-color: #343434;
+    border: 2px solid #ffe6c4;
+}
