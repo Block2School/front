@@ -48,9 +48,9 @@ export default function Navbar() {
       <div id="navbar-component">
         <div id="navbar-container">
           <div id="navbar-logo-container">
-            <Image src="/B2S_white.png" alt="logo" height="100%" width="100%" />
+            <Image src="/Logo_B2S.png" alt="logo" height="100%" width="100%" />
             <Link href={'/'} passHref>
-              <span className="navbar-text">Block2School</span>
+              <span className="navbar-text-logo">Block2School</span>
             </Link>
           </div>
           <div id="navbar-links-container">

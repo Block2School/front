@@ -35,6 +35,7 @@ export default function Home() {
                 width={100}
                 height={100}
               />
+              <Image src="/Logo_B2S.png" id="home-b2c-img" height={100} width={100} />
             </div>
             <div>
               <Image
@@ -71,7 +72,7 @@ export default function Home() {
           ></div>
           <div id="home-second-part">
             <div id="home-second-part-paragraph">
-              <span id="home-paragraph-start-title">Start learning now !</span>
+              <span id="home-paragraph-start-title">Start learning now!</span>
               <div id="home-paragraph-start">
                 <p>
                   Are you ready to enter the world of blockchain? Block2School
@@ -95,6 +96,13 @@ export default function Home() {
                   Start now!
                 </Link>
               </button>
+            </div>
+            <div id="coach">
+              <Image 
+                src="/man-yelling.png" 
+                id="coach-yelling" 
+                height={100} 
+                width={100} />
             </div>
             <Spacer maxW={200} />
           </div>
