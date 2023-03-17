@@ -28,16 +28,6 @@ describe('<OptionEditor/>', () => {
     expect(wrapper.find('#lang_choice').length).toEqual(1)
   })
 
-  // test('should render correctly with args', () => {
-  //   const theme = 'vs-dark';
-  //   const lang = 'javascript';
-  //   shallow(<MyEditor 
-  //     theme={theme} 
-  //     lang={lang} 
-  //     onChange={undefined}
-  //     defaultValue={''} />)
-  // })
-
   test('match snapshot', () => {
     expect(wrapper).toMatchSnapshot();
   }) 
