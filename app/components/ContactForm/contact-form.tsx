@@ -1,7 +1,7 @@
+// import 'react-toastify/dist/ReactToastify.min.css';
 import { useForm } from 'react-hook-form';
 import emailjs from 'emailjs-com';
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.min.css';
 
 
 const serviceId:any = process.env.NEXT_PUBLIC_SERVICE_ID
