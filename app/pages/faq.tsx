@@ -2,6 +2,8 @@ import Footer from "../components/footer/footer";
 import Navbar from "../components/navbar/navbar";
 import Question from "../components/faq/faqQuestion";
 import { useState } from "react";
+import { Show, useColorModeValue, Text, VisuallyHidden, Container, VStack } from "@chakra-ui/react";
+
 
 export default function FAQ() {
   const [searchInput, setSearchInput] = useState("");
@@ -46,15 +48,19 @@ export default function FAQ() {
     setSearchInput(e.target.value);
   };
 
+  const bg = useColorModeValue("#191919", "white");
+  const color = useColorModeValue("black", "black");
   return (
     <>
       <Navbar />
       <div id="faq-container">
         <div id="faq-header">
-          <span>Frequently Asked Questions</span>
+          <span>
+            <div>Frequently Asked Questions</div>
+          </span>
         </div>
         <div id="faq-body">
-          <div
+        <div
             style={{
               width: "20%",
               height: "40px",
@@ -68,31 +74,31 @@ export default function FAQ() {
             />
           </div>
           <div id="faq-questions">
-            {questionList.map((question, index) => {
-              if (searchInput.length > 0) {
-                if (
-                  question.question
-                    .toLowerCase()
-                    .includes(searchInput.toLowerCase())
-                ) {
-                  return (
-                    <Question
-                      key={index}
-                      question={question.question}
-                      answer={question.answer}
-                    />
-                  );
-                }
-              } else {
-                return (
-                  <Question
-                    key={index}
-                    question={question.question}
-                    answer={question.answer}
-                  />
-                );
-              }
-            })}
+              {questionList.map((question, index) => {
+                  if (searchInput.length > 0) {
+                    if (
+                      question.question
+                        .toLowerCase()
+                        .includes(searchInput.toLowerCase())
+                    ) {
+                      return (
+                        <Question
+                          key={index}
+                          question={question.question}
+                          answer={question.answer}
+                        />
+                      );
+                    }
+                  } else {
+                    return (
+                      <Question
+                        key={index}
+                        question={question.question}
+                        answer={question.answer}
+                      />
+                    );
+                  }
+                })}
           </div>
         </div>
       </div>
