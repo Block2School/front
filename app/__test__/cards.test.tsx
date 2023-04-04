@@ -17,4 +17,5 @@ describe('<TutorialCategoryCard/>', () => {
   test('match snapshot', () => {
     expect(wrapper).toMatchSnapshot();
   })
+  
 })

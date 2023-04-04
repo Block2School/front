@@ -8,6 +8,7 @@ import { connectors } from '../wallet/injectors'
 import { useEffect } from 'react'
 import ConnectionButton from '../wallet/connectionButton'
 import NavbarAllBalances from '../wallet/navbarAllBalances'
+import { ThemeSelector } from '../themeSelector/themeSelector'
 
 export default function Navbar() {
   const {
@@ -74,6 +75,7 @@ export default function Navbar() {
           </div>
             <NavbarAllBalances/>
             <ConnectionButton/>
+            <ThemeSelector/>
         </div>
       </div>
     </>
