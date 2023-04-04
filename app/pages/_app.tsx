@@ -18,6 +18,7 @@ import '../components/adminDashboard/adminDashboard.css'
 import '../components/footer/footer.css'
 import '../components/adminTutorials/tutorialsAdmin.css'
 import '../components/alerts/errorAlert/errorAlert.css'
+import '../components/alerts/successAlert/successAlert.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import type { AppProps } from 'next/app'
 

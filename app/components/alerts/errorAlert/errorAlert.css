@@ -9,3 +9,7 @@
     background-color: #343434;
     border: 2px solid #ffe6c4;
 }
+
+#errorAlertCloseButton:hover {
+    box-shadow: 0 0 0.75em 0 rgb(255, 230, 196) !important;
+}
