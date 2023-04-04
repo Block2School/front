@@ -58,14 +58,17 @@ export default function Navbar() {
               <Link href={'/faq'} passHref>
                 <span className="navbar-text">FAQ</span>
               </Link>
-              <Link href={'/login'} passHref>
+              {/* <Link href={'/login'} passHref>
                 <span className="navbar-text">Login</span>
-              </Link>
+              </Link> */}
               <Link href={'/tutorials'} passHref>
                 <span className="navbar-text">Tutorials</span>
               </Link>
               <Link href={'/blog'} passHref>
                 <span className="navbar-text">Blog</span>
+              </Link>
+              <Link href={'/marketplace'} passHref>
+                <span className="navbar-text">Marketplace</span>
               </Link>
             </div>
           </div>
