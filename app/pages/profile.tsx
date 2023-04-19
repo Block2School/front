@@ -34,7 +34,20 @@ export default function Profile() {
             setUsername(res.data.username)
             setEmail(res.data.email)
           }
+        });
+      axios
+        .get(`${serverURL}:8080/tuto/success/me`, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            Authorization: 'Bearer ' + sessionStorage.getItem('token')
+          }
         })
+          .then((res) => {
+            if (res.status === 200) {
+              $("#profile-tuto-completed").text(`You have completed ${res.data.total_completion} tutorials`)
+            }
+          })
     }
   }, [account])
   
@@ -143,6 +156,7 @@ export default function Profile() {
             <div id="profile-body-left">
               <div id="profile-infos">
                 <span className="profile-infos-text">{username}</span>
+                <span id="profile-tuto-completed" className="profile-infos-text">You have completed 0 tutorials</span>
                 <span className="profile-infos-text">{email}</span>
               </div>
               <div id="profile-infos-button">
