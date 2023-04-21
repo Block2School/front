@@ -6,12 +6,15 @@ export default function OptionEditor ({changeLang, scoring, switchText, changeTh
 
     return (
         <div id="editor_opt">
-          <CustomButton name="ScoreBoard" id="upload" onClick={() => scoring()}/>
+          <CustomButton name="ScoreBoard" id="upload" onClick={scoring}/>
           <Select w="30" variant="filled" id="lang_choice">
-            <option selected hidden disabled value="">Chose Language</option>
+            <option value="">Chose Language</option>
             <option onClick={() => changeLang('js')}>javascript</option>
             <option onClick={() => changeLang('cpp')}>cpp</option>
-            <option onClick={() => changeLang('python')}>python</option>
+            <option onClick={() => changeLang('py')}>python</option>
+            <option onClick={() => changeLang('R')}>rust</option>
+            <option onClick={() => changeLang('c')}>c</option>
+            <option onClick={() => changeLang('solidity')}>solidity</option>
           </Select>
           <CustomSwitch switchText={switchText} changeTheme={changeTheme}/>
         </div>
