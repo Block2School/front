@@ -37,11 +37,6 @@ export default function Marketplace() {
   // }, {
   //   id: "2",
   //   name: "B2ST2",
-  //   image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTK2nG24AYDm6FOEC7jIfgubO96GbRso2Xshu1f8abSYQ&s",
-  //   price: 1,
-  // }, {
-  //   id: "3",
-  //   name: "B2ST3",
   //   image: "https://s2.dmcdn.net/v/UXVFb1ZjBTr7NcEaF/x1080",
   //   price: 1,
   // }]);
@@ -92,6 +87,7 @@ export default function Marketplace() {
     let contract = new ethers.Contract(contractAddress, NFT_INTERFACE2, signer);
     let res = await contract.fetchMarketItems();
 
+    let nftArrayTmp: NFT[] = [];
     for (let i = 0; i < res.length; i++) {
       let _nftURI = res[i].tokenURI;
       let _nftPrice = res[i].price;
@@ -105,8 +101,10 @@ export default function Marketplace() {
         price: ethers.utils.formatEther(_nftPrice),
         owner: _nftOwner,
       }
-      setNFTs(prevState => [...prevState, _nft]);
+      nftArrayTmp.push(_nft);
+      // setNFTs(prevState => [...prevState, _nft]);
     }
+    setNFTs(nftArrayTmp);
   };
 
   const handleBuyNFT = (nft: NFT) => {
