@@ -46,6 +46,13 @@ export default function Marketplace() {
   //   price: 1,
   // }]);
   const [nfts, setNFTs] = useState<NFT[]>([]);
+  const [nftToBuy, setNFTToBuy] = useState<NFT>({
+    id: "",
+    name: "",
+    image: "",
+    price: "",
+    owner: ""
+  });
 
   useEffect(() => {
     console.log('library: ', library)
@@ -65,7 +72,6 @@ export default function Marketplace() {
   useEffect(() => {
     if (!library || !account)
       return;
-    console.log('JE SUIS ICI GROS CONNARD DE MERDE')
     async function fetchData() {
       await fetchNFTs();
     }
@@ -85,14 +91,6 @@ export default function Marketplace() {
     // let contract = new ethers.Contract(contractAddress, NFT_INTERFACE, signer);
     let contract = new ethers.Contract(contractAddress, NFT_INTERFACE2, signer);
     let res = await contract.fetchMarketItems();
-    // console.log('res: ', res)
-    // console.log('res[0]: ', res[0])
-    // console.log('res[0][0]: ', res[0][0])
-    // console.log('res[0].name: ', res[0].name)
-    // console.log('res[0].price: ', res[0].price)
-    // console.log('res[0].tokenId: ', res[0].tokenId)
-    // console.log('res[0].seller: ', res[0].seller)
-    // console.log('res[0].tokenURI: ', res[0].tokenURI)
 
     for (let i = 0; i < res.length; i++) {
       let _nftURI = res[i].tokenURI;
@@ -115,6 +113,7 @@ export default function Marketplace() {
     console.log(nft);
     // let contract = "0x814ed598FBBcD0AA466f1a0aAEE8603Ae55b96D3";
     setNFTToBuyIndex(parseInt(nft.id) - 1);
+    setNFTToBuy(nft);
     onOpenBuyNFTModal();
   };
 
@@ -203,7 +202,8 @@ export default function Marketplace() {
       <BuyNFTModal
         isOpenModal={isOpenBuyNFTModal}
         closeModal={onCloseBuyNFTModal}
-        _nft={nfts[nftToBuyIndex]}
+        // _nft={nfts[nftToBuyIndex]}
+        _nft={nftToBuy}
       />
     </>
   )

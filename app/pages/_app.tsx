@@ -27,7 +27,7 @@ import { Web3Provider } from '@ethersproject/providers'
 import Web3 from 'web3'
 import { provider } from 'web3-core'
 
-import { ChakraProvider } from '@chakra-ui/react'
+import { ChakraProvider, Text } from '@chakra-ui/react'
 
 // const getLibrary = (provider: provider) => {
 //   return new Web3(provider)
