@@ -4,7 +4,7 @@ import { Contract } from 'web3-eth-contract';
 const web3 = new Web3('https://data-seed-prebsc-1-s1.binance.org:8545'); // TESTNET
 import BEP20_INTERFACE from '../config/abi/bep20.json';
 import { AbiItem } from 'web3-utils';
-import B2ST_INTERFACE from "../config/abi/B2ST2.json";
+import B2ST_INTERFACE from "../config/abi/B2ST3.json";
 
 type token_address = {
   [key: string]: string | undefined
@@ -15,7 +15,7 @@ const TOKEN_ADDRESS_TESNET: token_address = {
   'ZLDKC': '0x27495B04074Edb7ec458EAE75A5bb1a52Cd4950E',
   'BTCB': '0x6ce8dA28E2f864420840cF74474eFf5fD80E65B8',
   'ETH': '0xd66c6B4F0be8CE5b39D52E0Fd1344c389929B378',
-  'B2ST': '0x532a532C2C755677b86B14089cd7daa1f8DdbCC3',
+  'B2ST': '0x04eBEb70673F5eC6fFAE5607A2EFa11D36E17EA8',
 };
 
 const TOKEN_ADDRESS_MAINNET: token_address = {

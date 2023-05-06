@@ -46,11 +46,13 @@ export default function NavbarAllBalances() {
       if (contract) {
         contract.methods.balanceOf(account).call().then((res: any) => {
           console.log('CustomTokenBalance B2ST : ', res);
+          let formatedRes: string = web3.utils.fromWei(res, 'ether');
+          console.log('CustomTokenBalance B2ST formatedRes: ', formatedRes);
           console.log('B2ST : getFullDisplayBalance : ', getFullDisplayBalance(res, 8, 2));
           // let r: number = parseFloat(getFullDisplayBalance(res, 8, 2));
-          let r: string = getFullDisplayBalance(res, 8, 2);
-          console.log('CustomTokenBalance B2ST r: ', r);
-          setBalanceB2ST(r);
+          // let r: string = getFullDisplayBalance(res, 8, 2);
+          // console.log('CustomTokenBalance B2ST r: ', r);
+          setBalanceB2ST(formatedRes);
         });
       }
     }
