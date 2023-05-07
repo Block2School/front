@@ -11,37 +11,37 @@ import axios from 'axios';
 import { serverURL } from '../../../utils/globals'
 import ListScores from './tutorialListScoresModals';
 
-const ScoreBoardModal = ({
-  isOpen, closeModal
-}: {isOpen:boolean, closeModal:any}) => {
+const ScoreBoardModal = ({ isOpen, closeModal, scoreboard}: {isOpen:boolean, closeModal:any, scoreboard:any}) => {
+  
   const data =  {
     data: [
       {
         uuid:"",
         tutorial_id:0,
+        total_completions:0,
         language:"",
         characters:1000000,
         lines:1000000
       }
     ]
-}
+  }
 
   const [score, setScore] = useState(data);
   const [request, setRequest] = useState(true);
 
   useEffect(() => {
-    if (request)
-      axios.get(`${serverURL}:8080/tuto/scoreboard/me`, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-          Authorization: 'Bearer ' + sessionStorage.getItem('token'),
-        }
-      }).then(res => {
-        setRequest(false);
-        setScore(res.data);
-        console.log(res.data);
-      })
+    axios.get(`${serverURL}:8080/tuto/scoreboard/me`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+      }
+    }).then(res => {
+      setRequest(false);
+      // setScore(score);
+      console.log(res.data);
+      console.log("scoreboard => ", scoreboard.data);
+    })
   })
 
   if (isOpen === false)
@@ -54,7 +54,7 @@ const ScoreBoardModal = ({
         </ModalHeader>
         <ModalCloseButton _focus={{ boxShadow: 'none' }} id="close-modal-tuto"/>
         <ModalBody>
-          <ListScores score={score}/>
+          <ListScores score={scoreboard}/>
         </ModalBody>
       </ModalContent>
     </Modal>

@@ -1,0 +1,705 @@
+{
+  "./components/adminBlog/adminBlog.tsx": [
+    { "description": "", "methods": [], "displayName": "AdminBlog" }
+  ],
+  "./components/adminTutorials/adminTutorialNavBar.tsx": [
+    { "description": "", "methods": [], "displayName": "adminTutorialNavBar" }
+  ],
+  "./components/adminTutorials/adminTutorials.tsx": [
+    { "description": "", "methods": [], "displayName": "AdminBlog" }
+  ],
+  "./components/adminDashboard/adminDashboard.tsx": [
+    { "description": "", "methods": [], "displayName": "adminDashboard" }
+  ],
+  "./components/adminTutorials/confirmationTutorial.tsx": [
+    { "description": "", "methods": [], "displayName": "confirmationTutorial" }
+  ],
+  "./components/adminTutorials/uploadWidgetTutorials.tsx": [
+    { "description": "", "methods": [], "displayName": "uploadWidgetTutorials" }
+  ],
+  "./components/article/articleBody.tsx": [
+    {
+      "description": "",
+      "methods": [],
+      "displayName": "ArticleBody",
+      "props": {
+        "articleTitle": {
+          "required": true,
+          "tsType": { "name": "any" },
+          "description": ""
+        },
+        "articleAuthor": {
+          "required": true,
+          "tsType": { "name": "any" },
+          "description": ""
+        },
+        "articlePublicationDate": {
+          "required": true,
+          "tsType": { "name": "any" },
+          "description": ""
+        },
+        "articleEditDate": {
+          "required": true,
+          "tsType": { "name": "any" },
+          "description": ""
+        },
+        "markdownSource": {
+          "required": true,
+          "tsType": { "name": "string" },
+          "description": ""
+        }
+      }
+    }
+  ],
+  "./components/balance/balance.tsx": [
+    { "description": "", "methods": [], "displayName": "Balance" }
+  ],
+  "./components/blog/blogCard.tsx": [
+    {
+      "description": "",
+      "methods": [],
+      "displayName": "BlogCard",
+      "props": {
+        "id": {
+          "required": true,
+          "tsType": { "name": "number" },
+          "description": ""
+        },
+        "title": {
+          "required": true,
+          "tsType": { "name": "string" },
+          "description": ""
+        },
+        "author": {
+          "required": true,
+          "tsType": { "name": "string" },
+          "description": ""
+        },
+        "markdownUrl": {
+          "required": true,
+          "tsType": { "name": "string" },
+          "description": ""
+        },
+        "publicationDate": {
+          "required": true,
+          "tsType": { "name": "number" },
+          "description": ""
+        },
+        "shortDescription": {
+          "required": true,
+          "tsType": { "name": "string" },
+          "description": ""
+        },
+        "editDate": {
+          "required": true,
+          "tsType": { "name": "number" },
+          "description": ""
+        }
+      }
+    }
+  ],
+  "./components/button/button.tsx": [
+    {
+      "description": "",
+      "methods": [],
+      "displayName": "CustomButton",
+      "props": {
+        "gap": {
+          "required": true,
+          "tsType": { "name": "any" },
+          "description": ""
+        },
+        "id": {
+          "required": true,
+          "tsType": { "name": "any" },
+          "description": ""
+        },
+        "name": {
+          "required": true,
+          "tsType": { "name": "any" },
+          "description": ""
+        },
+        "srcImg": {
+          "required": true,
+          "tsType": { "name": "any" },
+          "description": ""
+        },
+        "alt": {
+          "required": true,
+          "tsType": { "name": "any" },
+          "description": ""
+        },
+        "size": {
+          "required": true,
+          "tsType": { "name": "any" },
+          "description": ""
+        },
+        "disabled": {
+          "required": true,
+          "tsType": { "name": "any" },
+          "description": ""
+        },
+        "variant": {
+          "required": true,
+          "tsType": { "name": "any" },
+          "description": ""
+        },
+        "onClick": {
+          "required": true,
+          "tsType": { "name": "any" },
+          "description": ""
+        },
+        "hImg": {
+          "required": true,
+          "tsType": { "name": "any" },
+          "description": ""
+        },
+        "wImg": {
+          "required": true,
+          "tsType": { "name": "any" },
+          "description": ""
+        },
+        "borderRadius": {
+          "required": true,
+          "tsType": { "name": "any" },
+          "description": ""
+        }
+      }
+    }
+  ],
+  "./components/blog/blogList.tsx": [
+    {
+      "description": "",
+      "methods": [],
+      "displayName": "ListBlog",
+      "props": {
+        "articles": {
+          "required": true,
+          "tsType": { "name": "any" },
+          "description": ""
+        }
+      }
+    }
+  ],
+  "./components/cards/tutorialCategoryCardSmallatIndex.tsx": [
+    {
+      "description": "",
+      "methods": [],
+      "displayName": "TutorialCategoryCardSmallatIndex",
+      "props": {
+        "categories": {
+          "required": true,
+          "tsType": { "name": "any" },
+          "description": ""
+        },
+        "index": {
+          "required": true,
+          "tsType": { "name": "number" },
+          "description": ""
+        },
+        "showCategoryTutorialsModal": {
+          "required": true,
+          "tsType": { "name": "any" },
+          "description": ""
+        }
+      }
+    }
+  ],
+  "./components/cards/tutorialCategoryCardatIndex.tsx": [
+    {
+      "description": "",
+      "methods": [],
+      "displayName": "TutorialCategoryCardatIndex",
+      "props": {
+        "categories": {
+          "required": true,
+          "tsType": { "name": "any" },
+          "description": ""
+        },
+        "index": {
+          "required": true,
+          "tsType": { "name": "number" },
+          "description": ""
+        },
+        "showCategoryTutorialsModal": {
+          "required": true,
+          "tsType": { "name": "any" },
+          "description": ""
+        }
+      }
+    }
+  ],
+  "./components/cards/tutorialCategoryCard.tsx": [
+    {
+      "description": "",
+      "methods": [],
+      "displayName": "TutorialCategoryCard",
+      "props": {
+        "name": {
+          "required": true,
+          "tsType": { "name": "string" },
+          "description": ""
+        },
+        "image": {
+          "required": true,
+          "tsType": { "name": "string" },
+          "description": ""
+        },
+        "description": {
+          "required": true,
+          "tsType": { "name": "string" },
+          "description": ""
+        },
+        "callback": {
+          "required": true,
+          "tsType": { "name": "any" },
+          "description": ""
+        }
+      }
+    }
+  ],
+  "./components/cards/tutorialCategoryCardSmall.tsx": [
+    {
+      "description": "",
+      "methods": [],
+      "displayName": "TutorialCategoryCardSmall",
+      "props": {
+        "name": {
+          "required": true,
+          "tsType": { "name": "string" },
+          "description": ""
+        },
+        "image": {
+          "required": true,
+          "tsType": { "name": "string" },
+          "description": ""
+        },
+        "description": {
+          "required": true,
+          "tsType": { "name": "string" },
+          "description": ""
+        },
+        "callback": {
+          "required": true,
+          "tsType": { "name": "any" },
+          "description": ""
+        }
+      }
+    }
+  ],
+  "./components/ContactForm/contact-form.tsx": [
+    { "description": "", "methods": [], "displayName": "ContactForm" }
+  ],
+  "./components/editor/monacoEditor.tsx": [
+    {
+      "description": "",
+      "methods": [],
+      "displayName": "MonacoEditor",
+      "props": {
+        "theme": {
+          "required": true,
+          "tsType": { "name": "any" },
+          "description": ""
+        },
+        "lang": {
+          "required": true,
+          "tsType": { "name": "any" },
+          "description": ""
+        },
+        "onChange": {
+          "required": true,
+          "tsType": { "name": "any" },
+          "description": ""
+        },
+        "defaultValue": {
+          "required": true,
+          "tsType": { "name": "any" },
+          "description": ""
+        },
+        "onMount": {
+          "required": true,
+          "tsType": { "name": "any" },
+          "description": ""
+        },
+        "options": {
+          "required": true,
+          "tsType": { "name": "any" },
+          "description": ""
+        }
+      }
+    }
+  ],
+  "./components/editor/optionEditor.tsx": [
+    {
+      "description": "",
+      "methods": [],
+      "displayName": "OptionEditor",
+      "props": {
+        "changeLang": {
+          "required": true,
+          "tsType": { "name": "any" },
+          "description": ""
+        },
+        "scoring": {
+          "required": true,
+          "tsType": { "name": "any" },
+          "description": ""
+        },
+        "switchText": {
+          "required": true,
+          "tsType": { "name": "any" },
+          "description": ""
+        },
+        "changeTheme": {
+          "required": true,
+          "tsType": { "name": "any" },
+          "description": ""
+        }
+      }
+    }
+  ],
+  "./components/editor/uploadEditor.tsx": [
+    {
+      "description": "",
+      "methods": [],
+      "displayName": "UploadEditor",
+      "props": {
+        "isUploading": {
+          "required": true,
+          "tsType": { "name": "any" },
+          "description": ""
+        },
+        "uploadCode": {
+          "required": true,
+          "tsType": { "name": "any" },
+          "description": ""
+        }
+      }
+    }
+  ],
+  "./components/faq/faqQuestion.tsx": [
+    {
+      "description": "",
+      "methods": [],
+      "displayName": "Question",
+      "props": {
+        "question": {
+          "required": true,
+          "tsType": { "name": "any" },
+          "description": ""
+        },
+        "answer": {
+          "required": true,
+          "tsType": { "name": "any" },
+          "description": ""
+        }
+      }
+    }
+  ],
+  "./components/loading/loadingScreen.tsx": [
+    {
+      "description": "",
+      "methods": [],
+      "displayName": "LoadingScreen",
+      "props": {
+        "showError": {
+          "required": true,
+          "tsType": { "name": "boolean" },
+          "description": ""
+        }
+      }
+    }
+  ],
+  "./components/login/loginInformation.tsx": [
+    {
+      "description": "",
+      "methods": [],
+      "displayName": "LoginInformation",
+      "props": {
+        "account": {
+          "required": true,
+          "tsType": { "name": "any" },
+          "description": ""
+        },
+        "library": {
+          "required": true,
+          "tsType": { "name": "any" },
+          "description": ""
+        },
+        "chainId": {
+          "required": true,
+          "tsType": { "name": "any" },
+          "description": ""
+        },
+        "active": {
+          "required": true,
+          "tsType": { "name": "boolean" },
+          "description": ""
+        },
+        "onOpen": {
+          "required": true,
+          "tsType": { "name": "any" },
+          "description": ""
+        },
+        "disconnect": {
+          "required": true,
+          "tsType": { "name": "any" },
+          "description": ""
+        }
+      }
+    }
+  ],
+  "./components/footer/footer.tsx": [
+    { "description": "", "methods": [], "displayName": "Footer" }
+  ],
+  "./components/login/loginTitle.tsx": [
+    { "description": "", "methods": [], "displayName": "LoginTitle" }
+  ],
+  "./components/makeUsersAdminWidget/adminUserCard.tsx": [
+    { "description": "", "methods": [], "displayName": "userCard" }
+  ],
+  "./components/makeUsersAdminWidget/makeUsersAdmin.tsx": [
+    { "description": "", "methods": [], "displayName": "userAdmin" }
+  ],
+  "./components/makeUsersAdminWidget/userCard.tsx": [
+    { "description": "", "methods": [], "displayName": "userCard" }
+  ],
+  "./components/makeUsersAdminWidget/modConfirmationModal.tsx": [
+    { "description": "", "methods": [], "displayName": "banModal" }
+  ],
+  "./components/markdown/markdown.tsx": [
+    { "description": "", "methods": [], "displayName": "MarkdownRenderer" }
+  ],
+  "./components/modals/category/tutorialCategoryModal.tsx": [
+    {
+      "description": "",
+      "methods": [],
+      "displayName": "TutorialCategoryModal",
+      "props": {
+        "isOpen": {
+          "required": true,
+          "tsType": { "name": "boolean" },
+          "description": ""
+        },
+        "closeModal": {
+          "required": true,
+          "tsType": { "name": "any" },
+          "description": ""
+        },
+        "category": {
+          "required": true,
+          "tsType": { "name": "string" },
+          "description": ""
+        }
+      }
+    }
+  ],
+  "./components/modals/scoreboard/tutorialScoreBoardModal.tsx": [
+    {
+      "description": "",
+      "methods": [],
+      "displayName": "ScoreBoardModal",
+      "props": {
+        "isOpen": {
+          "required": true,
+          "tsType": { "name": "boolean" },
+          "description": ""
+        },
+        "closeModal": {
+          "required": true,
+          "tsType": { "name": "any" },
+          "description": ""
+        }
+      }
+    }
+  ],
+  "./components/modals/scoreboard/tutorialListScoresModals.tsx": [
+    {
+      "description": "",
+      "methods": [],
+      "displayName": "ListScores",
+      "props": {
+        "score": {
+          "required": true,
+          "tsType": { "name": "any" },
+          "description": ""
+        }
+      }
+    }
+  ],
+  "./components/navbar/navbar.tsx": [
+    { "description": "", "methods": [], "displayName": "Navbar" }
+  ],
+  "./components/modals/wallets/walletsLoginOptions.tsx": [
+    {
+      "description": "",
+      "methods": [],
+      "displayName": "LoginOptions",
+      "props": {
+        "isOpen": {
+          "required": true,
+          "tsType": { "name": "boolean" },
+          "description": ""
+        },
+        "closeModal": {
+          "required": true,
+          "tsType": { "name": "any" },
+          "description": ""
+        }
+      }
+    }
+  ],
+  "./components/switch/customSwitch.tsx": [
+    {
+      "description": "",
+      "methods": [],
+      "displayName": "CustomSwitch",
+      "props": {
+        "switchText": {
+          "required": true,
+          "tsType": { "name": "string" },
+          "description": ""
+        },
+        "changeTheme": {
+          "required": true,
+          "tsType": { "name": "any" },
+          "description": ""
+        }
+      }
+    }
+  ],
+  "./components/modals/wallets/walletsModal.tsx": [
+    {
+      "description": "",
+      "methods": [],
+      "displayName": "SelectWalletModal",
+      "props": {
+        "isOpen": {
+          "required": true,
+          "tsType": { "name": "boolean" },
+          "description": ""
+        },
+        "closeModal": {
+          "required": true,
+          "tsType": { "name": "any" },
+          "description": ""
+        }
+      }
+    }
+  ],
+  "./components/sidebar/sidebar.tsx": [
+    { "description": "", "methods": [], "displayName": "Sidebar" }
+  ],
+  "./components/scoreboard/scoreCard.tsx": [
+    {
+      "description": "",
+      "methods": [],
+      "displayName": "ScoreCard",
+      "props": {
+        "language": {
+          "required": true,
+          "tsType": { "name": "string" },
+          "description": ""
+        },
+        "characters": {
+          "required": true,
+          "tsType": { "name": "number" },
+          "description": ""
+        },
+        "lines": {
+          "required": true,
+          "tsType": { "name": "number" },
+          "description": ""
+        }
+      }
+    }
+  ],
+  "./components/usersAdminWidget/banConfirmationModal.tsx": [
+    { "description": "", "methods": [], "displayName": "banModal" }
+  ],
+  "./components/themeSelector/themeSelector.tsx": [
+    { "description": "", "methods": [], "displayName": "ThemeSelector" }
+  ],
+  "./components/tutorialsList/levelSuggestion.tsx": [
+    {
+      "description": "",
+      "methods": [],
+      "displayName": "SuggestionTutorial",
+      "props": {
+        "categories": {
+          "required": true,
+          "tsType": { "name": "any" },
+          "description": ""
+        },
+        "showCategoryTutorialsModal": {
+          "required": true,
+          "tsType": { "name": "any" },
+          "description": ""
+        }
+      }
+    }
+  ],
+  "./components/tutorialsList/levelDifficulty.tsx": [
+    {
+      "description": "",
+      "methods": [],
+      "displayName": "LevelTutorial",
+      "props": {
+        "name": {
+          "required": true,
+          "tsType": { "name": "any" },
+          "description": ""
+        },
+        "categories": {
+          "required": true,
+          "tsType": { "name": "any" },
+          "description": ""
+        },
+        "showCategoryTutorialsModal": {
+          "required": true,
+          "tsType": { "name": "any" },
+          "description": ""
+        }
+      }
+    }
+  ],
+  "./components/wallet/connectionButton.tsx": [
+    { "description": "", "methods": [], "displayName": "ConnectionButton" }
+  ],
+  "./components/usersAdminWidget/usersAdmin.tsx": [
+    { "description": "", "methods": [], "displayName": "UserAdmin" }
+  ],
+  "./components/usersAdminWidget/userCard.tsx": [
+    { "description": "", "methods": [], "displayName": "userCard" }
+  ],
+  "./components/usersAdminWidget/bannedUserCard.tsx": [
+    { "description": "", "methods": [], "displayName": "userCard" }
+  ],
+  "./components/wallet/navbarAllBalances.tsx": [
+    { "description": "", "methods": [], "displayName": "NavbarAllBalances" }
+  ],
+  "./components/wallet/navbarBalance.tsx": [
+    {
+      "description": "",
+      "methods": [],
+      "displayName": "NavbarBalance",
+      "props": {
+        "balanceToken": {
+          "required": true,
+          "tsType": { "name": "any" },
+          "description": ""
+        },
+        "ImgSrc": {
+          "required": true,
+          "tsType": { "name": "any" },
+          "description": ""
+        },
+        "alt": {
+          "required": true,
+          "tsType": { "name": "any" },
+          "description": ""
+        }
+      }
+    }
+  ]
+}
