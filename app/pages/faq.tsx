@@ -3,7 +3,8 @@ import Navbar from "../components/navbar/navbar";
 import Question from "../components/faq/faqQuestion";
 import { useState } from "react";
 import { Show, useColorModeValue, Text, VisuallyHidden, Container, VStack } from "@chakra-ui/react";
-
+import { useContext } from 'react';
+import { LanguageContext } from "../components/LanguageSwitcher/language";
 
 export default function FAQ() {
   const [searchInput, setSearchInput] = useState("");
@@ -50,6 +51,9 @@ export default function FAQ() {
 
   const bg = useColorModeValue("#191919", "white");
   const color = useColorModeValue("black", "black");
+
+  const { dictionary } = useContext(LanguageContext);
+
   return (
     <>
       <Navbar />
@@ -58,6 +62,7 @@ export default function FAQ() {
           <span>
             <div>Frequently Asked Questions</div>
           </span>
+          <span>{dictionary.faq.faq}</span>
         </div>
         <div id="faq-body">
         <div
@@ -99,6 +104,25 @@ export default function FAQ() {
                     );
                   }
                 })}
+            {/* <Question
+              question={dictionary.faq.first_block_title}
+              answer={dictionary.faq.first_block_contain}
+            />
+            <Question
+              question={dictionary.faq.second_block_title}
+              answer={dictionary.faq.second_block_contain}
+            />
+            <Question
+              question={dictionary.faq.third_block_title}
+              answer={dictionary.faq.third_block_contain}
+            />
+            <Question
+              question={dictionary.faq.fourth_block_title}
+              answer={dictionary.faq.fourth_block_contain}
+            /> */}
+            {/* <Question question="TEST" answer="test"/>
+            <Question question="TEST" answer="test"/>
+            <Question question="TEST" answer="test"/> */}
           </div>
         </div>
       </div>
