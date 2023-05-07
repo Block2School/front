@@ -1,7 +1,7 @@
 import { HStack, Text, Image } from "@chakra-ui/react";
 import CountUp from 'react-countup';
 
-export default function NavbarBalance ({balanceToken, ImgSrc, alt}:{balanceToken:any, ImgSrc:any, alt:any}) {
+export default function NavbarBalance ({balanceToken, ImgSrc, alt, _decimal = 4}:{balanceToken:any, ImgSrc:any, alt:any, _decimal: number}) {
 
     return (
         balanceToken != null ? (
@@ -12,7 +12,7 @@ export default function NavbarBalance ({balanceToken, ImgSrc, alt}:{balanceToken
                     duration={0.5}
                     separator=","
                     decimal="."
-                    decimals={4}
+                    decimals={_decimal}
                     style={{ display:'flex', flexDirection:'row', paddingTop:'8px', color: 'white'}}
                 />
                 <Image
