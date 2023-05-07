@@ -66,9 +66,6 @@ export default function Navbar() {
               {/* <Link href={'/login'} passHref>
                 <span className="navbar-text">Login</span>
               </Link> */}
-              <Link href={'/login'} passHref>
-                <span className="navbar-text">{dictionary.navbar.login}</span>
-              </Link>
               <Link href={'/tutorials'} passHref>
                 <span className="navbar-text">{dictionary.navbar.tutorials}</span>
               </Link>
