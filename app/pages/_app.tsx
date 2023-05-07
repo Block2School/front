@@ -27,7 +27,10 @@ import { Web3Provider } from '@ethersproject/providers'
 import Web3 from 'web3'
 import { provider } from 'web3-core'
 
-import { ChakraProvider, Text } from '@chakra-ui/react'
+
+import { ChakraProvider } from "@chakra-ui/react";
+import { LanguageProvider } from "../components/LanguageSwitcher/language";
+
 
 // const getLibrary = (provider: provider) => {
 //   return new Web3(provider)
@@ -41,12 +44,15 @@ const getLibrary = (provider: any): Web3Provider => {
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ChakraProvider>
-      <Web3ReactProvider getLibrary={getLibrary}>
-        <Component {...pageProps} />
-      </Web3ReactProvider>
-    </ChakraProvider>
-  )
+    <LanguageProvider>
+      <ChakraProvider>
+        <Web3ReactProvider getLibrary={getLibrary}>
+          <Component {...pageProps} />
+        </Web3ReactProvider>
+      </ChakraProvider>
+    </LanguageProvider>
+  );
+
 }
 
 export default MyApp
