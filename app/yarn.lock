@@ -9024,10 +9024,15 @@ mdast-util-definitions@^5.0.0:
     "uncontrollable" "^7.2.1"
     "warning" "^4.0.3"
 
-"react-clientside-effect@^1.2.5":
-  "integrity" "sha512-XGGGRQAKY+q25Lz9a/4EPqom7WRjz3z9R2k4jhVKA/puQFH/5Nt27vFZYql4m4NVNdUvX8PS3O7r/Zzm7cjUlg=="
-  "resolved" "https://registry.npmjs.org/react-clientside-effect/-/react-clientside-effect-1.2.6.tgz"
-  "version" "1.2.6"
+react-chakra-pagination@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/react-chakra-pagination/-/react-chakra-pagination-1.0.1.tgz#3bbcae50589fe8dc4aed0032f5ad565db0e55f76"
+  integrity sha512-S/ldhbvYBXpmOuurNm4s9KmOa7A2i+PInE1GVwTauS3BDkAePp1TfpWhScq/V2f3Mq57uFEFlkVMWTTsukc+6A==
+
+react-clientside-effect@^1.2.5:
+  version "1.2.6"
+  resolved "https://registry.yarnpkg.com/react-clientside-effect/-/react-clientside-effect-1.2.6.tgz#29f9b14e944a376b03fb650eed2a754dd128ea3a"
+  integrity sha512-XGGGRQAKY+q25Lz9a/4EPqom7WRjz3z9R2k4jhVKA/puQFH/5Nt27vFZYql4m4NVNdUvX8PS3O7r/Zzm7cjUlg==
   dependencies:
     "@babel/runtime" "^7.12.13"
 
@@ -9211,10 +9216,15 @@ react-dom@18.0.0:
     "prismjs" "^1.27.0"
     "refractor" "^3.6.0"
 
-"react-test-renderer@^16.0.0-0":
-  "integrity" "sha512-L8yPjqPE5CZO6rKsKXRO/rVPiaCOy0tQQJbC+UjPNlobl5mad59lvPjwFsQHTvL03caVDIVr9x9/OSgDe6I5Eg=="
-  "resolved" "https://registry.npmjs.org/react-test-renderer/-/react-test-renderer-16.14.0.tgz"
-  "version" "16.14.0"
+react-table@^7.8.0:
+  version "7.8.0"
+  resolved "https://registry.yarnpkg.com/react-table/-/react-table-7.8.0.tgz#07858c01c1718c09f7f1aed7034fcfd7bda907d2"
+  integrity sha512-hNaz4ygkZO4bESeFfnfOft73iBUj8K5oKi1EcSHPAibEydfsX2MyU6Z8KCr3mv3C9Kqqh71U+DhZkFvibbnPbA==
+
+react-test-renderer@^16.0.0-0:
+  version "16.14.0"
+  resolved "https://registry.yarnpkg.com/react-test-renderer/-/react-test-renderer-16.14.0.tgz#e98360087348e260c56d4fe2315e970480c228ae"
+  integrity sha512-L8yPjqPE5CZO6rKsKXRO/rVPiaCOy0tQQJbC+UjPNlobl5mad59lvPjwFsQHTvL03caVDIVr9x9/OSgDe6I5Eg==
   dependencies:
     "object-assign" "^4.1.1"
     "prop-types" "^15.6.2"
