@@ -12,7 +12,6 @@ export default function AdminBlog() {
   const [token, setToken] = useState('');
   const [editorContent, setEditorContent] = useState('');
   const [title, setTitle] = useState('');
-  const [tutorialAuthor, setTutorialAuthor] = useState('');
   const [availableMarkdowns, setAvailableMarkdowns] = useState(['']);
   const [tutorialTitle, setTuotrialTitle] = useState('');
   const [tutorialCategory, setTutorialCategory] = useState('');
@@ -25,6 +24,7 @@ export default function AdminBlog() {
   useEffect(() => {
     setToken(sessionStorage.getItem('token') || '');
     setTitle(moment().format('YYYY-MM-DD'));
+    setAvailableMarkdowns(['Markdown1', 'markdown2'])
   }, []);
 
   useEffect(() => {
