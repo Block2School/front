@@ -2,7 +2,7 @@ import React from 'react'
 import { Button, Text, Select } from '@chakra-ui/react'
 import { useState } from 'react'
 
-export default function adminTutorialNavBar({state, next, back, setTitle, setAuthor, setCategory, availableMarkdowns, selectedMarkdown, setSelectedMarkdown}:any) {
+export default function adminTutorialNavBar({state, next, back, setTitle, setCategory, availableMarkdowns, selectedMarkdown, setSelectedMarkdown}:any) {
     let titles = ['Create the Markdown!', 'Create the Start Code!', 'Create the Answer Code!'];
 
     return (
@@ -17,10 +17,7 @@ export default function adminTutorialNavBar({state, next, back, setTitle, setAut
             <div className="tutorial-navbar">
                 <div className='input-navbar-div'>
                     <input className='input-nav-bar' type="text" placeholder='Title' onChange={e => {setTitle(e.target.value)}}/>
-                </div>
-                <div className='input-navbar-div'>
-                    <input className='input-nav-bar' placeholder='Author' onChange={e => {setAuthor(e.target.value)}}/>
-                </div>               
+                </div>           
                 <div className='input-navbar-div'>
                     <input className='input-nav-bar' placeholder='Category' onChange={e => {setCategory(e.target.value)}}/>
                 </div>             

@@ -24,7 +24,6 @@ export default function AdminBlog() {
   useEffect(() => {
     setToken(sessionStorage.getItem('token') || '');
     setTitle(moment().format('YYYY-MM-DD'));
-    setAvailableMarkdowns(['Markdown1', 'markdown2'])
   }, []);
 
   useEffect(() => {
@@ -237,7 +236,7 @@ export default function AdminBlog() {
         <div className="usersAdmin-title-div">
           <h1 className="usersAdmin-title">Upload a new tutorial!</h1>
         </div>
-        <TutorialNavBar state={tutorialCreationState} next={() => nextState()} back={() => backState()} setTitle={setTuotrialTitle} setAuthor={setTutorialAuthor} setCategory={setTutorialCategory} availableMarkdowns={availableMarkdowns} selectedMarkdown={selectedMarkdown} setSelectedMarkdown={setSelectedMarkdown}/>
+        <TutorialNavBar state={tutorialCreationState} next={() => nextState()} back={() => backState()} setTitle={setTuotrialTitle} setCategory={setTutorialCategory} availableMarkdowns={availableMarkdowns} selectedMarkdown={selectedMarkdown} setSelectedMarkdown={setSelectedMarkdown}/>
         <Button onClick={() => publishTutorial()} className='publish-button'>Publish tutorial!</Button>
         <Button onClick={() => createMarkdown()} className='publish-button'>Create the new markdown!</Button>
         <div className='editor-div'>
