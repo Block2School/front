@@ -12,19 +12,42 @@ export default function AdminBlog() {
   const [token, setToken] = useState('');
   const [editorContent, setEditorContent] = useState('');
   const [title, setTitle] = useState('');
-  const [tutorialAuthor, setTutorialAuthor] = useState('');
   const [availableMarkdowns, setAvailableMarkdowns] = useState(['']);
   const [tutorialTitle, setTuotrialTitle] = useState('');
   const [tutorialCategory, setTutorialCategory] = useState('');
   const [tutorialAnswer, setTutorialAnswer] = useState('');
   const [tutorialStartCode, setTutorialStartCode] = useState('');
   const [tutorialCreationState, setTutorialCreationState] = useState(0);
+  const [selectedMarkdown, setSelectedMarkdown] = useState('');
+  
 
   useEffect(() => {
     setToken(sessionStorage.getItem('token') || '');
     setTitle(moment().format('YYYY-MM-DD'));
-    setAvailableMarkdowns([]);
-    // ToDo: get markdown list
+  }, []);
+
+  useEffect(() => {
+    axios({
+      method: 'GET',
+      url: `${serverURL}:8080/admin/tuto/available_markdown`,
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        Authorization: `Bearer ${sessionStorage.getItem('token')}`,
+      }
+    }).then((res) => {
+      let markdowns_: Array<{title: string, markdown_url: string}> = res.data.markdown_list;
+      let _markdown_: Array<string> = markdowns_.map((element: any) => {
+        console.log(element.markdown_url)
+        return element.markdown_url;
+      });
+      let _availableMarkdowns = availableMarkdowns.filter((element: string) => {
+        return element !== '';
+      });
+      setAvailableMarkdowns([..._availableMarkdowns, ..._markdown_]);
+    }).catch((err) => {
+      console.log('err == ', err);
+    })
   }, []);
 
   const backState = () => {
@@ -39,76 +62,63 @@ export default function AdminBlog() {
     }
   }
 
-  // const publishTutorial = () => {
-  //   if (title === '' || title === undefined || title === null) {
-  //     setTitle(moment().format('YYYY-MM-DD'));
-  //   }
-  //   const data = {
-  //     title: title,
-  //     content: editorContent,
-  //   }
-  //   console.log('data == ', data);
+  const createMarkdown = () => {
 
-  //   axios({
-  //     method: 'POST',
-  //     url: `${serverURL}:8080/admin/article/create_markdown`,
-  //     data: data,
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       'Access-Control-Allow-Origin': '*',
-  //       Authorization: `Bearer ${token}`,
-  //     },
-  //   }).then((res) => {
-  //     console.log('res == ', res);
-  //     const data = res.data;
-  //     let markdownUrl: string | undefined = data?.markdown_url?.url;
-  //     if (markdownUrl) {
-  //       setAvailableMarkdowns([...availableMarkdowns, markdownUrl]);
-  //     }
-  //     axios({
-  //       method: 'POST',
-  //       url: `${serverURL}:8080/article/create`,
-  //       data: {
-  //         id: -1,
-  //         title: title,
-  //         markdown_url: markdownUrl,
-  //         author: tutorialAuthor,
-  //         shortDescription: shortDescription
-  //       },
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         'Access-Control-Allow-Origin': '*',
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     }).then((res) => {
-  //       if (res.data.success === true) {
-  //         alert('Article created successfully');
-  //       }
-  //     })
-  //   });
-  // }
+    const createMkData = {
+      name: tutorialTitle,
+      content: editorContent,
+    }
 
-  const publishTutorial = () => {
-    console.log("posting tutorial")
+    console.log('data == ', createMkData);
 
     axios({
       method: 'POST',
-      url: `${serverURL}:8080/admin/tuto/create`,
-      data: {
-        title: tutorialTitle,
-        author: tutorialAuthor,
-        category: tutorialCategory,
-        answer: tutorialAnswer,
-        startCode: tutorialStartCode,
-      },
+      url: `${serverURL}:8080/admin/tuto/create_markdown`,
+      data: createMkData,
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
         Authorization: `Bearer ${token}`,
       },
-    })
+    }).then((res) => {
+      console.log('res == ', res);
+      const data = res.data;
+      let markdownUrl: string | undefined = data?.markdown_url?.url;
+      if (markdownUrl) {
+        setAvailableMarkdowns([...availableMarkdowns, markdownUrl]);
+      }
+    });
   }
 
+  const publishTutorial = () => {
+
+    const data = {
+      title: tutorialTitle,
+      markdownUrl: selectedMarkdown,
+      category: tutorialCategory,
+      answer: tutorialAnswer,
+      startCode: tutorialStartCode,
+      shouldBeCheck: false,
+      input: '',
+      points: 0,
+    }
+    console.log('data == ', data);
+
+    axios({
+      method: 'POST',
+      url: `${serverURL}:8080/admin/tuto/create`,
+      data: data,
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      if (res.data.success === true) {
+        alert('Tutorial created successfully');
+      }
+    })
+  };
     // ============================================================================================================
 
   let stageZero = <div style={{
@@ -219,8 +229,6 @@ export default function AdminBlog() {
   </div>;
 
   //===================================================================================================
-  let stageThree = <Text>Three</Text>;
-  let stageFour = <Text>Four</Text>;
 
 
   return (
@@ -228,8 +236,9 @@ export default function AdminBlog() {
         <div className="usersAdmin-title-div">
           <h1 className="usersAdmin-title">Upload a new tutorial!</h1>
         </div>
-        <TutorialNavBar state={tutorialCreationState} next={() => nextState()} back={() => backState()} setTitle={setTuotrialTitle} setAuthor={setTutorialAuthor} setCategory={setTutorialCategory}/>
-        <Button onClick={() => publishTutorial()} className='publish-button'>Publish</Button>
+        <TutorialNavBar state={tutorialCreationState} next={() => nextState()} back={() => backState()} setTitle={setTuotrialTitle} setCategory={setTutorialCategory} availableMarkdowns={availableMarkdowns} selectedMarkdown={selectedMarkdown} setSelectedMarkdown={setSelectedMarkdown}/>
+        <Button onClick={() => publishTutorial()} className='publish-button'>Publish tutorial!</Button>
+        <Button onClick={() => createMarkdown()} className='publish-button'>Create the new markdown!</Button>
         <div className='editor-div'>
         {tutorialCreationState == 0 &&
           stageZero
@@ -241,7 +250,6 @@ export default function AdminBlog() {
           stageTwo
         }
         </div>
-
       </div>
   )
 }
