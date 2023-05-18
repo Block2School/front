@@ -38,7 +38,7 @@ export default function Home() {
                 height={100}
                 alt='web3'
               />
-              <Image src="/Logo_B2S.png" id="home-b2c-img" height={100} width={100} />
+              <Image src="/Logo_B2S.png" id="home-b2c-img" height={100} width={100} alt=''/>
             </div>
             <div>
               <Image
@@ -107,7 +107,9 @@ export default function Home() {
                 src="/man-yelling.png" 
                 id="coach-yelling" 
                 height={100} 
-                width={100} />
+                width={100}
+                alt=''
+              />
             </div>
             <Spacer maxW={200} />
           </div>
@@ -121,48 +123,120 @@ export default function Home() {
             marginBottom: "50px"
           }}>Our team</div>
             <div id="home-third-part">
-              <Image 
-                id="home-picture-matisse"
-                src="/profile-pictures/matisse.png"
-                className="home-picture"
-                width={100}
-                alt='matisse'
-              />
-              <Image
-                id="home-picture-lorenzo"
-                src="/profile-pictures/lorenzo.png"
-                className="home-picture"
-                width={100}
-                alt='lorenzo'
-              />
-              <Image
-                id="home-picture-lucas"
-                src="/profile-pictures/lucas.png"
-                className="home-picture"
-                width={100}
-                alt='lucas' 
-              />
-              <Image
-                id="home-picture-cyril"
-                src="/profile-pictures/cyril.png"
-                className="home-picture"
-                width={100}
-                alt='cyril'
-              />
-              <Image
-                id="home-picture-gabriel"
-                src="/profile-pictures/gabriel.png"
-                className="home-picture"
-                width={100}
-                alt='gabriel'
-              />
-              <Image
-                id="home-picture-jose"
-                src="/profile-pictures/jose.png"
-                className="home-picture"
-                width={100}
-                alt='jose'
-              />
+              <div>
+                <div className="flip-box">
+                  <div className="flip-box-inner">
+                    <div className="flip-box-front">
+                      <Image 
+                        id="home-picture-matisse"
+                        src="/profile-pictures/matisse.png"
+                        className="home-picture"
+                        width={100}
+                        alt='matisse'
+                      />
+                    </div>
+                    <div className="flip-box-back">
+                      <h1>Matisse Page</h1>
+                      <p>Front-end developer</p>
+                    </div>
+                  </div>
+                </div> 
+              </div>
+              <div>
+                <div className="flip-box">
+                  <div className="flip-box-inner">
+                    <div className="flip-box-front">
+                      <Image
+                        id="home-picture-lorenzo"
+                        src="/profile-pictures/lorenzo.png"
+                        className="home-picture"
+                        width={100}
+                        alt='lorenzo'
+                      />
+                    </div>
+                    <div className="flip-box-back">
+                      <h1>Lorenzo Manoeuvre</h1>
+                      <p>Front-end developer</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div className="flip-box">
+                  <div className="flip-box-inner">
+                    <div className="flip-box-front">
+                      <Image
+                        id="home-picture-lucas"
+                        src="/profile-pictures/lucas.png"
+                        className="home-picture"
+                        width={100}
+                        alt='lucas' 
+                      />
+                    </div>
+                    <div className="flip-box-back">
+                      <h1>Lucas Dudot</h1>
+                      <p>Front-end developer</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div className="flip-box">
+                  <div className="flip-box-inner">
+                    <div className="flip-box-front">
+                      <Image
+                        id="home-picture-cyril"
+                        src="/profile-pictures/cyril.png"
+                        className="home-picture"
+                        width={100}
+                        alt='cyril'
+                      />
+                    </div>
+                    <div className="flip-box-back">
+                      <h1>Cyril Grosjean</h1>
+                      <p>Back-end developer</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div className="flip-box">
+                  <div className="flip-box-inner">
+                    <div className="flip-box-front">
+                      <Image
+                        id="home-picture-gabriel"
+                        src="/profile-pictures/gabriel.png"
+                        className="home-picture"
+                        width={100}
+                        alt='gabriel'
+                      />
+                    </div>
+                    <div className="flip-box-back">
+                      <h1>Gabriel Knies</h1>
+                      <p>Fullstack developer</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div className="flip-box">
+                  <div className="flip-box-inner">
+                    <div className="flip-box-front">
+                      <Image
+                        id="home-picture-jose"
+                        src="/profile-pictures/jose.png"
+                        className="home-picture"
+                        width={100}
+                        alt='jose'
+                      />
+                      </div>
+                      <div className="flip-box-back">
+                        <h1>Jose Fernan</h1>
+                        <p>Fullstack developer</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
             </div>
             <Spacer height={100} />
         </div>
