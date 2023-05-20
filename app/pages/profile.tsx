@@ -20,6 +20,7 @@ export default function Profile() {
   const [email, setEmail] = useState('')
   const [twitter, setTwitter] = useState('')
   const [youtube, setYoutube] = useState('')
+  const [points, setPoints] = useState('')
 
   useEffect(() => {
     if (account !== '' && account !== undefined && account !== null) {
@@ -61,6 +62,7 @@ export default function Profile() {
           setEmail(res.data.email)
           setTwitter(res.data.twitter)
           setYoutube(res.data.youtube)
+          setPoints(res.data.points)
         }
       })
   }
@@ -244,6 +246,8 @@ export default function Profile() {
               <div id="profile-body-left">
                 <div id="profile-infos">
                   <span style={{color: "greenyellow"}} id="profile-tuto-completed" className="profile-infos-text">You have completed 0 tutorials</span>
+                  <span className="profile-infos-label">Points :</span>
+                  <span className="profile-infos-text">{points}</span>
                   <span className="profile-infos-label">Username :</span>
                   <span className="profile-infos-text">{username}</span>
                   <span className="profile-infos-label">Email :</span>
