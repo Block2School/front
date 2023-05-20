@@ -29,35 +29,39 @@ import UploadEditor from "../components/editor/uploadEditor";
 import { AiFillBell } from 'react-icons/ai';
 
 
-interface ModalProps {
+export interface ModalProps {
   showModal: boolean;
   setShowModal: (showModal: boolean) => void;
   modalTitle: string;
   modalMessage: string;
 }
 
-const CustomModal = (props: ModalProps) => {
+export const CustomModal = (props: ModalProps) => {
   const { showModal, setShowModal, modalTitle, modalMessage } = props;
   const { onClose } = useDisclosure();
 
   return (
     <Modal isOpen={showModal} onClose={onClose}>
-      <ModalOverlay />
-      <ModalContent>
-        <AiFillBell/>
+      <ModalOverlay bg="blackAlpha.800" />
+      <ModalContent
+        bg="black"
+        color="white"
+        textAlign="center"
+        maxWidth={400}
+        mx="auto"
+        mt={20}
+        p={4}
+        position="relative"
+      >
+        <AiFillBell style={{ fontSize: "2rem", color: '#ffe6c4' }} />
         <ModalHeader>{modalTitle}</ModalHeader>
-        <ModalCloseButton />
+        <ModalCloseButton color="#ffe6c4" />
         <ModalBody>
+          <img src="/man-yelling.png" id="coach-yelling" height={110} width={110} style={{ margin: "0 auto", display: "block" }} />
           <p>{modalMessage}</p>
         </ModalBody>
-        <img 
-          src="/man-yelling.png" 
-          id="coach-yelling" 
-          height={100} 
-          width={100} 
-        />
         <ModalFooter>
-          <Button colorScheme="blue" mr={3} onClick={() => setShowModal(false)}>
+          <Button colorScheme="yellow" mr={2} onClick={() => setShowModal(false)}>
             Fermer
           </Button>
         </ModalFooter>
@@ -171,6 +175,7 @@ export default function Tutorial() {
     if (lang == "solidity") {
       execute = false
     }
+    console.log("in sending user code");
     let res = await axios.post(`${serverURL}:8080/tuto/complete`, {
       source_code: code, tutorial_id: tutorialId, total_completions: 100, language: lang, characters:editorValue.length, lines:lineCount, exec:execute
     }, {
@@ -198,33 +203,17 @@ export default function Tutorial() {
     if (editorValue.length > 0) {
       let res = await sendUserCode(editorValue);
       if (res.is_correct == true) {
-        setShowError(true);
-        setVariant('success');
-        setErrorMessage('Code uploaded successfully');
-        setTimeout(() => {
-          setShowError(false)
-          setVariant('danger')
-        }, 3000)
-        setIsUploading(false)
-        alert('Correct answer')
         setShowModal(true);
-        setModalTitle('sucess');
-        setModalMessage('Correct Answer');
+        setModalTitle('Correct Answer');
+        setModalMessage('Congratulations');
         setTimeout(() => {
           setShowModal(false);
         }, 3000);
         setIsUploading(false);
       } else {
-        setShowError(true)
-        setVariant('danger')
-        setErrorMessage('Error while uploading code')
-        setTimeout(() => {
-          setShowError(false)
-        }, 3000)
-        // alert('Wrong answer')
         setShowModal(true);
-        setModalTitle('error');
-        setModalMessage('Wrong Answer');
+        setModalTitle('Wrong Answer');
+        setModalMessage('Try again');
         setTimeout(() => {
           setShowModal(false);
         }, 3000);
