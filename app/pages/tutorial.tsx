@@ -6,10 +6,69 @@ import Navbar from "../components/navbar/navbar";
 import MarkdownRenderer from "../components/markdown/markdown";
 import ScoreBoardModal from "../components/modals/scoreboard/tutorialScoreBoardModal";
 import { useRouter } from "next/router";
-import { useDisclosure, Spinner, Select, Switch, HStack, Text} from "@chakra-ui/react";
+import { 
+  useDisclosure, 
+  Spinner, 
+  Select, 
+  Switch, 
+  HStack, 
+  Text,
+  Button,
+  Modal, 
+  ModalOverlay, 
+  ModalContent, 
+  ModalHeader, 
+  ModalFooter, 
+  ModalBody, 
+  ModalCloseButton 
+} from "@chakra-ui/react";
+
 import LoadingScreen from "../components/loading/loadingScreen";
 import OptionEditor from "../components/editor/optionEditor";
 import UploadEditor from "../components/editor/uploadEditor";
+import { AiFillBell } from 'react-icons/ai';
+
+
+export interface ModalProps {
+  showModal: boolean;
+  setShowModal: (showModal: boolean) => void;
+  modalTitle: string;
+  modalMessage: string;
+}
+
+export const CustomModal = (props: ModalProps) => {
+  const { showModal, setShowModal, modalTitle, modalMessage } = props;
+  const { onClose } = useDisclosure();
+
+  return (
+    <Modal isOpen={showModal} onClose={onClose}>
+      <ModalOverlay bg="blackAlpha.800" />
+      <ModalContent
+        bg="black"
+        color="white"
+        textAlign="center"
+        maxWidth={400}
+        mx="auto"
+        mt={20}
+        p={4}
+        position="relative"
+      >
+        <AiFillBell style={{ fontSize: "2rem", color: '#ffe6c4' }} />
+        <ModalHeader>{modalTitle}</ModalHeader>
+        <ModalCloseButton color="#ffe6c4" />
+        <ModalBody>
+          <img src="/man-yelling.png" id="coach-yelling" height={110} width={110} style={{ margin: "0 auto", display: "block" }} />
+          <p>{modalMessage}</p>
+        </ModalBody>
+        <ModalFooter>
+          <Button colorScheme="yellow" mr={2} onClick={() => setShowModal(false)}>
+            Fermer
+          </Button>
+        </ModalFooter>
+      </ModalContent>
+    </Modal>
+  );
+};
 
 export default function Tutorial() {
   const customHTMLRef = useRef(null);
@@ -29,6 +88,10 @@ export default function Tutorial() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const router = useRouter();
   const { tutorialId } = router.query;
+  const [showModal, setShowModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState('');
+  const [modalTitle, setModalTitle] = useState('');
+
 
   const [tutorialInfos, setTutorialInfos] = useState({
     id: 0,
@@ -41,6 +104,7 @@ export default function Tutorial() {
     enabled: false,
   })
 
+  
   useEffect(() => {
     setIsLoading(true)
     axios.get(`${serverURL}:8080/tuto/${tutorialId}`, {
@@ -111,6 +175,7 @@ export default function Tutorial() {
     if (lang == "solidity") {
       execute = false
     }
+    console.log("in sending user code");
     let res = await axios.post(`${serverURL}:8080/tuto/complete`, {
       source_code: code, tutorial_id: tutorialId, total_completions: 100, language: lang, characters:editorValue.length, lines:lineCount, exec:execute
     }, {
@@ -125,6 +190,7 @@ export default function Tutorial() {
   }
 
   async function uploadCode() {
+  
     if (editorValue.length == 0) {
       setShowError(true);
       setErrorMessage('Please enter some code before uploading');
@@ -137,23 +203,21 @@ export default function Tutorial() {
     if (editorValue.length > 0) {
       let res = await sendUserCode(editorValue);
       if (res.is_correct == true) {
-        setShowError(true);
-        setVariant('success');
-        setErrorMessage('Code uploaded successfully');
+        setShowModal(true);
+        setModalTitle('Correct Answer');
+        setModalMessage('Congratulations');
         setTimeout(() => {
-          setShowError(false)
-          setVariant('danger')
-        }, 3000)
-        setIsUploading(false)
-        alert('Correct answer')
+          setShowModal(false);
+        }, 3000);
+        setIsUploading(false);
       } else {
-        setShowError(true)
-        setVariant('danger')
-        setErrorMessage('Error while uploading code')
+        setShowModal(true);
+        setModalTitle('Wrong Answer');
+        setModalMessage('Try again');
         setTimeout(() => {
-          setShowError(false)
-        }, 3000)
-        alert('Wrong answer')
+          setShowModal(false);
+        }, 3000);
+        setIsUploading(false);
       }
       setIsUploading(false)
       return
@@ -179,6 +243,12 @@ export default function Tutorial() {
             <div id="subject">
               <div id="tutorial-content">
                 <div id="zone-text">
+                  <CustomModal
+                    showModal={showModal}
+                    setShowModal={setShowModal}
+                    modalTitle={modalTitle}
+                    modalMessage={modalMessage}
+                  />
                   <MarkdownRenderer source={markdown} />
                 </div>
               </div>
