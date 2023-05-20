@@ -15,13 +15,14 @@ export default function banModal({person, closeModal}:any) {
   }, []);
 
   const handleClick = () => {
-    console.log("Banning user: " + person.name);
-    console.log("banning user ID: " +person.id);
+    console.log("Banning user: " + person.wallet_address);
+    console.log("banning user ID: " +person.uuid);
     axios({
       method: 'POST',
       url: `${serverURL}:8080/admin/mod`,
       data: {
-        uuid: person.id,
+        uuid: person.uuid,
+        role: 2
       },
       headers: {
         'Content-Type': 'application/json',
@@ -29,7 +30,7 @@ export default function banModal({person, closeModal}:any) {
         Authorization: `Bearer ${token}`,
       },
     })
-    window.location.reload();
+    setTimeout(() => window.location.reload(), 1000);
   }
 
   return (
