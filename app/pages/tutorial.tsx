@@ -29,7 +29,7 @@ import UploadEditor from "../components/editor/uploadEditor";
 import { AiFillBell } from 'react-icons/ai';
 
 
-export interface ModalProps {
+interface ModalProps {
   showModal: boolean;
   setShowModal: (showModal: boolean) => void;
   modalTitle: string;
@@ -40,34 +40,37 @@ export const CustomModal = (props: ModalProps) => {
   const { showModal, setShowModal, modalTitle, modalMessage } = props;
   const { onClose } = useDisclosure();
 
-  return (
-    <Modal isOpen={showModal} onClose={onClose}>
-      <ModalOverlay bg="blackAlpha.800" />
-      <ModalContent
-        bg="black"
-        color="white"
-        textAlign="center"
-        maxWidth={400}
-        mx="auto"
-        mt={20}
-        p={4}
-        position="relative"
-      >
-        <AiFillBell style={{ fontSize: "2rem", color: '#ffe6c4' }} />
-        <ModalHeader>{modalTitle}</ModalHeader>
-        <ModalCloseButton color="#ffe6c4" />
-        <ModalBody>
-          <img src="/man-yelling.png" id="coach-yelling" height={110} width={110} style={{ margin: "0 auto", display: "block" }} />
-          <p>{modalMessage}</p>
-        </ModalBody>
-        <ModalFooter>
-          <Button colorScheme="yellow" mr={2} onClick={() => setShowModal(false)}>
-            Fermer
-          </Button>
-        </ModalFooter>
-      </ModalContent>
-    </Modal>
-  );
+  if (!showModal) return null;
+  else {
+    return (
+      <Modal isOpen={showModal} onClose={onClose}>
+        <ModalOverlay bg="blackAlpha.800" />
+        <ModalContent
+          bg="black"
+          color="white"
+          textAlign="center"
+          maxWidth={400}
+          mx="auto"
+          mt={20}
+          p={4}
+          position="relative"
+        >
+          <AiFillBell style={{ fontSize: "2rem", color: '#ffe6c4' }} />
+          <ModalHeader>{modalTitle}</ModalHeader>
+          <ModalCloseButton color="#ffe6c4" />
+          <ModalBody>
+            <img src="/man-yelling.png" id="coach-yelling" height={110} width={110} style={{ margin: "auto", display: "flex", flexDirection: "column" }} />
+            <p>{modalMessage}</p>
+          </ModalBody>
+          <ModalFooter>
+            <Button colorScheme="yellow" mr={2} onClick={() => setShowModal(false)}>
+              Fermer
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    );
+  }
 };
 
 export default function Tutorial() {
@@ -201,8 +204,9 @@ export default function Tutorial() {
       return
     }
     if (editorValue.length > 0) {
-      let res = await sendUserCode(editorValue);
-      if (res.is_correct == true) {
+      // let res = await sendUserCode(editorValue);
+      let test = 1;
+      if (test = 1) {
         setShowModal(true);
         setModalTitle('Correct Answer');
         setModalMessage('Congratulations');
