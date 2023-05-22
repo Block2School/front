@@ -32,10 +32,10 @@ export default function LevelTutorial ({name, categories, showCategoryTutorialsM
         </div>
       </div>
       <div id="wrapper-cards">
-        <TutorialCategoryCardSmallatIndex categories={categories} showCategoryTutorialsModal={showCategoryTutorialsModal} index={0}/>
-        <TutorialCategoryCardSmallatIndex categories={categories} showCategoryTutorialsModal={showCategoryTutorialsModal} index={0}/>
-        <TutorialCategoryCardSmallatIndex categories={categories} showCategoryTutorialsModal={showCategoryTutorialsModal} index={0}/>
-        <TutorialCategoryCardSmallatIndex categories={categories} showCategoryTutorialsModal={showCategoryTutorialsModal} index={0}/>
+        <TutorialCategoryCardSmallatIndex categories={categories} showCategoryTutorialsModal={showCategoryTutorialsModal} index={1}/>
+        <TutorialCategoryCardSmallatIndex categories={categories} showCategoryTutorialsModal={showCategoryTutorialsModal} index={1}/>
+        <TutorialCategoryCardSmallatIndex categories={categories} showCategoryTutorialsModal={showCategoryTutorialsModal} index={1}/>
+        <TutorialCategoryCardSmallatIndex categories={categories} showCategoryTutorialsModal={showCategoryTutorialsModal} index={1}/>
       </div>
     </div>
   );

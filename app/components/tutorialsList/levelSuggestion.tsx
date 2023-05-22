@@ -8,8 +8,8 @@ export default function SuggestionTutorial ({categories, showCategoryTutorialsMo
             <h1>SUGGESTIONS</h1>
           </div>
           <div id="wrapper-suggestions-cards">
-            <TutorialCategoryCardatIndex categories={categories} showCategoryTutorialsModal={showCategoryTutorialsModal} index={10}/>
             <TutorialCategoryCardatIndex categories={categories} showCategoryTutorialsModal={showCategoryTutorialsModal} index={0}/>
+            <TutorialCategoryCardatIndex categories={categories} showCategoryTutorialsModal={showCategoryTutorialsModal} index={1}/>
           </div>
         </div>
     );
