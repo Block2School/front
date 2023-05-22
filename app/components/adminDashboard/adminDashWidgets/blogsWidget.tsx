@@ -14,14 +14,14 @@ export default function exampleWidget() {
         </div>
         <div className={styles.widget_main_stat}>
             <div className={styles.main_stat}>
-                <span className={styles.main_value}>183</span>
+                <span className={styles.main_value}>12</span>
                 <div>
                     <span className={styles.compared}>New blog posts</span>
                 </div>
             </div>
             <div className={styles.weekly_stat}>
                 <div>
-                    <span className={styles.compared_stat_good}>+15</span>
+                    <span className={styles.compared_stat_good}>+1</span>
                 </div>
                 <div>
                     <span className={styles.compared}>Compared to last week</span>

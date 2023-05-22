@@ -231,6 +231,7 @@
     width: 100%;
     height: 100%;
     /* flex-direction: column; */
+    overflow-y: scroll;
   }
   
   #home-header {
@@ -238,140 +239,125 @@
     background-color: rgb(25, 25, 25);
     /* display: block; */
     height: 150px;
+    text-align: center;
   }
   
   #home-header span {
     color: white;
-    font-size: 50px;
+    font-size: 30px;
     font-weight: bold;
-    /* display: flex; */
+    display:block ;
     margin: 0px auto;
     align-items: center;
     justify-content: center;
     height: 100%;
     font-family: 'Lato', sans-serif;
+    display: block;
+    padding-top: 30px;
+
   }
   
   #home-body {
     width: 100%;
     height: 100%;
     background-color: rgb(25, 25, 25);
+    display: block;
   }
   
   #home-first-part {
     width: 100%;
     height: 500px;
-    /* display: flex; */
-    flex-direction: row;
+    display: block;
     justify-content: center;
+    text-align: center;
   }
   
   #home-second-part {
     width: 100%;
-    height: 500px;
-    /* display: flex; */
-    flex-direction: row;
+    height: fit-content;
+    display: block;
     justify-content: center;
-    /* background-color: blue; */
+    text-align: center;
   }
   
   #home-first-part-paragraph {
-    width: 50%;
+    width: 100%;
     height: 100%;
-    display: flex;
-    flex-direction: column;
+    display: block;
     justify-content: center;
   }
   
   #home-paragraph-title {
     color: white;
-    font-size: 45px;
-    /* display: flex; */
+    font-size: 20px;
+    display: block;
     align-items: center;
     width: 75%;
     justify-content: center;
     font-family: 'Lato', sans-serif;
     text-align: center;
-    left: 10%;
-    position: relative;
+    margin-top: 20px;
   }
   
   #home-paragraph-start-title {
     color: white;
     font-size: 45px;
-    /* display: flex; */
+    display: block;
     align-items: center;
-    width: 50%;
+    width: 100%;
+    height: fit-content;
     justify-content: center;
     font-family: 'Lato', sans-serif;
     text-align: center;
-    position: relative;
-    top: 15%;
-    left: 5%;
+    margin-top: 20px;
   }
   
   #home-second-part-paragraph {
-    width: 50%;
-    height: 100%;
-    /* display: flex; */
-    flex-direction: column;
+    width: 100%;
+    display: none;
   }
   
   #home-paragraph-start {
-    position: relative;
-    top: 25%;
-    left: -10%;
     color: rgb(175, 175, 175);
-    font-size: 20px;
+    font-size: 10px;
     font-family: 'Lato', sans-serif;
   }
   
   #home-paragraph-start p {
-    position: relative;
-    top: 0;
     text-align: center;
-    width: 55%;
+    width: 100%;
   }
   
   #home-paragraph {
     color: rgb(175, 175, 175);
-    font-size: 20px;
+    font-size: 10px;
     font-family: 'Lato', sans-serif;
-    /* display: flex; */
+    display: block;
     align-items: center;
-    width: 60%;
+    width: 100%;
     justify-content: center;
-    position: relative;
-    right: -35%;
   }
   
   #home-paragraph p {
-    position: relative;
-    right: 0;
     text-align: center;
     font-size: 18px;
   }
   
   #home-image-group {
-    width: 30%;
-    height: 100%;
-    /* display: flex; */
-    flex-direction: row;
+    width: 100%;
+    height: 250px;
+    display: block;
     align-items: center;
     justify-content: center;
-    position: relative;
+    margin-top: -75px;
   }
   
   #home-eth-img {
-    position: absolute;
-    left: 25%;
-    top: 15%;
+
   }
   
   #home-btc-img {
-    position: absolute;
-    left: 35%;
-    top: 65%;
+
   }
   
   #home-web3-img {
@@ -391,8 +377,6 @@
     font-weight: bold;
     margin: 20px 0 20px 0;
     font-family: 'Lato', sans-serif;
-    left: 15%;
-    position: relative;
   }
   
   #home-arrow-left {
@@ -401,6 +385,8 @@
     position: absolute;
     top: 55%;
     left: 30%;
+    display:none;
+
   }
   
   #home-arrow-right {
@@ -409,17 +395,21 @@
     top: 100%;
     left: 42%;
     transform: scaleY(-1);
+    display:none;
+
   }
   
   .home-arrow {
     filter: invert(100%);
     width: 20%;
     height: 25%;
+    display:none;
+
   }
   
   #button-start {
-    width: 20%;
-    display: flex;
+    width: 80%;
+    display: block;
     justify-content: center;
     align-items: center;
   }
@@ -455,10 +445,12 @@
     border-radius: 50%;
     margin-right: 15px;
     margin-left: 15px;
+    display:none;
   }
   
   #home-third-part .home-picture:hover {
     transform: scale(1.1);
     transition: 0.4s;
+    display:none;
   }
 }

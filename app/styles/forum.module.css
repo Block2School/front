@@ -101,3 +101,10 @@
   background-color: #ffe6c4;
   color: black;
 }
+
+@media screen and (max-width: 800px) {
+  .main_container {
+    background: linear-gradient(black, rgb(38, 38, 38));
+    display: block;
+  }
+}
