@@ -1,0 +1,65 @@
+.title {
+    background-color: red;
+}
+
+.widget_main_stat {
+    height: 100px;
+    width: 100%;
+    display: flex;
+}
+
+.main_stat {
+    width: 50%;
+    height: 100%;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+    text-align: center;
+}
+
+.main_value {
+    font-size: 40px;
+}
+
+.weekly_stat {
+    width: 50%;
+    height: 100%;
+    border-bottom: 1px solid black;
+    text-align: center;
+}
+
+.compared_stat_good {
+    font-size: 40px;
+    color: green
+}
+
+.compared_stat_bad {
+    font-size: 40px;
+    color: red
+}
+
+.compared {
+    font-size: 12px;
+}
+
+.expand_div {
+}
+
+.enroll_button {
+    width: fit-content;
+    background-color: #ffe6c4;
+    border-radius: 20px;
+    margin-top: 15px;
+    margin-left: 5px;
+    padding: 10px;
+    animation: 1s ease-in;
+    border: 1px solid black;
+}
+
+.enroll_button:hover {
+    background-color: white;
+}
+
+.enroll_button_text {
+    color: black;
+    font-size: 25px; 
+}

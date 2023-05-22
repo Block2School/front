@@ -103,15 +103,7 @@ export default function Home() {
             </div>
             <Spacer maxW={200} />
           </div>
-          <div style={{
-            width: '100%',
-            height: '75px',
-            color: "white",
-            fontSize: "60px",
-            fontWeight: "bold",
-            textAlign: "center",
-            marginBottom: "50px"
-          }}>Our team</div>
+          <div id="home-third-part-title"><span>Our team</span></div>
             <div id="home-third-part">
               <Image 
                 id="home-picture-matisse"
