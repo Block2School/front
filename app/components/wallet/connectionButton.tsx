@@ -1,11 +1,13 @@
 import SelectWalletModal from '../modals/wallets/walletsModal'
 import { useWeb3React } from '@web3-react/core'
-import { useColorModeValue, useDisclosure } from '@chakra-ui/react'
+import { Button, useColorModeValue, useDisclosure, Text, HStack } from '@chakra-ui/react'
 import CustomButton from '../button/button'
 import { useEffect, useState } from 'react'
 import { Tooltip } from '@chakra-ui/react'
 import axios from 'axios'
 import { serverURL } from '../../utils/globals'
+import { connectors } from './injectors'
+import { Image } from 'react-bootstrap'
 
 export default function ConnectionButton() {
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -18,6 +20,7 @@ export default function ConnectionButton() {
     active,
   } = useWeb3React()
   const [isError, setIsError] = useState(false)
+  const color = useColorModeValue("black", "white");
 
   const refreshState = () => {
     window.sessionStorage.setItem('provider', 'undefined')
@@ -39,6 +42,11 @@ export default function ConnectionButton() {
   }
 
   useEffect(() => {
+    const provider = window.sessionStorage.getItem("provider");
+    if (provider) activate(connectors[provider], handleConnection);
+  }, []);
+
+  useEffect(() => {
     if (active === true) {
       axios({
         method: 'post',
@@ -58,13 +66,19 @@ export default function ConnectionButton() {
   return (
     <>
       {!active && isError === false ? (
-        <CustomButton id='login_button' name="Connect Wallet" onClick={onOpen}/>
+        <CustomButton id='login_button' name="Connect Wallet" onClick={onOpen} gap={undefined} srcImg={undefined} alt={undefined} size={undefined} disabled={undefined} variant={undefined} hImg={undefined} wImg={undefined} borderRadius={undefined}/>
       ): !active && isError === true ? (
-        <Tooltip label="Wrong Network" placement="top" hasArrow>
-          <CustomButton id="login_mode_select" name="Connect Wallet" onClick={onOpen} srcImg="/warning-sign-svgrepo-com.svg" alt="warning"/>
+        <Tooltip label="Wrong Network" placement="bottom" hasArrow>
+          {/* <CustomButton id="login_button" name="Connect Wallet" onClick={onOpen} srcImg="/warning-sign-svgrepo-com.svg" alt="warning" gap={undefined} size={undefined} disabled={undefined} variant={undefined} hImg={undefined} wImg={undefined} borderRadius={undefined}/> */}
+          <Button id='login_button' size='md' variant='outline' onClick={onOpen}>
+            <HStack color={color}>
+              <Image src="/warning-sign-svgrepo-com.svg" alt="warning" />
+              <Text>Connect Wallet</Text>
+            </HStack>
+          </Button>
         </Tooltip>
       ) : (
-        <CustomButton id='login_button' name="Disconnect Wallet" onClick={disconnect}/>
+        <CustomButton id='login_button' name="Disconnect Wallet" onClick={disconnect} gap={undefined} srcImg={undefined} alt={undefined} size={undefined} disabled={undefined} variant={undefined} hImg={undefined} wImg={undefined} borderRadius={undefined}/>
       )}
       <SelectWalletModal isOpen={isOpen} closeModal={onClose} />
     </>
