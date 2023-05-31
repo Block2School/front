@@ -87,7 +87,7 @@ export default function NavbarAllBalances() {
         ) : (
           <>
             <div id="balances">
-              <NavbarBalance balanceToken={null} ImgSrc="/ethereum-eth-logo.svg" alt="ETH logo" _decimal={2}/>
+              <NavbarBalance balanceToken={null} ImgSrc="/Logo_B2S.png" alt="B2S logo" _decimal={2}/>
               <NavbarBalance balanceToken={null} ImgSrc="/Binance-BNB-Icon2-Logo.wine.svg" alt="BNB logo" _decimal={3}/>
             </div>
           </>

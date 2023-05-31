@@ -25,7 +25,9 @@ export function LanguageProvider({ children }: LanguageProviderProps) {
     userLanguage,
     dictionary: dictionaryList[userLanguage],
     userLanguageChange: (selected: string) => {
-      const newLanguage = selected ? 'fr' : 'en'
+      console.log('selected', selected)
+      // const newLanguage = selected ? 'fr' : 'en'
+      const newLanguage = selected;
       setUserLanguage(newLanguage);
       console.log(newLanguage);
     }
@@ -43,7 +45,10 @@ export function LanguageSwitcher() {
   const {userLanguage, userLanguageChange} = useContext(LanguageContext);
 
   const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    userLanguageChange(userLanguage);
+    console.log(e.target.value)
+    let selectedLanguage = e.target.value;
+    console.log('selectedLanguage', selectedLanguage)
+    userLanguageChange(selectedLanguage);
   };
 
   return (
