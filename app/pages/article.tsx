@@ -32,16 +32,23 @@ export default function Article() {
 
   return (
     <>
-      <div style={{backgroundColor:'#343434'}}>
+      <div style={{ backgroundColor: '#343434' }}>
         <Navbar />
-        <div>
+        <div
+          style={{
+            backgroundColor: '#343434',
+            minHeight: '100vh',
+            paddingBottom: '1.5rem',
+            paddingTop: '1.5rem',
+          }}
+        >
           <Center>
             {isLoading ?
               <>
-                <LoadingScreen showError={false}/>
+                <LoadingScreen showError={false} />
               </>
-            :  
-              <ArticleBody 
+              :
+              <ArticleBody
                 articleTitle={articleTitle}
                 articleAuthor={articleAuthor}
                 articleEditDate={articleEditDate}
@@ -51,7 +58,7 @@ export default function Article() {
             }
           </Center>
         </div>
-        <Footer/>
+        <Footer />
       </div>
     </>
   );
