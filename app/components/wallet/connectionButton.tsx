@@ -8,6 +8,7 @@ import axios from 'axios'
 import { serverURL } from '../../utils/globals'
 import { connectors } from './injectors'
 import { Image } from 'react-bootstrap'
+import CustomButtonRef from '../button/buttonRef'
 
 export default function ConnectionButton() {
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -66,8 +67,8 @@ export default function ConnectionButton() {
   return (
     <>
       {!active && isError === false ? (
-        <CustomButton id='login_button' name="Connect Wallet" onClick={onOpen} gap={undefined} srcImg={undefined} alt={undefined} size={undefined} disabled={undefined} variant={undefined} hImg={undefined} wImg={undefined} borderRadius={undefined}/>
-      ): !active && isError === true ? (
+        <CustomButton id='login_button' name="Connect Wallet" onClick={onOpen} gap={undefined} srcImg={undefined} alt={undefined} size={undefined} disabled={undefined} variant={undefined} hImg={undefined} wImg={undefined} borderRadius={undefined} />
+      ) : !active && isError === true ? (
         <Tooltip label="Wrong Network" placement="bottom" hasArrow>
           {/* <CustomButton id="login_button" name="Connect Wallet" onClick={onOpen} srcImg="/warning-sign-svgrepo-com.svg" alt="warning" gap={undefined} size={undefined} disabled={undefined} variant={undefined} hImg={undefined} wImg={undefined} borderRadius={undefined}/> */}
           <Button id='login_button' size='md' variant='outline' onClick={onOpen}>
@@ -76,9 +77,10 @@ export default function ConnectionButton() {
               <Text>Connect Wallet</Text>
             </HStack>
           </Button>
+          {/* <CustomButtonRef id='login_button' name="Connect Wallet" onClick={onOpen} srcImg="/warning-sign-svgrepo-com.svg" alt="warning" size={undefined} disabled={undefined} variant={undefined} hImg={undefined} wImg={undefined} borderRadius={undefined} gap={undefined}/> */}
         </Tooltip>
       ) : (
-        <CustomButton id='login_button' name="Disconnect Wallet" onClick={disconnect} gap={undefined} srcImg={undefined} alt={undefined} size={undefined} disabled={undefined} variant={undefined} hImg={undefined} wImg={undefined} borderRadius={undefined}/>
+        <CustomButton id='login_button' name="Disconnect Wallet" onClick={disconnect} gap={undefined} srcImg={undefined} alt={undefined} size={undefined} disabled={undefined} variant={undefined} hImg={undefined} wImg={undefined} borderRadius={undefined} />
       )}
       <SelectWalletModal isOpen={isOpen} closeModal={onClose} />
     </>
