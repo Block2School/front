@@ -94,7 +94,7 @@ export default function MyNFTModal({ isOpenModal, closeModal, _nft, listingPrice
               <NumberInput
                 defaultValue={_nft.price}
                 max={100000}
-                onChange={(value) => setSellingPrice(parseFloat(value))}
+                onChange={(value) => setSellingPrice(value)}
               >
                 <NumberInputField />
                 <NumberInputStepper>
