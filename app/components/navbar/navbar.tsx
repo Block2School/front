@@ -10,6 +10,7 @@ import ConnectionButton from '../wallet/connectionButton'
 import NavbarAllBalances from '../wallet/navbarAllBalances'
 import { ThemeSelector } from '../themeSelector/themeSelector'
 import { LanguageContext, LanguageSwitcher } from "../LanguageSwitcher/language";
+import { BiUser } from 'react-icons/bi'
 
 export default function Navbar() {
 
@@ -77,10 +78,23 @@ export default function Navbar() {
               </Link>
             </div>
           </div>
-            <NavbarAllBalances/>
-            <ConnectionButton/>
-            <ThemeSelector/>
-            <LanguageSwitcher/>
+          <NavbarAllBalances />
+          {
+            active === true ?
+              <Link href={'/profile'} passHref>
+                <BiUser
+                  size={"3%"}
+                  color={"white"}
+                  style={{ paddingRight: '0.5%', cursor: 'pointer' }}
+
+                />
+              </Link>
+              :
+              null
+          }
+          <ConnectionButton />
+          <ThemeSelector />
+          <LanguageSwitcher />
         </div>
       </div>
     </>

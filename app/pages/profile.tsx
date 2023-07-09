@@ -10,7 +10,8 @@ import $ from 'jquery'
 import axios from 'axios'
 import SelectWalletModal from '../components/modals/wallets/walletsModal'
 import { serverURL } from '../utils/globals'
-import {wallet} from '../utils/profil-utils'
+import { wallet } from '../utils/profil-utils'
+import UserNFTView from '../components/profile/userNFT'
 
 export default function Profile() {
 
@@ -28,9 +29,9 @@ export default function Profile() {
       fetchSucces()
       fetchFriends()
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [account])
-  
+
   function fetchSucces() {
     axios
       .get(`${serverURL}:8080/tuto/success/me`, {
@@ -40,11 +41,11 @@ export default function Profile() {
           Authorization: 'Bearer ' + sessionStorage.getItem('token')
         }
       })
-        .then((res) => {
-          if (res.status === 200) {
-            $("#profile-tuto-completed").text(`You have completed ${res.data.total_completion} tutorials`)
-          }
-        })
+      .then((res) => {
+        if (res.status === 200) {
+          $("#profile-tuto-completed").text(`You have completed ${res.data.total_completion} tutorials`)
+        }
+      })
   }
 
   function fetchProfile() {
@@ -105,20 +106,20 @@ export default function Profile() {
     listContainer.empty()
 
     for (let index = 0; index < friendsList.length; index++) {
-      let children = 
-      '<div id=friend-item-' + index + ' class="friend-item">' +
+      let children =
+        '<div id=friend-item-' + index + ' class="friend-item">' +
         '<div class="friend-item-left">' +
-          '<div class="friend-item-circle">' +
-            '<img src="/icon-person.png" style="width: 20px; height: 20px; border-radius: 50%;"></img>' +
-          '</div>' +
+        '<div class="friend-item-circle">' +
+        '<img src="/icon-person.png" style="width: 20px; height: 20px; border-radius: 50%;"></img>' +
+        '</div>' +
         '</div>' +
         '<div class="friend-item-middle">' +
-          '<span style="font-size: 16px; font-weight: 600; margin: 0px;">' + friendsList[index].username + '</span>' +
+        '<span style="font-size: 16px; font-weight: 600; margin: 0px;">' + friendsList[index].username + '</span>' +
         '</div>' +
         '<div class="friend-item-right">' +
-          '<img src="/minus.png" style="width: 20px; height: 20px; border-radius: 50%; filter: invert(1); cursor: pointer"></img>' +
+        '<img src="/minus.png" style="width: 20px; height: 20px; border-radius: 50%; filter: invert(1); cursor: pointer"></img>' +
         '</div>' +
-      '</div>'
+        '</div>'
       listContainer.append(children)
       if (friendsList[index].status == "friend") {
         $('#friend-item-' + index + ' .friend-item-left .friend-item-circle').css('background-color', 'greenyellow')
@@ -134,55 +135,55 @@ export default function Profile() {
   }
 
   function saveModal() {
-      var newUsername = $('#new-username-input').val()
-      var newEmail = $('#new-email-input').val()
-      var newYoutube = $('#new-youtube-input').val()
-      var newTwitter = $('#new-twitter-input').val()
-      axios
-        .patch(
-          `${serverURL}:8080/user/profile`,
-          {
-            username: newUsername,
-            email: newEmail,
-            youtube: newYoutube,
-            twitter: newTwitter,
+    var newUsername = $('#new-username-input').val()
+    var newEmail = $('#new-email-input').val()
+    var newYoutube = $('#new-youtube-input').val()
+    var newTwitter = $('#new-twitter-input').val()
+    axios
+      .patch(
+        `${serverURL}:8080/user/profile`,
+        {
+          username: newUsername,
+          email: newEmail,
+          youtube: newYoutube,
+          twitter: newTwitter,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            Authorization: 'Bearer ' + sessionStorage.getItem('token'),
           },
-          {
-            headers: {
-              'Content-Type': 'application/json',
-              'Access-Control-Allow-Origin': '*',
-              Authorization: 'Bearer ' + sessionStorage.getItem('token'),
-            },
-          },
+        },
       )
-        .then((res) => {
-          if (res.status === 200) {
-            setUsername(newUsername)
-            setEmail(newEmail)
-            setTwitter(newTwitter)
-            setYoutube(newYoutube)
-            closeModalChangeInfos(newUsername, newEmail, newTwitter, newYoutube)
-          }
+      .then((res) => {
+        if (res.status === 200) {
+          setUsername(newUsername)
+          setEmail(newEmail)
+          setTwitter(newTwitter)
+          setYoutube(newYoutube)
+          closeModalChangeInfos(newUsername, newEmail, newTwitter, newYoutube)
+        }
       })
   }
-  
+
   function closeModalChangeInfos(newUsername: string = '', newEmail: string = '', newTwitter: string = '', newYoutube: string = '') {
-      if (newUsername !== '') $('#new-username-input').val(newUsername)
-      else $('#new-username-input').val(username)
-      if (newEmail !== '') $('#new-email-input').val(newEmail)
-      else $('#new-email-input').val(email)
-      if (newTwitter !== '') $('#new-twitter-input').val(newTwitter)
-      else $('#new-twitter-input').val(twitter)
-      if (newYoutube !== '') $('#new-youtube-input').val(newYoutube)
-      else $('#new-youtube-input').val(youtube)
-      $('#modal-change-infos').hide()
-      $('#profile-blur').hide()
+    if (newUsername !== '') $('#new-username-input').val(newUsername)
+    else $('#new-username-input').val(username)
+    if (newEmail !== '') $('#new-email-input').val(newEmail)
+    else $('#new-email-input').val(email)
+    if (newTwitter !== '') $('#new-twitter-input').val(newTwitter)
+    else $('#new-twitter-input').val(twitter)
+    if (newYoutube !== '') $('#new-youtube-input').val(newYoutube)
+    else $('#new-youtube-input').val(youtube)
+    $('#modal-change-infos').hide()
+    $('#profile-blur').hide()
   }
 
   function closeModalSearchFriends(delay: number = 0) {
     if (delay !== 0) {
       $("#friend-request-message").text("Friend request sent !")
-      $('#friend-request-message').css('color', 'greenyellow') 
+      $('#friend-request-message').css('color', 'greenyellow')
       $("#friend-request-message").show()
     }
     fetchFriends()
@@ -193,7 +194,7 @@ export default function Profile() {
       $('#profile-blur').hide()
     }, delay)
   }
-  
+
   function openModal() {
     $('#modal-change-infos').css('display', 'flex')
     $('#profile-blur').show()
@@ -208,7 +209,7 @@ export default function Profile() {
     var friend_uuid = $('#search-friend-input').val()
     if (friend_uuid === '') {
       $("#friend-request-message").text("Please enter a UUID")
-      $('#friend-request-message').css('color', 'red')   
+      $('#friend-request-message').css('color', 'red')
       $("#friend-request-message").show()
       return
     }
@@ -226,7 +227,7 @@ export default function Profile() {
           closeModalSearchFriends(1500)
         } else if (res.status === 201) {
           $("#friend-request-message").text("You are already friend with or pending invite")
-          $('#friend-request-message').css('color', 'red')   
+          $('#friend-request-message').css('color', 'red')
           $("#friend-request-message").show()
         }
       })
@@ -236,106 +237,109 @@ export default function Profile() {
     <>
       <Navbar />
       {account !== '' && account !== undefined && account !== null ? (
-        <div>
-          <div id='profile-blur'></div>
-          <div id="profile-container">
-            <div id="profile-header">
-              <span>Your wallet address : {account}</span>
-            </div>
-            <div id="profile-body">
-              <div id="profile-body-left">
-                <div id="profile-infos">
-                  <span style={{color: "greenyellow"}} id="profile-tuto-completed" className="profile-infos-text">You have completed 0 tutorials</span>
-                  <span className="profile-infos-label">Points :</span>
-                  <span className="profile-infos-text">{points}</span>
-                  <span className="profile-infos-label">Username :</span>
-                  <span className="profile-infos-text">{username}</span>
-                  <span className="profile-infos-label">Email :</span>
-                  <span className="profile-infos-text">{email}</span>
-                  <span className="profile-infos-label">Twitter :</span>
-                  <span className="profile-infos-text">{twitter}</span>
-                  <span className="profile-infos-label">Youtube :</span>
-                  <span className="profile-infos-text">{youtube}</span>
-                </div>
-                <div className="profile-open-modal">
-                  <button style={{color: "#ffe6c4"}} onClick={openModal}>Change infos</button>
-                </div>
+        <>
+          <div>
+            <div id='profile-blur'></div>
+            <div id="profile-container">
+              <div id="profile-header">
+                <span>Your wallet address: {account}</span>
               </div>
-              <div id="profile-body-separator"></div>
-              <div id="profile-body-right">
-                <div id="friends-container">
-                  <div id="friends-header">
-                    <span style={{
-                      color: 'white',
-                      fontSize: '150%',
-                      fontWeight: 'bold',
-                      display: 'flex',
-                      alignContent: 'center',
-                    }}>Friends</span>
+              <div id="profile-body">
+                <div id="profile-body-left">
+                  <div id="profile-infos">
+                    <span style={{ color: "greenyellow" }} id="profile-tuto-completed" className="profile-infos-text">You have completed 0 tutorials</span>
+                    <span className="profile-infos-label">Points :</span>
+                    <span className="profile-infos-text">{points}</span>
+                    <span className="profile-infos-label">Username :</span>
+                    <span className="profile-infos-text">{username}</span>
+                    <span className="profile-infos-label">Email :</span>
+                    <span className="profile-infos-text">{email}</span>
+                    <span className="profile-infos-label">Twitter :</span>
+                    <span className="profile-infos-text">{twitter}</span>
+                    <span className="profile-infos-label">Youtube :</span>
+                    <span className="profile-infos-text">{youtube}</span>
                   </div>
-                  <div id="friends-list"></div>
+                  <div className="profile-open-modal">
+                    <button style={{ color: "#ffe6c4" }} onClick={openModal}>Change infos</button>
+                  </div>
                 </div>
-                <div className="profile-open-modal">
-                  <button style={{color: "#ffe6c4"}} onClick={searchFriend}>Add Friend</button>
-                </div>
-              </div>
-            </div>
-            <div style={{height: "50%", top: "26%"}} id="modal-change-infos">
-              <div id="modal-change-infos-header">
-                <span>Change infos</span>
-                <button
-                  onClick={() => {
-                    closeModalChangeInfos()
-                  }}
-                >
-                  Close
-                </button>
-              </div>
-              <div style={{height: '90%'}} id="modal-change-infos-body">
-                <div className="modal-change-infos-row">
-                  <span>Username</span>
-                  <input id="new-username-input" defaultValue={username}></input>
-                </div>
-                <div className="modal-change-infos-row">
-                  <span>Email</span>
-                  <input id="new-email-input" defaultValue={email}></input>
-                </div>
-                <div className="modal-change-infos-row">
-                  <span>Twitter</span>
-                  <input id="new-twitter-input" defaultValue={twitter}></input>
-                </div>
-                <div className="modal-change-infos-row">
-                  <span>Youtube</span>
-                  <input id="new-youtube-input" defaultValue={youtube}></input>
+                <div id="profile-body-separator"></div>
+                <div id="profile-body-right">
+                  <div id="friends-container">
+                    <div id="friends-header">
+                      <span style={{
+                        color: 'white',
+                        fontSize: '150%',
+                        fontWeight: 'bold',
+                        display: 'flex',
+                        alignContent: 'center',
+                      }}>Friends</span>
+                    </div>
+                    <div id="friends-list"></div>
+                  </div>
+                  <div className="profile-open-modal">
+                    <button style={{ color: "#ffe6c4" }} onClick={searchFriend}>Add Friend</button>
+                  </div>
                 </div>
               </div>
-              <div id="modal-change-infos-footer">
-                <button onClick={saveModal}>Apply changes</button>
-              </div>
-            </div>
-            <div id="modal-search-friends">
-              <div id="modal-search-friends-header">
-                <span>Search friends</span>
-                <button
-                  onClick={() => {
-                    closeModalSearchFriends()
-                  }}
-                >
-                  Close
-                </button>
-              </div>
-              <div id="modal-search-friends-body">
-                <div id="modal-search-friends-searchbar">
-                  <input style={{width: '75%'}} id="search-friend-input" placeholder="Enter your friend UUID"></input>
+              <div style={{ height: "50%", top: "26%" }} id="modal-change-infos">
+                <div id="modal-change-infos-header">
+                  <span>Change infos</span>
+                  <button
+                    onClick={() => {
+                      closeModalChangeInfos()
+                    }}
+                  >
+                    Close
+                  </button>
                 </div>
-                <span id="friend-request-message"></span>
+                <div style={{ height: '90%' }} id="modal-change-infos-body">
+                  <div className="modal-change-infos-row">
+                    <span>Username</span>
+                    <input id="new-username-input" defaultValue={username}></input>
+                  </div>
+                  <div className="modal-change-infos-row">
+                    <span>Email</span>
+                    <input id="new-email-input" defaultValue={email}></input>
+                  </div>
+                  <div className="modal-change-infos-row">
+                    <span>Twitter</span>
+                    <input id="new-twitter-input" defaultValue={twitter}></input>
+                  </div>
+                  <div className="modal-change-infos-row">
+                    <span>Youtube</span>
+                    <input id="new-youtube-input" defaultValue={youtube}></input>
+                  </div>
+                </div>
+                <div id="modal-change-infos-footer">
+                  <button onClick={saveModal}>Apply changes</button>
+                </div>
               </div>
-              <div id="modal-search-friends-footer">
-                <button onClick={sendFriendRequest}>Send request</button>
+              <div id="modal-search-friends">
+                <div id="modal-search-friends-header">
+                  <span>Search friends</span>
+                  <button
+                    onClick={() => {
+                      closeModalSearchFriends()
+                    }}
+                  >
+                    Close
+                  </button>
+                </div>
+                <div id="modal-search-friends-body">
+                  <div id="modal-search-friends-searchbar">
+                    <input style={{ width: '75%' }} id="search-friend-input" placeholder="Enter your friend UUID"></input>
+                  </div>
+                  <span id="friend-request-message"></span>
+                </div>
+                <div id="modal-search-friends-footer">
+                  <button onClick={sendFriendRequest}>Send request</button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+          <UserNFTView />
+        </>
       ) : (
         <div
           style={{
