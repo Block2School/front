@@ -1,7 +1,7 @@
 #login_button {
     background:#ffe6c4 ;
     color: black;
-    width: 200px;
+    /* width: 15%; */
 }
 
 #login_button:hover {

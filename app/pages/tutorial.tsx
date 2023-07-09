@@ -143,6 +143,7 @@ export default function Tutorial() {
   }
 
   function changeLang(lang: React.SetStateAction<string>) {
+    console.log('lang => ', lang)
     setLang(lang)
   }
 
