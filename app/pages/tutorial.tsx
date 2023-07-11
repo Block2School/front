@@ -6,27 +6,28 @@ import Navbar from "../components/navbar/navbar";
 import MarkdownRenderer from "../components/markdown/markdown";
 import ScoreBoardModal from "../components/modals/scoreboard/tutorialScoreBoardModal";
 import { useRouter } from "next/router";
-import { 
-  useDisclosure, 
-  Spinner, 
-  Select, 
-  Switch, 
-  HStack, 
+import {
+  useDisclosure,
+  Spinner,
+  Select,
+  Switch,
+  HStack,
   Text,
   Button,
-  Modal, 
-  ModalOverlay, 
-  ModalContent, 
-  ModalHeader, 
-  ModalFooter, 
-  ModalBody, 
-  ModalCloseButton 
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton
 } from "@chakra-ui/react";
 
 import LoadingScreen from "../components/loading/loadingScreen";
 import OptionEditor from "../components/editor/optionEditor";
 import UploadEditor from "../components/editor/uploadEditor";
 import { AiFillBell } from 'react-icons/ai';
+import TutorialConsole from "../components/tutorialConsole/tutorialConsole";
 
 
 export interface ModalProps {
@@ -104,15 +105,15 @@ export default function Tutorial() {
     enabled: false,
   })
 
-  
+
   useEffect(() => {
     setIsLoading(true)
     axios.get(`${serverURL}:8080/tuto/${tutorialId}`, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-        },
-      })
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
+    })
       .then((res) => {
         setTutorialInfos(res.data)
         setIsLoading(false)
@@ -178,20 +179,20 @@ export default function Tutorial() {
     }
     console.log("in sending user code");
     let res = await axios.post(`${serverURL}:8080/tuto/complete`, {
-      source_code: code, tutorial_id: tutorialId, total_completions: 100, language: lang, characters:editorValue.length, lines:lineCount, exec:execute
+      source_code: code, tutorial_id: tutorialId, total_completions: 100, language: lang, characters: editorValue.length, lines: lineCount, exec: execute
     }, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + sessionStorage.getItem('token'),
         'Access-Control-Allow-Origin': '*',
       }
-    },)
+    })
     console.log("sending following data => ", res.data)
     return res.data;
   }
 
   async function uploadCode() {
-  
+
     if (editorValue.length == 0) {
       setShowError(true);
       setErrorMessage('Please enter some code before uploading');
@@ -222,7 +223,7 @@ export default function Tutorial() {
       }
       setIsUploading(false)
       return
-    } 
+    }
     // else if (editorValue.length > 0 && tutorialInfos.shouldBeCheck == true) {
     //   if (editorValue === tutorialInfos.answer) {
     //     alert('Correct answer')
@@ -236,45 +237,59 @@ export default function Tutorial() {
   return (
     (isLoading === true) ?
       <>
-        <LoadingScreen showError={showError}/>
+        <LoadingScreen showError={showError} />
       </> :
-        <div id ="screen">
-            <Navbar />
-          <div id="content">
-            <div id="subject">
-              <div id="tutorial-content">
-                <div id="zone-text">
-                  <CustomModal
-                    showModal={showModal}
-                    setShowModal={setShowModal}
-                    modalTitle={modalTitle}
-                    modalMessage={modalMessage}
-                  />
-                  <MarkdownRenderer source={markdown} />
-                </div>
+      <div id="screen">
+        <Navbar />
+        <div id="content">
+          <div id="subject">
+            <div id="tutorial-content">
+              <div id="zone-text">
+                <CustomModal
+                  showModal={showModal}
+                  setShowModal={setShowModal}
+                  modalTitle={modalTitle}
+                  modalMessage={modalMessage}
+                />
+                <MarkdownRenderer source={markdown} />
               </div>
             </div>
-            <div id="editor">
-              <OptionEditor changeLang={changeLang} scoring={scoring} switchText={switchText} changeTheme={changeTheme}/>
-              <div id="editor_edit">
-                <MonacoEditor
-                  theme={theme}
-                  lang={lang}
-                  defaultValue={defaultValue}
-                  options={{
-                    wordWrap: true
-                  }}
-                  onChange={(editorValue: string) => {
-                    setEditorValue(editorValue);
-                    setLineCount(customHTMLRef.current.getModel().getLineCount());
-                  }}
-                  onMount={editorDidMount}
-                />
-              </div>
-              <UploadEditor isUploading={isUploading} uploadCode={uploadCode}/>
+            <div
+              style={{
+                // make it so that the console is always at the bottom of the page
+                position: "absolute",
+                bottom: 0,
+                width: "50%",
+              }}
+            >
+              <TutorialConsole
+                error="error"
+                output="output"
+                expectedOutput="expectedOutput"
+              />
             </div>
           </div>
-          <ScoreBoardModal isOpen={isOpen} closeModal={onClose} scoreboard={scoreBoard}/>
+          <div id="editor">
+            <OptionEditor changeLang={changeLang} scoring={scoring} switchText={switchText} changeTheme={changeTheme} />
+            <div id="editor_edit">
+              <MonacoEditor
+                theme={theme}
+                lang={lang}
+                defaultValue={defaultValue}
+                options={{
+                  wordWrap: true
+                }}
+                onChange={(editorValue: string) => {
+                  setEditorValue(editorValue);
+                  setLineCount(customHTMLRef.current.getModel().getLineCount());
+                }}
+                onMount={editorDidMount}
+              />
+            </div>
+            <UploadEditor isUploading={isUploading} uploadCode={uploadCode} />
+          </div>
         </div>
+        <ScoreBoardModal isOpen={isOpen} closeModal={onClose} scoreboard={scoreBoard} />
+      </div>
   )
 }
