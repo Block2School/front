@@ -67,7 +67,7 @@ export default function ConnectionButton() {
   return (
     <>
       {!active && isError === false ? (
-        <CustomButton id='login_button' name="Connect Wallet" onClick={onOpen} gap={undefined} srcImg={undefined} alt={undefined} size={undefined} disabled={undefined} variant={undefined} hImg={undefined} wImg={undefined} borderRadius={undefined} />
+        <CustomButton id='login_button' name="Connect Wallet" onClick={onOpen} gap={undefined} srcImg={undefined} alt={undefined} size={undefined} disabled={undefined} variant={undefined} hImg={undefined} wImg={undefined} borderRadius={undefined} categoryGA={'Button'} labelGA={'Open Connect wallet modal'} />
       ) : !active && isError === true ? (
         <Tooltip label="Wrong Network" placement="bottom" hasArrow>
           {/* <CustomButton id="login_button" name="Connect Wallet" onClick={onOpen} srcImg="/warning-sign-svgrepo-com.svg" alt="warning" gap={undefined} size={undefined} disabled={undefined} variant={undefined} hImg={undefined} wImg={undefined} borderRadius={undefined}/> */}
@@ -80,7 +80,7 @@ export default function ConnectionButton() {
           {/* <CustomButtonRef id='login_button' name="Connect Wallet" onClick={onOpen} srcImg="/warning-sign-svgrepo-com.svg" alt="warning" size={undefined} disabled={undefined} variant={undefined} hImg={undefined} wImg={undefined} borderRadius={undefined} gap={undefined}/> */}
         </Tooltip>
       ) : (
-        <CustomButton id='login_button' name="Disconnect Wallet" onClick={disconnect} gap={undefined} srcImg={undefined} alt={undefined} size={undefined} disabled={undefined} variant={undefined} hImg={undefined} wImg={undefined} borderRadius={undefined} />
+        <CustomButton id='login_button' name="Disconnect Wallet" onClick={disconnect} gap={undefined} srcImg={undefined} alt={undefined} size={undefined} disabled={undefined} variant={undefined} hImg={undefined} wImg={undefined} borderRadius={undefined} categoryGA={'Button'} labelGA={'Disconnect Wallet'} />
       )}
       <SelectWalletModal isOpen={isOpen} closeModal={onClose} />
     </>

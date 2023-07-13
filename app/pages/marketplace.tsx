@@ -142,7 +142,8 @@ export default function Marketplace() {
                 variant="success"
                 onClick={onOpen}
                 disabled={!active}
-                gap={undefined} srcImg={undefined} alt={undefined} hImg={undefined} wImg={undefined} borderRadius={undefined} />
+                gap={undefined} srcImg={undefined} alt={undefined} hImg={undefined} wImg={undefined} borderRadius={undefined}
+                categoryGA={"Button"} labelGA={"Opening modal to buy B2ST"} />
             </Tooltip>
           </div>
         </div>
