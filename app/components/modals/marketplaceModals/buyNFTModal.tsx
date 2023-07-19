@@ -22,6 +22,7 @@ import ErrorAlert from '../../alerts/errorAlert/errorAlert';
 import SuccessAlert from '../../alerts/successAlert/successAlert';
 import NFT_INTERFACE from '../../../config/abi/nft.json';
 import NFT_INTERFACE2 from '../../../config/abi/nft2.json';
+import { sendGAEvent } from '../../../utils/utils';
 
 interface NFT {
   id: string;
@@ -87,7 +88,10 @@ export default function BuyNFTModal({ isOpenModal, closeModal, _nft }: { isOpenM
               <Text>Price: {_nft.price} BNB</Text>
               <Button
                 colorScheme="teal"
-                onClick={() => buyNFT()}
+                onClick={() => {
+                  sendGAEvent('buyNFTModal', 'button_click', 'buyNFT')
+                  buyNFT()
+                }}
               >
                 Buy
               </Button>

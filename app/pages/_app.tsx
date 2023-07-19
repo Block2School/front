@@ -28,7 +28,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
-import ReactGA from 'react-ga'
+import ReactGA from 'react-ga4'
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID
 
 import { LanguageProvider } from "../components/LanguageSwitcher/language";
@@ -43,12 +43,14 @@ const getLibrary = (provider: any): Web3Provider => {
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter()
   console.log('GA_ID: ', GA_ID)
-  ReactGA.initialize(GA_ID as string, { debug: true })
-  ReactGA.pageview(router.pathname)
+  ReactGA.initialize(GA_ID as string)
+  ReactGA.send({ hitType: "event", eventCategory: "pageview", eventAction: "pageview", eventLabel: router.pathname })
+  // ReactGA.pageview(router.pathname)
   useEffect(() => {
     const handleRouteChange = (url: string, { shallow }: { shallow: boolean }) => {
-      ReactGA.initialize(GA_ID as string, { debug: true })
+      ReactGA.initialize(GA_ID as string)
       ReactGA.send({ hitType: "pageview", page: url })
+      // ReactGA.send({ hitType: "event", eventCategory: "test_click", eventAction: "test_click", eventLabel: "TEST CLICK" })
       console.log(`App is changing to ${url} ${shallow ? "with" : "without"} shallow routing`)
     }
     router.events.on("routeChangeComplete", handleRouteChange)

@@ -1,18 +1,15 @@
 import { Button, Image, Text, HStack, useColorModeValue } from '@chakra-ui/react';
-import ReactGA from 'react-ga';
+import { sendGAEvent } from '../../utils/utils';
 
 export default function CustomButton({ id, name, srcImg, alt, size, disabled, variant, onClick, hImg, wImg, gap, borderRadius, categoryGA = "Button", labelGA = "Clicking on the button"}: { gap: any, id: any, name: any, srcImg: any, alt: any, size: any, disabled: any, variant: any, onClick: any, hImg: any, wImg: any, borderRadius: any, categoryGA: string, labelGA: string }) {
 
     const color = useColorModeValue("black", "white");
 
     const handleClick = () => {
-        console.log('hereJKLJLKLJLQKDJKLSJKLJKLJKL JLSQDLKQSJKDL')
-        ReactGA.event({
-            category: categoryGA,
-            action: 'click',
-            label: labelGA
-        })
-        console.log('hereJKLJLKLJLQKDJKLSJKLJKLJKL JLSQDLKQSJKDL 2222')
+        // print the category and label of the button clicked
+        console.log('category: ', categoryGA)
+        console.log('label: ', labelGA)
+        sendGAEvent(categoryGA, 'button_click', labelGA)
         onClick();
     }
 

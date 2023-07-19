@@ -25,6 +25,7 @@ import ErrorAlert from '../../alerts/errorAlert/errorAlert';
 import SuccessAlert from '../../alerts/successAlert/successAlert';
 import NFT_INTERFACE from '../../../config/abi/nft.json';
 import NFT_INTERFACE2 from '../../../config/abi/nft2.json';
+import { sendGAEvent } from '../../../utils/utils';
 
 interface NFT {
   id: string;
@@ -107,7 +108,10 @@ export default function MyNFTModal({ isOpenModal, closeModal, _nft, listingPrice
               <Button
                 mt={4}
                 colorScheme="blue"
-                onClick={() => sellNFT()}
+                onClick={() => {
+                  sendGAEvent('SellNFT', 'button_click', 'NFT sell button')
+                  sellNFT()
+                }}
               >
                 Sell NFT
               </Button>

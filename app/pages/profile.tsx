@@ -12,6 +12,7 @@ import SelectWalletModal from '../components/modals/wallets/walletsModal'
 import { serverURL } from '../utils/globals'
 import { wallet } from '../utils/profil-utils'
 import UserNFTView from '../components/profile/userNFT'
+import { sendGAEvent } from '../utils/utils'
 
 export default function Profile() {
 
@@ -260,7 +261,13 @@ export default function Profile() {
                     <span className="profile-infos-text">{youtube}</span>
                   </div>
                   <div className="profile-open-modal">
-                    <button style={{ color: "#ffe6c4" }} onClick={openModal}>Change infos</button>
+                    <button
+                      style={{ color: "#ffe6c4" }}
+                      onClick={() => {
+                        sendGAEvent('Profile', 'button_click', 'Open Modal Change Infos')
+                        openModal()
+                      }}
+                    >Change infos</button>
                   </div>
                 </div>
                 <div id="profile-body-separator"></div>
@@ -278,7 +285,13 @@ export default function Profile() {
                     <div id="friends-list"></div>
                   </div>
                   <div className="profile-open-modal">
-                    <button style={{ color: "#ffe6c4" }} onClick={searchFriend}>Add Friend</button>
+                    <button
+                      style={{ color: "#ffe6c4" }}
+                      onClick={() => {
+                        sendGAEvent('Profile', 'button_click', 'Search Friend')
+                        searchFriend()
+                      }}
+                    >Add Friend</button>
                   </div>
                 </div>
               </div>
@@ -287,6 +300,7 @@ export default function Profile() {
                   <span>Change infos</span>
                   <button
                     onClick={() => {
+                      sendGAEvent('Profile', 'button_click', 'Close Modal Change Infos')
                       closeModalChangeInfos()
                     }}
                   >
@@ -312,7 +326,12 @@ export default function Profile() {
                   </div>
                 </div>
                 <div id="modal-change-infos-footer">
-                  <button onClick={saveModal}>Apply changes</button>
+                  <button
+                    onClick={() => {
+                      sendGAEvent('Profile', 'button_click', 'Save Modal Change Infos')
+                      saveModal()
+                    }}
+                  >Apply changes</button>
                 </div>
               </div>
               <div id="modal-search-friends">
@@ -320,6 +339,7 @@ export default function Profile() {
                   <span>Search friends</span>
                   <button
                     onClick={() => {
+                      sendGAEvent('Profile', 'button_click', 'Close Modal Search Friends')
                       closeModalSearchFriends()
                     }}
                   >
@@ -333,7 +353,12 @@ export default function Profile() {
                   <span id="friend-request-message"></span>
                 </div>
                 <div id="modal-search-friends-footer">
-                  <button onClick={sendFriendRequest}>Send request</button>
+                  <button
+                    onClick={() => {
+                      sendGAEvent('Profile', 'button_click', 'Send Friend Request')
+                      sendFriendRequest()
+                    }}
+                  >Send request</button>
                 </div>
               </div>
             </div>

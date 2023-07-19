@@ -12,6 +12,8 @@ import NFT_INTERFACE from '../config/abi/nft.json';
 import NFT_INTERFACE2 from '../config/abi/nft2.json';
 import { ethers } from "ethers";
 import BuyNFTModal from "../components/modals/marketplaceModals/buyNFTModal";
+import ReactGA from 'react-ga4';
+import { sendGAEvent } from "../utils/utils";
 
 interface NFT {
   id: string;
@@ -180,7 +182,14 @@ export default function Marketplace() {
                             </Text>
                           </Link>
                           <Spacer />
-                          <Button colorScheme="teal" onClick={() => handleBuyNFT(nft)} disabled={(nft.price == "0.0") ? true : false}>
+                          <Button
+                            colorScheme="teal"
+                            onClick={() => {
+                              sendGAEvent('Marketplace', 'button_click', 'Buy NFT')
+                              handleBuyNFT(nft)
+                            }}
+                            disabled={(nft.price == "0.0") ? true : false}
+                          >
                             Buy
                           </Button>
                         </Flex>
