@@ -1,48 +1,31 @@
 import Footer from "../components/footer/footer";
 import Navbar from "../components/navbar/navbar";
 import Question from "../components/faq/faqQuestion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Show, useColorModeValue, Text, VisuallyHidden, Container, VStack } from "@chakra-ui/react";
 import { useContext } from 'react';
 import { LanguageContext } from "../components/LanguageSwitcher/language";
+import axios from "axios";
+import { serverURL } from "../utils/globals";
 
 export default function FAQ() {
   const [searchInput, setSearchInput] = useState("");
-  const questionList = [
-    {
-      question: "What is Blockchain ?",
-      answer:
-        "Blockchain is a distributed ledger that is a public ledger oftransactions. It is a system of record that is open, immutable, and verifiable.",
-    },
-    {
-      question: "What is a smart contract ?",
-      answer:
-        "A smart contract is a contract that is written in code and executed on a blockchain.",
-    },
-    {
-      question: "What is ERC20 norm ?",
-      answer: "ERC20 is a standard for tokenization of digital assets.",
-    },
-    {
-      question: "What is a token ?",
-      answer:
-        "A token is a digital asset that is issued by a blockchain company.",
-    },
-    {
-      question: "What is a wallet ?",
-      answer: "A wallet is a software that stores your private keys.",
-    },
-    {
-      question: "Is the website secure ?",
-      answer:
-        "Yes, the website is secure. We use the latest security protocols to ensure that your data is safe.",
-    },
-    {
-      question: "What is a transaction ?",
-      answer:
-        "A transaction is a movement of funds from one address to another.",
-    },
-  ];
+  const [faqList, setFaqList] = useState<any[]>([])
+
+  useEffect(() => {
+    fetchFAQ()
+  }, [])
+
+  function fetchFAQ() {
+    axios.get(`${serverURL}:8080/faq/all`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
+    }).then((res) => {
+      setFaqList(res.data)
+    })
+  }
 
   const handleChange = (e: any) => {
     e.preventDefault();
@@ -79,7 +62,7 @@ export default function FAQ() {
             />
           </div>
           <div id="faq-questions">
-              {questionList.map((question, index) => {
+              {faqList.map((question, index) => {
                   if (searchInput.length > 0) {
                     if (
                       question.question
