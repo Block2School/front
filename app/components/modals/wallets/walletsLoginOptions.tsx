@@ -34,8 +34,8 @@ export default function LoginOptions({ isOpen, closeModal }: { isOpen: boolean, 
           activate(connectors.binanceWallet)
           setProvider('binanceWallet')
           window.location.reload()
-          { isOpen = false }
           closeModal()
+          { isOpen = false }
         }} srcImg="binance_wallet_appicon.svg" alt="Binance Wallet Logo" wImg={25} hImg={25} gap={3} size={undefined} disabled={undefined} borderRadius={undefined} />
     </VStack>
   )
