@@ -27,11 +27,8 @@ import LoadingScreen from "../components/loading/loadingScreen";
 import OptionEditor from "../components/editor/optionEditor";
 import UploadEditor from "../components/editor/uploadEditor";
 import { AiFillBell } from 'react-icons/ai';
-<<<<<<< HEAD
 import { sendGAEvent } from "../utils/utils";
-=======
 import TutorialConsole from "../components/tutorialConsole/tutorialConsole";
->>>>>>> main
 
 
 export interface ModalProps {
