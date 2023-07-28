@@ -41,6 +41,10 @@ export const CustomModal = (props: ModalProps) => {
   const { showModal, setShowModal, modalTitle, modalMessage } = props;
   const { onClose } = useDisclosure();
 
+  if (!showModal) {
+    return null;
+  }
+
   return (
     <Modal isOpen={showModal} onClose={onClose}>
       <ModalOverlay bg="blackAlpha.800" />
@@ -92,7 +96,8 @@ export default function Tutorial() {
   const [showModal, setShowModal] = useState(false);
   const [modalMessage, setModalMessage] = useState('');
   const [modalTitle, setModalTitle] = useState('');
-
+  const [resOutput, setResOutput] = useState('');
+  const [resError, setResError] = useState('');
 
   const [tutorialInfos, setTutorialInfos] = useState({
     id: 0,
@@ -204,6 +209,11 @@ export default function Tutorial() {
     }
     if (editorValue.length > 0) {
       let res = await sendUserCode(editorValue);
+      setResError(res.error ? res.error : '');
+      console.log('res.error => ', res.error);
+      console.log('res => ', res)
+      setResOutput(res.received ? res.received : '[Nothing]');
+      console.log('res.received => ', res.received);
       if (res.is_correct == true) {
         setShowModal(true);
         setModalTitle('Correct Answer');
@@ -260,12 +270,14 @@ export default function Tutorial() {
                 position: "absolute",
                 bottom: 0,
                 width: "50%",
+                maxHeight: "60%",
+                overflow: 'scroll'
               }}
             >
               <TutorialConsole
-                error="error"
-                output="output"
-                expectedOutput="expectedOutput"
+                error={resError}
+                output={resOutput}
+                expectedOutput={tutorialInfos.answer}
               />
             </div>
           </div>

@@ -35,6 +35,7 @@ export default function TutorialConsole(props: TutorialConsoleProps) {
             boxShadow: "0 0 10px rgba(0, 0, 0, 0.15)",
             // add a transition
             transition: "height 0.3s",
+            overflow: "scroll"
           }}
         >
           {/* but the iconButton on the right side */}
@@ -55,15 +56,19 @@ export default function TutorialConsole(props: TutorialConsoleProps) {
             p="4"
             bg="gray.100"
             transition="height 0.3s"
+            overflow={"scroll"}
           >
             <Text
               fontSize={"md"}
               fontWeight="bold"
-            >
+              >
               Ouput:
             </Text>
-            <Text>
-              {"> " + output}
+            <Text
+                // multiple lines
+              whiteSpace="pre-wrap"
+            >
+              {"> " + output?.replaceAll("\n", "\n> ")}
             </Text>
             <Text
               fontSize={"md"}
@@ -71,7 +76,10 @@ export default function TutorialConsole(props: TutorialConsoleProps) {
             >
               Expected output:
             </Text>
-            <Text>
+            <Text
+              // multiple lines
+              whiteSpace="pre-wrap"
+            >
               {expectedOutput}
             </Text>
             <Text
