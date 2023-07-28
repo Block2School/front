@@ -26,6 +26,7 @@ export default function ConnectionButton() {
 
   const refreshState = () => {
     window.sessionStorage.setItem('provider', 'undefined')
+    window.sessionStorage.removeItem('token');
     setIsError(false)
   }
 
