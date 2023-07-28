@@ -36,6 +36,8 @@ export default function UploadEditor({ isUploading, uploadCode }: { isUploading:
           hImg={undefined}
           wImg={undefined}
           borderRadius={undefined}
+          categoryGA={"Tutorial Upload Editor"}
+          labelGA={"Submit Button"}
         />
       </div>
     )
@@ -58,7 +60,8 @@ export default function UploadEditor({ isUploading, uploadCode }: { isUploading:
             hImg={undefined}
             wImg={undefined}
             borderRadius={undefined}
-          /> :
+            categoryGA={"Tutorial Upload Editor"}
+            labelGA={"Submit Button Spinner"} /> :
           <Spinner
             animation="border"
             role="status"

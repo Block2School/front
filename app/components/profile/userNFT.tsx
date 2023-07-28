@@ -4,6 +4,7 @@ import NFT_INTERFACE2 from '../../config/abi/nft2.json';
 import React, { useEffect } from 'react'
 import { Text, Image, Center, Heading, Button, Flex, Link, Spacer, useDisclosure } from '@chakra-ui/react';
 import MyNFTModal from '../modals/myNFTModal/myNFTModal';
+import { sendGAEvent } from '../../utils/utils';
 
 export default function UserNFTView() {
   const [userNFT, setUserNFT] = React.useState<any>([]);
@@ -108,6 +109,7 @@ export default function UserNFTView() {
                   <Center>
                     <Button
                       onClick={() => {
+                        sendGAEvent('UserNFT', 'button_click', 'Resell NFT Modal Opening');
                         setNFTToResell(nft);
                         onOpen();
                       }}

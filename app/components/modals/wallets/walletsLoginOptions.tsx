@@ -19,7 +19,7 @@ export default function LoginOptions({ isOpen, closeModal }: { isOpen: boolean, 
         window.location.reload()
         { isOpen = false }
         closeModal()
-      }} size={undefined} disabled={undefined} />
+      }} size={undefined} disabled={undefined} categoryGA={"Button"} labelGA={"Coinbase Wallet Connection"} />
       <CustomButton name="MetaMask" id="metamask"
         variant="outline"
         onClick={() => {
@@ -28,15 +28,14 @@ export default function LoginOptions({ isOpen, closeModal }: { isOpen: boolean, 
           window.location.reload()
           { isOpen = false }
           closeModal()
-        }} srcImg="metamask_appicon.svg" alt="MetaMask Logo" wImg={25} hImg={25} gap={3} size={undefined} disabled={undefined} borderRadius={undefined} />
+        }} srcImg="metamask_appicon.svg" alt="MetaMask Logo" wImg={25} hImg={25} gap={3} size={undefined} disabled={undefined} borderRadius={undefined} categoryGA={"Button"} labelGA={"Metamask connection"} />
       <CustomButton name="Binance Wallet" id="binance" variant="outline"
         onClick={() => {
           activate(connectors.binanceWallet)
           setProvider('binanceWallet')
           window.location.reload()
           closeModal()
-          { isOpen = false }
-        }} srcImg="binance_wallet_appicon.svg" alt="Binance Wallet Logo" wImg={25} hImg={25} gap={3} size={undefined} disabled={undefined} borderRadius={undefined} />
+        }} srcImg="binance_wallet_appicon.svg" alt="Binance Wallet Logo" wImg={25} hImg={25} gap={3} size={undefined} disabled={undefined} borderRadius={undefined} categoryGA={"Button"} labelGA={"Binance Wallet connection"} />
     </VStack>
   )
 }

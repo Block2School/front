@@ -20,21 +20,19 @@ import '../components/adminTutorials/tutorialsAdmin.css'
 import '../components/alerts/errorAlert/errorAlert.css'
 import '../components/alerts/successAlert/successAlert.css'
 import 'bootstrap/dist/css/bootstrap.css'
-import type { AppProps } from 'next/app'
 
+import type { AppProps } from 'next/app'
 import { Web3ReactProvider } from '@web3-react/core'
 import { Web3Provider } from '@ethersproject/providers'
-import Web3 from 'web3'
-import { provider } from 'web3-core'
-
-
 import { ChakraProvider } from "@chakra-ui/react";
+
+import { useEffect } from 'react'
+import { useRouter } from 'next/router'
+import ReactGA from 'react-ga4'
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID
+
 import { LanguageProvider } from "../components/LanguageSwitcher/language";
-
-
-// const getLibrary = (provider: provider) => {
-//   return new Web3(provider)
-// }
+import Script from 'next/script'
 
 const getLibrary = (provider: any): Web3Provider => {
   const library = new Web3Provider(provider)
@@ -43,10 +41,45 @@ const getLibrary = (provider: any): Web3Provider => {
 }
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const router = useRouter()
+  console.log('GA_ID: ', GA_ID)
+  ReactGA.initialize(GA_ID as string)
+  ReactGA.send({ hitType: "event", eventCategory: "pageview", eventAction: "pageview", eventLabel: router.pathname })
+  // ReactGA.pageview(router.pathname)
+  useEffect(() => {
+    const handleRouteChange = (url: string, { shallow }: { shallow: boolean }) => {
+      ReactGA.initialize(GA_ID as string)
+      ReactGA.send({ hitType: "pageview", page: url })
+      // ReactGA.send({ hitType: "event", eventCategory: "test_click", eventAction: "test_click", eventLabel: "TEST CLICK" })
+      console.log(`App is changing to ${url} ${shallow ? "with" : "without"} shallow routing`)
+    }
+    router.events.on("routeChangeComplete", handleRouteChange)
+
+    // If the component is unmounted, unsubscribe
+    // from the event with the `off` method:
+    return () => {
+      router.events.off("routeChangeComplete", handleRouteChange)
+    }
+  }, [router.events])
+
   return (
     <LanguageProvider>
       <ChakraProvider>
         <Web3ReactProvider getLibrary={getLibrary}>
+          <Script
+            src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+          ></Script>
+          {/* 👇 gtag function definition. notice that we don't send page views at this point.  */}
+          <Script
+            id="gtag-init"
+            dangerouslySetInnerHTML={{
+              __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+          `,
+            }}
+          />
           <Component {...pageProps} />
         </Web3ReactProvider>
       </ChakraProvider>

@@ -15,6 +15,7 @@ import {
 import {
   BiCheckCircle
 } from 'react-icons/bi'
+import { sendGAEvent } from '../../../utils/utils';
 
 export default function SuccessAlert({ successMessage, isOpen, onClose }: { successMessage: string, isOpen: boolean, onClose: any }) {
   const cancelRef = React.useRef(null)
@@ -72,7 +73,14 @@ export default function SuccessAlert({ successMessage, isOpen, onClose }: { succ
               </Center>
             </AlertDialogBody>
             <AlertDialogFooter>
-              <Button ref={cancelRef} onClick={onClose} id="successAlertCloseButton">
+              <Button
+                ref={cancelRef}
+                onClick={() => {
+                  sendGAEvent('Success Alert', 'button_click', `Close success alert`)
+                  onClose()
+                }}
+                id="successAlertCloseButton"
+              >
                 Close
               </Button>
             </AlertDialogFooter>

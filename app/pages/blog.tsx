@@ -7,6 +7,7 @@ import ListBlog from '../components/blog/blogList'
 import Footer from '../components/footer/footer'
 import $ from 'jquery'
 import { Spacer } from '@chakra-ui/react'
+import { sendGAEvent } from '../utils/utils'
 
 interface BlogProps {
   id: number
@@ -98,7 +99,13 @@ export default function Blog() {
       <div id="blog-container">
         <ListBlog articles={articles} />
       </div>
-      <button id="blog-contact-button" onClick={openModal}>
+      <button
+        id="blog-contact-button"
+        onClick={() => {
+          sendGAEvent('blog', 'button_click', 'Open Ask a question modal')
+          openModal()
+        }}
+      >
         Ask a question
       </button>
       <div id="blog-contact-modal">
@@ -125,7 +132,13 @@ export default function Blog() {
               resize: 'none',
             }}
           />
-          <button id="blog-contact-button-submit" onClick={submit}>
+          <button
+            id="blog-contact-button-submit"
+            onClick={() => {
+              sendGAEvent('blog', 'button_click', 'Submit question')
+              submit()
+            }}
+          >
             Submit
           </button>
         </div>

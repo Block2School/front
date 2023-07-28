@@ -27,7 +27,11 @@ import LoadingScreen from "../components/loading/loadingScreen";
 import OptionEditor from "../components/editor/optionEditor";
 import UploadEditor from "../components/editor/uploadEditor";
 import { AiFillBell } from 'react-icons/ai';
+<<<<<<< HEAD
+import { sendGAEvent } from "../utils/utils";
+=======
 import TutorialConsole from "../components/tutorialConsole/tutorialConsole";
+>>>>>>> main
 
 
 export interface ModalProps {
@@ -66,7 +70,14 @@ export const CustomModal = (props: ModalProps) => {
           <p>{modalMessage}</p>
         </ModalBody>
         <ModalFooter>
-          <Button colorScheme="yellow" mr={2} onClick={() => setShowModal(false)}>
+          <Button
+            colorScheme="yellow"
+            mr={2}
+            onClick={() => {
+              sendGAEvent('Tutorial', 'button_click', `Close modal ${modalTitle}`)
+              setShowModal(false)
+            }}
+          >
             Fermer
           </Button>
         </ModalFooter>

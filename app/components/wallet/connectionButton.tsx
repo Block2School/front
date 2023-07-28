@@ -9,6 +9,7 @@ import { serverURL } from '../../utils/globals'
 import { connectors } from './injectors'
 import { Image } from 'react-bootstrap'
 import CustomButtonRef from '../button/buttonRef'
+import { sendGAEvent } from '../../utils/utils'
 
 export default function ConnectionButton() {
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -72,11 +73,11 @@ export default function ConnectionButton() {
   return (
     <>
       {!active && isError === false ? (
-        <CustomButton id='login_button' name="Connect Wallet" onClick={onOpen} gap={undefined} srcImg={undefined} alt={undefined} size={undefined} disabled={undefined} variant={undefined} hImg={undefined} wImg={undefined} borderRadius={undefined} />
+        <CustomButton id='login_button' name="Connect Wallet" onClick={onOpen} gap={undefined} srcImg={undefined} alt={undefined} size={undefined} disabled={undefined} variant={undefined} hImg={undefined} wImg={undefined} borderRadius={undefined} categoryGA={'Connection Button'} labelGA={'Open Connect wallet modal'} />
       ) : !active && isError === true ? (
         <Tooltip label="Wrong Network" placement="bottom" hasArrow>
           {/* <CustomButton id="login_button" name="Connect Wallet" onClick={onOpen} srcImg="/warning-sign-svgrepo-com.svg" alt="warning" gap={undefined} size={undefined} disabled={undefined} variant={undefined} hImg={undefined} wImg={undefined} borderRadius={undefined}/> */}
-          <Button id='login_button' size='md' variant='outline' onClick={onOpen}>
+          <Button id='login_button' size='md' variant='outline' onClick={() => { sendGAEvent('Connection Button', 'button_click', 'Connect Wallet Wrong Network'); onOpen() }}>
             <HStack color={color}>
               <Image src="/warning-sign-svgrepo-com.svg" alt="warning" />
               <Text>Connect Wallet</Text>
@@ -85,7 +86,7 @@ export default function ConnectionButton() {
           {/* <CustomButtonRef id='login_button' name="Connect Wallet" onClick={onOpen} srcImg="/warning-sign-svgrepo-com.svg" alt="warning" size={undefined} disabled={undefined} variant={undefined} hImg={undefined} wImg={undefined} borderRadius={undefined} gap={undefined}/> */}
         </Tooltip>
       ) : (
-        <CustomButton id='login_button' name="Disconnect Wallet" onClick={disconnect} gap={undefined} srcImg={undefined} alt={undefined} size={undefined} disabled={undefined} variant={undefined} hImg={undefined} wImg={undefined} borderRadius={undefined} />
+        <CustomButton id='login_button' name="Disconnect Wallet" onClick={disconnect} gap={undefined} srcImg={undefined} alt={undefined} size={undefined} disabled={undefined} variant={undefined} hImg={undefined} wImg={undefined} borderRadius={undefined} categoryGA={'Connection Button'} labelGA={'Disconnect Wallet'} />
       )}
       <SelectWalletModal isOpen={isOpen} closeModal={onClose} />
     </>

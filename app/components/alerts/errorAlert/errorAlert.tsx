@@ -15,6 +15,7 @@ import {
 import {
   BiErrorCircle
 } from 'react-icons/bi'
+import { sendGAEvent } from '../../../utils/utils';
 
 export default function ErrorAlert({ errorMessage, isOpen, onClose }: { errorMessage: string, isOpen: boolean, onClose: any }) {
   const cancelRef = React.useRef(null)
@@ -66,7 +67,10 @@ export default function ErrorAlert({ errorMessage, isOpen, onClose }: { errorMes
             <AlertDialogFooter>
               <Button
                 ref={cancelRef}
-                onClick={onClose}
+                onClick={() => {
+                  sendGAEvent('ErrorAlert', 'button_click', 'Close error alert')
+                  onClose()
+                }}
                 id="errorAlertCloseButton"
               >
                 Close
