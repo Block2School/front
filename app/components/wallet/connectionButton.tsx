@@ -1,5 +1,5 @@
 import SelectWalletModal from '../modals/wallets/walletsModal'
-import { useWeb3React } from '@web3-react/core'
+import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core'
 import { Button, useColorModeValue, useDisclosure, Text, HStack } from '@chakra-ui/react'
 import CustomButton from '../button/button'
 import { useEffect, useState } from 'react'
@@ -39,6 +39,10 @@ export default function ConnectionButton() {
     console.log('error.name: ', error.name)
     if (error.name === 'UnsupportedChainIdError') {
       console.log('UnsupportedChainIdError')
+      setIsError(true)
+    }
+    if (error instanceof UnsupportedChainIdError) {
+      console.log('UnsupportedChainIdError 2')
       setIsError(true)
     }
   }

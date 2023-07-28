@@ -1,58 +1,123 @@
 import Footer from "../components/footer/footer";
 import Navbar from "../components/navbar/navbar";
 import Question from "../components/faq/faqQuestion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Show, useColorModeValue, Text, VisuallyHidden, Container, VStack } from "@chakra-ui/react";
 import { useContext } from 'react';
 import { LanguageContext } from "../components/LanguageSwitcher/language";
+import axios from "axios";
+import { serverURL } from "../utils/globals";
 
 export default function FAQ() {
   const [searchInput, setSearchInput] = useState("");
-  const questionList = [
-    {
-      question: "What is Blockchain ?",
-      answer:
-        "Blockchain is a distributed ledger that is a public ledger oftransactions. It is a system of record that is open, immutable, and verifiable.",
-    },
-    {
-      question: "What is a smart contract ?",
-      answer:
-        "A smart contract is a contract that is written in code and executed on a blockchain.",
-    },
-    {
-      question: "What is ERC20 norm ?",
-      answer: "ERC20 is a standard for tokenization of digital assets.",
-    },
-    {
-      question: "What is a token ?",
-      answer:
-        "A token is a digital asset that is issued by a blockchain company.",
-    },
-    {
-      question: "What is a wallet ?",
-      answer: "A wallet is a software that stores your private keys.",
-    },
-    {
-      question: "Is the website secure ?",
-      answer:
-        "Yes, the website is secure. We use the latest security protocols to ensure that your data is safe.",
-    },
-    {
-      question: "What is a transaction ?",
-      answer:
-        "A transaction is a movement of funds from one address to another.",
-    },
-  ];
+  const [faqList, setFaqList] = useState<any[]>([])
 
-  const handleChange = (e: any) => {
-    e.preventDefault();
-    setSearchInput(e.target.value);
-  };
+  useEffect(() => {
+    fetchFAQ()
+  }, [])
+
+  function fetchFAQ() {
+    axios.get(`${serverURL}:8080/faq/all`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
+    }).then((res) => {
+      setFaqList(res.data)
+      autocomplete(document.getElementById("faq-search") as HTMLInputElement, res.data.map((faq: any) => faq.question));
+    })
+  }
 
   const bg = useColorModeValue("#191919", "white");
   const color = useColorModeValue("black", "black");
 
   const { dictionary } = useContext(LanguageContext);
+
+  function autocomplete(inp: HTMLInputElement, arr: string[]) {
+    let currentFocus: number;
+  
+    inp.addEventListener("input", function (e: Event) {
+      const val = (this).value;
+      closeAllLists();
+      if (!val) {
+        setSearchInput("");
+        return false;
+      }
+      currentFocus = -1;
+  
+      const a = document.createElement("DIV");
+      a.setAttribute("id", (this).id + "autocomplete-list");
+      a.setAttribute("class", "autocomplete-items");
+      (this).parentNode?.appendChild(a);
+  
+      for (let i = 0; i < arr.length; i++) {
+        if (arr[i].toLocaleLowerCase().includes(val.toLocaleLowerCase())) {
+          const b = document.createElement("DIV");
+          let index = arr[i].toLowerCase().indexOf(val.toLowerCase());
+          b.innerHTML = arr[i].substr(0, index);
+          b.innerHTML += "<strong>" + arr[i].substr(index, val.length) + "</strong>";
+          b.innerHTML += arr[i].substr(index + val.length);
+          b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+  
+          b.addEventListener("click", function (e: Event) {
+            const input = this.getElementsByTagName("input")[0];
+            inp.value = input.value;
+            setSearchInput(input.value);
+            closeAllLists();
+          });
+  
+          if (a.childElementCount <= 9)
+            a.appendChild(b);
+        }
+      }
+    });
+  
+    inp.addEventListener("keydown", function (e: KeyboardEvent) {
+      const x = document.getElementById((this).id + "autocomplete-list");
+      if (x) {
+        const divElements = x.getElementsByTagName("div");
+        if (e.keyCode == 40) {
+          currentFocus++;
+          addActive(divElements);
+        } else if (e.keyCode == 38) {
+          currentFocus--;
+          addActive(divElements);
+        } else if (e.keyCode == 13) {
+          e.preventDefault();
+          if (currentFocus > -1) {
+            if (x) divElements[currentFocus].click();
+          }
+        }
+      }
+    });
+  
+    function addActive(x: HTMLCollectionOf<Element>) {
+      if (!x) return false;
+      removeActive(x);
+      if (currentFocus >= x.length) currentFocus = 0;
+      if (currentFocus < 0) currentFocus = x.length - 1;
+      x[currentFocus].classList.add("autocomplete-active");
+    }
+  
+    function removeActive(x: HTMLCollectionOf<Element>) {
+      for (let i = 0; i < x.length; i++) {
+        x[i].classList.remove("autocomplete-active");
+      }
+    }
+  
+    function closeAllLists(elmnt?: Element) {
+      const x = document.getElementsByClassName("autocomplete-items");
+      for (let i = 0; i < x.length; i++) {
+        if (elmnt != x[i] && elmnt != inp) {
+          x[i].parentNode?.removeChild(x[i]);
+        }
+      }
+    }
+  
+    document.addEventListener("click", function (e: Event) {
+      closeAllLists(e.target as Element);
+    });
+  }  
 
   return (
     <>
@@ -74,12 +139,10 @@ export default function FAQ() {
             <input
               id="faq-search"
               placeholder="Search for a question"
-              onChange={handleChange}
-              value={searchInput}
             />
           </div>
           <div id="faq-questions">
-              {questionList.map((question, index) => {
+              {faqList.map((question, index) => {
                   if (searchInput.length > 0) {
                     if (
                       question.question
