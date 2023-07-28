@@ -16,9 +16,9 @@ export default function LoginOptions({ isOpen, closeModal }: { isOpen: boolean, 
       <CustomButton id='coinbase' srcImg="/coinbase_wallet_appicon.svg" alt="Coinbase Wallet Logo" wImg={25} hImg={25} gap={3} name="Coinbase Wallet" variant="outline" borderRadius="3px" onClick={() => {
         activate(connectors.coinbaseWallet)
         setProvider('coinbaseWallet')
-        closeModal()
-        { isOpen = false }
         window.location.reload()
+        { isOpen = false }
+        closeModal()
       }} size={undefined} disabled={undefined} />
       <CustomButton name="MetaMask" id="metamask"
         variant="outline"
@@ -28,16 +28,14 @@ export default function LoginOptions({ isOpen, closeModal }: { isOpen: boolean, 
           window.location.reload()
           { isOpen = false }
           closeModal()
-          { isOpen = false }
-          window.location.reload()
         }} srcImg="metamask_appicon.svg" alt="MetaMask Logo" wImg={25} hImg={25} gap={3} size={undefined} disabled={undefined} borderRadius={undefined} />
       <CustomButton name="Binance Wallet" id="binance" variant="outline"
         onClick={() => {
           activate(connectors.binanceWallet)
           setProvider('binanceWallet')
+          window.location.reload()
           closeModal()
           { isOpen = false }
-          window.location.reload()
         }} srcImg="binance_wallet_appicon.svg" alt="Binance Wallet Logo" wImg={25} hImg={25} gap={3} size={undefined} disabled={undefined} borderRadius={undefined} />
     </VStack>
   )
