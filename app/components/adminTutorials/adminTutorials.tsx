@@ -234,7 +234,7 @@ export default function AdminBlog() {
   return (
       <div className="usersAdmin-component">
         <div className="usersAdmin-title-div">
-          <h1 className="usersAdmin-title">Upload a new tutorial!</h1>
+          <Text className="usersAdmin-title">Upload a new tutorial!</Text>
         </div>
         <TutorialNavBar state={tutorialCreationState} next={() => nextState()} back={() => backState()} setTitle={setTuotrialTitle} setCategory={setTutorialCategory} availableMarkdowns={availableMarkdowns} selectedMarkdown={selectedMarkdown} setSelectedMarkdown={setSelectedMarkdown}/>
         <Button onClick={() => publishTutorial()} className='publish-button'>Publish tutorial!</Button>

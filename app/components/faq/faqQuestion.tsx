@@ -1,9 +1,11 @@
+import { Heading, Text } from "@chakra-ui/react"
+
 export default function Question ({question, answer}:{question:any, answer:any}) {
 
     return (
         <div className="faq-question">
-          <h2>{question}</h2>
-          <p>{answer}</p>
+          <Heading>{question}</Heading>
+          <Text>{answer}</Text>
         </div>
     )
 }

@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import { useState, useEffect } from 'react';
+import { Text, Button } from '@chakra-ui/react';
 import { serverURL } from '../../utils/globals'
 
 export default function userCard({person}:any) {
@@ -32,8 +33,8 @@ export default function userCard({person}:any) {
 
   return (
     <div className='user-card-div'>
-        <h1>{person.name}</h1>
-        <button onClick={handleClick} className='ban-button'>Unmod User</button>
+        <Text>{person.name}</Text>
+        <Button onClick={handleClick} className='ban-button'>Unmod User</Button>
     </div>
   )
 }

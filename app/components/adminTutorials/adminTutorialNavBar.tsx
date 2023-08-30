@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Text, Select } from '@chakra-ui/react'
+import { Button, Text, Select, Input } from '@chakra-ui/react'
 import { useState } from 'react'
 
 export default function adminTutorialNavBar({state, next, back, setTitle, setCategory, availableMarkdowns, selectedMarkdown, setSelectedMarkdown}:any) {
@@ -16,11 +16,11 @@ export default function adminTutorialNavBar({state, next, back, setTitle, setCat
             </div>
             <div className="tutorial-navbar">
                 <div className='input-navbar-div'>
-                    <input className='input-nav-bar' type="text" placeholder='Title' onChange={e => {setTitle(e.target.value)}}/>
+                    <Input className='input-nav-bar' type="text" placeholder='Title' onChange={e => {setTitle(e.target.value)}}/>
                 </div>           
                 <div className='input-navbar-div'>
-                    <input className='input-nav-bar' placeholder='Category' onChange={e => {setCategory(e.target.value)}}/>
-                </div>             
+                    <Input className='input-nav-bar' placeholder='Category' onChange={e => {setCategory(e.target.value)}}/>
+                </div>
                 <Select
                   placeholder="Select Markdown"
                   value={selectedMarkdown}
@@ -29,7 +29,7 @@ export default function adminTutorialNavBar({state, next, back, setTitle, setCat
                    
                   {availableMarkdowns.map((mrkdown, index) => {
                     return (
-                      <option value={mrkdown} key={index}>{mrkdown}</option>
+                      <Select value={mrkdown} key={index}>{mrkdown}</Select>
                     )
                   })}
                 </Select>

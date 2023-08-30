@@ -2,6 +2,7 @@ import { useContext } from "react";
 import Footer from "../components/footer/footer";
 import Navbar from "../components/navbar/navbar";
 import { LanguageContext } from "../components/LanguageSwitcher/language";
+import { Text } from "@chakra-ui/react";
 
 export default function TermsOfUse() {
   const { dictionary } = useContext(LanguageContext);
@@ -10,7 +11,7 @@ export default function TermsOfUse() {
     <>
       <Navbar />
       <div id="terms-of-use-container">
-        <h2>{dictionary["terms-of-use"].website.title}</h2>
+        <Text>{dictionary["terms-of-use"].website.title}</Text>
 
         <div className="terms-of-use-box">
           <p>
@@ -29,7 +30,7 @@ export default function TermsOfUse() {
             {dictionary["terms-of-use"].website.fourth_content}
           </p>
         </div>
-        <h2>{dictionary["terms-of-use"].access_to_the_site.title}</h2>
+        <Text>{dictionary["terms-of-use"].access_to_the_site.title}</Text>
         <div className="terms-of-use-box">
           <p>
             <strong>{dictionary["terms-of-use"].access_to_the_site.first_strong_content}</strong> {dictionary["terms-of-use"].access_to_the_site.first_content}
@@ -51,7 +52,7 @@ export default function TermsOfUse() {
             {dictionary["terms-of-use"].access_to_the_site.fifth_content}
           </p>
         </div>
-        <h2>{dictionary["terms-of-use"].user_content.tilte}</h2>
+        <Text>{dictionary["terms-of-use"].user_content.tilte}</Text>
         <div className="terms-of-use-box">
           <p>
             <strong>{dictionary["terms-of-use"].user_content.tilte}</strong> {dictionary["terms-of-use"].user_content.first_content}
@@ -128,7 +129,7 @@ export default function TermsOfUse() {
             such claim, action or proceeding upon becoming aware of it.
           </p>
         </div>
-        <h2>Third-Party Links and Ads; Other Users</h2>
+        <Text>Third-Party Links and Ads; Other Users</Text>
         <div className="terms-of-use-box">
           <p>
             <strong>Third-Party Links and Ads.</strong> The Site may contain
@@ -203,7 +204,7 @@ export default function TermsOfUse() {
             </li>
           </ul>
         </div>
-        <h2>Disclaimers</h2>
+        <Text>Disclaimers</Text>
         <div className="terms-of-use-box">
           <p>
             The site is provided on an "as-is" and "as available" basis, and
@@ -227,7 +228,7 @@ export default function TermsOfUse() {
             above limitation may not apply to you.
           </p>
         </div>
-        <h2>Limitation on Liability</h2>
+        <Text>Limitation on Liability</Text>
         <div className="terms-of-use-box">
           <p>
             To the maximum extent permitted by law, in no event shall company or
@@ -275,7 +276,7 @@ export default function TermsOfUse() {
             Sections 4 through 10.
           </p>
         </div>
-        <h2>Copyright Policy.</h2>
+        <Text>Copyright Policy.</Text>
         <div className="terms-of-use-box">
           <p>
             Company respects the intellectual property of others and asks that
@@ -326,7 +327,7 @@ export default function TermsOfUse() {
             the written notification and allegation of copyright infringement.
           </p>
         </div>
-        <h2>General</h2>
+        <Text>General</Text>
         <div className="terms-of-use-box">
           <p className="terms-of-use-general">
             These Terms are subject to occasional revision, and if we make any
@@ -595,7 +596,7 @@ export default function TermsOfUse() {
             consent or the consent of such third party which may own the Marks.
           </p>
         </div>
-        <h2>Contact Information</h2>
+        <Text>Contact Information</Text>
         <div className="terms-of-use-box">
           <p>Address: 3 place Paul Bec, Montpellier</p>
           <p>Email: lucas.dudot@epitech.eu</p>

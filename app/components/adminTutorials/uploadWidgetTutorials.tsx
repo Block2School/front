@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import axios from 'axios';
+import { Text, Input, Button } from '@chakra-ui/react';
 
 export default function uploadWidgetTutorials() {
     const [tutorialTitle, setTutorialTitle] = useState('');
@@ -31,20 +32,20 @@ export default function uploadWidgetTutorials() {
   return (
     <div className='tutorial-widget'>
         <div className="upload-form">
-            <h3>Upload a new tutorial!</h3>
-            <h4>Title</h4>
-            <input type="text" name="banReason" value={tutorialTitle} id="" onChange={e => {setTutorialTitle(e.target.value)}}/>
-            <h4>URL</h4>
-            <input type="text" name="banReason" value={tutorialUrl} id="" onChange={e => {setTutorialUrl(e.target.value)}}/>
-            <h4>Category</h4>
-            <input type="text" name="banReason" value={tutorialCategory} id="" onChange={e => {setTutorialCategory(e.target.value)}}/>
-            <h4>Answer</h4>
-            <input type="text" name="banReason" value={tutorialAnswer} id="" onChange={e => {setTutorialAnswer(e.target.value)}}/>
-            <h4>Start Code</h4>
-            <input type="text" name="banReason" value={tutorialTitleStartCode} id="" onChange={e => {setTutorialStartCode(e.target.value)}}/>
+            <Text>Upload a new tutorial!</Text>
+            <Text>Title</Text>
+            <Input type="text" name="banReason" value={tutorialTitle} id="" onChange={e => {setTutorialTitle(e.target.value)}}/>
+            <Text>URL</Text>
+            <Input type="text" name="banReason" value={tutorialUrl} id="" onChange={e => {setTutorialUrl(e.target.value)}}/>
+            <Text>Category</Text>
+            <Input type="text" name="banReason" value={tutorialCategory} id="" onChange={e => {setTutorialCategory(e.target.value)}}/>
+            <Text>Answer</Text>
+            <Input type="text" name="banReason" value={tutorialAnswer} id="" onChange={e => {setTutorialAnswer(e.target.value)}}/>
+            <Text>Start Code</Text>
+            <Input type="text" name="banReason" value={tutorialTitleStartCode} id="" onChange={e => {setTutorialStartCode(e.target.value)}}/>
         </div>
         <div>
-            <button className='submit-button' onClick={uploadTutorial}> Submit tutorial</button>
+            <Button className='submit-button' onClick={uploadTutorial}> Submit tutorial</Button>
         </div>
     </div>
   )

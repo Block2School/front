@@ -2,6 +2,7 @@ import React from 'react'
 import axios from 'axios'
 import { useState } from 'react';
 import BanModal from './modConfirmationModal';
+import { Text, Button } from '@chakra-ui/react';
 
 export default function userCard({person}:any) {
 
@@ -13,8 +14,8 @@ export default function userCard({person}:any) {
   return (
     <div>
       <div className='user-card-div'>
-          <h1>{person.uuid}</h1>
-          <button onClick={handleClick} className='unban-button'>Mod User</button>
+          <Text>{person.uuid}</Text>
+          <Button onClick={handleClick} className='unban-button'>Mod User</Button>
       </div>
       {openModal && <BanModal person={person} closeModal={setOpenModal}/>}
     </div>
