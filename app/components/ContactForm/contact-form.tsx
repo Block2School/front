@@ -2,6 +2,7 @@
 import { useForm } from 'react-hook-form';
 import emailjs from 'emailjs-com';
 import { ToastContainer, toast } from 'react-toastify';
+import { Text, Button, Input, Textarea, Heading } from '@chakra-ui/react';
 
 
 const serviceId:any = process.env.NEXT_PUBLIC_SERVICE_ID
@@ -40,8 +41,6 @@ const ContactForm = () => {
         message
       };
       console.log(templateParams);
-
-
       console.log(serviceId)
       console.log(templateId)
       console.log(userId)
@@ -58,18 +57,18 @@ const ContactForm = () => {
   return (
     <div className='ContactForm'>
       <div className="info-text">
-        <h1>Une Question ? Contact nous</h1>
-        <p>Nous vous répondrons dans les plus bref délais</p>
+        <Heading>Une Question ? Contact nous</Heading>
+        <Text>Nous vous répondrons dans les plus bref délais</Text>
       </div>
         <div className='container'>
           <div className='row'>
             <div className='col-12 text-center'>
               <div className='contactForm'>
-                <form id='contact-form' onSubmit={handleSubmit(onSubmit)} noValidate>
+                <Form id='contact-form' onSubmit={handleSubmit(onSubmit)} noValidate>
                   {/* Row 1 of form */}
                   <div className='row formRow'>
                     <div className='col-6'>
-                      <input
+                      <Input
                         type='text'
                         {...register('name', {
                           required: { value: true, message: 'Please enter your name' },
@@ -80,10 +79,10 @@ const ContactForm = () => {
                         })}
                         className='form-control formInput'
                         placeholder='Name'
-                      ></input>
+                      ></Input>
                     </div>
                     <div className='col-6'>
-                      <input
+                      <Input
                         type='email'
                         {...register('email', {
                           required: true,
@@ -91,13 +90,13 @@ const ContactForm = () => {
                         })}
                         className='form-control formInput'
                         placeholder='Email address'
-                      ></input>
+                      ></Input>
                     </div>
                   </div>
                   {/* Row 2 of form */}
                   <div className='row formRow'>
                     <div className='col'>
-                      <input
+                      <Input
                         type='text'
                         {...register('subject', {
                           required: { value: true, message: 'Please enter a subject' },
@@ -108,26 +107,26 @@ const ContactForm = () => {
                         })}
                         className='form-control formInput'
                         placeholder='Subject'
-                      ></input>
+                      ></Input>
                     </div>
                   </div>
                   {/* Row 3 of form */}
                   <div className='row formRow'>
                     <div className='col'>
-                      <textarea
+                      <Textarea
                         rows={3}
                         {...register('message', {
                           required: true
                         })}
                         className='form-control formInput'
                         placeholder='Message'
-                      ></textarea>
+                      ></Textarea>
                     </div>
                   </div>
-                  <button className='submit-btn' type='submit'>
+                  <Button className='submit-btn' type='submit'>
                     Submit
-                  </button>
-                </form>
+                  </Button>
+                </Form>
               </div>
               <ToastContainer />
             </div>

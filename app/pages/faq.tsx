@@ -2,7 +2,7 @@ import Footer from "../components/footer/footer";
 import Navbar from "../components/navbar/navbar";
 import Question from "../components/faq/faqQuestion";
 import { useEffect, useState } from "react";
-import { Show, useColorModeValue, Text, VisuallyHidden, Container, VStack } from "@chakra-ui/react";
+import { Show, useColorModeValue, Text, Input, VisuallyHidden, Container, VStack, Center } from "@chakra-ui/react";
 import { useContext } from 'react';
 import { LanguageContext } from "../components/LanguageSwitcher/language";
 import axios from "axios";
@@ -124,10 +124,9 @@ export default function FAQ() {
       <Navbar />
       <div id="faq-container">
         <div id="faq-header">
-          <span>
-            <div>Frequently Asked Questions</div>
-          </span>
-          <span>{dictionary.faq.faq}</span>
+          <Center h="200px">
+            <Text fontSize='5xl' color='white'>{dictionary.faq.faq}</Text>
+          </Center>
         </div>
         <div id="faq-body">
         <div
@@ -136,7 +135,7 @@ export default function FAQ() {
               height: "40px",
             }}
           >
-            <input
+            <Input
               id="faq-search"
               placeholder="Search for a question"
             />

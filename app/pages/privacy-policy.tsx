@@ -1,12 +1,13 @@
 import Footer from "../components/footer/footer";
 import Navbar from "../components/navbar/navbar";
+import { Text } from "@chakra-ui/react";
 
 export default function PrivacyPolicy() {
   return (
     <>
       <Navbar />
       <div id="privacy-policy-container">
-        <h2>Privacy Policy for Block2School</h2>
+        <Text>Privacy Policy for Block2School</Text>
 
         <div className="privacy-policy-box">
           <p>
@@ -30,7 +31,7 @@ export default function PrivacyPolicy() {
           </p>
         </div>
 
-        <h2>Consent</h2>
+        <Text>Consent</Text>
         <div className="privacy-policy-box">
           <p>
             By using our website, you hereby consent to our Privacy Policy and
@@ -38,7 +39,7 @@ export default function PrivacyPolicy() {
           </p>
         </div>
 
-        <h2>Information we collect</h2>
+        <Text>Information we collect</Text>
         <div className="privacy-policy-box">
           <p>
             The personal information that you are asked to provide, and the
@@ -58,7 +59,7 @@ export default function PrivacyPolicy() {
           </p>
         </div>
 
-        <h2>How we use your information</h2>
+        <Text>How we use your information</Text>
         <div className="privacy-policy-box">
           <p>
             We use the information we collect in various ways, including to:
@@ -79,7 +80,7 @@ export default function PrivacyPolicy() {
             <li>Find and prevent fraud</li>
           </ul>
         </div>
-        <h2>Log Files</h2>
+        <Text>Log Files</Text>
         <div className="privacy-policy-box">
           <p>
             Block2School follows a standard procedure of using log files. These
@@ -95,7 +96,7 @@ export default function PrivacyPolicy() {
           </p>
         </div>
 
-        <h2>Cookies and Web Beacons</h2>
+        <Text>Cookies and Web Beacons</Text>
         <div className="privacy-policy-box">
           <p>
             Like any other website, Block2School uses 'cookies'. These cookies
@@ -106,7 +107,7 @@ export default function PrivacyPolicy() {
             information.
           </p>
         </div>
-        <h2>Our Advertising Partners</h2>
+        <Text>Our Advertising Partners</Text>
         <div className="privacy-policy-box">
           <p>
             Some of advertisers on our site may use cookies and web beacons. Our
@@ -131,7 +132,7 @@ export default function PrivacyPolicy() {
           </ul>
         </div>
 
-        <h2>Advertising Partners Privacy Policies</h2>
+        <Text>Advertising Partners Privacy Policies</Text>
         <div className="privacy-policy-box">
           <p>
             You may consult this list to find the Privacy Policy for each of the
@@ -154,7 +155,7 @@ export default function PrivacyPolicy() {
             cookies that are used by third-party advertisers.
           </p>
         </div>
-        <h2>Third Party Privacy Policies</h2>
+        <Text>Third Party Privacy Policies</Text>
         <div className="privacy-policy-box">
           <p>
             Block2School's Privacy Policy does not apply to other advertisers or
@@ -171,7 +172,7 @@ export default function PrivacyPolicy() {
             respective websites.
           </p>
         </div>
-        <h2>CCPA Privacy Rights (Do Not Sell My Personal Information)</h2>
+        <Text>CCPA Privacy Rights (Do Not Sell My Personal Information)</Text>
         <div className="privacy-policy-box">
           <p>
             Under the CCPA, among other rights, California consumers have the
@@ -195,7 +196,7 @@ export default function PrivacyPolicy() {
             would like to exercise any of these rights, please contact us.
           </p>
         </div>
-        <h2>GDPR Data Protection Rights</h2>
+        <Text>GDPR Data Protection Rights</Text>
         <div className="privacy-policy-box">
           <p>
             We would like to make sure you are fully aware of all of your data
@@ -234,7 +235,7 @@ export default function PrivacyPolicy() {
             would like to exercise any of these rights, please contact us.
           </p>
         </div>
-        <h2>Children's Information</h2>
+        <Text>Children's Information</Text>
         <div className="privacy-policy-box">
           <p>
             Another part of our priority is adding protection for children while

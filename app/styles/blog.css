@@ -108,4 +108,18 @@
   font-weight: bold;
   border: 2px solid #ffe6c4;
   color: #ffe6c4;
+  background-color: #343434;
+}
+
+#blog-contact-button-submit:hover {
+  width: 25%;
+  height: 10%;
+  position: absolute;
+  top: 85%;
+  left: 37%;
+  border-radius: 10px;
+  font-weight: bold;
+  border: 2px solid #ffe6c4;
+  color: #343434;
+  background-color: #ffe6c4;
 }

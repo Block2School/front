@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useState, useEffect, useRef } from 'react'
 import Navbar from '../components/navbar/navbar'
 import moment from 'moment'
+import { Button, Text, Textarea, Input } from '@chakra-ui/react'
 import { serverURL } from '../utils/globals'
 import ListBlog from '../components/blog/blogList'
 import Footer from '../components/footer/footer'
@@ -99,20 +100,18 @@ export default function Blog() {
       <div id="blog-container">
         <ListBlog articles={articles} />
       </div>
-      <button
+      <Button
         id="blog-contact-button"
         onClick={() => {
           sendGAEvent('blog', 'button_click', 'Open Ask a question modal')
           openModal()
         }}
-      >
-        Ask a question
-      </button>
+      > Ask a question </Button>
       <div id="blog-contact-modal">
         <div id="blog-contact-modal-header">
-          <h1>Ask a question</h1>
+          <Text>Ask a question</Text>
           <Spacer />
-          <span
+          <Text
             id="blog-contact-modal-close"
             style={{
               cursor: 'pointer',
@@ -120,19 +119,20 @@ export default function Blog() {
             onClick={closeModal}
           >
             &times;
-          </span>
+          </Text>
         </div>
         <div id="blog-contact-body">
-          <span id="blog-contact-title">Subject</span>
-          <input type="text" id="blog-contact-title-input" />
-          <span id="blog-contact-description">Description</span>
-          <textarea
+          <Text id="blog-contact-title">Subject</Text>
+          <Input type="text" id="blog-contact-title-input" color='white'/>
+          <Text id="blog-contact-description">Description</Text>
+          <Textarea
             id="blog-contact-description-input"
             style={{
               resize: 'none',
+              color: 'white',
             }}
           />
-          <button
+          <Button
             id="blog-contact-button-submit"
             onClick={() => {
               sendGAEvent('blog', 'button_click', 'Submit question')
@@ -140,7 +140,7 @@ export default function Blog() {
             }}
           >
             Submit
-          </button>
+          </Button>
         </div>
       </div>
       <Footer />

@@ -3,6 +3,7 @@ import BannedUserCard from "./adminUserCard"
 import { serverURL } from '../../utils/globals'
 import { useState, useEffect } from 'react';
 import axios from 'axios'
+import { Text } from "@chakra-ui/react";
 
 
 export default function userAdmin() {
@@ -41,7 +42,7 @@ export default function userAdmin() {
   return (
     <div className="usersAdmin-component">
         <div className="usersAdmin-title-div">
-          <h1 className="usersAdmin-title">Moderators and Users</h1>
+          <Text className="usersAdmin-title">Moderators and Users</Text>
         </div>
         <div className="user-lists-div">
           <div className="person-list-div">{personList}</div>

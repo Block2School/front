@@ -1,9 +1,10 @@
-import { Spacer } from '@chakra-ui/react'
+import { Spacer, Text, Button, Box, Center } from '@chakra-ui/react'
 import React from 'react'
 import { Carousel, Image } from 'react-bootstrap'
 import Footer from '../components/footer/footer'
 import Navbar from '../components/navbar/navbar'
 import Link from 'next/link'
+import { sendGAEvent } from '../utils/utils'
 
 export default function Home() {
   return (
@@ -11,7 +12,9 @@ export default function Home() {
       <Navbar />
       <div id="home-container">
         <div id="home-header">
-          <span>Welcome to Block2School !</span>
+          <Center h="150px">
+            <Text fontSize='6xl' color="white">Welcome to Block2School !</Text>
+          </Center>
         </div>
         <div id="home-body">
           <div id="home-first-part">
@@ -50,20 +53,20 @@ export default function Home() {
             </div>
             <Spacer width={100}></Spacer>
             <div id="home-first-part-paragraph">
-              <span id="home-paragraph-title">
+              <Text id="home-paragraph-title">
                 Our team of developers helps you to master blockchain
                 technologies through intuitive tutorials.
-              </span>
+              </Text>
               <Spacer maxH={50} />
               <div id="home-paragraph">
-                <p>
+                <Text>
                   Block2School is the perfect site for anyone interested in
                   blockchain technology. We offer a a wide range of coding
                   exercises on blockchain technologies. You will be able to
                   understand blockchain, how it works and how it can be used.
                   You will also be comfortable creating smart contracts and
                   decentralized applications.
-                </p>
+                </Text>
               </div>
             </div>
             <Spacer />
@@ -76,15 +79,15 @@ export default function Home() {
           ></div>
           <div id="home-second-part">
             <div id="home-second-part-paragraph">
-              <span id="home-paragraph-start-title">Start learning now!</span>
+                <Text id="home-paragraph-start-title">Start learning now!</Text>
               <div id="home-paragraph-start">
-                <p>
+                <Text>
                   Are you ready to enter the world of blockchain? Block2School
                   is the best place to learn the basics of blockchain
                   technologies. You will learn the fundamentals through code
                   exercises and comprehensive tutorials to develop your skills.
                   Get started now!
-                </p>
+                </Text>
               </div>
             </div>
             <div>
@@ -96,11 +99,14 @@ export default function Home() {
               />
             </div>
             <div id="button-start">
-              <button>
+              <Button
+              onClick={() => {
+              sendGAEvent('home', 'button_click', 'Go to tuto through home')
+            }}>
                 <Link href={'/tutorials'} passHref>
                   Start now!
                 </Link>
-              </button>
+              </Button>
             </div>
             <div id="coach">
               <Image 
@@ -136,7 +142,7 @@ export default function Home() {
                       />
                     </div>
                     <div className="flip-box-back">
-                      <h1>Matisse Page</h1>
+                      <Text>Matisse Page</Text>
                       <p>Front-end developer</p>
                     </div>
                   </div>
@@ -155,7 +161,7 @@ export default function Home() {
                       />
                     </div>
                     <div className="flip-box-back">
-                      <h1>Lorenzo Manoeuvre</h1>
+                      <Text>Lorenzo Manoeuvre</Text>
                       <p>Front-end developer</p>
                     </div>
                   </div>
@@ -174,7 +180,7 @@ export default function Home() {
                       />
                     </div>
                     <div className="flip-box-back">
-                      <h1>Lucas Dudot</h1>
+                      <Text>Lucas Dudot</Text>
                       <p>Front-end developer</p>
                     </div>
                   </div>
@@ -193,7 +199,7 @@ export default function Home() {
                       />
                     </div>
                     <div className="flip-box-back">
-                      <h1>Cyril Grosjean</h1>
+                      <Text>Cyril Grosjean</Text>
                       <p>Back-end developer</p>
                     </div>
                   </div>
@@ -212,7 +218,7 @@ export default function Home() {
                       />
                     </div>
                     <div className="flip-box-back">
-                      <h1>Gabriel Knies</h1>
+                      <Text>Gabriel Knies</Text>
                       <p>Fullstack developer</p>
                     </div>
                   </div>
@@ -231,7 +237,7 @@ export default function Home() {
                       />
                       </div>
                       <div className="flip-box-back">
-                        <h1>Jose Fernan</h1>
+                        <Text>Jose Fernan</Text>
                         <p>Fullstack developer</p>
                       </div>
                     </div>

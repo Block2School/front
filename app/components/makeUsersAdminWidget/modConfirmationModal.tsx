@@ -2,6 +2,7 @@ import React from 'react'
 import axios from 'axios'
 import { useState, useEffect } from 'react';
 import { serverURL } from '../../utils/globals'
+import { Text, Input, Button } from '@chakra-ui/react';
 
 
 export default function banModal({person, closeModal}:any) {
@@ -37,15 +38,15 @@ export default function banModal({person, closeModal}:any) {
     <div className='background-modal'>
       <div className='modal-container'>
         <div className='modal-title'>
-          <h1>Are you sure you want to mod {person.name}?</h1>
+          <Text>Are you sure you want to mod {person.name}?</Text>
         </div>
         <div className='modal-body'>
-          <h4>Please put a reason:</h4>
-          <input type="text" name="banReason" value={banReason} id="" onChange={e => {setBanReason(e.target.value)}}/>
+          <Text>Please put a reason:</Text>
+          <Input type="text" name="banReason" value={banReason} id="" onChange={e => {setBanReason(e.target.value)}}/>
         </div>
         <div className='modal-footer'>
-          <button className='unban-button' onClick={handleClick}>Mod</button>
-          <button className='unban-button' onClick={() => closeModal(false)} >Cancel</button>
+          <Button className='unban-button' onClick={handleClick}>Mod</Button>
+          <Button className='unban-button' onClick={() => closeModal(false)} >Cancel</Button>
         </div>
       </div>
     </div>
