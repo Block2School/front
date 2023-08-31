@@ -2,7 +2,7 @@ import { useContext } from "react";
 import Footer from "../components/footer/footer";
 import Navbar from "../components/navbar/navbar";
 import { LanguageContext } from "../components/LanguageSwitcher/language";
-import { Text } from "@chakra-ui/react";
+import { Text, Link, Heading } from "@chakra-ui/react";
 
 export default function TermsOfUse() {
   const { dictionary } = useContext(LanguageContext);
@@ -11,59 +11,50 @@ export default function TermsOfUse() {
     <>
       <Navbar />
       <div id="terms-of-use-container">
-        <Text>{dictionary["terms-of-use"].website.title}</Text>
+        <Heading>{dictionary["terms-of-use"].website.title}</Heading>
 
         <div className="terms-of-use-box">
-          <p>
+          <Text color="white">
             {dictionary["terms-of-use"].website.first_content}
-          </p>
+          </Text>
 
-          <p>
+          <Text color="white">
             {dictionary["terms-of-use"].website.second_content}
-          </p>
+          </Text>
 
-          <p>
+          <Text color="white">
             {dictionary["terms-of-use"].website.third_content}
-          </p>
+          </Text>
 
-          <p>
+          <Text color="white">
             {dictionary["terms-of-use"].website.fourth_content}
-          </p>
+          </Text>
         </div>
-        <Text>{dictionary["terms-of-use"].access_to_the_site.title}</Text>
+        <Heading>{dictionary["terms-of-use"].access_to_the_site.title}</Heading>
         <div className="terms-of-use-box">
-          <p>
-            <strong>{dictionary["terms-of-use"].access_to_the_site.first_strong_content}</strong> {dictionary["terms-of-use"].access_to_the_site.first_content}
-          </p>
+          <Text color='tomato' display='inline'>{dictionary["terms-of-use"].access_to_the_site.first_strong_content} </Text>
+          <Text color='white' display="inline">{dictionary["terms-of-use"].access_to_the_site.first_content}</Text>
+          <Text></Text>
+          <Text color="tomato" display='inline'> {dictionary["terms-of-use"].access_to_the_site.second_strong_content} </Text>
+          <Text color="white" display='inline'>{dictionary["terms-of-use"].access_to_the_site.second_content}</Text>
 
-          <p>
-            <strong>{dictionary["terms-of-use"].access_to_the_site.second_strong_content}</strong> {dictionary["terms-of-use"].access_to_the_site.second_content}
-          </p>
+          <Text color="white">{dictionary["terms-of-use"].access_to_the_site.third_content}</Text>
 
-          <p>
-            {dictionary["terms-of-use"].access_to_the_site.third_content}
-          </p>
+          <Text color="tomato" display="inline"> {dictionary["terms-of-use"].access_to_the_site.fourth_strong_content} </Text> 
+          <Text color="white" display="inline">{dictionary["terms-of-use"].access_to_the_site.fourth_content}</Text>
 
-          <p>
-            <strong>{dictionary["terms-of-use"].access_to_the_site.fourth_strong_content}</strong> {dictionary["terms-of-use"].access_to_the_site.fourth_content}
-          </p>
-
-          <p>
-            {dictionary["terms-of-use"].access_to_the_site.fifth_content}
-          </p>
+          <Text color="white">{dictionary["terms-of-use"].access_to_the_site.fifth_content}</Text>
         </div>
-        <Text>{dictionary["terms-of-use"].user_content.tilte}</Text>
+        <Heading>{dictionary["terms-of-use"].user_content.tilte}</Heading>
         <div className="terms-of-use-box">
-          <p>
-            <strong>{dictionary["terms-of-use"].user_content.tilte}</strong> {dictionary["terms-of-use"].user_content.first_content}
-          </p>
+          <Text color="tomato" display="inline">{dictionary["terms-of-use"].user_content.tilte} </Text>
+          <Text color="white" display="inline">{dictionary["terms-of-use"].user_content.first_content}</Text>
 
-          <p>
-          {dictionary["terms-of-use"].user_content.second_content}
-          </p>
+          <Text color="white">{dictionary["terms-of-use"].user_content.second_content}</Text>
 
-          <p>
-            <strong>Acceptable Use Policy.</strong> The following terms
+          <Text color="tomato" display="inline">Acceptable Use Policy.</Text>
+          <Text color="white" display="inline">
+            The following terms
             constitute our "Acceptable Use Policy": You agree not to use the
             Site to collect, upload, transmit, display, or distribute any User
             Content (i) that violates any third-party right or any intellectual
@@ -75,9 +66,9 @@ export default function TermsOfUse() {
             group or individual; (iii) that is harmful to minors in any way; or
             (iv) that is in violation of any law, regulation, or obligations or
             restrictions imposed by any third party.
-          </p>
+          </Text>
 
-          <p>
+          <Text color="white">
             In addition, you agree not to: (i) upload, transmit, or distribute
             to or through the Site any software intended to damage or alter a
             computer system or data; (ii) send through the Site unsolicited or
@@ -94,9 +85,9 @@ export default function TermsOfUse() {
             automated agents or scripts to produce multiple accounts on the
             Site, or to generate automated searches, requests, or queries to the
             Site.
-          </p>
+          </Text>
 
-          <p>
+          <Text color="white">
             We reserve the right to review any User Content, and to investigate
             and/or take appropriate action against you in our sole discretion if
             you violate the Acceptable Use Policy or any other provision of
@@ -104,18 +95,18 @@ export default function TermsOfUse() {
             person. Such action may include removing or modifying your User
             Content, terminating your Account in accordance with Section 8,
             and/or reporting you to law enforcement authorities.
-          </p>
+          </Text>
 
-          <p>
+          <Text color="white">
             If you provide Company with any feedback or suggestions regarding
             the Site, you hereby assign to Company all rights in such Feedback
             and agree that Company shall have the right to use and fully exploit
             such Feedback and related information in any manner it believes
             appropriate. Company will treat any Feedback you provide to Company
             as non-confidential and non-proprietary.
-          </p>
+          </Text>
 
-          <p>
+          <Text color="white">
             You agree to indemnify and hold Company and its officers, employees,
             and agents harmless, including costs and attorneys' fees, from any
             claim or demand made by any third-party due to or arising out of (a)
@@ -127,12 +118,13 @@ export default function TermsOfUse() {
             agree not to settle any matter without the prior written consent of
             Company. Company will use reasonable efforts to notify you of any
             such claim, action or proceeding upon becoming aware of it.
-          </p>
+          </Text>
         </div>
-        <Text>Third-Party Links and Ads; Other Users</Text>
+        <Heading>Third-Party Links and Ads; Other Users</Heading>
         <div className="terms-of-use-box">
-          <p>
-            <strong>Third-Party Links and Ads.</strong> The Site may contain
+          <Text color="tomato" display="inline">Third-Party Links and Ads. </Text>
+          <Text color="white" display="inline">
+            The Site may contain
             links to third-party websites and services, and/or display
             advertisements for third-parties. Such Third-Party Links and Ads are
             not under the control of Company, and Company is not responsible for
@@ -145,10 +137,11 @@ export default function TermsOfUse() {
             on any of the Third-Party Links and Ads, the applicable third
             party's terms and policies apply, including the third party's
             privacy and data gathering practices.
-          </p>
-
-          <p>
-            <strong>Other Users.</strong> Each Site user is solely responsible
+          </Text>
+          <Text></Text>
+          <Text color="tomato" display="inline">Other Users. </Text>
+          <Text color="white" display="inline">
+            Each Site user is solely responsible
             for any and all of its own User Content. Because we do not control
             User Content, you acknowledge and agree that we are not responsible
             for any User Content, whether provided by you or by others. You
@@ -156,9 +149,9 @@ export default function TermsOfUse() {
             incurred as the result of any such interactions. If there is a
             dispute between you and any Site user, we are under no obligation to
             become involved.
-          </p>
+          </Text>
 
-          <p>
+          <Text color="white">
             You hereby release and forever discharge the Company and our
             officers, employees, agents, successors, and assigns from, and
             hereby waive and relinquish, each and every past, present and future
@@ -172,41 +165,35 @@ export default function TermsOfUse() {
             or her favor at the time of executing the release, which if known by
             him or her must have materially affected his or her settlement with
             the debtor."
-          </p>
+          </Text>
 
-          <p>
-            <strong>Cookies and Web Beacons.</strong> Like any other website,
+          <Text color="tomato" display="inline">Cookies and Web Beacons. </Text>
+          <Text color="white" display="inline">
+            Like any other website,
             Block2School uses 'cookies'. These cookies are used to store
             information including visitors' preferences, and the pages on the
             website that the visitor accessed or visited. The information is
             used to optimize the users' experience by customizing our web page
             content based on visitors' browser type and/or other information.
-          </p>
-
-          <p>
-            <strong>Our Advertising Partners.</strong> Some of advertisers on
+          </Text>
+          <Text></Text>
+          <Text color="tomato" display="inline">Our Advertising Partners. </Text>
+          <Text color="white" display="inline">
+            Some of advertisers on
             our site may use cookies and web beacons. Our advertising partners
             are listed below. Each of our advertising partners has their own
             Privacy Policy for their policies on user data. For easier access,
             we hyperlinked to their Privacy Policies below.
-          </p>
-
-          <ul>
-            <li>
-              <p>
-                <a
-                  href="https://policies.google.com/technologies/ads"
-                  target="_blank"
-                >
-                  <strong>https://policies.google.com/technologies/ads</strong>
-                </a>
-              </p>
-            </li>
-          </ul>
+          </Text>
+          <Text color="tomato">
+            <Link href="https://policies.google.com/technologies/ads">
+              https://policies.google.com/technologies/ads
+            </Link>
+          </Text>
         </div>
-        <Text>Disclaimers</Text>
+        <Heading>Disclaimers</Heading>
         <div className="terms-of-use-box">
-          <p>
+          <Text color="white">
             The site is provided on an "as-is" and "as available" basis, and
             company and our suppliers expressly disclaim any and all warranties
             and conditions of any kind, whether express, implied, or statutory,
@@ -219,18 +206,18 @@ export default function TermsOfUse() {
             legal, or safe. If applicable law requires any warranties with
             respect to the site, all such warranties are limited in duration to
             ninety (90) days from the date of first use.
-          </p>
+          </Text>
 
-          <p>
+          <Text color="white">
             Some jurisdictions do not allow the exclusion of implied warranties,
             so the above exclusion may not apply to you. Some jurisdictions do
             not allow limitations on how long an implied warranty lasts, so the
             above limitation may not apply to you.
-          </p>
+          </Text>
         </div>
-        <Text>Limitation on Liability</Text>
+        <Heading>Limitation on Liability</Heading>
         <div className="terms-of-use-box">
-          <p>
+          <Text color="white">
             To the maximum extent permitted by law, in no event shall company or
             our suppliers be liable to you or any third-party for any lost
             profits, lost data, costs of procurement of substitute products, or
@@ -241,9 +228,9 @@ export default function TermsOfUse() {
             at your own discretion and risk, and you will be solely responsible
             for any damage to your device or computer system, or loss of data
             resulting therefrom.
-          </p>
+          </Text>
 
-          <p>
+          <Text color="white">
             To the maximum extent permitted by law, notwithstanding anything to
             the contrary contained herein, our liability to you for any damages
             arising from or related to this agreement, will at all times be
@@ -251,16 +238,17 @@ export default function TermsOfUse() {
             of more than one claim will not enlarge this limit. You agree that
             our suppliers will have no liability of any kind arising from or
             relating to this agreement.
-          </p>
+          </Text>
 
-          <p>
+          <Text color="white">
             Some jurisdictions do not allow the limitation or exclusion of
             liability for incidental or consequential damages, so the above
             limitation or exclusion may not apply to you.
-          </p>
+          </Text>
 
-          <p>
-            <strong>Term and Termination.</strong> Subject to this Section,
+          <Text color="tomato" display="inline">Term and Termination. </Text>
+          <Text color="white" display="inline">
+            Subject to this Section,
             these Terms will remain in full force and effect while you use the
             Site. We may suspend or terminate your rights to use the Site at any
             time for any reason at our sole discretion, including for any use of
@@ -274,11 +262,11 @@ export default function TermsOfUse() {
             under these Terms are terminated, the following provisions of these
             Terms will remain in effect: Sections 2 through 2.5, Section 3 and
             Sections 4 through 10.
-          </p>
+          </Text>
         </div>
-        <Text>Copyright Policy.</Text>
+        <Heading>Copyright Policy.</Heading>
         <div className="terms-of-use-box">
-          <p>
+          <Text color="white">
             Company respects the intellectual property of others and asks that
             users of our Site do the same. In connection with our Site, we have
             adopted and implemented a policy respecting copyright law that
@@ -290,46 +278,41 @@ export default function TermsOfUse() {
             the allegedly infringing material removed, the following information
             in the form of a written notification (pursuant to 17 U.S.C. §
             512(c)) must be provided to our designated Copyright Agent:
-          </p>
+          </Text>
 
-          <ul>
-            <li>your physical or electronic signature;</li>
-            <li>
-              identification of the copyrighted work(s) that you claim to have
-              been infringed;
-            </li>
-            <li>
+          <Text color="white">Your physical or electronic signature;</Text>
+          <Text color="white">Identification of the copyrighted work(s) that you claim to have been infringed;</Text>
+          <Text color="white">
               identification of the material on our services that you claim is
               infringing and that you request us to remove;
-            </li>
-            <li>
-              sufficient information to permit us to locate such material;
-            </li>
-            <li>your address, telephone number, and e-mail address;</li>
-            <li>
-              a statement that you have a good faith belief that use of the
-              objectionable material is not authorized by the copyright owner,
-              its agent, or under the law; and
-            </li>
-            <li>
-              a statement that the information in the notification is accurate,
-              and under penalty of perjury, that you are either the owner of the
-              copyright that has allegedly been infringed or that you are
-              authorized to act on behalf of the copyright owner.
-            </li>
-          </ul>
+          </Text>
+          <Text color="white">
+            Sufficient information to permit us to locate such material;
+          </Text>
+          <Text color="white">Your address, telephone number, and e-mail address;</Text>
+          <Text color="white">
+            A statement that you have a good faith belief that use of the
+            objectionable material is not authorized by the copyright owner,
+            its agent, or under the law; and
+          </Text>
+          <Text color="white">
+            A statement that the information in the notification is accurate,
+            and under penalty of perjury, that you are either the owner of the
+            copyright that has allegedly been infringed or that you are
+            authorized to act on behalf of the copyright owner.
+          </Text>
 
-          <p>
+          <Text color="white">
             Please note that, pursuant to 17 U.S.C. § 512(f), any
             misrepresentation of material fact in a written notification
             automatically subjects the complaining party to liability for any
             damages, costs and attorney's fees incurred by us in connection with
             the written notification and allegation of copyright infringement.
-          </p>
+          </Text>
         </div>
-        <Text>General</Text>
+        <Heading>General</Heading>
         <div className="terms-of-use-box">
-          <p className="terms-of-use-general">
+          <Text className="terms-of-use-general">
             These Terms are subject to occasional revision, and if we make any
             substantial changes, we may notify you by sending you an e-mail to
             the last e-mail address you provided to us and/or by prominently
@@ -349,10 +332,11 @@ export default function TermsOfUse() {
             Arbitration Agreement carefully. It is part of your contract with
             Company and affects your rights. It contains procedures for
             MANDATORY BINDING ARBITRATION AND A CLASS ACTION WAIVER.
-          </p>
+          </Text>
 
-          <p className="terms-of-use-general">
-            <strong>Applicability of Arbitration Agreement.</strong> All claims
+          <Text color="tomato" display="inline">Applicability of Arbitration Agreement. </Text>
+          <Text className="terms-of-use-general" display="inline">
+            All claims
             and disputes in connection with the Terms or the use of any product
             or service provided by the Company that cannot be resolved
             informally or in small claims court shall be resolved by binding
@@ -363,10 +347,11 @@ export default function TermsOfUse() {
             agents, employees, predecessors in interest, successors, and
             assigns, as well as all authorized or unauthorized users or
             beneficiaries of services or goods provided under the Terms.
-          </p>
+          </Text>
+          <Text>\n</Text>
 
-          <p className="terms-of-use-general">
-            <strong>Notice Requirement and Informal Dispute Resolution.</strong>{" "}
+          <Text color="tomato" display="inline">Notice Requirement and Informal Dispute Resolution. </Text>
+          <Text className="terms-of-use-general" display="inline">
             Before either party may seek arbitration, the party must first send
             to the other party a written Notice of Dispute describing the nature
             and basis of the claim or dispute, and the requested relief. A
@@ -379,10 +364,12 @@ export default function TermsOfUse() {
             not be disclosed to the arbitrator until after the arbitrator has
             determined the amount of the award to which either party is
             entitled.
-          </p>
+          </Text>
+          <Text>\n</Text>
 
-          <p className="terms-of-use-general">
-            <strong>Arbitration Rules.</strong> Arbitration shall be initiated
+          <Text color="tomato" display="inline">Arbitration Rules. </Text>
+          <Text className="terms-of-use-general" display="inline">
+            Arbitration shall be initiated
             through the American Arbitration Association, an established
             alternative dispute resolution provider that offers arbitration as
             set forth in this section. If AAA is not available to arbitrate, the
@@ -411,29 +398,32 @@ export default function TermsOfUse() {
             party shall bear its own costs and disbursements arising out of the
             arbitration and shall pay an equal share of the fees and costs of
             the ADR Provider.
-          </p>
+          </Text>
+          <Text>\n</Text>
 
-          <p className="terms-of-use-general">
-            <strong>
-              Additional Rules for Non-Appearance Based Arbitration.
-            </strong>
+          <Text color="tomato" display="inline">Additional Rules for Non-Appearance Based Arbitration. </Text>
+          <Text className="terms-of-use-general" display="inline">
             If non-appearance based arbitration is elected, the arbitration
             shall be conducted by telephone, online and/or based solely on
             written submissions; the specific manner shall be chosen by the
             party initiating the arbitration. The arbitration shall not involve
             any personal appearance by the parties or witnesses unless otherwise
             agreed by the parties.
-          </p>
+          </Text>
+          <Text>\n</Text>
 
-          <p className="terms-of-use-general">
-            <strong>Time Limits.</strong> If you or the Company pursues
+          <Text color="tomato" display="inline">Time Limits. </Text>
+          <Text className="terms-of-use-general" display="inline">
+            If you or the Company pursues
             arbitration, the arbitration action must be initiated and/or
             demanded within the statute of limitations and within any deadline
             imposed under the AAA Rules for the pertinent claim.
-          </p>
+          </Text>
+          <Text>\n</Text>
 
-          <p className="terms-of-use-general">
-            <strong>Authority of Arbitrator.</strong> If arbitration is
+          <Text color="tomato" display="inline">Authority of Arbitrator. </Text>
+          <Text className="terms-of-use-general" display="inline">
+            If arbitration is
             initiated, the arbitrator will decide the rights and liabilities of
             you and the Company, and the dispute will not be consolidated with
             any other matters or joined with any other cases or parties. The
@@ -447,10 +437,12 @@ export default function TermsOfUse() {
             authority to award relief on an individual basis that a judge in a
             court of law would have. The award of the arbitrator is final and
             binding upon you and the Company.
-          </p>
+          </Text>
+          <Text>\n</Text>
 
-          <p className="terms-of-use-general">
-            <strong>Waiver of Jury Trial.</strong> THE PARTIES HEREBY WAIVE
+          <Text color="tomato" display="inline">Waiver of Jury Trial. </Text>
+          <Text className="terms-of-use-general" display="inline">
+            THE PARTIES HEREBY WAIVE
             THEIR CONSTITUTIONAL AND STATUTORY RIGHTS TO GO TO COURT AND HAVE A
             TRIAL IN FRONT OF A JUDGE OR A JURY, instead electing that all
             claims and disputes shall be resolved by arbitration under this
@@ -461,97 +453,115 @@ export default function TermsOfUse() {
             state or federal court in a suit to vacate or enforce an arbitration
             award or otherwise, YOU AND THE COMPANY WAIVE ALL RIGHTS TO A JURY
             TRIAL, instead electing that the dispute be resolved by a judge.
-          </p>
+          </Text>
+          <Text>\n</Text>
 
-          <p className="terms-of-use-general">
-            <strong>Waiver of Class or Consolidated Actions.</strong> All claims
+          <Text color="tomato" display="inline">Waiver of Class or Consolidated Actions. </Text>
+          <Text className="terms-of-use-general" display="inline">
+            All claims
             and disputes within the scope of this arbitration agreement must be
             arbitrated or litigated on an individual basis and not on a class
             basis, and claims of more than one customer or user cannot be
             arbitrated or litigated jointly or consolidated with those of any
             other customer or user.
-          </p>
+          </Text>
+          <Text>\n</Text>
 
-          <p className="terms-of-use-general">
-            <strong>Confidentiality.</strong> All aspects of the arbitration
+          <Text color="tomato" display="inline">Confidentiality. </Text>
+          <Text className="terms-of-use-general" display="inline">
+            All aspects of the arbitration
             proceeding shall be strictly confidential. The parties agree to
             maintain confidentiality unless otherwise required by law. This
             paragraph shall not prevent a party from submitting to a court of
             law any information necessary to enforce this Agreement, to enforce
             an arbitration award, or to seek injunctive or equitable relief.
-          </p>
+          </Text>
+          <Text>\n</Text>
 
-          <p className="terms-of-use-general">
-            <strong>Severability.</strong> If any part or parts of this
+          <Text color="tomato" display="inline">Severability. </Text>
+          <Text className="terms-of-use-general" display="inline">
+            If any part or parts of this
             Arbitration Agreement are found under the law to be invalid or
             unenforceable by a court of competent jurisdiction, then such
             specific part or parts shall be of no force and effect and shall be
             severed and the remainder of the Agreement shall continue in full
             force and effect.
-          </p>
+          </Text>
+          <Text>\n</Text>
 
-          <p className="terms-of-use-general">
-            <strong>Right to Waive.</strong> Any or all of the rights and
+          <Text color="tomato" display="inline">Right to Waive. </Text>
+          <Text className="terms-of-use-general" display="inline">
+            Any or all of the rights and
             limitations set forth in this Arbitration Agreement may be waived by
             the party against whom the claim is asserted. Such waiver shall not
             waive or affect any other portion of this Arbitration Agreement.
-          </p>
+          </Text>
+          <Text>\n</Text>
 
-          <p className="terms-of-use-general">
-            <strong>Survival of Agreement.</strong> This Arbitration Agreement
+          <Text color="tomato" display="inline">Survival of Agreement. </Text>
+          <Text className="terms-of-use-general" display="inline">
+            This Arbitration Agreement
             will survive the termination of your relationship with Company.
-          </p>
+          </Text>
+          <Text>\n</Text>
 
-          <p className="terms-of-use-general">
-            <strong>Small Claims Court.</strong> Nonetheless the foregoing,
+          <Text color="tomato" display="inline">Small Claims Court. </Text>
+          <Text className="terms-of-use-general" display="inline">
+            Nonetheless the foregoing,
             either you or the Company may bring an individual action in small
             claims court.
-          </p>
+          </Text>
+          <Text>\n</Text>
 
-          <p className="terms-of-use-general">
-            <strong>Emergency Equitable Relief.</strong> Anyhow the foregoing,
+          <Text color="tomato" display="inline">Emergency Equitable Relief. </Text>
+          <Text className="terms-of-use-general" display="inline">
+            Anyhow the foregoing,
             either party may seek emergency equitable relief before a state or
             federal court in order to maintain the status quo pending
             arbitration. A request for interim measures shall not be deemed a
             waiver of any other rights or obligations under this Arbitration
             Agreement.
-          </p>
+          </Text>
+          <Text>\n</Text>
 
-          <p className="terms-of-use-general">
-            <strong>Claims Not Subject to Arbitration.</strong> Notwithstanding
+          <Text color="tomato" display="inline">Claims Not Subject to Arbitration. </Text>
+          <Text className="terms-of-use-general" display="inline">
+            Notwithstanding
             the foregoing, claims of defamation, violation of the Computer Fraud
             and Abuse Act, and infringement or misappropriation of the other
             party's patent, copyright, trademark or trade secrets shall not be
             subject to this Arbitration Agreement.
-          </p>
+          </Text>
+          <Text>\n</Text>
 
-          <p className="terms-of-use-general">
+          <Text className="terms-of-use-general">
             In any circumstances where the foregoing Arbitration Agreement
             permits the parties to litigate in court, the parties hereby agree
             to submit to the personal jurisdiction of the courts located within
             Netherlands County, California, for such purposes.
-          </p>
+          </Text>
 
-          <p className="terms-of-use-general">
+          <Text className="terms-of-use-general">
             The Site may be subject to U.S. export control laws and may be
             subject to export or import regulations in other countries. You
             agree not to export, re-export, or transfer, directly or indirectly,
             any U.S. technical data acquired from Company, or any products
             utilizing such data, in violation of the United States export laws
             or regulations.
-          </p>
+          </Text>
 
-          <p className="terms-of-use-general">
+          <Text className="terms-of-use-general">
             Company is located at the address in Section 10.8. If you are a
             California resident, you may report complaints to the Complaint
             Assistance Unit of the Division of Consumer Product of the
             California Department of Consumer Affairs by contacting them in
             writing at 400 R Street, Sacramento, CA 95814, or by telephone at
             (800) 952-5210.
-          </p>
+          </Text>
 
-          <p className="terms-of-use-general">
-            <strong>Electronic Communications.</strong> The communications
+          <Text color="tomato" display="inline">Electronic Communications. </Text>
+          <Text className="terms-of-use-general" display="inline">
+            The communications
             between you and Company use electronic means, whether you use the
             Site or send us emails, or whether Company posts notices on the Site
             or communicates with you via email. For contractual purposes, you
@@ -560,10 +570,12 @@ export default function TermsOfUse() {
             notices, disclosures, and other communications that Company provides
             to you electronically satisfy any legal obligation that such
             communications would satisfy if it were be in a hard copy writing.
-          </p>
+          </Text>
+          <Text>\n</Text>
 
-          <p className="terms-of-use-general">
-            <strong>Entire Terms.</strong> These Terms constitute the entire
+          <Text color="tomato" display="inline">Entire Terms. </Text>
+          <Text className="terms-of-use-general" display="inline">
+            These Terms constitute the entire
             agreement between you and us regarding the use of the Site. Our
             failure to exercise or enforce any right or provision of these Terms
             shall not operate as a waiver of such right or provision. The
@@ -582,24 +594,28 @@ export default function TermsOfUse() {
             foregoing will be null and void. Company may freely assign these
             Terms. The terms and conditions set forth in these Terms shall be
             binding upon assignees.
-          </p>
+          </Text>
+          <Text>\n</Text>
 
-          <p className="terms-of-use-general">
-            <strong>Your Privacy.</strong> Please read our Privacy Policy.
-          </p>
+          <Text color="tomato" display="inline">Your Privacy. </Text>
+          <Text className="terms-of-use-general" display="inline">
+            Please read our Privacy Policy.
+          </Text>
+          <Text>\n</Text>
 
-          <p className="terms-of-use-general">
-            <strong>Copyright/Trademark Information.</strong> Copyright ©. All
+          <Text color="tomato" display="inline">Copyright/Trademark Information. </Text>
+          <Text className="terms-of-use-general" display="inline">
+            Copyright ©. All
             rights reserved. All trademarks, logos and service marks displayed
             on the Site are our property or the property of other third-parties.
             You are not permitted to use these Marks without our prior written
             consent or the consent of such third party which may own the Marks.
-          </p>
+          </Text>
         </div>
-        <Text>Contact Information</Text>
+        <Heading>Contact Information</Heading>
         <div className="terms-of-use-box">
-          <p>Address: 3 place Paul Bec, Montpellier</p>
-          <p>Email: lucas.dudot@epitech.eu</p>
+          <Text color="white">Address: 3 place Paul Bec, Montpellier</Text>
+          <Text color="white">Email: lucas.dudot@epitech.eu</Text>
         </div>
       </div>
       <Footer />

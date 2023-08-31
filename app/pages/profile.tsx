@@ -13,6 +13,7 @@ import { serverURL } from '../utils/globals'
 import { wallet } from '../utils/profil-utils'
 import UserNFTView from '../components/profile/userNFT'
 import { sendGAEvent } from '../utils/utils'
+import { Text, Input, Link, Heading, Center, Button } from "@chakra-ui/react"
 
 export default function Profile() {
 
@@ -243,122 +244,123 @@ export default function Profile() {
             <div id='profile-blur'></div>
             <div id="profile-container">
               <div id="profile-header">
-                <span>Your wallet address: {account}</span>
+                <Center h="150px">
+                  <Text fontSize="4xl" color="white">Your wallet address: {account}</Text>
+                </Center>
               </div>
               <div id="profile-body">
                 <div id="profile-body-left">
                   <div id="profile-infos">
-                    <span style={{ color: "greenyellow" }} id="profile-tuto-completed" className="profile-infos-text">You have completed 0 tutorials</span>
-                    <span className="profile-infos-label">Points :</span>
-                    <span className="profile-infos-text">{points}</span>
-                    <span className="profile-infos-label">Username :</span>
-                    <span className="profile-infos-text">{username}</span>
-                    <span className="profile-infos-label">Email :</span>
-                    <span className="profile-infos-text">{email}</span>
-                    <span className="profile-infos-label">Twitter :</span>
-                    <span className="profile-infos-text">{twitter}</span>
-                    <span className="profile-infos-label">Youtube :</span>
-                    <span className="profile-infos-text">{youtube}</span>
+                    <Text style={{ color: "greenyellow" }} id="profile-tuto-completed" className="profile-infos-text">You have completed 0 tutorials</Text>
+                    <Text className="profile-infos-label">Points :</Text>
+                    <Text className="profile-infos-text">{points}</Text>
+                    <Text className="profile-infos-label">Username :</Text>
+                    <Text className="profile-infos-text">{username}</Text>
+                    <Text className="profile-infos-label">Email :</Text>
+                    <Text className="profile-infos-text">{email}</Text>
+                    <Text className="profile-infos-label">Twitter :</Text>
+                    <Text className="profile-infos-text">{twitter}</Text>
+                    <Text className="profile-infos-label">Youtube :</Text>
+                    <Text className="profile-infos-text">{youtube}</Text>
                   </div>
                   <div className="profile-open-modal">
-                    <button
-                      style={{ color: "#ffe6c4" }}
+                    <Button color= "#343434" backgroundColor="#ffe6c4"
                       onClick={() => {
                         sendGAEvent('Profile', 'button_click', 'Open Modal Change Infos')
                         openModal()
                       }}
-                    >Change infos</button>
+                    >Change infos</Button>
                   </div>
                 </div>
                 <div id="profile-body-separator"></div>
                 <div id="profile-body-right">
                   <div id="friends-container">
                     <div id="friends-header">
-                      <span style={{
+                      <Text style={{
                         color: 'white',
                         fontSize: '150%',
                         fontWeight: 'bold',
                         display: 'flex',
                         alignContent: 'center',
-                      }}>Friends</span>
+                      }}>Friends</Text>
                     </div>
                     <div id="friends-list"></div>
                   </div>
                   <div className="profile-open-modal">
-                    <button
-                      style={{ color: "#ffe6c4" }}
+                    <Button
+                      style={{ color: "#343434", backgroundColor:"#ffe6c4" }}
                       onClick={() => {
                         sendGAEvent('Profile', 'button_click', 'Search Friend')
                         searchFriend()
                       }}
-                    >Add Friend</button>
+                    >Add Friend</Button>
                   </div>
                 </div>
               </div>
               <div style={{ height: "50%", top: "26%" }} id="modal-change-infos">
                 <div id="modal-change-infos-header">
-                  <span>Change infos</span>
-                  <button
+                  <Text>Change infos</Text>
+                  <Button color="#343434" backgroundColor="#ffe6c4"
                     onClick={() => {
                       sendGAEvent('Profile', 'button_click', 'Close Modal Change Infos')
                       closeModalChangeInfos()
                     }}
                   >
                     Close
-                  </button>
+                  </Button>
                 </div>
                 <div style={{ height: '90%' }} id="modal-change-infos-body">
                   <div className="modal-change-infos-row">
-                    <span>Username</span>
-                    <input id="new-username-input" defaultValue={username}></input>
+                    <Text color="white" fontSize="2xl">Username</Text>
+                    <Input id="new-username-input" defaultValue={username} width="400px"></Input>
                   </div>
                   <div className="modal-change-infos-row">
-                    <span>Email</span>
-                    <input id="new-email-input" defaultValue={email}></input>
+                    <Text color="white" fontSize="2xl">Email</Text>
+                    <Input id="new-email-input" defaultValue={email} width="400px"></Input>
                   </div>
                   <div className="modal-change-infos-row">
-                    <span>Twitter</span>
-                    <input id="new-twitter-input" defaultValue={twitter}></input>
+                    <Text color="white" fontSize="2xl">Twitter</Text>
+                    <Input id="new-twitter-input" defaultValue={twitter} width="400px"></Input>
                   </div>
                   <div className="modal-change-infos-row">
-                    <span>Youtube</span>
-                    <input id="new-youtube-input" defaultValue={youtube}></input>
+                    <Text color="white" fontSize="2xl">Youtube</Text>
+                    <Input id="new-youtube-input" defaultValue={youtube} width="400px"></Input>
                   </div>
                 </div>
                 <div id="modal-change-infos-footer">
-                  <button
+                  <Button color="#343434" backgroundColor="#ffe6c4"
                     onClick={() => {
                       sendGAEvent('Profile', 'button_click', 'Save Modal Change Infos')
                       saveModal()
                     }}
-                  >Apply changes</button>
+                  >Apply changes</Button>
                 </div>
               </div>
               <div id="modal-search-friends">
                 <div id="modal-search-friends-header">
-                  <span>Search friends</span>
-                  <button
+                  <Text>Search friends</Text>
+                  <Button color="#343434" backgroundColor="#ffe6c4"
                     onClick={() => {
                       sendGAEvent('Profile', 'button_click', 'Close Modal Search Friends')
                       closeModalSearchFriends()
                     }}
                   >
                     Close
-                  </button>
+                  </Button>
                 </div>
                 <div id="modal-search-friends-body">
                   <div id="modal-search-friends-searchbar">
-                    <input style={{ width: '75%' }} id="search-friend-input" placeholder="Enter your friend UUID"></input>
+                    <Input style={{ width: '75%' }} id="search-friend-input" placeholder="Enter your friend UUID"></Input>
                   </div>
-                  <span id="friend-request-message"></span>
+                  <Text id="friend-request-message"></Text>
                 </div>
                 <div id="modal-search-friends-footer">
-                  <button
+                  <Button color="#343434" backgroundColor="#ffe6c4"
                     onClick={() => {
                       sendGAEvent('Profile', 'button_click', 'Send Friend Request')
                       sendFriendRequest()
                     }}
-                  >Send request</button>
+                  >Send request</Button>
                 </div>
               </div>
             </div>
@@ -375,7 +377,7 @@ export default function Profile() {
             alignItems: 'center',
           }}
         >
-          <span>You must be connected to access profile page </span>
+          <Text color="white" fontSize="3xl">You must be connected to access profile page </Text>
         </div>
       )}
       <Footer />
