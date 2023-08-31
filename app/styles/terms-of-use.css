@@ -13,12 +13,13 @@
   border: 1px solid white;
   border-radius: 10px;
   margin-bottom: 10px;
+  text-align: center;
 }
 
 #terms-of-use-container p {
   text-align: center;
   word-spacing: 1px;
-  color: rgb(255, 255, 255);
+  /* color: rgb(255, 255, 255); */
 }
 
 #terms-of-use-container strong {
@@ -41,4 +42,5 @@
 
 .terms-of-use-general {
   padding-top: 20px;
+  color: rgb(255, 255, 255);
 }
