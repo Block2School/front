@@ -44,7 +44,7 @@ export default function Profile() {
       })
       .then((res) => {
         if (res.status === 200) {
-          $("#profile-tuto-completed").text(`You have completed ${res.data.total_completion} tutorials`)
+          $("#profile-tuto-completed").text(`You have completed ${res.data.data[0].total_completions} tutorials`)
         }
       })
   }
@@ -193,6 +193,7 @@ export default function Profile() {
       $('#modal-search-friends').hide()
       $("#friend-request-message").hide()
       $('#profile-blur').hide()
+      $('#friend-search-list').hide()
     }, delay)
   }
 
@@ -203,35 +204,87 @@ export default function Profile() {
 
   function searchFriend() {
     $('#modal-search-friends').show()
+    $('#search-friend-input').val("")
+    $('#friend-search-list').empty()
     $('#profile-blur').show()
   }
 
-  function sendFriendRequest() {
-    var friend_uuid = $('#search-friend-input').val()
-    if (friend_uuid === '') {
-      $("#friend-request-message").text("Please enter a UUID")
+  function searchForFriends() {
+    var username = $('#search-friend-input').val()
+    if (username === '') {
+      $('#friend-search-list').hide()
+      $("#friend-request-message").text("Please enter a username")
       $('#friend-request-message').css('color', 'red')
       $("#friend-request-message").show()
       return
     }
-    axios.post(`${serverURL}:8080/user/friends`, {
-      friend_uuid: friend_uuid
-    }, {
+    axios.get(`${serverURL}:8080/user/search`, {
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
         Authorization: 'Bearer ' + sessionStorage.getItem('token')
+      },
+      params: {
+        user: username,
       }
     })
       .then((res) => {
         if (res.status === 200) {
-          closeModalSearchFriends(1500)
+          if (res.data.datas.length === 0) {
+            $("#friend-request-message").text("User not found")
+            $('#friend-request-message').css('color', 'red')
+            $("#friend-request-message").show()
+          } else {
+            $('#friend-search-list').show()
+            $('#friend-request-message').hide()
+            populateFriendSeatchList(res.data.datas)
+          }
         } else if (res.status === 201) {
-          $("#friend-request-message").text("You are already friend with or pending invite")
+          $("#friend-request-message").text("User not found")
           $('#friend-request-message').css('color', 'red')
           $("#friend-request-message").show()
         }
       })
+
+    function populateFriendSeatchList(friendsList: any) {
+      var container = $('#friend-search-list')
+      container.empty()
+
+      for (let index = 0; index < friendsList.length; index++) {
+        var item = '<div id="friend-search-item-' + index + '" class="friend-search-item">' +
+          '<div class="friend-search-item-middle">' +
+          '<span style="font-size: 16px; font-weight: 600; margin: 0px;">' + friendsList[index].username + '</span>' +
+          '</div>' +
+          '<div class="friend-search-item-right">' +
+          '<img src="/plus.png" style="width: 20px; height: 20px; border-radius: 50%; filter: invert(1); cursor: pointer"></img>' +
+          '</div>' +
+          '</div>'
+        container.append(item)
+        $('#friend-search-item-' + index + ' .friend-search-item-right').click(() => {
+          sendFriendRequestToUser(friendsList[index].uuid)
+        })
+      }
+    }
+    function sendFriendRequestToUser(uuid: string) {
+      axios.post(`${serverURL}:8080/user/friends`, {
+          friend_uuid: uuid,
+        }, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          Authorization: 'Bearer ' + sessionStorage.getItem('token')
+        }
+      })
+        .then((res) => {
+          if (res.status === 200) {
+            closeModalSearchFriends(1500)
+          } else if (res.status === 201) {
+            $("#friend-request-message").text("You are already friend with or pending invite")
+            $('#friend-request-message').css('color', 'red')
+            $("#friend-request-message").show()
+          }
+        })
+    }
   }
 
   return (
@@ -348,17 +401,18 @@ export default function Profile() {
                 </div>
                 <div id="modal-search-friends-body">
                   <div id="modal-search-friends-searchbar">
-                    <input style={{ width: '75%' }} id="search-friend-input" placeholder="Enter your friend UUID"></input>
+                    <input style={{ width: '75%' }} id="search-friend-input" placeholder="Enter your friend username"></input>
                   </div>
                   <span id="friend-request-message"></span>
+                  <div id="friend-search-list" style={{display: 'none'}}></div>
                 </div>
                 <div id="modal-search-friends-footer">
                   <button
                     onClick={() => {
                       sendGAEvent('Profile', 'button_click', 'Send Friend Request')
-                      sendFriendRequest()
+                      searchForFriends()
                     }}
-                  >Send request</button>
+                  >Search</button>
                 </div>
               </div>
             </div>
