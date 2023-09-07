@@ -1,4 +1,4 @@
-import { Text } from '@chakra-ui/react'
+import { Center, Text } from '@chakra-ui/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { sendGAEvent } from '../../utils/utils'
@@ -69,33 +69,61 @@ export default function Footer() {
                 console.log('HELP US !!!')
               }}
             >
-              <Text
-                fontSize="xl"
-                fontWeight="bold"
-                color="white"
-              >Help Us</Text>
-              <Image
-                src="/questionnaire-beta-qr-code"
-                alt="Questionnaire Beta QR Code"
-                width={75}
-                height={75}
+              <Center
+                flexDirection="column"
               >
-              </Image>
+                <Text
+                  fontSize="xl"
+                  fontWeight="bold"
+                  color="white"
+                >Help Us</Text>
+                <Image
+                  src="/questionnaire-beta-qr-code"
+                  alt="Questionnaire Beta QR Code"
+                  width={75}
+                  height={75}
+                >
+                </Image>
+              </Center>
             </a>
-            {/* <CustomButton
-              name="Help Us"
-              id="help-us"
-              // variant="outline"
+          </div>
+          <div>
+            <a
+              href="https://github.com/block2school/documentation"
+              target="_blank"
+              rel="noreferrer"
               onClick={() => {
-                window.open('https://forms.office.com/e/hA9xzfh6Bk, '_blank')
+                sendGAEvent('Footer', 'button_click', 'Our github')
+                console.log('Our github !!!')
               }}
-              gap={0}
-              size={undefined}
-              disabled={undefined}
-              borderRadius={undefined}
-              categoryGA={"Button"}
-              labelGA={"Help Us"}
-            /> */}
+            >
+              <Center
+                flexDirection="column"
+              >
+                <Text
+                  fontSize="l"
+                  fontWeight="bold"
+                  color="white"
+                >
+                  Documentation
+                </Text>
+                <Text
+                  fontSize="l"
+                  fontWeight="bold"
+                  color="white"
+                >
+                  & Github
+                </Text>
+                <Image
+                  src="/github-mark-white.svg"
+                  alt="Github"
+                  width={50}
+                  height={50}
+                >
+                </Image>
+
+              </Center>
+            </a>
           </div>
         </div>
       </div>
