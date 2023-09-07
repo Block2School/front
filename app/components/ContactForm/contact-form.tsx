@@ -64,7 +64,7 @@ const ContactForm = () => {
           <div className='row'>
             <div className='col-12 text-center'>
               <div className='contactForm'>
-                <Form id='contact-form' onSubmit={handleSubmit(onSubmit)} noValidate>
+                <form id='contact-form' onSubmit={handleSubmit(onSubmit)} noValidate>
                   {/* Row 1 of form */}
                   <div className='row formRow'>
                     <div className='col-6'>
@@ -126,7 +126,7 @@ const ContactForm = () => {
                   <Button className='submit-btn' type='submit'>
                     Submit
                   </Button>
-                </Form>
+                </form>
               </div>
               <ToastContainer />
             </div>
