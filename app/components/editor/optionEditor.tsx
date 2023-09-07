@@ -14,7 +14,7 @@ export default function OptionEditor({ changeLang, scoring, switchText, changeTh
         <option value={"js"} onClick={() => changeLang('js')}>javascript</option>
         <option value={"cpp"} onClick={() => changeLang('cpp')}>cpp</option>
         <option value={"py"} onClick={() => changeLang('py')}>python</option>
-        <option value={"R"} onClick={() => changeLang('R')}>rust</option>
+        <option value={"R"} onClick={() => changeLang('R')}>R</option>
         <option value={"c"} onClick={() => changeLang('c')}>c</option>
         <option value={"solidity"} onClick={() => changeLang('solidity')}>solidity</option>
       </Select>
