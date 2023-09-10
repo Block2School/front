@@ -279,7 +279,8 @@ export default function Tutorial() {
                 bottom: 0,
                 width: "50%",
                 maxHeight: "60%",
-                overflow: 'scroll'
+                // overflow: 'scroll'
+                overflowY: "scroll",
               }}
             >
               <TutorialConsole
