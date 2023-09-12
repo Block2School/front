@@ -392,6 +392,7 @@ export default function Profile() {
               <div id="modal-search-friends">
                 <div id="modal-search-friends-header">
                   <Text>Search friends</Text>
+                  {/* <Button color="#343434" backgroundColor="#ffe6c4" onClick={() => methodDoesNotExist()}>Break the world</Button>; */}
                   <Button color="#343434" backgroundColor="#ffe6c4"
                     onClick={() => {
                       sendGAEvent('Profile', 'button_click', 'Close Modal Search Friends')

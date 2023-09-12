@@ -10,6 +10,7 @@ import { connectors } from './injectors'
 import { Image } from 'react-bootstrap'
 import CustomButtonRef from '../button/buttonRef'
 import { sendGAEvent } from '../../utils/utils'
+import * as Sentry from '@sentry/react'
 
 export default function ConnectionButton() {
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -64,6 +65,9 @@ export default function ConnectionButton() {
         },
       }).then((res) => {
         if (res.status === 200) {
+          Sentry.setUser({
+            username: account || "",
+          })
           sessionStorage.setItem('token', res.data.access_token)
         }
       })

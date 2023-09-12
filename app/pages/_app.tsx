@@ -33,12 +33,26 @@ const GA_ID = process.env.NEXT_PUBLIC_GA_ID
 
 import { LanguageProvider } from "../components/LanguageSwitcher/language";
 import Script from 'next/script'
+import * as Sentry from "@sentry/react";
 
 const getLibrary = (provider: any): Web3Provider => {
   const library = new Web3Provider(provider)
   library.pollingInterval = 12000
   return library
 }
+
+Sentry.init({
+  dsn: "https://a453314469f5541ab6fa937c6f8d14a9@o4505866759634944.ingest.sentry.io/4505866778902528",
+  integrations: [
+    new Sentry.BrowserTracing({
+      tracePropagationTargets: [new RegExp(process.env.NEXT_PUBLIC_API_URL as string + "/*")],
+    }),
+    new Sentry.Replay(),
+  ],
+  tracesSampleRate: 1.0,
+  replaysSessionSampleRate: 0.1,
+  replaysOnErrorSampleRate: 1.0,
+});
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter()
