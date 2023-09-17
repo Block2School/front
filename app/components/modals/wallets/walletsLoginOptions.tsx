@@ -3,7 +3,7 @@ import { useWeb3React } from '@web3-react/core'
 import CustomButton from "../../button/button"
 import { connectors } from '../../wallet/injectors'
 
-export default function LoginOptions({ isOpen, closeModal }: { isOpen: boolean, closeModal: any }) {
+export default function LoginOptions({ isOpen, closeModal}: { isOpen: boolean, closeModal: any}) {
 
   const { activate } = useWeb3React()
 
@@ -17,7 +17,7 @@ export default function LoginOptions({ isOpen, closeModal }: { isOpen: boolean, 
         activate(connectors.coinbaseWallet)
         setProvider('coinbaseWallet')
         window.location.reload()
-        { isOpen = false }
+        { isOpen = false}
         closeModal()
       }} size={undefined} disabled={undefined} categoryGA={"Button"} labelGA={"Coinbase Wallet Connection"} />
       <CustomButton name="MetaMask" id="metamask"
@@ -26,7 +26,7 @@ export default function LoginOptions({ isOpen, closeModal }: { isOpen: boolean, 
           activate(connectors.injected)
           setProvider('injected')
           window.location.reload()
-          { isOpen = false }
+          { isOpen = false}
           closeModal()
         }} srcImg="metamask_appicon.svg" alt="MetaMask Logo" wImg={25} hImg={25} gap={3} size={undefined} disabled={undefined} borderRadius={undefined} categoryGA={"Button"} labelGA={"Metamask connection"} />
       <CustomButton name="Binance Wallet" id="binance" variant="outline"
@@ -34,6 +34,7 @@ export default function LoginOptions({ isOpen, closeModal }: { isOpen: boolean, 
           activate(connectors.binanceWallet)
           setProvider('binanceWallet')
           window.location.reload()
+          { isOpen = false}
           closeModal()
         }} srcImg="binance_wallet_appicon.svg" alt="Binance Wallet Logo" wImg={25} hImg={25} gap={3} size={undefined} disabled={undefined} borderRadius={undefined} categoryGA={"Button"} labelGA={"Binance Wallet connection"} />
     </VStack>

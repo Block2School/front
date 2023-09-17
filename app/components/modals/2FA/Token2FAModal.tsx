@@ -6,16 +6,23 @@ import {
   ModalHeader,
   ModalBody,
   ModalCloseButton,
+  Input
 } from '@chakra-ui/react'
-import LoginOptions from './walletsLoginOptions'
+import { Button } from 'react-bootstrap'
 
-const SelectWalletModal = ({
+const Token2FAModal = ({
     isOpen,
     closeModal,
+    setToken,
+    setTokenReady
   }: {
     isOpen: boolean
     closeModal: any
+    setToken: any
+    setTokenReady: any
   }) => {
+
+  let value = ""
 
   if (isOpen === false) {
     return null
@@ -24,14 +31,16 @@ const SelectWalletModal = ({
     <Modal id="modal_popup" isOpen={isOpen} onClose={closeModal} isCentered preserveScrollBarGap>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader id="modal_popup">Select Wallet</ModalHeader>
+        <ModalHeader id="modal_popup">Enter Token Authentificator</ModalHeader>
         <ModalCloseButton _focus={{ boxShadow: 'none'}} id="close-modal"/>
         <ModalBody id="modal_popup" paddingBottom="1.5rem">
-        <LoginOptions isOpen={isOpen} closeModal={closeModal}/>
+        <Input onChange={(event) => setToken(event.target.value)}></Input>
+        <Button onClick={() => {setTokenReady()
+        {isOpen=false}}}> Authenticate </Button>
         </ModalBody>
       </ModalContent>
     </Modal>
   )
 }
 
-export default SelectWalletModal
+export default Token2FAModal

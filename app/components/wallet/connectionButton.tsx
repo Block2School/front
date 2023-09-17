@@ -1,4 +1,5 @@
 import SelectWalletModal from '../modals/wallets/walletsModal'
+import Token2FAModal from '../modals/2FA/Token2FAModal'
 import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core'
 import { Button, useColorModeValue, useDisclosure, Text, HStack } from '@chakra-ui/react'
 import CustomButton from '../button/button'
@@ -14,6 +15,7 @@ import * as Sentry from '@sentry/react'
 
 export default function ConnectionButton() {
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const { isOpen:isOpen2, onOpen:onOpen2,onClose:onClose2 } = useDisclosure()
   const {
     library,
     chainId,
@@ -22,7 +24,9 @@ export default function ConnectionButton() {
     deactivate,
     active,
   } = useWeb3React()
+  const [token, setToken] = useState("")
   const [isError, setIsError] = useState(false)
+  // const [tokenReady, setTokenReady] = useState(false)
   const color = useColorModeValue("black", "white");
 
   const refreshState = () => {
@@ -54,6 +58,23 @@ export default function ConnectionButton() {
     if (provider) activate(connectors[provider], handleConnection);
   }, []);
 
+  function setTokenReady() {
+    axios({
+      method: "post",
+      url: `${serverURL}:8080/login`,
+      data: {
+        wallet_address: account,
+        encrypted_wallet: account,
+        token:token
+      },
+    }).then((res) => {
+      if (res.status === 200) {
+        onClose2()
+        sessionStorage.setItem('token', res.data.access_token)
+      }
+    })
+  }
+
   useEffect(() => {
     if (active === true) {
       axios({
@@ -62,6 +83,7 @@ export default function ConnectionButton() {
         data: {
           wallet_address: account,
           encrypted_wallet: account,
+          token:token,
         },
       }).then((res) => {
         if (res.status === 200) {
@@ -70,7 +92,12 @@ export default function ConnectionButton() {
           })
           sessionStorage.setItem('token', res.data.access_token)
         }
-      })
+      }).catch((res) => {
+          if (res.response.status === 401 && sessionStorage.getItem("token") == null) {
+            onOpen2()
+          }
+        }
+      )
     }
   }, [active])
 
@@ -92,7 +119,8 @@ export default function ConnectionButton() {
       ) : (
         <CustomButton id='login_button' name="Disconnect Wallet" onClick={disconnect} gap={undefined} srcImg={undefined} alt={undefined} size={undefined} disabled={undefined} variant={undefined} hImg={undefined} wImg={undefined} borderRadius={undefined} categoryGA={'Connection Button'} labelGA={'Disconnect Wallet'} />
       )}
-      <SelectWalletModal isOpen={isOpen} closeModal={onClose} />
+      <SelectWalletModal isOpen={isOpen} closeModal={onClose}/>
+      <Token2FAModal isOpen={isOpen2} closeModal={onClose2} setToken={setToken} setTokenReady={setTokenReady}/>
     </>
   )
 }
