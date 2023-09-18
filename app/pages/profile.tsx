@@ -9,14 +9,17 @@ import { getFullDisplayBalance } from '../utils/format'
 import $ from 'jquery'
 import axios from 'axios'
 import SelectWalletModal from '../components/modals/wallets/walletsModal'
+import TwoFAModal from '../components/modals/2FA/TwoFAModal'
 import { serverURL } from '../utils/globals'
 import { wallet } from '../utils/profil-utils'
 import UserNFTView from '../components/profile/userNFT'
 import { sendGAEvent } from '../utils/utils'
-import { Text, Input, Link, Heading, Center, Button } from "@chakra-ui/react"
+import { Text, Input, Link, Heading, Center, Button, Switch, HStack, useDisclosure, Box } from "@chakra-ui/react"
+import QRCode from 'qrcode'
 
 export default function Profile() {
 
+  const label = "2FA Authentificator"
   const { account } = useWeb3React()
   const web3 = new Web3('https://data-seed-prebsc-1-s1.binance.org:8545') // TESTNET
   const [username, setUsername] = useState('')
@@ -24,9 +27,13 @@ export default function Profile() {
   const [twitter, setTwitter] = useState('')
   const [youtube, setYoutube] = useState('')
   const [points, setPoints] = useState('')
+  const [srcImg, setSrcImg] = useState('')
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const [word_list, setWordList] = useState('')
 
   useEffect(() => {
     if (account !== '' && account !== undefined && account !== null) {
+      console.log("LORENZO")
       fetchProfile()
       fetchSucces()
       fetchFriends()
@@ -210,6 +217,29 @@ export default function Profile() {
     $('#profile-blur').show()
   }
 
+  function generate(qr: string) {
+    console.log(qr)
+    QRCode.toDataURL(qr).then(setSrcImg);
+  }
+
+  async function setup2FA() {
+    
+    let res = await axios.post(`${serverURL}:8080/user/authenticator/qrcode`, {
+      wordlist:null,
+    }, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+        'Access-Control-Allow-Origin': '*',
+      }
+    })
+    console.log(res.data.qr)
+    console.log(res.data.wordlist)
+    setWordList(res.data.wordlist)
+    generate(res.data.qr)
+    onOpen()
+  }
+
   function searchForFriends() {
     var username = $('#search-friend-input').val()
     if (username === '') {
@@ -297,9 +327,15 @@ export default function Profile() {
             <div id='profile-blur'></div>
             <div id="profile-container">
               <div id="profile-header">
-                <Center h="150px">
-                  <Text fontSize="4xl" color="white">Your wallet address: {account}</Text>
-                </Center>
+                <HStack spacing='24px'>
+                    <Box w="80%">
+                      <Center>
+                        <Text fontSize="4xl" color="white">Your wallet address: {account}</Text>
+                      </Center>
+                    </Box>
+                    <Text fontSize="2xl" color="white">{label}</Text>
+                    <Switch size='lg' onChange={setup2FA}/>
+                </HStack>
               </div>
               <div id="profile-body">
                 <div id="profile-body-left">
@@ -436,6 +472,7 @@ export default function Profile() {
         </div>
       )}
       <Footer />
+      <TwoFAModal isOpen={isOpen} closeModal={onClose} qr_code={srcImg} wordlist={word_list}></TwoFAModal>
     </>
   )
 }
