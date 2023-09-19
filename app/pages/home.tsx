@@ -12,8 +12,8 @@ export default function Home() {
       <Navbar />
       <div id="home-container">
         <div id="home-header">
-          <Center h="150px">
-            <Text fontSize='6xl' color="white">Welcome to Block2School !</Text>
+          <Center id='home-header-center' h="150px">
+            <Text id='home-header-title' fontSize='6xl' color="white">Welcome to Block2School !</Text>
           </Center>
         </div>
         <div id="home-body">
@@ -51,13 +51,13 @@ export default function Home() {
                 alt='arrow'
               />
             </div>
-            <Spacer width={100}></Spacer>
+            <Spacer id="spacer1" width={100}></Spacer>
             <div id="home-first-part-paragraph">
               <Text id="home-paragraph-title">
                 Our team of developers helps you to master blockchain
                 technologies through intuitive tutorials.
               </Text>
-              <Spacer maxH={50} />
+              <Spacer id="spacer" maxH={50} />
               <div id="home-paragraph">
                 <Text>
                   Block2School is the perfect site for anyone interested in
@@ -71,7 +71,7 @@ export default function Home() {
             </div>
             <Spacer />
           </div>
-          <div
+          <div id="#mobile-display-none1"
             style={{
               width: '100%',
               height: '75px',
@@ -79,7 +79,7 @@ export default function Home() {
           ></div>
           <div id="home-second-part">
             <div id="home-second-part-paragraph">
-                <Text id="home-paragraph-start-title">Start learning now!</Text>
+              <Text id="home-paragraph-start-title">Start learning now!</Text>
               <div id="home-paragraph-start">
                 <Text>
                   Are you ready to enter the world of blockchain? Block2School
@@ -119,7 +119,7 @@ export default function Home() {
             </div>
             <Spacer maxW={200} />
           </div>
-          <div style={{
+          <div id="home-team" style={{
             width: '100%',
             height: '75px',
             color: "white",

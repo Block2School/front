@@ -1,4 +1,5 @@
 import { Center, Text } from '@chakra-ui/react'
+import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { sendGAEvent } from '../../utils/utils'
@@ -7,6 +8,13 @@ import CustomButton from '../button/button'
 // Changer le path pour les SVG absolument dégueulasse
 
 export default function Footer() {
+
+  const [showModalFooter, setShowModalFooter] = useState(false);
+
+  const handleToggleModalFooter = () => {
+    setShowModalFooter(!showModalFooter);
+  };
+
   return (
     <>
       <div id="footer-component">
@@ -59,7 +67,7 @@ export default function Footer() {
               </a>
             </div>
           </div>
-          <div>
+          <div id="qrcode-container">
             <a
               href="https://forms.office.com/e/hA9xzfh6Bk"
               target="_blank"
@@ -87,7 +95,7 @@ export default function Footer() {
               </Center>
             </a>
           </div>
-          <div>
+          <div id="github-container">
             <a
               href="https://github.com/block2school/documentation"
               target="_blank"
@@ -125,8 +133,31 @@ export default function Footer() {
               </Center>
             </a>
           </div>
+          <button className='footer-menu-button' onClick={handleToggleModalFooter}>?</button>
         </div>
       </div>
+            {/* Modal to display the navigation links */}
+            {showModalFooter && (
+        <div className="footer-modal">
+          <div className="footer-modal-content">
+            <div className="footer-modal-close" onClick={handleToggleModalFooter}>
+              &times;
+            </div>
+            <div className="footer-modal-links">
+              <Link href="/terms-of-use">
+                  <span className="footer-text">Terms of use</span>
+                </Link>
+              <Link href="/privacy-policy">
+                <span className="footer-text">Privacy Policy</span>
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
     </>
+
+    
+
+    
   )
 }
