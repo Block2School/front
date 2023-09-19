@@ -309,3 +309,362 @@
   font-size: 25px;
   font-family: 'Lato', sans-serif;
 }
+
+@media screen and (max-width: 1000px) { 
+
+  #mobile-display-none1 {
+    display: none;
+  }
+
+  #coach {
+    display: none;
+
+  }
+
+  #home-team {
+    display:none;
+  }
+
+  #home-container {
+    display: block;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+  }
+  
+  #home-header {
+    width: 100%;
+    height: 100px;
+    background-color: rgb(25, 25, 25);
+    display: block;
+    height: fit-content;
+  }
+
+  #home-header-center {
+    height: fit-content;
+    padding: 50px;
+  }
+
+  #home-header-title {
+    font-size: 35px;
+    color: #ffe6c4;
+    text-align: center;
+  }
+  
+  #home-header span {
+    color: white;
+    font-size: 9px;
+    font-weight: bold;
+    display: block;
+    margin: 0px auto;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    font-family: 'Lato', sans-serif;
+  }
+  
+  #home-body {
+    width: fit-content;
+    height: fit-content;
+    background-color: rgb(25, 25, 25);
+    right: 0;
+
+  }
+  
+  #home-image-group {
+    display: none;
+  }
+  
+  #home-first-part {
+    height: fit-content;
+    display: block;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    right: 0;
+  }
+  
+  #home-second-part {
+    width: 100%;
+    height: fit-content;
+    justify-content: center;
+    
+  }
+
+  /* #spacer1 {
+    width: 0;
+  }
+
+  #spacer2 {
+    width: 0;
+  } */
+  
+  #home-first-part-paragraph {
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    right: 0;
+    display: block;
+  }
+  
+  #home-paragraph-title {
+    color: white;
+    font-size: 25px;
+    align-items: center;
+    width: 100%;
+    font-family: 'Lato', sans-serif;
+    text-align: center;
+    left: 0;
+    right: 0;
+
+
+  }
+  
+  #home-paragraph-start-title {
+    color: white;
+    font-size: 20px;
+    display: block;
+    width: 100%;
+    font-family: 'Lato', sans-serif;
+    text-align: center;
+    justify-content: center;
+    right: 0;
+
+  }
+  
+  #home-second-part-paragraph {
+    width: 100%;
+    display: block;
+  }
+  
+  #home-paragraph-start {
+    color: rgb(175, 175, 175);
+    font-size: 13px;
+    font-family: 'Lato', sans-serif;
+    text-align: center;
+    right: 0;
+    top: 0;
+    left: 0;
+  }
+  
+  #home-paragraph-start p {
+    text-align: center;
+    width: 100%;
+    right: 0;
+
+  }
+  
+  #home-paragraph {
+    color: rgb(175, 175, 175);
+    font-size: 15px;
+    font-family: 'Lato', sans-serif;
+    display: block;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    right: 0;
+  }
+  
+  #home-paragraph p {
+    position: relative;
+    right: 0;
+    text-align: center;
+    font-size: 12px;
+    padding: 10px;
+  }
+  
+  #home-image-group {
+    display: none;
+    width: 100%;
+    height: 100%;
+    display: block;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  
+  #home-eth-img {
+    display: none;
+    position: absolute;
+    left: 25%;
+    top: 15%;
+  }
+  
+  #home-btc-img {
+    display: none;
+
+    position: absolute;
+    left: 35%;
+    top: 65%;
+  }
+  
+  #home-web3-img {
+    display: none;
+
+    position: absolute;
+    left: 55%;
+    top: 40%;
+  }
+  
+  #home-b2c-img {
+    display: none;
+
+    position: absolute;
+    left: 65%;
+    top: 10%;
+  }
+  
+  #home-body button {
+    width: 200px;
+    height: 50px;
+    background-color: #ffe6c4;
+    border: 1px solid #ffe6c4;
+    border-radius: 50px;
+    color: black;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: 'Lato', sans-serif;
+    align-items: center;
+    text-align: center;
+    left: 0;
+  }
+  
+  #home-arrow-left {
+    rotate: 135deg;
+    transform: scaleX(-1);
+    position: absolute;
+    top: 55%;
+    left: 30%;
+  }
+  
+  #coach-yelling {
+    position: absolute;
+    top: 125%;
+    left: 85%;
+    transform: scale(+2);
+  }
+  
+  #home-arrow-right {
+    display: none;
+    rotate: 140deg;
+    position: absolute;
+    top: 100%;
+    left: 42%;
+    transform: scaleY(-1);
+  }
+  
+  .home-arrow {
+    display: none;
+    filter: invert(100%);
+    width: 20%;
+    height: 25%;
+  }
+  
+  #button-start {
+    display: none;
+    width: 20%;
+    display: block;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  #home-third-part {
+    display: none;
+    width: 100%;
+    height: 0px;
+    overflow-x: scroll;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    overflow-y: hidden;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    border-radius: 200px;
+  }
+  
+  #home-third-part::-webkit-scrollbar {
+    display: none;
+    /* For mouse */
+    @media (any-pointer: mouse) {
+      .scrollable {
+        overflow-x: hidden;
+      }
+    }
+  
+    /* For trackpad */
+    @media (any-pointer: -webkit-touch-pointer) {
+      .scrollable {
+        overflow-x: hidden;
+      }
+    }
+    display: none;
+  }
+  
+  #home-third-part .home-picture {
+    width: 250px;
+    height: 250px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+  }
+  
+  .flip-box {
+    display: none;
+    margin-right: 15px;
+    margin-left: 15px;
+    background-color: transparent;
+    width: 250px;
+    height: 250px;
+    perspective: 1000px;
+    overflow: hidden;
+  }
+  
+  .flip-box-inner {
+    display: none;
+
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+  }
+  
+  .flip-box:hover .flip-box-inner {
+    transform: rotateY(180deg);
+  }
+  
+  .flip-box-front,
+  .flip-box-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+  }
+  
+  .flip-box-front {
+    color: black;
+  }
+  
+  .flip-box-back {
+    background-color: rgb(25, 25, 25);
+    color: white;
+    transform: rotateY(180deg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .flip-box-back p {
+    font-size: 18px;
+    font-family: 'Lato', sans-serif;
+  }
+  
+  .flip-box-back h1 {
+    font-size: 25px;
+    font-family: 'Lato', sans-serif;
+  }
+}

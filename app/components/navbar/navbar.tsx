@@ -5,7 +5,7 @@ import SelectWalletModal from '../modals/wallets/walletsModal'
 import Balance from '../balance/balance'
 import { useWeb3React } from '@web3-react/core'
 import { connectors } from '../wallet/injectors'
-import { useEffect, useContext } from 'react'
+import { useEffect, useContext, useState } from 'react'
 import ConnectionButton from '../wallet/connectionButton'
 import NavbarAllBalances from '../wallet/navbarAllBalances'
 import { ThemeSelector } from '../themeSelector/themeSelector'
@@ -15,6 +15,8 @@ import { BiUser } from 'react-icons/bi'
 export default function Navbar() {
 
   const { dictionary } = useContext(LanguageContext);
+  const [showModal, setShowModal] = useState(false);
+
 
   const {
     library,
@@ -41,6 +43,10 @@ export default function Navbar() {
     }
   }
 
+  const handleToggleModal = () => {
+    setShowModal(!showModal);
+  };
+
   useEffect(() => {
     const provider = window.sessionStorage.getItem('provider')
     // @ts-ignore
@@ -54,8 +60,8 @@ export default function Navbar() {
       <div id="navbar-component">
         <div id="navbar-container">
           <div id="navbar-logo-container">
-            <Image src="/Logo_B2S.png" alt="logo" height="100%" width="100%" />
-            <Link href={'/'} passHref>
+            <Image id='navbar-logo' src="/Logo_B2S.png" alt="logo" height="100%" width="100%" />
+            <Link  href={'/'} passHref>
               <span className="navbar-text-logo">Block2School</span>
             </Link>
           </div>
@@ -78,25 +84,56 @@ export default function Navbar() {
               </Link>
             </div>
           </div>
-          <NavbarAllBalances />
-          {
-            active === true ?
-              <Link href={'/profile'} passHref>
-                <BiUser
-                  size={"3%"}
-                  color={"white"}
-                  style={{ paddingRight: '0.5%', cursor: 'pointer' }}
+          <div id="navbar-mobile-part">
+            <NavbarAllBalances />
+            {
+              active === true ?
+                <Link href={'/profile'} passHref>
+                  <BiUser
+                    size={"3%"}
+                    color={"white"}
+                    style={{ paddingRight: '0.5%', cursor: 'pointer' }}
 
-                />
-              </Link>
-              :
-              null
-          }
-          <ConnectionButton />
-          <ThemeSelector />
-          <LanguageSwitcher />
+                  />
+                </Link>
+                :
+                null
+            }
+            <ConnectionButton />
+            <ThemeSelector />
+            <LanguageSwitcher />
+          </div>
         </div>
+        <button className="navbar-menu-button" onClick={handleToggleModal}>
+                ☰
+            </button>
       </div>
+
+        {/* Modal to display the navigation links */}
+        {showModal && (
+        <div className="navbar-modal">
+          <div className="navbar-modal-content">
+            <div className="navbar-modal-close" onClick={handleToggleModal}>
+              &times;
+            </div>
+            <div className="navbar-modal-links">
+              <Link href={'/faq'} passHref>
+                <span className="navbar-modal-text">FAQ</span>
+              </Link>
+              <Link href={'/login'} passHref>
+                <span className="navbar-modal-text">Login</span>
+              </Link>
+              <Link href={'/tutorials'} passHref>
+                <span className="navbar-modal-text">Tutorials</span>
+              </Link>
+              <Link href={'/blog'} passHref>
+                <span className="navbar-modal-text">Blog</span>
+              </Link>
+              <ConnectionButton/>
+              </div>
+          </div>
+        </div>
+      )}
     </>
   )
 }
