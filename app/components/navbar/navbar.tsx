@@ -120,8 +120,8 @@ export default function Navbar() {
               <Link href={'/faq'} passHref>
                 <span className="navbar-modal-text">FAQ</span>
               </Link>
-              <Link href={'/login'} passHref>
-                <span className="navbar-modal-text">Login</span>
+              <Link href={'/profile'} passHref>
+                <span className="navbar-modal-text">My Profile</span>
               </Link>
               <Link href={'/tutorials'} passHref>
                 <span className="navbar-modal-text">Tutorials</span>
