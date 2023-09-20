@@ -21,7 +21,7 @@ export default function NavbarBalance ({balanceToken, ImgSrc, alt, _decimal = 4}
                     height={35}
                     width={35}
                     paddingTop="3px"
-                    paddingRight="7px"
+                    paddingRight="20px"
                 />
             </HStack>
         ) : (
@@ -33,7 +33,7 @@ export default function NavbarBalance ({balanceToken, ImgSrc, alt, _decimal = 4}
                     height={35}
                     width={35}
                     paddingTop="3px"
-                    paddingRight="7px"
+                    paddingRight="20px"
                 />
             </HStack>
         )
