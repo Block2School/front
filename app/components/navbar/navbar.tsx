@@ -60,7 +60,7 @@ export default function Navbar() {
       <div id="navbar-component">
         <div id="navbar-container">
           <div id="navbar-logo-container">
-            <Image id='navbar-logo' src="/Logo_B2S.png" alt="logo" height="100%" width="100%" />
+            <Image id='navbar-logo' src="/Logo_B2S.png" alt="logo" height="50" width="50" />
             <Link  href={'/'} passHref>
               <span className="navbar-text-logo">Block2School</span>
             </Link>
@@ -90,9 +90,9 @@ export default function Navbar() {
               active === true ?
                 <Link href={'/profile'} passHref>
                   <BiUser
-                    size={"3%"}
+                    size={"13%"}
                     color={"white"}
-                    style={{ paddingRight: '0.5%', cursor: 'pointer' }}
+                    style={{ padding: '15px', cursor: 'pointer',}}
 
                   />
                 </Link>
@@ -120,8 +120,8 @@ export default function Navbar() {
               <Link href={'/faq'} passHref>
                 <span className="navbar-modal-text">FAQ</span>
               </Link>
-              <Link href={'/login'} passHref>
-                <span className="navbar-modal-text">Login</span>
+              <Link href={'/profile'} passHref>
+                <span className="navbar-modal-text">My Profile</span>
               </Link>
               <Link href={'/tutorials'} passHref>
                 <span className="navbar-modal-text">Tutorials</span>
