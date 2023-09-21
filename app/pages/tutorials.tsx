@@ -8,26 +8,27 @@ import TutorialCategoryModal from "../components/modals/category/tutorialCategor
 import LevelTutorial from "../components/tutorialsList/levelDifficulty";
 import SuggestionTutorial from "../components/tutorialsList/levelSuggestion";
 import LoadingScreen from "../components/loading/loadingScreen";
+import Style from "../styles/tutorials-beta.module.css"
 
 export default function Tutorials() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [categories, setCategories] = useState<[{ name: string, image: string, description: string }]>([{ name: '', image: '', description: '' }]);
+  const [isLoading, setIsLoading] = useState(false);
+  // const [categories, setCategories] = useState<[{ name: string, image: string, description: string }]>([{ name: '', image: '', description: '' }]);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [currentCategory, setCurrentCategory] = useState('');
 
-  useEffect(() => {
-    setIsLoading(true);
-    axios.get(`${serverURL}:8080/tuto/category/all`, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
-      }
-    }).then(res => {
-      setCategories(res.data.data);
-      console.log('categories1: ', res.data.data);
-      setTimeout(() => { setIsLoading(false); console.log('categories2: ', categories) }, 500);
-    })
-  }, []);
+  // useEffect(() => {
+  //   setIsLoading(true);
+  //   axios.get(`${serverURL}:8080/tuto/category/all`, {
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'Access-Control-Allow-Origin': '*'
+  //     }
+  //   }).then(res => {
+  //     setCategories(res.data.data);
+  //     console.log('categories1: ', res.data.data);
+  //     setTimeout(() => { setIsLoading(false); console.log('categories2: ', categories) }, 500);
+  //   })
+  // }, []);
 
   const showCategoryTutorialsModal = (category: string) => {
     setCurrentCategory(category)

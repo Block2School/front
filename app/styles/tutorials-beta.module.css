@@ -1,0 +1,128 @@
+.main_container {
+    background: linear-gradient(black, rgb(38, 38, 38));
+    display: flex;
+}
+
+.sidebar {
+  flex-basis: 20%;
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  color: white
+}
+
+.sidebar_title {
+  text-align: center;
+  font-size: 35px;
+  color: #ffe6c4;
+  font-weight: bold;
+}
+
+.sidebar_title_right {
+    text-align: center;
+    font-size: 20px;
+    color: #ffe6c4;
+    font-weight: bold;
+  }
+
+.sidebar h2 {
+  margin-bottom: 10px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar li {
+  margin: 5px;
+  color: white;
+  text-align: center;
+  font-size: 20px;
+  border-bottom: #333 solid 1px;
+}
+
+.sidebar li:hover {
+  color:#ffe6c4;
+}
+
+.forum_page {
+    margin: 0 auto;
+    max-width: 1200px;
+    padding: 20px;
+    height: 100vh;
+    flex-basis: 80%;
+    overflow-y: scroll;
+}
+  
+.latest_posts {
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.tuto_list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Create three equal-width columns */
+    gap: 10px;
+}
+
+.type_of_post {
+  color: white;
+  margin: 5px;
+  font-size: large;
+}
+  
+.categories ul,
+.latest-posts ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+  
+.categories li,
+.latest-posts li {
+  margin-bottom: 10px;
+}
+  
+.categories li:hover,
+.latest-posts li:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.search_posts form {
+  display: flex;
+}
+  
+.search_posts input[type="text"] {
+  flex: 1;
+  margin-right: 10px;
+  padding: 5px;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+}
+
+.search_posts button[type="submit"] {
+  padding: 5px 10px;
+  border-radius: 3px;
+  border: none;
+  background-color: #333;
+  color: #fff;
+  cursor: pointer;
+}
+  
+.search_posts button[type="submit"]:hover {
+  background-color: #ffe6c4;
+  color: black;
+}
+
+@media screen and (max-width: 800px) {
+  .main_container {
+    background: linear-gradient(black, rgb(38, 38, 38));
+    display: block;
+  }
+
+  .tuto_list {
+    display: block;
+    }
+}

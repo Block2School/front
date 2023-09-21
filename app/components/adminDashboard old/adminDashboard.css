@@ -27,12 +27,11 @@
 .admin-dashboard-grid {
     display: grid;
     grid-template-columns: auto auto auto;
-    overflow-y: scroll;
 }
 
 .admin-widget {
     border: 1px solid black;
     border-radius: 20px;
     margin: 5px;
-    height: 250px;
+    height: 300px;
 }
