@@ -58,5 +58,8 @@
     "leaderboard_points": "Points",
     "leaderboard_your_rank": "Your rank:",
     "leaderboard_start_challenge_button": "Start challenge"
+  },
+  "challenge_page": {
+    "submit_button": "Submit"
   }
 }

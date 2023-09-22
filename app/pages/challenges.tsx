@@ -1,7 +1,7 @@
 import axios from "axios";
 
 import { serverURL } from "../utils/globals";
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useRef } from "react";
 import Navbar from "../components/navbar/navbar";
 import Footer from "../components/footer/footer";
 import { useDisclosure, Text, Table, Td, Th, Tr, Box } from "@chakra-ui/react";
@@ -12,24 +12,41 @@ import CustomButtonRef from "../components/button/buttonRef";
 
 export default function Challenges() {
   const [isLoading, setIsLoading] = useState(true);
+  const [isConnected, setIsConnected] = useState(false);
   const [leaderboard, setLeaderboard] = useState<[
     {
       username: string,
-      points: number,
-      rank: number,
+      points?: number,
+      rank?: number,
       user_uuid: string
     }
-  ]>([{ username: '', points: 0, rank: 0, user_uuid: '' }]);
+  ]>([{ username: '', points: undefined, rank: undefined, user_uuid: '' }]);
   const [userRank, setUserRank] = useState<
     {
       username: string,
-      points: number,
-      rank: number,
+      points?: number,
+      rank?: number,
       user_uuid: string
     }
-  >({ username: '', points: 0, rank: 0, user_uuid: '' });
+  >({ username: '', points: undefined, rank: undefined, user_uuid: '' });
 
   const { dictionary } = useContext(LanguageContext);
+
+  const checkConnection = () => {
+    if (sessionStorage.getItem('token')) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  useEffect(() => {
+    if (sessionStorage.getItem('token')) {
+      setIsConnected(true);
+    } else {
+      setIsConnected(false);
+    }
+  }, [])
 
   useEffect(() => {
     console.log('HI IM HERE [CHALLENGE_USE_EFFECT]')
@@ -156,8 +173,8 @@ export default function Challenges() {
               categoryGA={"Start Challenge"}
               labelGA={"Start Challenge Button"}
               key={"Start Challenge Button"}
-              onClick={() => { }}
-              disabled={false}
+              onClick={() => { checkConnection() }}
+              disabled={!isConnected}
               gap={undefined}
               srcImg={undefined}
               alt={undefined}
