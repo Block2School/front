@@ -38,6 +38,7 @@ export default function ConnectionButton() {
   const disconnect = () => {
     refreshState()
     deactivate()
+    window.location.reload()
   }
 
   const handleConnection = async (error: Error): Promise<void> => {
