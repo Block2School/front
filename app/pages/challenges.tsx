@@ -7,6 +7,8 @@ import Footer from "../components/footer/footer";
 import { useDisclosure, Text, Table, Td, Th, Tr, Box } from "@chakra-ui/react";
 import CustomButton from "../components/button/button";
 import { LanguageContext } from "../components/LanguageSwitcher/language";
+import Link from "next/link";
+import CustomButtonRef from "../components/button/buttonRef";
 
 export default function Challenges() {
   const [isLoading, setIsLoading] = useState(true);
@@ -92,7 +94,7 @@ export default function Challenges() {
   return (
     <>
       <Navbar />
-      <div style={{ minHeight: "100vh" }}>
+      <div style={{ minHeight: "80vh" }}>
         <div style={{ textAlign: "center", marginTop: "2%" }}>
           <Text
             fontSize="4xl"
@@ -103,7 +105,7 @@ export default function Challenges() {
         </div>
         <Box
           width="60%"
-          height="40vh"
+          height="43vh"
           maxHeight="50vh"
           maxH="30%"
           margin="auto"
@@ -141,23 +143,28 @@ export default function Challenges() {
           </Text>
         </div>
         <div style={{ textAlign: "center", marginTop: "2%" }}>
-          <CustomButton
-            name={dictionary.challenges_page.leaderboard_start_challenge_button}
-            id="upload"
-            size={"lg"}
-            variant={"success"}
-            onClick={() => { }}
-            disabled={false}
-            gap={undefined}
-            srcImg={undefined}
-            alt={undefined}
-            hImg={undefined}
-            wImg={undefined}
-            borderRadius={"2%"}
-            categoryGA={"Start Challenge"}
-            labelGA={"Start Challenge Button"}
-            key={"Start Challenge Button"}
-          />
+          <Link
+            href="/challenge"
+            passHref
+          >
+            <CustomButtonRef
+              name={dictionary.challenges_page.leaderboard_start_challenge_button}
+              id="upload"
+              size={"lg"}
+              variant={"success"}
+              borderRadius={"2%"}
+              categoryGA={"Start Challenge"}
+              labelGA={"Start Challenge Button"}
+              key={"Start Challenge Button"}
+              onClick={() => { }}
+              disabled={false}
+              gap={undefined}
+              srcImg={undefined}
+              alt={undefined}
+              hImg={undefined}
+              wImg={undefined}
+            />
+          </Link>
         </div>
       </div>
       <Footer />
