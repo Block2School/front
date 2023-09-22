@@ -50,5 +50,13 @@
       "sixth_content": "If you provide Company with any feedback or suggestions regarding the Site, you hereby assign to Company all rights in such Feedback and agree that Company shall have the right to use and fully exploit such Feedback and related information in any manner it believes appropriate. Company will treat any Feedback you provide to Company as non-confidential and non-proprietary.",
       "seventh_content": "You agree to indemnify and hold Company and its officers, employees, and agents harmless, including costs and attorneys' fees, from any claim or demand made by any third-party due to or arising out of (a) your use of the Site, (b) your violation of these Terms, (c) your violation of applicable laws or regulations or (d) your User Content. Company reserves the right to assume the exclusive defense and control of any matter for which you are required to indemnify us, and you agree to cooperate with our defense of these claims. You agree not to settle any matter without the prior written consent of Company. Company will use reasonable efforts to notify you of any such claim, action or proceeding upon becoming aware of it."
     }
+  },
+  "challenges_page": {
+    "page_leaderboard_title": "Leaderboard",
+    "leaderboard_rank": "Rank",
+    "leaderboard_username": "Username",
+    "leaderboard_points": "Points",
+    "leaderboard_your_rank": "Your rank:",
+    "leaderboard_start_challenge_button": "Start challenge"
   }
 }

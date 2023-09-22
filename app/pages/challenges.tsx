@@ -1,10 +1,12 @@
 import axios from "axios";
 
 import { serverURL } from "../utils/globals";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Navbar from "../components/navbar/navbar";
 import Footer from "../components/footer/footer";
 import { useDisclosure, Text, Table, Td, Th, Tr, Box } from "@chakra-ui/react";
+import CustomButton from "../components/button/button";
+import { LanguageContext } from "../components/LanguageSwitcher/language";
 
 export default function Challenges() {
   const [isLoading, setIsLoading] = useState(true);
@@ -24,6 +26,8 @@ export default function Challenges() {
       user_uuid: string
     }
   >({ username: '', points: 0, rank: 0, user_uuid: '' });
+
+  const { dictionary } = useContext(LanguageContext);
 
   useEffect(() => {
     console.log('HI IM HERE [CHALLENGE_USE_EFFECT]')
@@ -90,7 +94,12 @@ export default function Challenges() {
       <Navbar />
       <div style={{ minHeight: "100vh" }}>
         <div style={{ textAlign: "center", marginTop: "2%" }}>
-          <Text fontSize="4xl" fontWeight="bold" color="black">Leaderboard</Text>
+          <Text
+            fontSize="4xl"
+            fontWeight="bold"
+          >
+            {dictionary.challenges_page.page_leaderboard_title}
+          </Text>
         </div>
         <Box
           width="60%"
@@ -107,9 +116,9 @@ export default function Challenges() {
           <Table>
             <thead>
               <Tr>
-                <Th>Rank</Th>
-                <Th>Username</Th>
-                <Th>Points</Th>
+                <Th>{dictionary.challenges_page.leaderboard_rank}</Th>
+                <Th>{dictionary.challenges_page.leaderboard_username}</Th>
+                <Th>{dictionary.challenges_page.leaderboard_points}</Th>
               </Tr>
             </thead>
             <tbody>
@@ -124,7 +133,31 @@ export default function Challenges() {
           </Table>
         </Box>
         <div style={{ textAlign: "center", marginTop: "2%" }}>
-          <Text fontSize={"xl"} fontWeight="bold" color="black">Your rank: {userRank.rank}</Text>
+          <Text
+            fontSize={"xl"}
+            fontWeight="bold"
+          >
+            {dictionary.challenges_page.leaderboard_your_rank} {userRank.rank}
+          </Text>
+        </div>
+        <div style={{ textAlign: "center", marginTop: "2%" }}>
+          <CustomButton
+            name={dictionary.challenges_page.leaderboard_start_challenge_button}
+            id="upload"
+            size={"lg"}
+            variant={"success"}
+            onClick={() => { }}
+            disabled={false}
+            gap={undefined}
+            srcImg={undefined}
+            alt={undefined}
+            hImg={undefined}
+            wImg={undefined}
+            borderRadius={"2%"}
+            categoryGA={"Start Challenge"}
+            labelGA={"Start Challenge Button"}
+            key={"Start Challenge Button"}
+          />
         </div>
       </div>
       <Footer />
