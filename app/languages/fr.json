@@ -53,6 +53,19 @@
     "leaderboard_start_challenge_button": "Commencer un challenge"
   },
   "challenge_page": {
-    "submit_button": "Soumettre"
+    "submit_button": "Soumettre",
+    "challenge_switch_text1": "Passer au mode clair",
+    "challenge_switch_text2": "Passer au mode sombre",
+    "challenge_select_default_option_editor": "Choisir un langage"
+  },
+  "upload_editorv2": {
+    "login_first": "Veuillez vous connecter",
+    "submit_button": "Soumettre",
+    "submit_test_button": "Lancer le test",
+    "loading": "Chargement..."
+  },
+  "option_editorv2": {
+    "tooltip_was_already_completed": "Vous avez déjà complété ce challenge",
+    "tooltip_was_not_completed": "Vous n'avez pas encore complété ce challenge"
   }
 }

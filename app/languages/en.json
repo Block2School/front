@@ -60,6 +60,19 @@
     "leaderboard_start_challenge_button": "Start challenge"
   },
   "challenge_page": {
-    "submit_button": "Submit"
+    "submit_button": "Submit",
+    "challenge_switch_text1": "Switch to Light Mode",
+    "challenge_switch_text2": "Switch to Dark Mode",
+    "challenge_select_default_option_editor": "Choose a language"
+  },
+  "upload_editorv2": {
+    "login_first": "Please login first",
+    "submit_button": "Submit",
+    "submit_test_button": "Start test",
+    "loading": "Loading..."
+  },
+  "option_editorv2": {
+    "tooltip_was_already_completed": "You have already completed this challenge",
+    "tooltip_was_not_completed": "You haven't completed this challenge yet"
   }
 }

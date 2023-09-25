@@ -10,7 +10,7 @@ export default function OptionEditor({ changeLang, scoring, switchText, changeTh
       <Select w="30" variant="filled" id="lang_choice"
         onChange={(e) => changeLang(e.target.value)}
       >
-        <option value="">Chose Language</option>
+        <option value="">Choose Language</option>
         <option value={"js"} onClick={() => changeLang('js')}>javascript</option>
         <option value={"cpp"} onClick={() => changeLang('cpp')}>cpp</option>
         <option value={"py"} onClick={() => changeLang('py')}>python</option>
