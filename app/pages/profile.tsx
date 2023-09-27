@@ -16,6 +16,7 @@ import UserNFTView from '../components/profile/userNFT'
 import { sendGAEvent } from '../utils/utils'
 import { Text, Input, Link, Heading, Center, Button, Switch, HStack, useDisclosure, Box } from "@chakra-ui/react"
 import QRCode from 'qrcode'
+import { event } from 'react-ga'
 
 export default function Profile() {
 
@@ -222,24 +223,6 @@ export default function Profile() {
     QRCode.toDataURL(qr).then(setSrcImg);
   }
 
-  async function setup2FA() {
-    
-    let res = await axios.post(`${serverURL}:8080/user/authenticator/qrcode`, {
-      wordlist:null,
-    }, {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + sessionStorage.getItem('token'),
-        'Access-Control-Allow-Origin': '*',
-      }
-    })
-    console.log(res.data.qr)
-    console.log(res.data.wordlist)
-    setWordList(res.data.wordlist)
-    generate(res.data.qr)
-    onOpen()
-  }
-
   function searchForFriends() {
     var username = $('#search-friend-input').val()
     if (username === '') {
@@ -316,6 +299,24 @@ export default function Profile() {
           }
         })
     }
+  }
+
+  async function setup2FA() {
+    
+    let res = await axios.post(`${serverURL}:8080/user/authenticator/qrcode`, {
+      wordlist:null,
+    }, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+        'Access-Control-Allow-Origin': '*',
+      }
+    })
+    console.log(res.data.qr)
+    console.log(res.data.wordlist)
+    setWordList(res.data.wordlist)
+    generate(res.data.qr)
+    onOpen()
   }
 
   return (
