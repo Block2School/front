@@ -1,6 +1,7 @@
 import { useWeb3React } from '@web3-react/core';
 import { ethers } from 'ethers';
 import NFT_INTERFACE2 from '../../config/abi/nft2.json';
+import NFT_INTERFACE3 from '../../config/abi/nft3.json';
 import React, { useEffect } from 'react'
 import { Text, Image, Center, Heading, Button, Flex, Link, Spacer, useDisclosure } from '@chakra-ui/react';
 import MyNFTModal from '../modals/myNFTModal/myNFTModal';
@@ -23,11 +24,13 @@ export default function UserNFTView() {
 
   const fetchUserNFT = async () => {
     if (!library || !account) return;
-    const contractAddress: string = "0xe06855c206CE89A23b480246Cbc208c5A6deAAF8";
+    // const contractAddress: string = "0xe06855c206CE89A23b480246Cbc208c5A6deAAF8";
+    const contractAddress: string = "0x8fE921C13825003F02F46EF261589a3bb7bc7B98";
     const _provider = new ethers.providers.Web3Provider(library?.provider);
     const signer = _provider.getSigner();
 
-    let contract = new ethers.Contract(contractAddress, NFT_INTERFACE2, signer);
+    // let contract = new ethers.Contract(contractAddress, NFT_INTERFACE2, signer);
+    let contract = new ethers.Contract(contractAddress, NFT_INTERFACE3, signer);
     let res = await contract.fetchMyNFTs();
 
     let nftArrayTmp: any[] = [];
@@ -37,15 +40,20 @@ export default function UserNFTView() {
       let _nftName = res[i].name;
       let _nftOwner = res[i].seller;
       let _nftId = res[i].tokenId;
+      let _nftCurrency = res[i].currency;
+      let _nftCurrencyAddress = res[i].currencyAddress;
       let _nft = {
         id: _nftId.toString(),
         name: _nftName,
         image: _nftURI,
         price: ethers.utils.formatEther(_nftPrice),
         owner: _nftOwner,
+        currency: _nftCurrency,
+        currencyAddress: _nftCurrencyAddress,
       }
       nftArrayTmp.push(_nft);
     }
+    console.log('nftArrayTmp: ', nftArrayTmp)
 
     let res2 = await contract.getListingPrice();
     setListingPrice(ethers.utils.formatEther(res2));
@@ -104,7 +112,7 @@ export default function UserNFTView() {
                     <Image src={nft.image} alt="nft" width="300px" height="300px" />
                   </Center>
                   <Text>{nft.name}</Text>
-                  <Text>{nft.price} BNB</Text>
+                  <Text>{nft.price} {nft.currency === "BNB" ? "BNB" : "B2ST"}</Text>
                   <Text>{nft.id}</Text>
                   <Center>
                     <Button
