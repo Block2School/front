@@ -11,9 +11,18 @@
     "back_end_developer": "Développeur Back-End",
     "fullstack_developer": "Développeur Fullstack"
   },
+  "blog": {
+    "blog_ask_question": "Poser une question",
+    "blog_contact_title": "Sujet",
+    "blog_contact_description": "Description",
+    "blog_contact_button_submit": "Soumettre",
+    "blog_published": "publié le: ",
+    "blog_edited": "Modifié le: ",
+    "blog_author": "Auteur: "
+  },
   "navbar": {
     "login": "Connexion",
-    "tutorials": "Tutoriaux"
+    "tutorials": "Tutoriels"
   },
   "wallet": {
     "connect_wallet": "Connection wallet",

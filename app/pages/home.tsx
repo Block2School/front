@@ -5,7 +5,7 @@ import Footer from '../components/footer/footer'
 import Navbar from '../components/navbar/navbar'
 import Link from 'next/link'
 import { sendGAEvent } from '../utils/utils'
-import { LanguageContext, LanguageSwitcher } from '../components/LanguageSwitcher/language'
+import { LanguageContext } from '../components/LanguageSwitcher/language'
 
 export default function Home() {
 

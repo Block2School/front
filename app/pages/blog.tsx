@@ -9,6 +9,7 @@ import Footer from '../components/footer/footer'
 import $ from 'jquery'
 import { Spacer } from '@chakra-ui/react'
 import { sendGAEvent } from '../utils/utils'
+import { LanguageContext } from '../components/LanguageSwitcher/language'
 
 interface BlogProps {
   id: number
@@ -22,6 +23,7 @@ interface BlogProps {
 
 export default function Blog() {
   const [isLoading, setIsLoading] = useState(true)
+  const { dictionary } = React.useContext(LanguageContext)
   const [articles, setArticles] = useState<BlogProps[]>([
     {
       id: 0,
@@ -106,10 +108,10 @@ export default function Blog() {
           sendGAEvent('blog', 'button_click', 'Open Ask a question modal')
           openModal()
         }}
-      > Ask a question </Button>
+      >{dictionary.blog.blog_ask_question}</Button>
       <div id="blog-contact-modal">
         <div id="blog-contact-modal-header">
-          <Text>Ask a question</Text>
+          <Text>{dictionary.blog.blog_ask_question}</Text>
           <Spacer />
           <Text
             id="blog-contact-modal-close"
@@ -122,9 +124,9 @@ export default function Blog() {
           </Text>
         </div>
         <div id="blog-contact-body">
-          <Text id="blog-contact-title">Subject</Text>
+          <Text id="blog-contact-title">{dictionary.blog.blog_contact_title}</Text>
           <Input type="text" id="blog-contact-title-input" color='white'/>
-          <Text id="blog-contact-description">Description</Text>
+          <Text id="blog-contact-description">{dictionary.blog.blog_contact_description}</Text>
           <Textarea
             id="blog-contact-description-input"
             style={{
@@ -139,7 +141,7 @@ export default function Blog() {
               submit()
             }}
           >
-            Submit
+            {dictionary.blog.blog_contact_button_submit}
           </Button>
         </div>
       </div>

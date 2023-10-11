@@ -11,6 +11,15 @@
     "back_end_developer": "Back-end developer",
     "fullstack_developer": "Fullstack developer"
   },
+  "blog": {
+    "blog_ask_question": "Ask a question",
+    "blog_contact_title": "Subject",
+    "blog_contact_description": "Description",
+    "blog_contact_button_submit": "Submit",
+    "blog_published": "Published on: ",
+    "blog_edited": "Edited on: ",
+    "blog_author": "Author: "
+  },
   "navbar": {
     "login": "Login",
     "tutorials": "Tutorials"
