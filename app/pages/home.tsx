@@ -5,15 +5,19 @@ import Footer from '../components/footer/footer'
 import Navbar from '../components/navbar/navbar'
 import Link from 'next/link'
 import { sendGAEvent } from '../utils/utils'
+import { LanguageContext, LanguageSwitcher } from '../components/LanguageSwitcher/language'
 
 export default function Home() {
+
+  const { dictionary } = React.useContext(LanguageContext);
+
   return (
     <>
       <Navbar />
       <div id="home-container">
         <div id="home-header">
           <Center id='home-header-center' h="150px">
-            <Text id='home-header-title' fontSize='6xl' color="white">Welcome to Block2School !</Text>
+            <Text id='home-header-title' fontSize='6xl' color="white">{dictionary.home_page.home_header_title}</Text>
           </Center>
         </div>
         <div id="home-body">
@@ -54,18 +58,12 @@ export default function Home() {
             <Spacer id="spacer1" width={100}></Spacer>
             <div id="home-first-part-paragraph">
               <Text id="home-paragraph-title">
-                Our team of developers helps you to master blockchain
-                technologies through intuitive tutorials.
+                {dictionary.home_page.home_paragraph_title}
               </Text>
               <Spacer id="spacer" maxH={50} />
               <div id="home-paragraph">
                 <Text>
-                  Block2School is the perfect site for anyone interested in
-                  blockchain technology. We offer a a wide range of coding
-                  exercises on blockchain technologies. You will be able to
-                  understand blockchain, how it works and how it can be used.
-                  You will also be comfortable creating smart contracts and
-                  decentralized applications.
+                  {dictionary.home_page.home_paragraph}
                 </Text>
               </div>
             </div>
@@ -79,14 +77,10 @@ export default function Home() {
           ></div>
           <div id="home-second-part">
             <div id="home-second-part-paragraph">
-              <Text id="home-paragraph-start-title">Start learning now!</Text>
+              <Text id="home-paragraph-start-title">{dictionary.home_page.home_paragraph_start_title}</Text>
               <div id="home-paragraph-start">
                 <Text>
-                  Are you ready to enter the world of blockchain? Block2School
-                  is the best place to learn the basics of blockchain
-                  technologies. You will learn the fundamentals through code
-                  exercises and comprehensive tutorials to develop your skills.
-                  Get started now!
+                  {dictionary.home_page.home_paragraph_start}
                 </Text>
               </div>
             </div>
@@ -104,7 +98,7 @@ export default function Home() {
               sendGAEvent('home', 'button_click', 'Go to tuto through home')
             }}>
                 <Link href={'/tutorials'} passHref>
-                  Start now!
+                  {dictionary.home_page.home_button_start}
                 </Link>
               </Button>
             </div>
@@ -127,7 +121,7 @@ export default function Home() {
             fontWeight: "bold",
             textAlign: "center",
             marginBottom: "50px"
-          }}>Our team</div>
+          }}>{dictionary.home_page.home_team}</div>
             <div id="home-third-part">
               <div>
                 <div className="flip-box">
@@ -143,7 +137,7 @@ export default function Home() {
                     </div>
                     <div className="flip-box-back">
                       <Text>Matisse Page</Text>
-                      <p>Front-end developer</p>
+                      <p>{dictionary.home_page.front_end_developer}</p>
                     </div>
                   </div>
                 </div> 
@@ -162,7 +156,7 @@ export default function Home() {
                     </div>
                     <div className="flip-box-back">
                       <Text>Lorenzo Manoeuvre</Text>
-                      <p>Front-end developer</p>
+                      <p>{dictionary.home_page.front_end_developer}</p>
                     </div>
                   </div>
                 </div>
@@ -181,7 +175,7 @@ export default function Home() {
                     </div>
                     <div className="flip-box-back">
                       <Text>Lucas Dudot</Text>
-                      <p>Front-end developer</p>
+                      <p>{dictionary.home_page.front_end_developer}</p>
                     </div>
                   </div>
                 </div>
@@ -200,7 +194,7 @@ export default function Home() {
                     </div>
                     <div className="flip-box-back">
                       <Text>Cyril Grosjean</Text>
-                      <p>Back-end developer</p>
+                      <p>{dictionary.home_page.back_end_developer}</p>
                     </div>
                   </div>
                 </div>
@@ -219,7 +213,7 @@ export default function Home() {
                     </div>
                     <div className="flip-box-back">
                       <Text>Gabriel Knies</Text>
-                      <p>Fullstack developer</p>
+                      <p>{dictionary.home_page.fullstack_developer}</p>
                     </div>
                   </div>
                 </div>
@@ -238,7 +232,7 @@ export default function Home() {
                       </div>
                       <div className="flip-box-back">
                         <Text>Jose Fernan</Text>
-                        <p>Fullstack developer</p>
+                        <p>{dictionary.home_page.fullstack_developer}</p>
                       </div>
                     </div>
                   </div>

@@ -1,5 +1,15 @@
 {
-  "home_page":{
+  "home_page": {
+    "home_header_title": "Welcome to Block2School !",
+    "home_paragraph_title": "Our team of developers helps you to master blockchain technologies through intuitive tutorials.",
+    "home_paragraph": "Block2School is the perfect site for anyone interested in blockchain technology. We offer a wide range of coding exercices on blockchain technologies. You will be able to understand blockchain, how it works and how it can be used. You will also be comfortable creating smart contracts and decentralized applications.",
+    "home_paragraph_start_title": "Start learning now !",
+    "home_paragraph_start": "Are you ready to enter the world of blockchain ? Block2School is the best place to learn the basics of blockchain technologies. You will learn the fundamentals through code exercises and comprehensive tutorials to develop your skills. Get started now !",
+    "home_button_start": "Start now !",
+    "home_team": "Our team",
+    "front_end_developer": "Front-end developer",
+    "back_end_developer": "Back-end developer",
+    "fullstack_developer": "Fullstack developer"
   },
   "navbar": {
     "login": "Login",
