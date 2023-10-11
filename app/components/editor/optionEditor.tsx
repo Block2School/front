@@ -1,8 +1,11 @@
 import { Select } from "@chakra-ui/react";
 import CustomButton from "../button/button";
 import CustomSwitch from "../switch/customSwitch";
+import { LanguageContext } from "../LanguageSwitcher/language";
+import React from "react";
 
 export default function OptionEditor({ changeLang, scoring, switchText, changeTheme }: { changeLang: any, scoring: any, switchText: any, changeTheme: any }) {
+  const { dictionary } = React.useContext(LanguageContext);
 
   return (
     <div id="editor_opt">
@@ -10,7 +13,7 @@ export default function OptionEditor({ changeLang, scoring, switchText, changeTh
       <Select w="30" variant="filled" id="lang_choice"
         onChange={(e) => changeLang(e.target.value)}
       >
-        <option value="">Chose Language</option>
+        <option value="">{dictionary.tutorial.tutorial_choose_language}</option>
         <option value={"js"} onClick={() => changeLang('js')}>javascript</option>
         <option value={"cpp"} onClick={() => changeLang('cpp')}>cpp</option>
         <option value={"py"} onClick={() => changeLang('py')}>python</option>

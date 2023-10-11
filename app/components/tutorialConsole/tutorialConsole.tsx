@@ -1,6 +1,7 @@
 import { ChevronDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
 import { Box, Collapse, Flex, Grid, IconButton, Text } from "@chakra-ui/react";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { LanguageContext } from "../LanguageSwitcher/language";
 
 interface TutorialConsoleProps {
   output: string;
@@ -11,6 +12,7 @@ interface TutorialConsoleProps {
 export default function TutorialConsole(props: TutorialConsoleProps) {
   const { output, expectedOutput, error } = props;
   const [show, setShow] = useState(true);
+  const { dictionary } = useContext(LanguageContext);
 
   const handleToggle = () => setShow(!show);
 
@@ -82,7 +84,7 @@ export default function TutorialConsole(props: TutorialConsoleProps) {
               fontWeight="bold"
               color={"black"}
             >
-              Ouput:
+              {dictionary.tutorial.tutorial_console_output}
             </Text>
             <Text
               // multiple lines
@@ -96,7 +98,7 @@ export default function TutorialConsole(props: TutorialConsoleProps) {
               fontWeight="bold"
               color={"black"}
             >
-              Expected output:
+              {dictionary.tutorial.tutorial_expected_output}
             </Text>
             <Text
               // multiple lines
@@ -110,7 +112,7 @@ export default function TutorialConsole(props: TutorialConsoleProps) {
               fontWeight="bold"
               color={"black"}
             >
-              Error:
+              {dictionary.tutorial.tutorial_error}
             </Text>
             <Text
               color={"black"}

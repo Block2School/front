@@ -20,6 +20,12 @@
     "blog_edited": "Edited on: ",
     "blog_author": "Author: "
   },
+  "tutorial": {
+    "tutorial_console_output": "Output: ",
+    "tutorial_expected_output": "Expected output: ",
+    "tutorial_error": "Error: ",
+    "tutorial_choose_language": "Choose Language"
+  },
   "navbar": {
     "login": "Login",
     "tutorials": "Tutorials"

@@ -20,6 +20,12 @@
     "blog_edited": "Modifié le: ",
     "blog_author": "Auteur: "
   },
+  "tutorial": {
+    "tutorial_console_output": "Sortie: ",
+    "tutorial_expected_output": "Sortie attendue: ",
+    "tutorial_error": "Erreur: ",
+    "tutorial_choose_language": "Choisir un langage"
+  },
   "navbar": {
     "login": "Connexion",
     "tutorials": "Tutoriels"
