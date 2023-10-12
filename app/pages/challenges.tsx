@@ -67,14 +67,14 @@ export default function Challenges() {
           user_uuid: user.user_uuid
         }
       });
-      for (let idx = 4; idx < 20; idx++) {
-        formatedLeaderboard.push({
-          username: "User" + idx,
-          points: idx,
-          rank: idx,
-          user_uuid: "uuid" + idx
-        })
-      }
+      // for (let idx = 4; idx < 20; idx++) {
+      //   formatedLeaderboard.push({
+      //     username: "User" + idx,
+      //     points: idx,
+      //     rank: idx,
+      //     user_uuid: "uuid" + idx
+      //   })
+      // }
       console.log('formatedLeaderboard: ', formatedLeaderboard);
       setLeaderboard(formatedLeaderboard);
 
