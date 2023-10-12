@@ -4,7 +4,7 @@ import { serverURL } from "../utils/globals";
 import React, { useEffect, useState, useContext, useRef } from "react";
 import Navbar from "../components/navbar/navbar";
 import Footer from "../components/footer/footer";
-import { useDisclosure, Text, Table, Td, Th, Tr, Box } from "@chakra-ui/react";
+import { useDisclosure, Text, Table, Td, Th, Tr, Box, Tooltip } from "@chakra-ui/react";
 import CustomButton from "../components/button/button";
 import { LanguageContext } from "../components/LanguageSwitcher/language";
 import Link from "next/link";
@@ -160,28 +160,36 @@ export default function Challenges() {
           </Text>
         </div>
         <div style={{ textAlign: "center", marginTop: "2%" }}>
-          <Link
-            href="/challenge"
-            passHref
+          <Tooltip
+            label={dictionary.challenges_page.challenges_tooltip}
+            isDisabled={isConnected}
+            shouldWrapChildren
+            placement="top"
+            hasArrow
           >
-            <CustomButtonRef
-              name={dictionary.challenges_page.leaderboard_start_challenge_button}
-              id="upload"
-              size={"lg"}
-              variant={"success"}
-              borderRadius={"2%"}
-              categoryGA={"Start Challenge"}
-              labelGA={"Start Challenge Button"}
-              key={"Start Challenge Button"}
-              onClick={() => { checkConnection() }}
-              disabled={!isConnected}
-              gap={undefined}
-              srcImg={undefined}
-              alt={undefined}
-              hImg={undefined}
-              wImg={undefined}
-            />
-          </Link>
+            <Link
+              href="/challenge"
+              passHref
+            >
+              <CustomButtonRef
+                name={dictionary.challenges_page.leaderboard_start_challenge_button}
+                id="upload"
+                size={"lg"}
+                variant={"success"}
+                borderRadius={"2%"}
+                categoryGA={"Start Challenge"}
+                labelGA={"Start Challenge Button"}
+                key={"Start Challenge Button"}
+                onClick={() => { checkConnection() }}
+                disabled={!isConnected}
+                gap={undefined}
+                srcImg={undefined}
+                alt={undefined}
+                hImg={undefined}
+                wImg={undefined}
+              />
+            </Link>
+          </Tooltip>
         </div>
       </div>
       <Footer />

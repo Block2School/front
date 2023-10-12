@@ -50,7 +50,8 @@
     "leaderboard_username": "Nom d'utilisateur",
     "leaderboard_points": "Points",
     "leaderboard_your_rank": "Votre rang:",
-    "leaderboard_start_challenge_button": "Commencer un challenge"
+    "leaderboard_start_challenge_button": "Commencer un challenge",
+    "challenges_tooltip": "Merci de vous connecter avant de commencer un challenge."
   },
   "challenge_page": {
     "submit_button": "Soumettre",
