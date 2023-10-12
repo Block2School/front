@@ -67,15 +67,18 @@ export default function Navbar() {
           </div>
           <div id="navbar-links-container">
             <div id="navbar-links-main">
+              <Link href={'/tutorials'} passHref>
+                <span className="navbar-text">{dictionary.navbar.tutorials}</span>
+              </Link>
+              <Link href={'/challenges'} passHref>
+                <span className="navbar-text">Challenges</span>
+              </Link>
               <Link href={'/faq'} passHref>
                 <span className="navbar-text">FAQ</span>
               </Link>
               {/* <Link href={'/login'} passHref>
                 <span className="navbar-text">Login</span>
               </Link> */}
-              <Link href={'/tutorials'} passHref>
-                <span className="navbar-text">{dictionary.navbar.tutorials}</span>
-              </Link>
               <Link href={'/blog'} passHref>
                 <span className="navbar-text">Blog</span>
               </Link>

@@ -1,6 +1,5 @@
 {
-  "home_page":{
-  },
+  "home_page": {},
   "navbar": {
     "login": "Connexion",
     "tutorials": "Tutoriaux"
@@ -44,5 +43,30 @@
       "first_content": "means any and all information and content that a user submits to the Site. You are exclusively responsible for your User Content. You bear all risks associated with use of your User Content. You hereby certify that your User Content does not violate our Acceptable Use Policy. You may not represent or imply to others that your User Content is in any way provided, sponsored or endorsed by Company. Because you alone are responsible for your User Content, you may expose yourself to liability. Company is not obliged to backup any User Content that you post; also, your User Content may be deleted at any time without prior notice to you. You are solely responsible for making your own backup copies of your User Content if you desire.",
       "second_content": "You hereby grant to Company an irreversible, nonexclusive, royalty-free and fully paid, worldwide license to reproduce, distribute, publicly display and perform, prepare derivative works of, incorporate into other works, and otherwise use and exploit your User Content, and to grant sublicenses of the foregoing rights, solely for the purposes of including your User Content in the Site. You hereby irreversibly waive any claims and assertions of moral rights or attribution with respect to your User Content."
     }
+  },
+  "challenges_page": {
+    "page_leaderboard_title": "Classement",
+    "leaderboard_rank": "Rang",
+    "leaderboard_username": "Nom d'utilisateur",
+    "leaderboard_points": "Points",
+    "leaderboard_your_rank": "Votre rang:",
+    "leaderboard_start_challenge_button": "Commencer un challenge",
+    "challenges_tooltip": "Merci de vous connecter avant de commencer un challenge."
+  },
+  "challenge_page": {
+    "submit_button": "Soumettre",
+    "challenge_switch_text1": "Passer au mode clair",
+    "challenge_switch_text2": "Passer au mode sombre",
+    "challenge_select_default_option_editor": "Choisir un langage"
+  },
+  "upload_editorv2": {
+    "login_first": "Veuillez vous connecter",
+    "submit_button": "Soumettre",
+    "submit_test_button": "Lancer le test",
+    "loading": "Chargement..."
+  },
+  "option_editorv2": {
+    "tooltip_was_already_completed": "Vous avez déjà complété ce challenge",
+    "tooltip_was_not_completed": "Vous n'avez pas encore complété ce challenge"
   }
 }

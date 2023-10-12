@@ -29,6 +29,7 @@ import B2ST_INTERFACE_ from '../../../config/abi/B2ST2.json';
 import { ethers } from 'ethers';
 import ErrorAlert from '../../alerts/errorAlert/errorAlert';
 import VAULT_INTERFACE from '../../../config/abi/vault.json';
+import VAULT_INTERFACE2 from '../../../config/abi/vault2.json';
 import SuccessAlert from '../../alerts/successAlert/successAlert';
 
 export default function BuyB2STokenModal({ isOpenModal, closeModal }: { isOpenModal: boolean, closeModal: any }) {
@@ -41,6 +42,7 @@ export default function BuyB2STokenModal({ isOpenModal, closeModal }: { isOpenMo
   const [errorMessage, setErrorMessage] = React.useState('');
   const [successMessage, setSuccessMessage] = React.useState('');
   const [isError, setIsError] = React.useState(false);
+  const _vaultContract_ = "0x3BeB448c642AF751e74c46641E57a9669c255885"
 
   useEffect(() => {
     // setAmountToPay(amountToBuy * parseFloat(tokenPrice || '0'))
@@ -76,7 +78,7 @@ export default function BuyB2STokenModal({ isOpenModal, closeModal }: { isOpenMo
   const getExchangeRate = async () => {
     const _provider = new ethers.providers.Web3Provider(library?.provider);
     const signer = _provider.getSigner();
-    const _contract = new ethers.Contract('0x3BeB448c642AF751e74c46641E57a9669c255885', VAULT_INTERFACE, signer)
+    const _contract = new ethers.Contract('0x118d967aB149de6aE0E461f74Da40aD1322fFb8d', VAULT_INTERFACE2, signer)
     let res = await _contract.getExchangeRate();
     console.log('res-exchangeRate: ', res)
     let price: string = ethers.utils.formatEther(res);
@@ -89,7 +91,7 @@ export default function BuyB2STokenModal({ isOpenModal, closeModal }: { isOpenMo
     const _provider = new ethers.providers.Web3Provider(library?.provider);
     const signer = await _provider.getSigner();
     console.log('signer: ', signer)
-    const _contract = new ethers.Contract('0x3BeB448c642AF751e74c46641E57a9669c255885', VAULT_INTERFACE, signer)
+    const _contract = new ethers.Contract('0x118d967aB149de6aE0E461f74Da40aD1322fFb8d', VAULT_INTERFACE2, signer)
     console.log('_contract: ', _contract)
     let _contract2 = new ethers.Contract('0x532a532C2C755677b86B14089cd7daa1f8DdbCC3', B2ST_INTERFACE_, signer)
     console.log('_contract2: ', _contract2)
