@@ -120,14 +120,17 @@ export default function Navbar() {
               &times;
             </div>
             <div className="navbar-modal-links">
+              <Link href={'/tutorials'} passHref>
+                <span className="navbar-modal-text">{dictionary.navbar.tutorials}</span>
+              </Link>
+              <Link href={'/challenges'} passHref>
+                <span className="navbar-modal-text">Challenges</span>
+              </Link>
               <Link href={'/faq'} passHref>
                 <span className="navbar-modal-text">FAQ</span>
               </Link>
               <Link href={'/profile'} passHref>
                 <span className="navbar-modal-text">My Profile</span>
-              </Link>
-              <Link href={'/tutorials'} passHref>
-                <span className="navbar-modal-text">Tutorials</span>
               </Link>
               <Link href={'/blog'} passHref>
                 <span className="navbar-modal-text">Blog</span>
