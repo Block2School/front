@@ -51,7 +51,8 @@
     "leaderboard_points": "Points",
     "leaderboard_your_rank": "Votre rang:",
     "leaderboard_start_challenge_button": "Commencer un challenge",
-    "challenges_tooltip": "Merci de vous connecter avant de commencer un challenge."
+    "challenges_tooltip": "Merci de vous connecter avant de commencer un challenge.",
+    "user_unranked": "Vous n'êtes pas classé, complétez au moins un challenge pour être classé."
   },
   "challenge_page": {
     "submit_button": "Soumettre",

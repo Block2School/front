@@ -156,7 +156,7 @@ export default function Challenges() {
             fontSize={"xl"}
             fontWeight="bold"
           >
-            {dictionary.challenges_page.leaderboard_your_rank} {userRank.rank}
+            {dictionary.challenges_page.leaderboard_your_rank} {(userRank.rank != -99) ? userRank.rank : dictionary.challenges_page.user_unranked}
           </Text>
         </div>
         <div style={{ textAlign: "center", marginTop: "2%" }}>
