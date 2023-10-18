@@ -2,11 +2,13 @@ import Footer from "../components/footer/footer";
 import Navbar from "../components/navbar/navbar";
 import Question from "../components/faq/faqQuestion";
 import { useEffect, useState } from "react";
-import { Show, useColorModeValue, Text, Input, VisuallyHidden, Container, VStack, Center } from "@chakra-ui/react";
+import { Show, useColorModeValue, Text, Input, VisuallyHidden, Container, VStack, Center, Button, Spacer, Textarea } from "@chakra-ui/react";
 import { useContext } from 'react';
 import { LanguageContext } from "../components/LanguageSwitcher/language";
 import axios from "axios";
 import { serverURL } from "../utils/globals";
+import { sendGAEvent } from "../utils/utils";
+import $ from 'jquery';
 
 export default function FAQ() {
   const [searchInput, setSearchInput] = useState("");
@@ -117,7 +119,21 @@ export default function FAQ() {
     document.addEventListener("click", function (e: Event) {
       closeAllLists(e.target as Element);
     });
-  }  
+  }
+
+  function openModal() {
+    $('#faq-contact-title-input').val('')
+    $('#faq-contact-description-input').val('')
+    $('#faq-contact-modal').css('display', 'block')
+  }
+
+  function closeModal() {
+    $('#faq-contact-modal').css('display', 'none')
+  }
+
+  function submit() {
+    closeModal()
+  }
 
   return (
     <>
@@ -166,26 +182,50 @@ export default function FAQ() {
                     );
                   }
                 })}
-            {/* <Question
-              question={dictionary.faq.first_block_title}
-              answer={dictionary.faq.first_block_contain}
-            />
-            <Question
-              question={dictionary.faq.second_block_title}
-              answer={dictionary.faq.second_block_contain}
-            />
-            <Question
-              question={dictionary.faq.third_block_title}
-              answer={dictionary.faq.third_block_contain}
-            />
-            <Question
-              question={dictionary.faq.fourth_block_title}
-              answer={dictionary.faq.fourth_block_contain}
-            /> */}
-            {/* <Question question="TEST" answer="test"/>
-            <Question question="TEST" answer="test"/>
-            <Question question="TEST" answer="test"/> */}
           </div>
+        </div>
+      </div>
+      <Button
+        id="faq-contact-button"
+        onClick={() => {
+          sendGAEvent('faq', 'button_click', 'Open Ask a question modal')
+          openModal()
+        }}
+      > Ask a question </Button>
+      <div id="faq-contact-modal">
+        <div id="faq-contact-modal-header">
+          <Text>Ask a question</Text>
+          <Spacer />
+          <Text
+            id="faq-contact-modal-close"
+            style={{
+              cursor: 'pointer',
+            }}
+            onClick={closeModal}
+          >
+            &times;
+          </Text>
+        </div>
+        <div id="faq-contact-body">
+          <Text id="faq-contact-title">Subject</Text>
+          <Input type="text" id="faq-contact-title-input" color='white'/>
+          <Text id="faq-contact-description">Description</Text>
+          <Textarea
+            id="faq-contact-description-input"
+            style={{
+              resize: 'none',
+              color: 'white',
+            }}
+          />
+          <Button
+            id="faq-contact-button-submit"
+            onClick={() => {
+              sendGAEvent('faq', 'button_click', 'Submit question')
+              submit()
+            }}
+          >
+            Submit
+          </Button>
         </div>
       </div>
       <Footer />

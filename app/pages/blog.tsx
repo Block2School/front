@@ -2,13 +2,9 @@ import axios from 'axios'
 import React, { useState, useEffect, useRef } from 'react'
 import Navbar from '../components/navbar/navbar'
 import moment from 'moment'
-import { Button, Text, Textarea, Input } from '@chakra-ui/react'
 import { serverURL } from '../utils/globals'
 import ListBlog from '../components/blog/blogList'
 import Footer from '../components/footer/footer'
-import $ from 'jquery'
-import { Spacer } from '@chakra-ui/react'
-import { sendGAEvent } from '../utils/utils'
 
 interface BlogProps {
   id: number
@@ -62,86 +58,11 @@ export default function Blog() {
       })
   }, [])
 
-  function openModal() {
-    $('#blog-contact-title-input').val('')
-    $('#blog-contact-description-input').val('')
-    $('#blog-contact-modal').css('display', 'block')
-  }
-
-  function closeModal() {
-    $('#blog-contact-modal').css('display', 'none')
-  }
-
-  function submit() {
-    // axios
-    //   .post(
-    //     `${serverURL}:8080/article/report`,
-    //     {
-    //       title: $('#blog-contact-title-input').val(),
-    //       description: $('#blog-contact-description-input').val(),
-    //     },
-    //     {
-    //       headers: {
-    //         'Content-Type': 'application/json',
-    //         'Access-Control-Allow-Origin': '*',
-    //       },
-    //     },
-    //   )
-    //   .then((res) => {
-    //     if (res.status === 200) {
-    closeModal()
-    //   }
-    // })
-  }
-
   return (
     <>
       <Navbar />
       <div id="blog-container">
         <ListBlog articles={articles} />
-      </div>
-      <Button
-        id="blog-contact-button"
-        onClick={() => {
-          sendGAEvent('blog', 'button_click', 'Open Ask a question modal')
-          openModal()
-        }}
-      > Ask a question </Button>
-      <div id="blog-contact-modal">
-        <div id="blog-contact-modal-header">
-          <Text>Ask a question</Text>
-          <Spacer />
-          <Text
-            id="blog-contact-modal-close"
-            style={{
-              cursor: 'pointer',
-            }}
-            onClick={closeModal}
-          >
-            &times;
-          </Text>
-        </div>
-        <div id="blog-contact-body">
-          <Text id="blog-contact-title">Subject</Text>
-          <Input type="text" id="blog-contact-title-input" color='white'/>
-          <Text id="blog-contact-description">Description</Text>
-          <Textarea
-            id="blog-contact-description-input"
-            style={{
-              resize: 'none',
-              color: 'white',
-            }}
-          />
-          <Button
-            id="blog-contact-button-submit"
-            onClick={() => {
-              sendGAEvent('blog', 'button_click', 'Submit question')
-              submit()
-            }}
-          >
-            Submit
-          </Button>
-        </div>
       </div>
       <Footer />
     </>
