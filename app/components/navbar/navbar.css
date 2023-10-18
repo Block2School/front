@@ -86,6 +86,13 @@
   display: flex;
 }
 
+.dropdownContent {
+  background-color: black;
+  position: absolute;
+  width: fit-content;
+  height: fit-content;
+}
+
 /* Media Query for mobile layout */
 @media screen and (max-width: 1000px) { 
 

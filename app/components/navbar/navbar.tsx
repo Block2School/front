@@ -16,6 +16,9 @@ export default function Navbar() {
 
   const { dictionary } = useContext(LanguageContext);
   const [showModal, setShowModal] = useState(false);
+  const [showCodeHereModal, setCodeHereModal] = useState(false)
+  const [showCommunityModal, setCommunityModal] = useState(false)
+  const [showInformationModal, setInformationModal] = useState(false)
 
 
   const {
@@ -29,6 +32,18 @@ export default function Navbar() {
 
   const refreshState = () => {
     window.sessionStorage.setItem('provider', 'undefined')
+  }
+
+  const toggleCodeHereModal = () => {
+    setCodeHereModal(!showCodeHereModal);
+  }
+
+  const toggleCommunityModal = () => {
+    setCommunityModal(!showCommunityModal);
+  }
+
+  const toggleInformationModal = () => {
+    setInformationModal(!showInformationModal);
   }
 
   const disconnect = () => {
@@ -55,6 +70,7 @@ export default function Navbar() {
     if (provider) activate(connectors[provider], handleConnection)
   }, [])
 
+
   return (
     <>
       <div id="navbar-component">
@@ -67,24 +83,48 @@ export default function Navbar() {
           </div>
           <div id="navbar-links-container">
             <div id="navbar-links-main">
-              <Link href={'/tutorials'} passHref>
-                <span className="navbar-text">{dictionary.navbar.tutorials}</span>
-              </Link>
-              <Link href={'/challenges'} passHref>
-                <span className="navbar-text">Challenges</span>
-              </Link>
-              <Link href={'/faq'} passHref>
-                <span className="navbar-text">FAQ</span>
-              </Link>
-              {/* <Link href={'/login'} passHref>
-                <span className="navbar-text">Login</span>
-              </Link> */}
-              <Link href={'/blog'} passHref>
-                <span className="navbar-text">Blog</span>
-              </Link>
-              <Link href={'/marketplace'} passHref>
-                <span className="navbar-text">Marketplace</span>
-              </Link>
+              <div className="scolldown-item">
+                <span className='navbar-text' onClick={toggleCodeHereModal}>Codehere</span>
+                { showCodeHereModal && (
+                <div className='dropdownContent'>
+                  <Link href={'/tutorials'} passHref>
+                    <span className="navbar-text">Tutorials</span>
+                  </Link>             
+                  <Link href={'/challenges'} passHref>
+                    <span className="navbar-text">Challenges</span>
+                  </Link>
+                </div>
+                )}
+              </div>
+              <div className="scolldown-item">
+                <span className='navbar-text' onClick={toggleCommunityModal}>Community</span>
+                { showCommunityModal && (
+                <div className='dropdownContent'>
+                  <Link href={'/marketplace'} passHref>
+                    <span className="navbar-text">Marketplace</span>
+                  </Link>             
+                  <Link href={'/faq'} passHref>
+                    <span className="navbar-text">Forum</span>
+                  </Link>
+                </div>
+                )}
+              </div>
+              <div className="scolldown-item">
+                <span className='navbar-text' onClick={toggleInformationModal}>Information</span>
+                { showInformationModal && (
+                <div className='dropdownContent'>
+                  <Link href={'/faq'} passHref>
+                    <span className="navbar-text">FAQ</span>
+                  </Link>             
+                  <Link href={'/terms-of-use'} passHref>
+                    <span className="navbar-text">Terms for use</span>
+                  </Link>
+                  <Link href={'/privacy-policy'} passHref>
+                    <span className="navbar-text">Privacy policy</span>
+                  </Link>
+                </div>
+                )}
+              </div>
             </div>
           </div>
           <div id="navbar-mobile-part">
