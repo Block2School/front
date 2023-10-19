@@ -110,3 +110,21 @@ color: #888;
     background-color: #ffe6c4;
     color: black;
 }
+
+.buttonBox {
+    background-color: #ffe6c4;
+    width: fit-content;
+    height: fit-content;
+    padding: 10px;
+    border-radius: 20px;
+    border: 2px solid white;
+    cursor: pointer;
+}
+
+.buttonBox:hover {
+    color: white;
+}
+
+.buttonText {
+    color: black;
+}

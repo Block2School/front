@@ -12,92 +12,75 @@ import axios from 'axios';
 import ForumPost from '../components/forum/forumPost';
 import TutorialCard from '../components/tutorials-beta/tutorialsCard';
 
-const tutorials = [
+const newTutorials = [
   {
-    name: "Learning Javascript 1",
-    language: "Javascript",
-    completed: true,
-    category: "Beginner",
-    shortDetails: "Begin your journey of learning JS!",
-    details:"In this tutorial you will discover the Javascript programming language, learn it's basic concepts and start the long but wonderful journey of web-programming. Do you think you can do it? We believe you can!",
+    "id": 1,
+    "title": "Hello World",
+    "markdownUrl": "https://raw.githubusercontent.com/Block2School/tutorials/master/en/introduction_tutorial.md",
+    "category": "JavaScript",
+    "answer": "Hello World !\n",
+    "startCode": "const helloWorld = () => {\n  //replace this by your code\n};\n\nhelloWorld();\n",
+    "shouldBeCheck": 0,
+    "enabled": 0,
+    "points": 1
   },
   {
-    name: "Learning Javascript 2",
-    language: "Javascript",
-    completed: true,
-    shortDetails: "Having fun with JS? Try these next level tricks!",
-    details:"After learning the basic and fundemantal syntax of Javascript, come try this tutorial to see it's neat tricks and understand why it is one of the most commonly used programming langugaes in the wolrd",
-    category: "Intermediate"
+    "id": 2,
+    "title": "Printing",
+    "markdownUrl": "https://raw.githubusercontent.com/Block2School/tutorials/master/en/simple_print_javascript.md",
+    "category": "JavaScript",
+    "answer": "Simple print\n",
+    "startCode": "const print = (/*argument*/) => {\n  // replace this by your code\n};\n\nprint(\"Simple print\");\n",
+    "shouldBeCheck": 0,
+    "enabled": 0,
+    "points": 5
   },
   {
-    name: "Learning Javascript 3",
-    language: "Javascript",
-    completed: false,
-    shortDetails: "Become a master of Javascript, and know all it's secrets",
-    details:"This tutorial is for those who want to call themselves experts at Javascript. This tutorial shows what you need to know to truly be able to use Javascript in a professional setting, and understand it's complex features",
-    category: "Expert"
-  },
-  {
-    name: "Learning Solidity 1",
-    language: "Solidity",
-    completed: false,
-    shortDetails: "Enter the world of web3 coding with Solidity!",
-    details:"Start your journey of web3 programming here. Here, you will learn the basic paragigms of Solidity, it's syntax and fundemental concepts. It is advised that you have a bit of programming and coding experiece before trying this tutorial as it will make thinks simpler ",
-    category: "Beginner"
-  },
-  {
-    name: "Learning Solidity 2",
-    language: "Solidity",
-    completed: false,
-    shortDetails: "Master the base concepts of Solidity",
-    details:"Let's diving into the differences between using Solidity compated to more 'traditional' programming languages as we start to discover the complexities of programming in web3. Don't be afraid though, different doesn't mean harder, we know you an do it!",
-    category: "Intermediate"
-  },
-  {
-    name: "Learning Solidity 3",
-    language: "Solidity",
-    completed: false,
-    shortDetails: "Start writing smart contracts and deep programs with Solidity",
-    details:"Start writing real world ready smart contracts and connecting to blockchains. With this tutorial you will be able to start building a considerable portfolio in web3 programming.",
-    category: "Expert"
-  },
-  {
-    name: "Learning Python 1",
-    language: "Python",
-    completed: true,
-    shortDetails: "Welcome to one of the most popular porgramming languages!",
-    details:"One of the most popular programming languages due to it's versatility. Want to do web, video-games, or data? Python can help you achieve all of those. So get started now and learn this must-know programming language",
-    category: "Beginner"
-  },
-  {
-    name: "Learning Python 2",
-    language: "Python",
-    completed: false,
-    shortDetails: "Come try these basic and must-know tricks of python!",
-    details:"One of the reasons of Python's popularity is it's inuitive and easy to use language. Come discover all the cool and advanced tricks you can do in python and use them to start solving complex problems. Start building considerable algothims and scripts that you can actually use in your daily lives!",
-    category: "Intermediate"
+    "id": 3,
+    "title": "Mapping and addresses",
+    "markdownUrl": "https://raw.githubusercontent.com/Block2School/tutorials/master/en/mapping_address.md",
+    "category": "Solidity",
+    "answer": "pragma solidity ^0.4.19;\n\ncontract BirdFactory {\n\n event NewBird(uint birdId, string name, uint dna);\n\n uint dnaDigits = 16;\n uint dnaModulus = 10 ** dnaDigits;\n\n struct Bird {\n string name;\n uint dna;\n }\n\n Bird[] public birds;\n\n mapping (uint => address) public birdToOwner;\n mapping (address => uint) ownerBirdCount;\n\n function _createBird(string _name, uint _dna) private {\n uint id = birds.push(Bird(_name, _dna)) - 1;\n NewBird(id, _name, _dna);\n }\n\n function _generateRandomDna(string _str) private view returns (uint) {\n uint rand = uint(keccak256(_str));\n return rand % dnaModulus;\n }\n\n function createRandomBird(string _name) public {\n uint randDna = _generateRandomDna(_name);\n _createBird(_name, randDna);\n }\n\n}",
+    "startCode": "pragma solidity ^0.4.19;\n\ncontract BirdFactory {\n\n event NewBird(uint birdId, string name, uint dna);\n\n uint dnaDigits = 16;\n uint dnaModulus = 10 ** dnaDigits;\n\n struct Bird {\n string name;\n uint dna;\n }\n\n Bird[] public birds;\n\n // declare mappings here\n\n function _createBird(string _name, uint _dna) private {\n uint id = birds.push(Bird(_name, _dna)) - 1;\n NewBird(id, _name, _dna);\n }\n\n function _generateRandomDna(string _str) private view returns (uint) {\n uint rand = uint(keccak256(_str));\n return rand % dnaModulus;\n }\n\n function createRandomBird(string _name) public {\n uint randDna = _generateRandomDna(_name);\n _createBird(_name, randDna);\n }\n\n}",
+    "shouldBeCheck": 1,
+    "enabled": 0,
+    "points": 5
   },
 ]
 
 const TutorialBeta = () => {
   const [isAdmin, setIsAdmin] = useState(false)
-  const [filteredTutorials, setFilteredTutorials] = useState(tutorials)
+  const [filteredTutorials, setFilteredTutorials] = useState(newTutorials)
+  const allTutorials = []
 
 
-  const languages = ['Javascript', 'Solidity', 'Python'];
-  const categories = ['Beginner', 'Intermediate', 'Expert'];
+  const languages = ['JavaScript', 'Solidity', 'Python'];
+  // const categories = ['Beginner', 'Intermediate', 'Expert'];
+
+  // useEffect(() => {
+  //   axios.get(`${serverURL}:8080/tuto/all`, {
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'Access-Control-Allow-Origin': '*'
+  //     }
+  //   }).then(res => {
+  //     setCategories(res.data.data);
+  //     console.log('categories1: ', res.data.data);
+  //     setTimeout(() => { setIsLoading(false); console.log('categories2: ', categories) }, 500);
+  //   })
+  // }, []);
 
   const filterTutorialsLanguage = (filter: any) => {
-    const Filt = tutorials.filter((tutorial) => tutorial.language == filter)
+    const Filt = newTutorials.filter((tutorial) => tutorial.category == filter)
     setFilteredTutorials(Filt)
     console.log(filteredTutorials)
   }
 
-  const filterTutorialsCategory = (filter: any) => {
-    const Filt = tutorials.filter((tutorial) => tutorial.category == filter)
-    setFilteredTutorials(Filt)
-    console.log(filteredTutorials)
-  }
+  // const filterTutorialsCategory = (filter: any) => {
+  //   const Filt = tutorials.filter((tutorial) => tutorial.category == filter)
+  //   setFilteredTutorials(Filt)
+  //   console.log(filteredTutorials)
+  // }
 
   useEffect(() => {
     const token: string | null = sessionStorage.getItem('token')
@@ -135,12 +118,12 @@ const TutorialBeta = () => {
               <li onClick={() => filterTutorialsLanguage(language)} className={styles.category_choices}>{language}</li>
             ))}
           </ul>
-          <h2 className={styles.sidebar_title}>Category</h2>
+          {/* <h2 className={styles.sidebar_title}>Category</h2>
           <ul>
             {categories.map((category) => (
               <li onClick={() => filterTutorialsCategory(category)} className={styles.category_choices}>{category}</li>
             ))}
-          </ul>
+          </ul> */}
         </div>
       <div className={styles.forum_page}>
       <div className={styles.search_posts}>
