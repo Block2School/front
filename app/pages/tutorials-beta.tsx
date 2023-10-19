@@ -51,7 +51,7 @@ const newTutorials = [
 const TutorialBeta = () => {
   const [isAdmin, setIsAdmin] = useState(false)
   const [filteredTutorials, setFilteredTutorials] = useState(newTutorials)
-  const allTutorials = []
+  const [allTutorials, setAllTutorials] = useState([])
 
 
   const languages = ['JavaScript', 'Solidity', 'Python'];
@@ -64,9 +64,9 @@ const TutorialBeta = () => {
   //       'Access-Control-Allow-Origin': '*'
   //     }
   //   }).then(res => {
-  //     setCategories(res.data.data);
+  //     setAllTutorials(res.data.data);
   //     console.log('categories1: ', res.data.data);
-  //     setTimeout(() => { setIsLoading(false); console.log('categories2: ', categories) }, 500);
+  //     // setTimeout(() => { setIsLoading(false); console.log('categories2: ', categories) }, 500);
   //   })
   // }, []);
 
