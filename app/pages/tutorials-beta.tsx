@@ -52,6 +52,7 @@ const TutorialBeta = () => {
   const [isAdmin, setIsAdmin] = useState(false)
   const [filteredTutorials, setFilteredTutorials] = useState(newTutorials)
   const [allTutorials, setAllTutorials] = useState([])
+  const [allCategories, setAllCategories] = useState([])
 
 
   const languages = ['JavaScript', 'Solidity', 'Python'];
@@ -67,6 +68,20 @@ const TutorialBeta = () => {
   //     setAllTutorials(res.data.data);
   //     console.log('categories1: ', res.data.data);
   //     // setTimeout(() => { setIsLoading(false); console.log('categories2: ', categories) }, 500);
+  //   })
+  // }, []);
+
+  // useEffect(() => {
+  //   setIsLoading(true);
+  //   axios.get(`${serverURL}:8080/tuto/category/all`, {
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'Access-Control-Allow-Origin': '*'
+  //     }
+  //   }).then(res => {
+  //     setAllCategories(res.data.data);
+  //     console.log('categories1: ', res.data.data);
+  //     setTimeout(() => { setIsLoading(false); console.log('categories2: ', categories) }, 500);
   //   })
   // }, []);
 
