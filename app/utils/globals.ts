@@ -1,4 +1,5 @@
 export const serverURL = process.env.NEXT_PUBLIC_SERVER_URL
+export const webSocketURL = process.env.NEXT_PUBLIC_WEBSOCKET_URL
 
 export const tokenPrice = process.env.NEXT_PUBLIC_TOKEN_PRICE
 
