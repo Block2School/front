@@ -1,0 +1,7 @@
+export const B2S_COLORS = {
+  NIGHT: '#161616',
+  JET: '#343434',
+  STEEL_PINK: '#C133BA',
+  CHAMPAGNE: '#FFE6C4',
+  AMARANTH_PURPLE: '#B4184C',
+};
