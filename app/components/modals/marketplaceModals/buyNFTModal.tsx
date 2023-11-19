@@ -22,6 +22,7 @@ import ErrorAlert from '../../alerts/errorAlert/errorAlert';
 import SuccessAlert from '../../alerts/successAlert/successAlert';
 import NFT_INTERFACE from '../../../config/abi/nft.json';
 import NFT_INTERFACE2 from '../../../config/abi/nft2.json';
+import NFT_INTERFACE3 from '../../../config/abi/nft3.json';
 import { sendGAEvent } from '../../../utils/utils';
 
 interface NFT {
@@ -30,6 +31,8 @@ interface NFT {
   image: string;
   price: string;
   owner: string;
+  currency: string;
+  currencyAddress: string;
 }
 
 export default function BuyNFTModal({ isOpenModal, closeModal, _nft }: { isOpenModal: boolean, closeModal: any, _nft: NFT }) {
@@ -45,18 +48,28 @@ export default function BuyNFTModal({ isOpenModal, closeModal, _nft }: { isOpenM
       const signer = library?.getSigner(account);
       console.log('buyNFT2')
       // const contract = new ethers.Contract("0x814ed598FBBcD0AA466f1a0aAEE8603Ae55b96D3", NFT_INTERFACE, signer);
-      const contract = new ethers.Contract("0xe06855c206CE89A23b480246Cbc208c5A6deAAF8", NFT_INTERFACE2, signer)
+      // const contract = new ethers.Contract("0xe06855c206CE89A23b480246Cbc208c5A6deAAF8", NFT_INTERFACE2, signer)
+      const contract = new ethers.Contract("0x8fE921C13825003F02F46EF261589a3bb7bc7B98", NFT_INTERFACE3, signer)
       console.log('buyNFT3')
-      const tx = await contract.createMarketSale(_nft.id, { value: ethers.utils.parseEther(_nft.price) });
+      let tx;
+      if (_nft.currency === "BEP20")
+        tx = await contract.createMarketSaleV2(_nft.id)
+      else
+        tx = await contract.createMarketSale(_nft.id, { value: ethers.utils.parseEther(_nft.price) });
       console.log('tx: ', tx)
       await tx.wait();
       setSuccessMessage('NFT bought successfully !');
       setIsError(false);
       onOpen();
-    } catch (err) {
+    } catch (err: any) {
+      console.log('ERROR CODE: ', err.code)
       console.log('err: ', err)
       setIsError(true);
-      setErrorMessage('Error while buying NFT !');
+      if (err.code === -32603 || err?.data?.message == "execution reverted: Sender does not have enough allowance") {
+        setErrorMessage('Please approve the contract to spend your B2ST tokens first ! To do so, click on the "Give Allowance" button next to the "Buy B2ST" one.');
+      } else {
+        setErrorMessage('Something went wrong. Could not buy NFT.');
+      }
       onOpen();
     }
   }
@@ -85,7 +98,7 @@ export default function BuyNFTModal({ isOpenModal, closeModal, _nft }: { isOpenM
               <Image src={_nft.image} alt={_nft.name} />
             </Center>
             <VStack spacing={4}>
-              <Text>Price: {_nft.price} BNB</Text>
+              <Text>Price: {_nft.price} {_nft.currency === "BNB" ? "BNB" : "B2ST"}</Text>
               <Button
                 colorScheme="teal"
                 onClick={() => {

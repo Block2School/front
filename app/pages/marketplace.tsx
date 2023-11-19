@@ -10,10 +10,12 @@ import { Box, Container, Grid, GridItem, Heading, Image, Button, Flex, Spacer } 
 import Web3 from "web3";
 import NFT_INTERFACE from '../config/abi/nft.json';
 import NFT_INTERFACE2 from '../config/abi/nft2.json';
+import NFT_INTERFACE3 from '../config/abi/nft3.json';
 import { ethers } from "ethers";
 import BuyNFTModal from "../components/modals/marketplaceModals/buyNFTModal";
 import ReactGA from 'react-ga4';
 import { sendGAEvent } from "../utils/utils";
+import AddAllowanceModal from "../components/modals/marketplaceModals/addAllowanceModal";
 
 interface NFT {
   id: string;
@@ -21,12 +23,15 @@ interface NFT {
   image: string;
   price: string;
   owner: string;
+  currency: string;
+  currencyAddress: string;
 }
 
 export default function Marketplace() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   // get a second isOpen, onOpen, onClose
   const { isOpen: isOpenBuyNFTModal, onOpen: onOpenBuyNFTModal, onClose: onCloseBuyNFTModal } = useDisclosure();
+  const { isOpen: isOpenAddAllowanceModal, onOpen: onOpenAddAllowanceModal, onClose: onCloseAddAllowanceModal } = useDisclosure();
 
   const [nftToBuyIndex, setNFTToBuyIndex] = useState<number>(0);
   const [isError, setIsError] = useState<Boolean>(false);
@@ -48,7 +53,9 @@ export default function Marketplace() {
     name: "",
     image: "",
     price: "",
-    owner: ""
+    owner: "",
+    currency: "",
+    currencyAddress: "",
   });
 
   useEffect(() => {
@@ -81,12 +88,14 @@ export default function Marketplace() {
     console.log('salut')
     console.log('library.provider: ', library?.provider)
     // let contractAddress: string = "0x814ed598FBBcD0AA466f1a0aAEE8603Ae55b96D3"
-    let contractAddress: string = "0xe06855c206CE89A23b480246Cbc208c5A6deAAF8"
+    // let contractAddress: string = "0xe06855c206CE89A23b480246Cbc208c5A6deAAF8"
+    let contractAddress: string = "0x8fE921C13825003F02F46EF261589a3bb7bc7B98"
     const _provider = new ethers.providers.Web3Provider(library?.provider);
     const signer = _provider.getSigner();
 
     // let contract = new ethers.Contract(contractAddress, NFT_INTERFACE, signer);
-    let contract = new ethers.Contract(contractAddress, NFT_INTERFACE2, signer);
+    // let contract = new ethers.Contract(contractAddress, NFT_INTERFACE2, signer);
+    let contract = new ethers.Contract(contractAddress, NFT_INTERFACE3, signer);
     let res = await contract.fetchMarketItems();
 
     let nftArrayTmp: NFT[] = [];
@@ -96,16 +105,21 @@ export default function Marketplace() {
       let _nftName = res[i].name;
       let _nftOwner = res[i].seller;
       let _nftId = res[i].tokenId;
+      let _nftCurrency = res[i].currency;
+      let _nftCurrencyAddress = res[i].currencyAddress;
       let _nft = {
         id: _nftId.toString(),
         name: _nftName,
         image: _nftURI,
         price: ethers.utils.formatEther(_nftPrice),
         owner: _nftOwner,
+        currency: _nftCurrency,
+        currencyAddress: _nftCurrencyAddress,
       }
       nftArrayTmp.push(_nft);
       // setNFTs(prevState => [...prevState, _nft]);
     }
+    console.log('nftArrayTmp: ', nftArrayTmp)
     setNFTs(nftArrayTmp);
   };
 
@@ -130,6 +144,24 @@ export default function Marketplace() {
             </Text>
           </div>
           <div style={{ float: "right", paddingRight: '2%' }}>
+            <Tooltip
+              label='Please connect to your wallet first !'
+              isDisabled={active}
+              shouldWrapChildren
+              placement="left"
+              hasArrow
+            >
+              <CustomButton
+                name="Give Allowance"
+                id="buyB2ST"
+                size="lg"
+                variant="success"
+                onClick={onOpenAddAllowanceModal}
+                disabled={!active}
+                gap={undefined} srcImg={undefined} alt={undefined} hImg={undefined} wImg={undefined} borderRadius={undefined}
+                categoryGA={"Button"} labelGA={"Giving allowance"}
+              />
+            </Tooltip>
             <Tooltip
               label='Please connect to your wallet first !'
               isDisabled={active}
@@ -168,7 +200,7 @@ export default function Marketplace() {
                           {nft.name}
                         </Heading>
                         <Text fontSize="l" fontWeight="bold" mb={2}>
-                          Price: {nft.price} BNB
+                          Price: {nft.price} {nft.currency === "BNB" ? "BNB" : "B2ST"}
                         </Text>
                         <Flex align="center">
                           <Link href={`https://testnet.bscscan.com/address/${nft.owner}`} isExternal>
@@ -212,6 +244,10 @@ export default function Marketplace() {
         closeModal={onCloseBuyNFTModal}
         // _nft={nfts[nftToBuyIndex]}
         _nft={nftToBuy}
+      />
+      <AddAllowanceModal
+        isOpenModal={isOpenAddAllowanceModal}
+        closeModal={onCloseAddAllowanceModal}
       />
     </>
   )
