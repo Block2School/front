@@ -17,24 +17,34 @@ export default function Giveway() {
   const [leaderboard, setLeaderboard] = useState<[
     {
       username: string,
-      wallet_adress?: string,
+      wallet_adress: string,
       points?: number,
       rank?: number,
       user_uuid: string
     }
-  ]>([{ username: '', points: undefined, rank: undefined, user_uuid: '' }]);
+  ]>([{ username: '', wallet_adress: '', points: undefined, rank: undefined, user_uuid: '' }]);
 
   const { account, library, chainId, activate, deactivate, active } = useWeb3React<Web3Provider>();
 
-  const GivewayAction = async () => {
+  const givewayAction = async () => {
     const _provider = new ethers.providers.Web3Provider(library?.provider);
     const signer = await _provider.getSigner();
     const _contract = new ethers.Contract('0x118d967aB149de6aE0E461f74Da40aD1322fFb8d', VAULT_INTERFACE2, signer)
+    let amount: string[] = [];
+    let first_amount = 10;
+    let adresses: Array<string> = [];
+    leaderboard?.map(value => {
+      if (value.wallet_adress == '')
+        return;
+      amount.push(ethers.utils.parseEther(first_amount.toString()).toString())
+      adresses.push(value.wallet_adress);
+      first_amount -= 1
+    })
     try {
-      let res = await _contract.monthlyGiveway({})
-
+      const tx = await _contract.monthlyGiveaway(amount, adresses)
+      await tx.wait();
     } catch (error) {
-
+      console.log('error giveway: ', error)
     }
   }
 
@@ -99,6 +109,9 @@ export default function Giveway() {
           </tbody>
         </Table>
       </Box>
+      <Button onClick={givewayAction}>
+          Giveway
+      </Button>
     </>
   );
 }
