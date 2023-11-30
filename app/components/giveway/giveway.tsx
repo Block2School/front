@@ -13,6 +13,9 @@ import VAULT_INTERFACE2 from '../../config/abi/vault2.json';
 
 export default function Giveway() {
 
+  const [successMessage, setSuccessMessage] = React.useState('');
+  const [isError, setIsError] = React.useState(false);
+  const [errorMessage, setErrorMessage] = React.useState('');
   const { dictionary } = useContext(LanguageContext);
   const [leaderboard, setLeaderboard] = useState<[
     {
@@ -43,8 +46,12 @@ export default function Giveway() {
     try {
       const tx = await _contract.monthlyGiveaway(amount, adresses)
       await tx.wait();
+      setSuccessMessage("Giveway is correctly executed");
+      setIsError(false);
     } catch (error) {
+      setIsError(false)
       console.log('error giveway: ', error)
+      setErrorMessage('Error while executing the giveway');
     }
   }
 
