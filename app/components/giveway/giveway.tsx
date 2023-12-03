@@ -116,9 +116,14 @@ export default function Giveway() {
           </tbody>
         </Table>
       </Box>
-      <Button onClick={givewayAction}>
-          Giveway
-      </Button>
+      <Box 
+        marginTop="50px"
+        marginRight= "70px"
+      >
+        <Button onClick={givewayAction}>
+            Giveway
+        </Button>
+      </Box>
     </>
   );
 }
