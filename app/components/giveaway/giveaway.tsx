@@ -11,7 +11,7 @@ import { Web3Provider } from "@ethersproject/providers";
 import { useWeb3React } from "@web3-react/core";
 import VAULT_INTERFACE2 from '../../config/abi/vault2.json';
 
-export default function Giveway() {
+export default function Giveaway() {
 
   const [successMessage, setSuccessMessage] = React.useState('');
   const [isError, setIsError] = React.useState(false);
@@ -29,7 +29,7 @@ export default function Giveway() {
 
   const { account, library, chainId, activate, deactivate, active } = useWeb3React<Web3Provider>();
 
-  const givewayAction = async () => {
+  const giveawayAction = async () => {
     const _provider = new ethers.providers.Web3Provider(library?.provider);
     const signer = await _provider.getSigner();
     const _contract = new ethers.Contract('0x118d967aB149de6aE0E461f74Da40aD1322fFb8d', VAULT_INTERFACE2, signer)
@@ -46,12 +46,12 @@ export default function Giveway() {
     try {
       const tx = await _contract.monthlyGiveaway(amount, adresses)
       await tx.wait();
-      setSuccessMessage("Giveway is correctly executed");
+      setSuccessMessage("Giveaway is correctly executed");
       setIsError(false);
     } catch (error) {
       setIsError(false)
-      console.log('error giveway: ', error)
-      setErrorMessage('Error while executing the giveway');
+      console.log('error giveaway: ', error)
+      setErrorMessage('Error while executing the giveaway');
     }
   }
 
@@ -120,8 +120,8 @@ export default function Giveway() {
         marginTop="50px"
         marginRight= "70px"
       >
-        <Button onClick={givewayAction}>
-            Giveway
+        <Button onClick={giveawayAction}>
+            Giveaway
         </Button>
       </Box>
     </>

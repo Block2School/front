@@ -31,8 +31,8 @@ export default function Sidebar() {
           </Link>
         </div>
         <div className='sidebar-item'>
-          <Link href={'/back-office/giveway'} passHref>
-                  <span className="sidebar-item-title">Giveway</span>
+          <Link href={'/back-office/giveaway'} passHref>
+                  <span className="sidebar-item-title">Giveaway</span>
           </Link>
         </div>
     </div>
