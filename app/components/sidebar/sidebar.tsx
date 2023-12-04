@@ -30,6 +30,11 @@ export default function Sidebar() {
                   <span className="sidebar-item-title">Blog</span>
           </Link>
         </div>
+        <div className='sidebar-item'>
+          <Link href={'/back-office/giveaway'} passHref>
+                  <span className="sidebar-item-title">Giveaway</span>
+          </Link>
+        </div>
     </div>
   )
 }
