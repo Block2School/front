@@ -32,12 +32,52 @@ export default function Challenges() {
 
   const { dictionary } = useContext(LanguageContext);
 
+  const roomID = getRandomInt(100000, 999999);
+  const [uuid, setUuid] = useState("");
+
+  async function fetchProfile() {
+    let res = await axios.get(`${serverURL}:8080/user/profile`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+        },
+      })
+      if (res.status === 200) {
+        setUuid(res.data.uuid)
+      }
+  }
+
+  function createRoom() {
+    if (uuid != "") {
+      axios.post(`${serverURL}:8080/challenges/createRoom/` + roomID + `/` + uuid, {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+          },
+        }).then((res) => {
+          if (res.data == true) {
+            console.log("Room created");
+          } else {
+            console.log("Error creating room");
+          }
+        });
+    }
+  }
+
   const checkConnection = () => {
     if (sessionStorage.getItem('token')) {
+      createRoom();
       return true;
     } else {
       return false;
     }
+  }
+
+  function getRandomInt(min: number, max: number) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
   useEffect(() => {
@@ -46,6 +86,7 @@ export default function Challenges() {
     } else {
       setIsConnected(false);
     }
+    fetchProfile()
   }, [])
 
   useEffect(() => {
@@ -167,10 +208,7 @@ export default function Challenges() {
             placement="top"
             hasArrow
           >
-            <Link
-              href="/challenge"
-              passHref
-            >
+            <Link href="/challengesTemp/[roomID]/[uuid]" as={`/challengesTemp/${roomID}/${uuid}`}>
               <CustomButtonRef
                 name={dictionary.challenges_page.leaderboard_start_challenge_button}
                 id="upload"
