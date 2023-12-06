@@ -34,7 +34,6 @@ export default function ChallengeRoom() {
             console.log("ZEUBI")
         }
     })
-    axios.
   }, [])
 
   return (
