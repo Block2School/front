@@ -51,6 +51,7 @@
     "leaderboard_points": "Points",
     "leaderboard_your_rank": "Votre rang:",
     "leaderboard_start_challenge_button": "Commencer un challenge",
+    "leaderboard_start_challenge_button_friends": "Commencer un challenge avec des amis !",
     "challenges_tooltip": "Merci de vous connecter avant de commencer un challenge.",
     "user_unranked": "Vous n'êtes pas classé, complétez au moins un challenge pour être classé."
   },

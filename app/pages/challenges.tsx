@@ -208,9 +208,40 @@ export default function Challenges() {
             placement="top"
             hasArrow
           >
-            <Link href="/challengesTemp/[roomID]/[uuid]" as={`/challengesTemp/${roomID}/${uuid}`}>
+            <Link href="/challenge"
+              passHref
+            >
               <CustomButtonRef
                 name={dictionary.challenges_page.leaderboard_start_challenge_button}
+                id="upload"
+                size={"lg"}
+                variant={"success"}
+                borderRadius={"2%"}
+                categoryGA={"Start Challenge"}
+                labelGA={"Start Challenge Button"}
+                key={"Start Challenge Button"}
+                onClick={() => { checkConnection() }}
+                disabled={!isConnected}
+                gap={undefined}
+                srcImg={undefined}
+                alt={undefined}
+                hImg={undefined}
+                wImg={undefined}
+              />
+            </Link>
+          </Tooltip>
+        </div>
+        <div style={{ textAlign: "center", marginTop: "2%" }}>
+          <Tooltip
+            label={dictionary.challenges_page.challenges_tooltip}
+            isDisabled={isConnected}
+            shouldWrapChildren
+            placement="top"
+            hasArrow
+          >
+            <Link href="/challengesTemp/[roomID]/[uuid]" as={`/challengesTemp/${roomID}/${uuid}`}>
+              <CustomButtonRef
+                name={dictionary.challenges_page.leaderboard_start_challenge_button_friends}
                 id="upload"
                 size={"lg"}
                 variant={"success"}

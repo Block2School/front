@@ -31,7 +31,6 @@ export default function ChallengesTemp() {
     console.log('rawLink: ', rawLink);
     const lastPos = rawLink?.lastIndexOf('/');
     let link = rawLink?.substring(0, lastPos);
-    
     console.log('link: ', link);
     return link;
   }
