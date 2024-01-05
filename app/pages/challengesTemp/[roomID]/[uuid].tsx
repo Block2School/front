@@ -6,6 +6,7 @@ import { serverURL, webSocketURL } from "../../../utils/globals";
 import { Button } from "react-bootstrap";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { useWebSocket } from "../../../context/WebSocketContext";
 
 export default function ChallengesTemp() {
   const router = useRouter();
@@ -24,13 +25,14 @@ export default function ChallengesTemp() {
   let check : boolean = false;
   const [roomJoined, setRoomJoined] = useState(false);
   const [player, setPlayer] = useState<{username: string, uuid:string, points: string}>({username:"", uuid:"", points:""})
-  
+  const { testWs, setTestWs } = useWebSocket();
   
   function getRoomLink () {
     let rawLink = (window != undefined) ? window?.location?.href : '';
     console.log('rawLink: ', rawLink);
     const lastPos = rawLink?.lastIndexOf('/');
     let link = rawLink?.substring(0, lastPos);
+    
     console.log('link: ', link);
     return link;
   }
@@ -103,8 +105,9 @@ export default function ChallengesTemp() {
 
   async function joinRoom() {
 
-    var socket = new WebSocket(`ws://${webSocketURL}:8080/joinRoom/` + roomID + `/` + uuid)
-    setWs(socket);
+    var socket = new WebSocket(`ws://` + webSocketURL + `:8080/joinRoom/` + roomID + `/` + uuid)
+    // setWs(socket);
+    setTestWs(socket)
 
     if (socket) {
       socket.onopen = () => {
@@ -206,17 +209,13 @@ export default function ChallengesTemp() {
     fetchRoom()
   }
 
-  function inviteFriends() {
-    // TO BE DETERMINED
-  }
-
   async function quitLobby() {
     fetchRoom();
-    if (ws) {
+    if (testWs) {
       console.log("ZEUBI")
-      console.log(ws.readyState);
+      console.log(testWs.readyState);
       console.log("ZEUBI2")
-      if (room.master == uuid && ws.readyState === WebSocket.OPEN) {
+      if (room.master == uuid && testWs.readyState === WebSocket.OPEN) {
           console.log("MASTERRRRRR")
           await destroyLobby()
           return
@@ -228,8 +227,8 @@ export default function ChallengesTemp() {
 
   async function leaveLobby() {
     await leaveRoom();
-    if (ws && ws.readyState === WebSocket.OPEN) {
-      ws.send("leaveRoom");
+    if (testWs && testWs.readyState === WebSocket.OPEN) {
+      testWs.send("leaveRoom");
     }
     router.push("/challenges")
   }
@@ -239,10 +238,10 @@ export default function ChallengesTemp() {
     await deleteRoom();
     console.log("DESTROY")
     console.log(room)
-    if (ws && ws.readyState === WebSocket.OPEN) {
-      ws.send("leaveRoom")
-      ws.send("deleteRoom")
-      ws.close();
+    if (testWs && testWs.readyState === WebSocket.OPEN) {
+      testWs.send("leaveRoom")
+      testWs.send("deleteRoom")
+      testWs.close();
     }
   }
 
