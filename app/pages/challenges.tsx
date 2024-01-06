@@ -239,7 +239,7 @@ export default function Challenges() {
             placement="top"
             hasArrow
           >
-            <Link href="/challengesTemp/[roomID]/[uuid]" as={`/challengesTemp/${roomID}/${uuid}`}>
+            <Link href="/challengesTemp/[roomID]/[uuid]" as={`/challengesTemp/${roomID}/${uuid}`} passHref>
               <CustomButtonRef
                 name={dictionary.challenges_page.leaderboard_start_challenge_button_friends}
                 id="upload"

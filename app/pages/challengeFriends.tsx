@@ -1,5 +1,6 @@
 import axios from "axios";
 import react, { useEffect, useState, useContext, useRef } from "react";
+import { webSocketURL } from "../utils/globals";
 import Navbar from "../components/navbar/navbar";
 import CustomButton from "../components/button/button";
 import { serverURL } from "../utils/globals";
@@ -19,6 +20,7 @@ import { Button, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, 
 
 import { useWebSocket } from "../context/WebSocketContext";
 import { json } from "stream/consumers";
+import { useRouter } from "next/router";
 
 export interface ModalProps {
   showModal: boolean;
@@ -72,7 +74,7 @@ export const CustomModal = (props: ModalProps) => {
   );
 };
 
-export default function Challenge() {
+export default function ChallengeFriends() {
   const customHTMLRef = useRef(null);
   const { dictionary } = useContext(LanguageContext);
   const [isLoading, setIsLoading] = useState(true);
@@ -90,7 +92,6 @@ export default function Challenge() {
   const [modalMessage, setModalMessage] = useState('');
   const [modalTitle, setModalTitle] = useState('');
   const [playerUUID, setPlayer] = useState('');
-  const { testWs, setTestWs} = useWebSocket();
 
   const [testSuccessful, setTestSuccessful] = useState<Array<{
     id: number,
@@ -154,11 +155,15 @@ export default function Challenge() {
       setEditorValue(challenge.start_code);
       setDefaultValue(challenge.start_code);
       setIsLoading(false);
-
+      fetchProfile();
       axios.get(challenge.markdown_url).then((res) => {
         res.status === 200 ? setMarkdown(res.data) : setMarkdown('Error while loading markdown file');
       })
       setMarkdown(challenge.markdown_url);
+      let socket = new WebSocket(`ws://` + webSocketURL + `:8080/joinRoom/` + _roomId + `/` + playerUUID)
+
+      console.log(socket)
+
     })
   }, [])
 
