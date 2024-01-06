@@ -49,6 +49,16 @@ export default function ChallengesTemp() {
   const [modalMessage, setModalMessage] = useState('');
   const [modalTitle, setModalTitle] = useState('');
 
+  const [roomResults, setRoomResults] = useState<Array<{
+    user_id: string,
+    username: string,
+    total_tests: number,
+    passed_tests: number,
+    code: string,
+    chars: number,
+    time_spent: number,
+  }>>([]);
+
   const [testSuccessful, setTestSuccessful] = useState<Array<{
     id: number,
     successful: boolean
@@ -348,6 +358,12 @@ export default function ChallengesTemp() {
         console.log("ending game");
         // TODO: end game
         break;
+      case "user_submited":
+        console.log("user submitted");
+        console.log("user_submited: ", data.message);
+
+        setRoomResults(data.message);
+        break;
       default:
         console.log("unknown message");
         break;
@@ -501,44 +517,6 @@ export default function ChallengesTemp() {
           setTestSuccessful(_testSuccessful);
         }
 
-        //
-        //
-        //
-        // Code Here for sending code
-        let successTestNbr = 0;
-        for (let idx: number = 0; idx < testSuccessful.length; idx++) {
-          if (testSuccessful[idx].successful === true){
-            successTestNbr += 1;
-          }
-        };
-
-        fetchProfile();
-
-        const infos = {
-          nbr_success_test : successTestNbr,
-          nbr_tests : testSuccessful.length,
-          code : data.code,
-          nbr_char : data.code.length,
-          language : data.language,
-          userID : player.uuid,
-        }
-        setSocketInfo(infos);
-
-        let socketinfo = JSON.stringify(infos);
-        if (testWs) {
-          console.log("testWs dans Challenge.tsx")
-          console.log(testWs);
-          if (testWs.readyState === WebSocket.OPEN) {
-            testWs?.send(socketinfo);
-            console.log("socketinfo envoyé")
-          }
-        }
-
-        //
-        //
-        //
-        //
-
         setTimeout(() => {
           setShowModal(false);
         }, 3000);
@@ -594,6 +572,34 @@ export default function ChallengesTemp() {
     //   setIsUploading(false);
     // }, 3000)
     console.log('testSuccessful2: ', testSuccessful)
+  }
+
+  /////////////////////////////////////////////////////////////
+
+  //////////////////// SOCKET SUBMIT //////////////////////
+  const socket_submit = () => {
+
+    const data = {
+      code: editorValue,
+      language: formatLanguageToServerLanguage(challenge?.language || '')
+    }
+
+    //jeklfz
+    axios.post(`${serverURL}:8080/challenges/multi/user_submit/${roomID}`,
+      data,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+        }
+      }).then(res => {
+        console.log('res.data: ', res.data);
+        setRoomState('finished');
+      }).catch(err => {
+        console.log('err: ', err);
+        setIsUploading(false);
+      })
   }
 
   /////////////////////////////////////////////////////////////
@@ -693,7 +699,7 @@ export default function ChallengesTemp() {
               </div>
               <UploadEditorv2
                 isUploading={isUploading}
-                submitChallenge={uploadCode}
+                submitChallenge={socket_submit}
                 executeTest={executeTest}
                 inputs={challenge?.inputs || []}
                 outputs={challenge?.answers || []}
@@ -713,9 +719,34 @@ export default function ChallengesTemp() {
             flexDirection: "column", justifyContent: "center", alignItems: "center",
             height: "calc(100vh - 95px)", width: "100%"
           }}>
-            <Button onClick={onCopy}>Copier le lien 3</Button>
+            <div id="result"></div>
+            <div id="users" style={{ height: "50%", width: "70%" }}>
+              <SimpleGrid columns={1} gap={6} height={"100%"}>
+                {/* <Box bg='tomato'> {roomResults.at(0)?.username + "\n" + "time spent: " + roomResults.at(0)?.time_spent + "\n"} {roomResults.at(0)?.passed_tests + "\n"} </Box>
+                <Box bg='tomato'> {roomResults.at(1)?.username + "\n"} {roomResults.at(1)?.passed_tests + "\n"} </Box>
+                <Box bg='tomato'> {roomResults.at(2)?.username + "\n"} {roomResults.at(2)?.passed_tests + "\n"} </Box>
+                <Box bg='tomato'> {roomResults.at(3)?.username + "\n"} {roomResults.at(3)?.passed_tests + "\n"} </Box> */}
+                {
+                  roomResults.map((item, index) => {
+                    return (
+                      <Box bg='tomato' key={index}>
+                        {item.username + "\n"}
+                        {"time spent: " + item.time_spent + "\n"}
+                        {"score: " + item.passed_tests + "/" + item.total_tests + "\n"}
+                        {"code length: " + item.chars + "\n"}
+                        {/* display first 20 characters */}
+                        {"code: " + item.code.substring(0, 20) + "..." + "\n"}
+                      </Box>
+                    );
+                  })
+                }
+              </SimpleGrid>
+            </div>
+            <div id="options" style={{ display: "flex", justifyContent: "space-evenly", alignItems: "center", width: "50%", height: "150px" }}>
+              <Button onClick={() => quitLobby()}>Quitter</Button>
+            </div>
           </div>
         </div>
       </>
-    )
+    );
 }
