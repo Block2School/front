@@ -32,6 +32,10 @@ export interface ModalProps {
 export default function ChallengesTemp() {
   const router = useRouter();
 
+  // if (router.query?.roomID == undefined || router.query?.uuid == undefined) {
+  //   router.push("/challenges", undefined, { shallow: true });
+  // }
+
   const customHTMLRef = useRef(null);
   const { dictionary } = useContext(LanguageContext);
   const [isLoading, setIsLoading] = useState(true);
@@ -65,7 +69,8 @@ export default function ChallengesTemp() {
   }>>([]);
 
   const { roomID, uuid } = router.query;
-  const [time, setTime] = useState({ minutes: 5, seconds: 0 });
+  const [time, setTime] = useState({ minutes: 2, seconds: 0 });
+  const [playingTimer, setPlayingTimer] = useState({ minutes: 1, seconds: 0 });
   const [ws, setWs] = useState<WebSocket | null>(null);
   let check: boolean = false;
   const [roomJoined, setRoomJoined] = useState(false);
@@ -109,19 +114,41 @@ export default function ChallengesTemp() {
   });
 
   const [socketInfo, setSocketInfo] = useState<{
-    nbr_success_test : number,
-    nbr_tests : number,
-    code : string,
-    nbr_char : number,
-    language : string,
-    userID : string,
+    nbr_success_test: number,
+    nbr_tests: number,
+    code: string,
+    nbr_char: number,
+    language: string,
+    userID: string,
   }>();
 
   const [loadChallengeAfterTimer, setLoadChallengeAfterTimer] = useState(false);
+  const [startLastTimer, setStartLastTimer] = useState(false);
 
   useEffect(() => {
     console.log('ROOOOOOOOOm: ', room);
   }, [room])
+
+  useEffect(() => {
+    console.log('LA GROSSE DARONE A DUDOT: ws: ', ws);
+
+    const _handleReload = async (url: string) => {
+      if (url === '/challenges') return;
+      console.log('[_handleReload]: room: ', room);
+      console.log('[_handleReload]: uuid: ', uuid);
+      console.log('[_handleReload]: roomId: ', roomID);
+      console.log('handleReload: ws: ', ws);
+      await quitLobby();
+      // router.push("/challenges");
+    }
+
+    router.events.on('routeChangeStart', _handleReload);
+
+    return () => {
+      console.log('unmonting components ...\n  return: ws: ', ws);
+      router.events.off('routeChangeStart', _handleReload);
+    }
+  }, [router])
 
   function getRoomLink() {
     let rawLink = (window != undefined) ? window?.location?.href : '';
@@ -240,12 +267,19 @@ export default function ChallengesTemp() {
   useEffect(() => {
     console.log('roomJoined: ', roomJoined);
     // compare room previous state and current state
-    if (roomJoined == false) {
+    if (roomJoined == false && roomID && uuid) {
+      console.log('HJKLBHKFHJKLHJKFHJKHJKKHJHKJHGJKHJKG')
       joinRoom();
       setRoomJoined(true);
       fetchRoom();
     }
   }, [room])
+
+  useEffect(() => {
+    console.log(`roomID: ${roomID}, uuid: ${uuid}`);
+    if (!roomID || !uuid)
+      router.push("/challenges");
+  }, [roomID, uuid])
 
   function fetchProfile() {
     axios
@@ -264,6 +298,10 @@ export default function ChallengesTemp() {
   }
 
   async function fetchRoom() {
+    if (!roomID) {
+      ws?.close();
+      return;
+    }
     let res = await axios.get(`${serverURL}:8080/challenges/getRoomById/` + roomID, {
       headers: {
         "Content-Type": "application/json",
@@ -364,6 +402,11 @@ export default function ChallengesTemp() {
 
         setRoomResults(data.message);
         break;
+      case "room_deleted":
+        console.log("room deleted");
+        ws?.close();
+        router.push("/challenges");
+        break;
       default:
         console.log("unknown message");
         break;
@@ -404,7 +447,7 @@ export default function ChallengesTemp() {
   }
 
   async function quitLobby() {
-    fetchRoom();
+    await fetchRoom();
     // if (testWs) {
     //   console.log("ZEUBI")
     //   console.log(testWs.readyState);
@@ -416,8 +459,9 @@ export default function ChallengesTemp() {
     //   }
     //   await leaveLobby();
     // }
+    console.log('LA GROSSE DARONE A DUDOT: WS: ', ws);
     if (ws) {
-      console.log("ZEUBI")
+      console.log("ZEUBI DINEMOUK TA GRAND MERE")
       console.log(ws.readyState);
       console.log("ZEUBI2")
       if (room.master == uuid && ws.readyState === WebSocket.OPEN) {
@@ -425,6 +469,7 @@ export default function ChallengesTemp() {
         await destroyLobby()
         return
       }
+      console.log("ZEUBI DINEMOUK TA GRAND MERE 2")
       await leaveLobby();
     }
     return;
@@ -441,6 +486,17 @@ export default function ChallengesTemp() {
     router.push("/challenges")
   }
 
+  async function leaveLobbyV2() {
+    console.log('leaveLobbyV2: ', roomID, uuid);
+    await leaveRoom();
+    // if (testWs && testWs.readyState === WebSocket.OPEN) {
+    //   testWs.send("leaveRoom");
+    // }
+    if (ws && ws.readyState === WebSocket.OPEN) {
+      ws.send("leaveRoom");
+    }
+  }
+
   async function destroyLobby() {
     await leaveLobby();
     await deleteRoom();
@@ -455,6 +511,26 @@ export default function ChallengesTemp() {
       ws.send("leaveRoom")
       ws.send("deleteRoom")
       ws.close();
+    }
+  }
+
+  async function destroyLobbyV2() {
+    console.log('destroyLobbyV2: ', roomID, uuid);
+    await leaveLobbyV2();
+    await deleteRoom();
+    console.log("DESTROY")
+    console.log(room)
+    // if (testWs && testWs.readyState === WebSocket.OPEN) {
+    //   testWs.send("leaveRoom")
+    //   testWs.send("deleteRoom")
+    //   testWs.close();
+    // }
+    if (ws && ws.readyState === WebSocket.OPEN) {
+      ws.send("leaveRoom")
+      ws.send("deleteRoom")
+      console.log('closing ws');
+      ws.close();
+      console.log('ws closed: ', ws.readyState);
     }
   }
 
@@ -604,7 +680,93 @@ export default function ChallengesTemp() {
 
   /////////////////////////////////////////////////////////////
 
+  const handleDisconnection = () => {
+    // wait 60 seconds before disconnecting
+    console.log('HANDLE DISCONNECTION !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+    setTimeout(async () => {
+      console.log('TIMEOUT EXECUTED AFTER 60 SECONDS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+      if (ws) {
+        console.log('ws.readyState: ', ws.readyState);
+        if (ws.readyState === WebSocket.OPEN && room.master === uuid) {
+          console.log('room master disconnected');
+          // await destroyLobby();
+          await destroyLobbyV2();
+          return;
+        }
+        await leaveLobbyV2();
+      }
+    }, 60000);
+  }
 
+  const [shouldSubmit, setShouldSubmit] = useState(false);
+
+  useEffect(() => {
+    console.log('ws: ', ws);
+    ws?.addEventListener('close', () => {
+      console.log('niqueta mere 2')
+      ws.close();
+    });
+    ws?.addEventListener('error', () => {
+      console.log('niqueta mere 1')
+      ws.close();
+    });
+    if (ws?.readyState == WebSocket.CLOSED) {
+      console.log('ws.readyState CLOSED ?: ', ws.readyState);
+      ws.close();
+    } else if (ws?.readyState == WebSocket.CLOSING) {
+      console.log('ws.readyState CLOSING ?: ', ws.readyState);
+    } else if (ws?.readyState == 3) {
+      console.log('niqueta mere 3')
+    }
+  }, [ws])
+
+  useEffect(() => {
+    if (shouldSubmit === false) return;
+    console.log('shouldSubmit: ', shouldSubmit);
+    socket_submit();
+    setRoomState('finished');
+  }, [shouldSubmit]);
+
+  useEffect(() => {
+    if (roomState === 'playing') {
+      console.log('playingTimer: ', playingTimer);
+      handlePlayingTimer();
+      return;
+    }
+  }, [roomState]);
+
+  useEffect(() => {
+    console.log(`startLastTimer: ${startLastTimer}, roomState: ${roomState}`);
+    if (startLastTimer === false || roomState !== 'finished') return;
+    console.log('last timer started !')
+    handleDisconnection();
+  }, [startLastTimer, roomState]);
+
+  const handlePlayingTimer = () => {
+    console.log('handlePlayingTimer: ', playingTimer);
+    const _timer = setInterval(() => {
+      console.log('setInterval:')
+      setPlayingTimer(prevTime => {
+        if (prevTime.minutes === 0 && prevTime.seconds === 0) {
+
+          setShouldSubmit(true);
+          setStartLastTimer(true);
+
+          clearInterval(_timer);
+          console.log('TIMER ARRIVÉ À 0 !')
+          return prevTime;
+        }
+        console.log('prevTime: ', prevTime);
+        if (prevTime.seconds === 0) {
+          return { minutes: prevTime.minutes - 1, seconds: 59 };
+        } else {
+          return { minutes: prevTime.minutes, seconds: prevTime.seconds - 1 };
+        }
+      });
+    }, 1000);
+
+    return () => clearInterval(_timer);
+  }
 
   if (roomState === 'waiting')
     return (
@@ -635,80 +797,81 @@ export default function ChallengesTemp() {
       </>
     );
   else if (roomState === 'playing')
-    return(
+    return (
       (isLoading === true) ?
-      <>
-        <LoadingScreen showError={false} />
-      </> :
-      <>
-        <div id="screen">
+        <>
+          <LoadingScreen showError={false} />
+        </> :
+        <>
+          <div id="screen">
 
-          <Navbar />
-          <div id="content">
-            <div id="subject">
-              <div id="tutorial-content">
-                <div id="zone-text">
-                  <CustomModal
-                    showModal={showModal}
-                    setShowModal={setShowModal}
-                    modalTitle={modalTitle}
-                    modalMessage={modalMessage}
+            <Navbar />
+            <div id="content">
+              <div id="subject">
+                <div id="tutorial-content">
+                  <div id="zone-text">
+                    <CustomModal
+                      showModal={showModal}
+                      setShowModal={setShowModal}
+                      modalTitle={modalTitle}
+                      modalMessage={modalMessage}
+                    />
+                    <MarkdownRenderer source={markdown} />
+                  </div>
+                </div>
+                <div
+                  style={{
+                    // make it so that the console is always at the bottom of the page
+                    position: "absolute",
+                    bottom: 0,
+                    width: "50%",
+                    maxHeight: "60%",
+                    overflowY: "scroll",
+                  }}
+                >
+                  <TutorialConsole
+                    error={resError}
+                    output={resOutput}
+                    expectedOutput={expectedOutput}
                   />
-                  <MarkdownRenderer source={markdown} />
                 </div>
               </div>
-              <div
-                style={{
-                  // make it so that the console is always at the bottom of the page
-                  position: "absolute",
-                  bottom: 0,
-                  width: "50%",
-                  maxHeight: "60%",
-                  overflowY: "scroll",
-                }}
-              >
-                <TutorialConsole
-                  error={resError}
-                  output={resOutput}
-                  expectedOutput={expectedOutput}
+              <div id="editor">
+                <OptionEditorv2
+                  changeLang={changeLang}
+                  changeTheme={changeTheme}
+                  switchText={switchText}
+                  selectDefaultText={dictionary.challenge_page.challenge_select_default_option_editor}
+                  language={lang}
+                  wasAlreadyCompleted={challenge?.already_completed || false}
+                  playingTimer={playingTimer}
+                />
+                <div id="editor_edit">
+                  <MonacoEditorv2
+                    theme={theme}
+                    lang={lang}
+                    defaultValue={defaultValue}
+                    options={{
+                      wordWrap: true
+                    }}
+                    onChange={handleEditorChange}
+                    onMount={editorDidMount}
+                    height="90%"
+                    width="100%"
+                  />
+                </div>
+                <UploadEditorv2
+                  isUploading={isUploading}
+                  submitChallenge={socket_submit}
+                  executeTest={executeTest}
+                  inputs={challenge?.inputs || []}
+                  outputs={challenge?.answers || []}
+                  testSuccessful={testSuccessful}
                 />
               </div>
-            </div>
-            <div id="editor">
-              <OptionEditorv2
-                changeLang={changeLang}
-                changeTheme={changeTheme}
-                switchText={switchText}
-                selectDefaultText={dictionary.challenge_page.challenge_select_default_option_editor}
-                language={lang}
-                wasAlreadyCompleted={challenge?.already_completed || false}
-              />
-              <div id="editor_edit">
-                <MonacoEditorv2
-                  theme={theme}
-                  lang={lang}
-                  defaultValue={defaultValue}
-                  options={{
-                    wordWrap: true
-                  }}
-                  onChange={handleEditorChange}
-                  onMount={editorDidMount}
-                  height="90%"
-                  width="100%"
-                />
-              </div>
-              <UploadEditorv2
-                isUploading={isUploading}
-                submitChallenge={socket_submit}
-                executeTest={executeTest}
-                inputs={challenge?.inputs || []}
-                outputs={challenge?.answers || []}
-                testSuccessful={testSuccessful}
-              />
             </div>
           </div>
-        </div>
-      </>
+        </>
     )
   else
     return (
@@ -730,12 +893,27 @@ export default function ChallengesTemp() {
                   roomResults.map((item, index) => {
                     return (
                       <Box bg='tomato' key={index}>
-                        {item.username + "\n"}
-                        {"time spent: " + item.time_spent + "\n"}
-                        {"score: " + item.passed_tests + "/" + item.total_tests + "\n"}
-                        {"code length: " + item.chars + "\n"}
-                        {/* display first 20 characters */}
-                        {"code: " + item.code.substring(0, 20) + "..." + "\n"}
+                        {/* display the username on the top left */}
+                        {/* display the number of tests passed / total number of test */}
+                        {/* display the time spent */}
+                        {/* display the number of characters */}
+                        {/* display a button on the right that displays the code in an alert */}
+                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "2%" }}>
+                          <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "flex-start" }}>
+                            <Text
+                              fontSize="l"
+                              fontWeight="bold"
+                            >
+                              {item.username}
+                            </Text>
+                            <Text>Test passed: {item.passed_tests} / {item.total_tests}</Text>
+                            <Text>Time spent: {item.time_spent} seconds</Text>
+                            <Text>Number of characters used: {item.chars}</Text>
+                          </div>
+                          <div>
+                            <Button onClick={() => alert(item.code)}>Code</Button>
+                          </div>
+                        </div>
                       </Box>
                     );
                   })
