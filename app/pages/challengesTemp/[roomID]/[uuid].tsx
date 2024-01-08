@@ -31,11 +31,6 @@ export interface ModalProps {
 
 export default function ChallengesTemp() {
   const router = useRouter();
-
-  // if (router.query?.roomID == undefined || router.query?.uuid == undefined) {
-  //   router.push("/challenges", undefined, { shallow: true });
-  // }
-
   const customHTMLRef = useRef(null);
   const { dictionary } = useContext(LanguageContext);
   const [isLoading, setIsLoading] = useState(true);
@@ -77,7 +72,6 @@ export default function ChallengesTemp() {
   const [player, setPlayer] = useState<{ username: string, uuid: string, points: string }>({ username: "", uuid: "", points: "" })
   const { testWs, setTestWs } = useWebSocket();
   const [lastMessage, setLastMessage] = useState();
-
   const [roomState, setRoomState] = useState<'waiting' | 'playing' | 'finished'>('waiting');
 
   const [challenge, setChallenge] = useState<{
@@ -126,20 +120,9 @@ export default function ChallengesTemp() {
   const [startLastTimer, setStartLastTimer] = useState(false);
 
   useEffect(() => {
-    console.log('ROOOOOOOOOm: ', room);
-  }, [room])
-
-  useEffect(() => {
-    console.log('LA GROSSE DARONE A DUDOT: ws: ', ws);
-
     const _handleReload = async (url: string) => {
       if (url === '/challenges') return;
-      console.log('[_handleReload]: room: ', room);
-      console.log('[_handleReload]: uuid: ', uuid);
-      console.log('[_handleReload]: roomId: ', roomID);
-      console.log('handleReload: ws: ', ws);
       await quitLobby();
-      // router.push("/challenges");
     }
 
     router.events.on('routeChangeStart', _handleReload);
@@ -152,11 +135,8 @@ export default function ChallengesTemp() {
 
   function getRoomLink() {
     let rawLink = (window != undefined) ? window?.location?.href : '';
-    console.log('rawLink: ', rawLink);
     const lastPos = rawLink?.lastIndexOf('/');
     let link = rawLink?.substring(0, lastPos);
-
-    console.log('link: ', link);
     return link;
   }
   const { onCopy, value, hasCopied } = useClipboard(`http://localhost:3000/challengesTemp/` + roomID);
@@ -170,14 +150,12 @@ export default function ChallengesTemp() {
   }
 
   const changeTheme = () => {
-    console.log('theme: ', theme)
     setSwitchText(theme === 'vs-light' ? dictionary.challenge_page.challenge_switch_text1 : dictionary.challenge_page.challenge_switch_text2);
     setTheme(theme === 'vs-dark' ? 'vs-light' : 'vs-dark');
     console.log('theme2: ', theme)
   }
 
   const editorDidMount = (editor: any) => {
-    console.log('editorDidMount: ', editor);
     customHTMLRef.current = editor;
   }
 
@@ -186,8 +164,6 @@ export default function ChallengesTemp() {
   }, [dictionary])
 
   const getChallenge = async () => {
-    console.log('HERE GROSSE PUTE QUE TU ES !')
-    console.log('HJFKE: room.challengeId: ', room.challengeId)
     let res = await axios.get(`${serverURL}:8080/challenges/start_challenge_with_friends/` + room.challengeId, {
       headers: {
         "Content-Type": "application/json",
@@ -199,28 +175,17 @@ export default function ChallengesTemp() {
     setChallenge(res.data);
     setDefaultValue(res.data.start_code);
     setEditorValue(res.data.start_code);
-    // setMarkdown(res.data.markdown_url);
     axios.get(res.data.markdown_url).then((res) => {
       res.status === 200 ? setMarkdown(res.data) : setMarkdown('')
       setIsLoading(false);
     })
   }
 
-  // useEffect(() => {
-  //   console.log('markdown: ', markdown);
-
-  //   setIsLoading(false);
-  // }, [markdown]);
-
   useEffect(() => {
-    console.log('JE SUIS ICI SALOPETTE !', loadChallengeAfterTimer, room.challengeId)
     if (loadChallengeAfterTimer === false || room.challengeId === -1) return;
-    console.log('MANGE MOI LA BOITE A CACA !')
-    console.log('LA BOITE A CACA: challengeId: ', room.challengeId)
     const onPlaying = async () => {
       await getChallenge();
     }
-
     onPlaying();
     setRoomState('playing');
   }, [loadChallengeAfterTimer])
@@ -239,18 +204,8 @@ export default function ChallengesTemp() {
     const timer = setInterval(() => {
       setTime(prevTime => {
         if (prevTime.minutes === 0 && prevTime.seconds === 0) {
-          // router.push("/challenge")
-
-          // const onPlaying = async () => {
-          //   await getChallenge();
-          // }
-
-          // onPlaying();
-
           setLoadChallengeAfterTimer(true);
-          // setRoomState('playing');
           clearInterval(timer);
-          console.log('TIMER ARRIVÉ À 0 !')
           return prevTime;
         }
         if (prevTime.seconds === 0) {
@@ -265,10 +220,8 @@ export default function ChallengesTemp() {
   }, []);
 
   useEffect(() => {
-    console.log('roomJoined: ', roomJoined);
     // compare room previous state and current state
     if (roomJoined == false && roomID && uuid) {
-      console.log('HJKLBHKFHJKLHJKFHJKHJKKHJHKJHGJKHJKG')
       joinRoom();
       setRoomJoined(true);
       fetchRoom();
@@ -276,7 +229,7 @@ export default function ChallengesTemp() {
   }, [room])
 
   useEffect(() => {
-    console.log(`roomID: ${roomID}, uuid: ${uuid}`);
+    console.log(`[router.push ???]: roomID: ${roomID}, uuid: ${uuid}`);
     if (!roomID || !uuid)
       router.push("/challenges");
   }, [roomID, uuid])
@@ -309,7 +262,6 @@ export default function ChallengesTemp() {
         'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
       },
     })
-    console.log('fetchROOM[RES.DATA]: ', res.data);
     setRoom(res.data);
   }
 
@@ -317,7 +269,6 @@ export default function ChallengesTemp() {
 
     var socket = new WebSocket(`ws://` + webSocketURL + `:8080/joinRoom/` + roomID + `/` + uuid)
     setWs(socket);
-    // setTestWs(socket)
 
     if (socket) {
       socket.onopen = () => {
@@ -325,7 +276,6 @@ export default function ChallengesTemp() {
       };
 
       socket.onmessage = (e) => {
-        // parseMessage(e.data);
         setLastMessage(e.data);
       };
 
@@ -336,7 +286,6 @@ export default function ChallengesTemp() {
   }
 
   useEffect(() => {
-    console.log('lastMessage: ', lastMessage);
     if (lastMessage) {
       parseMessage(lastMessage);
     }
@@ -423,7 +372,6 @@ export default function ChallengesTemp() {
     })
     if (res.data === true) {
       console.log("Left room");
-      // fetchRooms();
     } else {
       console.log("Error leaving room");
     }
@@ -439,7 +387,6 @@ export default function ChallengesTemp() {
     })
     if (res.data === true) {
       console.log("room delete")
-      // fetchRooms();
     } else {
       console.log("Error deleting room");
     }
@@ -448,28 +395,12 @@ export default function ChallengesTemp() {
 
   async function quitLobby() {
     await fetchRoom();
-    // if (testWs) {
-    //   console.log("ZEUBI")
-    //   console.log(testWs.readyState);
-    //   console.log("ZEUBI2")
-    //   if (room.master == uuid && testWs.readyState === WebSocket.OPEN) {
-    //     console.log("MASTERRRRRR")
-    //     await destroyLobby()
-    //     return
-    //   }
-    //   await leaveLobby();
-    // }
-    console.log('LA GROSSE DARONE A DUDOT: WS: ', ws);
     if (ws) {
-      console.log("ZEUBI DINEMOUK TA GRAND MERE")
       console.log(ws.readyState);
-      console.log("ZEUBI2")
       if (room.master == uuid && ws.readyState === WebSocket.OPEN) {
-        console.log("MASTERRRRRR")
         await destroyLobby()
         return
       }
-      console.log("ZEUBI DINEMOUK TA GRAND MERE 2")
       await leaveLobby();
     }
     return;
@@ -477,9 +408,6 @@ export default function ChallengesTemp() {
 
   async function leaveLobby() {
     await leaveRoom();
-    // if (testWs && testWs.readyState === WebSocket.OPEN) {
-    //   testWs.send("leaveRoom");
-    // }
     if (ws && ws.readyState === WebSocket.OPEN) {
       ws.send("leaveRoom");
     }
@@ -487,11 +415,7 @@ export default function ChallengesTemp() {
   }
 
   async function leaveLobbyV2() {
-    console.log('leaveLobbyV2: ', roomID, uuid);
     await leaveRoom();
-    // if (testWs && testWs.readyState === WebSocket.OPEN) {
-    //   testWs.send("leaveRoom");
-    // }
     if (ws && ws.readyState === WebSocket.OPEN) {
       ws.send("leaveRoom");
     }
@@ -500,13 +424,6 @@ export default function ChallengesTemp() {
   async function destroyLobby() {
     await leaveLobby();
     await deleteRoom();
-    console.log("DESTROY")
-    console.log(room)
-    // if (testWs && testWs.readyState === WebSocket.OPEN) {
-    //   testWs.send("leaveRoom")
-    //   testWs.send("deleteRoom")
-    //   testWs.close();
-    // }
     if (ws && ws.readyState === WebSocket.OPEN) {
       ws.send("leaveRoom")
       ws.send("deleteRoom")
@@ -515,22 +432,12 @@ export default function ChallengesTemp() {
   }
 
   async function destroyLobbyV2() {
-    console.log('destroyLobbyV2: ', roomID, uuid);
     await leaveLobbyV2();
     await deleteRoom();
-    console.log("DESTROY")
-    console.log(room)
-    // if (testWs && testWs.readyState === WebSocket.OPEN) {
-    //   testWs.send("leaveRoom")
-    //   testWs.send("deleteRoom")
-    //   testWs.close();
-    // }
     if (ws && ws.readyState === WebSocket.OPEN) {
       ws.send("leaveRoom")
       ws.send("deleteRoom")
-      console.log('closing ws');
       ws.close();
-      console.log('ws closed: ', ws.readyState);
     }
   }
 
@@ -644,10 +551,6 @@ export default function ChallengesTemp() {
         console.log('err: ', err);
         setIsUploading(false);
       })
-    // setTimeout(() => {
-    //   setIsUploading(false);
-    // }, 3000)
-    console.log('testSuccessful2: ', testSuccessful)
   }
 
   /////////////////////////////////////////////////////////////
@@ -660,7 +563,6 @@ export default function ChallengesTemp() {
       language: formatLanguageToServerLanguage(challenge?.language || '')
     }
 
-    //jeklfz
     axios.post(`${serverURL}:8080/challenges/multi/user_submit/${roomID}`,
       data,
       {
@@ -681,15 +583,9 @@ export default function ChallengesTemp() {
   /////////////////////////////////////////////////////////////
 
   const handleDisconnection = () => {
-    // wait 60 seconds before disconnecting
-    console.log('HANDLE DISCONNECTION !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
     setTimeout(async () => {
-      console.log('TIMEOUT EXECUTED AFTER 60 SECONDS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
       if (ws) {
-        console.log('ws.readyState: ', ws.readyState);
         if (ws.readyState === WebSocket.OPEN && room.master === uuid) {
-          console.log('room master disconnected');
-          // await destroyLobby();
           await destroyLobbyV2();
           return;
         }
@@ -715,8 +611,6 @@ export default function ChallengesTemp() {
       ws.close();
     } else if (ws?.readyState == WebSocket.CLOSING) {
       console.log('ws.readyState CLOSING ?: ', ws.readyState);
-    } else if (ws?.readyState == 3) {
-      console.log('niqueta mere 3')
     }
   }, [ws])
 
@@ -736,16 +630,12 @@ export default function ChallengesTemp() {
   }, [roomState]);
 
   useEffect(() => {
-    console.log(`startLastTimer: ${startLastTimer}, roomState: ${roomState}`);
     if (startLastTimer === false || roomState !== 'finished') return;
-    console.log('last timer started !')
     handleDisconnection();
   }, [startLastTimer, roomState]);
 
   const handlePlayingTimer = () => {
-    console.log('handlePlayingTimer: ', playingTimer);
     const _timer = setInterval(() => {
-      console.log('setInterval:')
       setPlayingTimer(prevTime => {
         if (prevTime.minutes === 0 && prevTime.seconds === 0) {
 
@@ -753,7 +643,6 @@ export default function ChallengesTemp() {
           setStartLastTimer(true);
 
           clearInterval(_timer);
-          console.log('TIMER ARRIVÉ À 0 !')
           return prevTime;
         }
         console.log('prevTime: ', prevTime);
