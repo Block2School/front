@@ -132,7 +132,7 @@ export default function Profile() {
 
   function fetchProfile() {
     axios
-      .get(`${serverURL}:8080/user/v2/profile`, {
+      .get(`${serverURL}:8080/user/v2/profile?n=1`, {
         headers: {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': '*',
@@ -141,12 +141,15 @@ export default function Profile() {
       })
       .then((res) => {
         if (res.status === 200) {
+          console.log('[fetchProfile]: res.data === ', res.data)
           setUsername(res.data.username)
           setEmail(res.data.email)
           setTwitter(res.data.twitter)
           setYoutube(res.data.youtube)
           setPoints(res.data.points)
           setWallet(res.data.wallet)
+          // setNbCompletedTutorials(res.data.nb_completed_tutorials)
+          // setTotalNbTutorials(res.data.total_nb_tutorials)
         }
       })
   }
@@ -489,8 +492,8 @@ export default function Profile() {
                 <h3>Friends List</h3>
                 <div className={Style.profile_friends_body}>
                     {
-                    test_friends.map((friend) => (
-                        <div className={Style.friend_row}>
+                    test_friends.map((friend, index) => (
+                        <div key={index} className={Style.friend_row}>
                             <span>{friend}</span>
                         </div>
                     ))
@@ -538,8 +541,8 @@ export default function Profile() {
             <h3>My NFTS</h3>
             <ul className={Style.nft_container_body}>
                 {
-                testNFT.map((tutos) => (
-                    <NftCard tutorial={tutos}></NftCard>
+                testNFT.map((tutos, index) => (
+                    <NftCard key={index} tutorial={tutos}></NftCard>
                     // <h1>test</h1>
                 ))
                 }
