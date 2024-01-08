@@ -45,7 +45,7 @@ const testData = [
 
 
 const TutorialBeta = () => {
-  const [isAdmin, setIsAdmin] = useState(false)
+  // const [isAdmin, setIsAdmin] = useState(false)
   const [filteredTutorials, setFilteredTutorials] = useState([])
   const [allTutorials, setAllTutorials] = useState([])
   const [allCategories, setAllCategories] = useState([])
@@ -56,8 +56,9 @@ const TutorialBeta = () => {
   const test_categories = ['Javascript', 'C++', 'Python'];
 
   useEffect(() => {
-    if(isAdmin) {
-      axios.get(`${serverURL}/tuto/v2/auth/all`, {
+    const token: string | null = sessionStorage.getItem('token')
+    if (token) {
+      axios.get(`${serverURL}:8080/tuto/v2/auth/all`, {
         headers: {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': '*',
@@ -71,7 +72,7 @@ const TutorialBeta = () => {
         // setTimeout(() => { setIsLoading(false); console.log('categories2: ', categories) }, 500);
       })
     } else {
-      axios.get(`${serverURL}/tuto/v2/all`, {
+      axios.get(`${serverURL}:8080/tuto/v2/all`, {
         headers: {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': '*'
@@ -87,7 +88,7 @@ const TutorialBeta = () => {
   }, []);
 
   useEffect(() => {
-    axios.get(`${serverURL}/tuto/category/all`, {
+    axios.get(`${serverURL}:8080/tuto/category/all`, {
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
@@ -100,7 +101,7 @@ const TutorialBeta = () => {
   }, []);
 
   useEffect(() => {
-    axios.get(`${serverURL}/tuto/paths/all`, {
+    axios.get(`${serverURL}:8080/tuto/paths/all`, {
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
@@ -113,43 +114,43 @@ const TutorialBeta = () => {
   }, []);
 
   const filterTutorialsLanguage = (filter: any) => {
-    const Filt = allTutorials.filter((tutorial) => tutorial.category == filter)
+    const Filt = allTutorials.filter((tutorial: any) => tutorial.category == filter)
     setFilteredTutorials(Filt)
     setSearchTitle(filter)
     console.log(filteredTutorials)
   }
 
   const filterTutorialsPath = (path: any) => {
-    const Path = allTutorials.filter((tutorial) => tutorial.path == path)
+    const Path = allTutorials.filter((tutorial: any) => tutorial.path == path)
     setFilteredTutorials(Path)
     setSearchTitle(path)
     console.log(filteredTutorials)
   }
 
-  useEffect(() => {
-    const token: string | null = sessionStorage.getItem('token')
-    if (token === null) {
-      setIsAdmin(false)
-      return
-    }
+  // useEffect(() => {
+  //   const token: string | null = sessionStorage.getItem('token')
+  //   if (token === null) {
+  //     setIsAdmin(false)
+  //     return
+  //   }
 
-    axios.get(`http://localhost:8080/isAdmin`, {
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
-      }
-    }).then(res => {
-      console.log('ZEBI TA GUEULE')
-      if (res.data.data && res.data.data.isAdmin === true) {
-        setIsAdmin(true);
-      }
-    }).catch(err => {
-      setIsAdmin(false);
-      console.log('ERR: ', err);
-    });
-    // setIsAdmin(false)
-  }, [])
+  //   axios.get(`http://localhost:8080/isAdmin`, {
+  //     headers: {
+  //       'Authorization': `Bearer ${token}`,
+  //       'Content-Type': 'application/json',
+  //       'Access-Control-Allow-Origin': '*'
+  //     }
+  //   }).then(res => {
+  //     console.log('ZEBI TA GUEULE')
+  //     if (res.data.data && res.data.data.isAdmin === true) {
+  //       setIsAdmin(true);
+  //     }
+  //   }).catch(err => {
+  //     setIsAdmin(false);
+  //     console.log('ERR: ', err);
+  //   });
+  //   // setIsAdmin(false)
+  // }, [])
 
   return (
     <>
@@ -158,14 +159,14 @@ const TutorialBeta = () => {
         <div className={styles.sidebar}>
           <h2 className={styles.sidebar_title}>Languages</h2>
           <ul>
-            {allCategories.map((language) => (
-              <li onClick={() => filterTutorialsLanguage(language.name)} className={styles.category_choices}>{language.name}</li>
+            {allCategories.map((language: any, index) => (
+              <li key={index} onClick={() => filterTutorialsLanguage(language.name)} className={styles.category_choices}>{language.name}</li>
             ))}
           </ul>
           <h2 className={styles.sidebar_title}>Path</h2>
           <ul>
-            {allPaths.map((paths) => (
-              <li onClick={() => filterTutorialsPath(paths.path)} className={styles.category_choices}>{paths.path}</li>
+            {allPaths.map((paths: any, index) => (
+              <li key={index} onClick={() => filterTutorialsPath(paths.path)} className={styles.category_choices}>{paths.path}</li>
             ))}
           </ul>
         </div>
@@ -182,8 +183,8 @@ const TutorialBeta = () => {
       <div className={styles.latest_posts}> 
         <ul className={styles.tuto_list}>
           {
-            filteredTutorials.map((tutos) => (
-                <TutorialCard tutorial={tutos}></TutorialCard>
+            filteredTutorials.map((tutos: any, index) => (
+                <TutorialCard key={index} tutorial={tutos}></TutorialCard>
               ))
           }
         </ul>
