@@ -231,7 +231,7 @@ export default function Challenges() {
             </Link>
           </Tooltip>
         </div>
-        <div style={{ textAlign: "center", marginTop: "2%" }}>
+        <div style={{ textAlign: "center", marginTop: "2%", marginBottom: "2%" }}>
           <Tooltip
             label={dictionary.challenges_page.challenges_tooltip}
             isDisabled={isConnected}

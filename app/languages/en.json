@@ -57,8 +57,8 @@
     "leaderboard_username": "Username",
     "leaderboard_points": "Points",
     "leaderboard_your_rank": "Your rank:",
-    "leaderboard_start_challenge_button": "Start challenge",
     "leaderboard_start_challenge_button_friends": "Start challenge with your friends !",
+    "leaderboard_start_challenge_button": "Start challenge",
     "challenges_tooltip": "Please make sure to login first.",
     "user_unranked": "No rank. Please complete at least one challenge to get a rank."
   },

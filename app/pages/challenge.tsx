@@ -7,7 +7,7 @@ import { LanguageContext } from "../components/LanguageSwitcher/language";
 import MarkdownRenderer from "../components/markdown/markdown";
 import TutorialConsole from "../components/tutorialConsole/tutorialConsole";
 import OptionEditor from "../components/editor/optionEditor";
-import OptionEditorv2 from "../components/editor/optionEditorv2";
+import OptionEditorv3 from "../components/editor/optionEditorv3";
 import MonacoEditor from "../components/editor/monacoEditor";
 import UploadEditor from "../components/editor/uploadEditor";
 import LoadingScreen from "../components/loading/loadingScreen";
@@ -392,7 +392,7 @@ export default function Challenge() {
               </div>
             </div>
             <div id="editor">
-              <OptionEditorv2
+              <OptionEditorv3
                 changeLang={changeLang}
                 changeTheme={changeTheme}
                 switchText={switchText}

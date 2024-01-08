@@ -116,6 +116,15 @@ export default function ChallengesTemp() {
     userID: string,
   }>();
 
+  useEffect(() => {
+    if (!challenge?.inputs) return;
+    let _testSuccessful = []
+    for (let i = 0; i < challenge.inputs.length || 0; i++) {
+      _testSuccessful.push({ id: -1, successful: false });
+    }
+    setTestSuccessful(_testSuccessful);
+  }, [challenge])
+
   const [loadChallengeAfterTimer, setLoadChallengeAfterTimer] = useState(false);
   const [startLastTimer, setStartLastTimer] = useState(false);
 
@@ -543,6 +552,10 @@ export default function ChallengesTemp() {
         setExpectedOutput(res.data.expected_output);
         setResError(res.data.error_description);
         let _testSuccessful = [...testSuccessful];
+        console.log('_testSuccessful: ', _testSuccessful);
+        console.log('_testSuccessful[test_number - 1]: ', _testSuccessful[test_number - 1]);
+        console.log('test_number: ', test_number);
+        console.log('length: ', _testSuccessful.length);
         _testSuccessful[test_number - 1].successful = res.data.success;
         _testSuccessful[test_number - 1].id = test_number;
         setTestSuccessful(_testSuccessful);
@@ -693,7 +706,6 @@ export default function ChallengesTemp() {
         </> :
         <>
           <div id="screen">
-
             <Navbar />
             <div id="content">
               <div id="subject">
