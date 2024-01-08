@@ -3,16 +3,19 @@ import styles from '../styles/home-beta.module.css'
 import Navbar from '../components/navbar/navbar';
 import Footer from '../components/footer/footer';
 import DevProfile from "../components/devProfile/devProfile"
-
+import { serverURL } from "../utils/globals";
+import { useRouter } from 'next/router';
 
 
 
 // const inter = Inter({ subsets: ['latin'] })
 
 export default function Homepage() {
+  const router = useRouter();
 
   const goToSite = () => {
-    window.location.replace('http://51.77.194.105:3000/');
+    // window.location.replace('http://51.77.194.105:3000/');
+    router.push('/tutorials');
   }
 
   
@@ -27,7 +30,7 @@ export default function Homepage() {
             <span className={styles.title_body}>Show your classmates...</span><br />
             <span className={styles.title_body}>Create your coin!</span>
             <div className={styles.enroll_button}>
-              <button className={styles.enroll_button_text} onClick={goToSite}>Join the beta today!</button>
+              <button className={styles.enroll_button_text} onClick={goToSite}>Start learning now !</button>
             </div>
           </div>
         </div>
