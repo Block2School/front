@@ -30,6 +30,7 @@ export default function ConnectionButton() {
   const color = useColorModeValue("black", "white");
 
   const refreshState = () => {
+    console.log('REFRESH STATE CALLED')
     window.sessionStorage.setItem('provider', 'undefined')
     window.sessionStorage.removeItem('token');
     setIsError(false)
@@ -56,10 +57,16 @@ export default function ConnectionButton() {
 
   useEffect(() => {
     const provider = window.sessionStorage.getItem("provider");
-    if (provider) activate(connectors[provider], handleConnection);
+    console.log('provider: ', provider)
+    if (provider) console.log('if (provider): ', provider)
+    if (provider && provider !== "undefined") console.log('if (provider && provider !== "undefined"): ', provider)
+    // print provider type
+    console.log('typeof provider: ', typeof provider)
+    if (provider && provider !== "undefined") activate(connectors[provider], handleConnection);
   }, []);
 
   function setTokenReady() {
+    console.log('setTokenReady called');
     axios({
       method: "post",
       url: `${serverURL}:8080/login`,
@@ -69,6 +76,8 @@ export default function ConnectionButton() {
         token:token
       },
     }).then((res) => {
+      console.log('setTokenReady[res.data(login)]: ', res.data)
+      console.log('setTokenReady[res.status(login)]: ', res.status)
       if (res.status === 200) {
         onClose2()
         sessionStorage.setItem('token', res.data.access_token)
@@ -77,6 +86,8 @@ export default function ConnectionButton() {
   }
 
   useEffect(() => {
+    console.log('[connection ?] active: ', active)
+    console.log('[connection ?] account: ', account)
     if (active === true) {
       axios({
         method: 'post',
@@ -87,6 +98,7 @@ export default function ConnectionButton() {
           token:token,
         },
       }).then((res) => {
+        console.log('login(useEffect): ', res.data)
         if (res.status === 200) {
           Sentry.setUser({
             username: account || "",
@@ -94,6 +106,7 @@ export default function ConnectionButton() {
           sessionStorage.setItem('token', res.data.access_token)
         }
       }).catch((res) => {
+        console.log('login catch(useEffect): ', res)
           if (res.response.status === 401 && sessionStorage.getItem("token") == null) {
             onOpen2()
           }

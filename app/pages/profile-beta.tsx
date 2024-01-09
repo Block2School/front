@@ -36,7 +36,15 @@ export default function Profile() {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [word_list, setWordList] = useState('')
   const [wallet, setWallet] = useState('')
-  const [lastTutorial, setLasttutorial] = useState({})
+  const [lastTutorial, setLastTutorial] = useState<any>({})
+  const [nbCompletedTutorials, setNbCompletedTutorials] = useState<any>('0')
+  const [totalNbTutorials, setTotalNbTutorials] = useState<any>('100')
+  const [percentageProgress, setPercentageProgress] = useState<number>(0)
+  const [friendList, setFriendList] = useState<[{
+    friend_uuid: string,
+    status: string,
+    username: string
+  }]>()
 
   const test_data = {
     test_username: "MigoMax",
@@ -148,8 +156,13 @@ export default function Profile() {
           setYoutube(res.data.youtube)
           setPoints(res.data.points)
           setWallet(res.data.wallet)
-          // setNbCompletedTutorials(res.data.nb_completed_tutorials)
-          // setTotalNbTutorials(res.data.total_nb_tutorials)
+          if (res.data.last_completed_tutorials.length > 0)
+            setLastTutorial(res.data.last_completed_tutorials[0])
+          setNbCompletedTutorials(res.data.nb_completed_tutorials)
+          setTotalNbTutorials(res.data.total_nb_tutorials)
+          let _percentage = ((res.data.nb_completed_tutorials * 100) / res.data.total_nb_tutorials)
+          console.log('[fetchProfile]: _percentage === ', _percentage)
+          setPercentageProgress(_percentage)
         }
       })
   }
@@ -164,7 +177,9 @@ export default function Profile() {
     })
       .then((res) => {
         if (res.status === 200) {
-          populateFriendList(res.data.data)
+          console.log('[fetchFriends]: res.data === ', res.data);
+          populateFriendList(res.data.data) // TODO: delete
+          setFriendList(res.data.data)
         }
       })
   }
@@ -419,6 +434,9 @@ export default function Profile() {
         <div className={Style.profile_body}>
             <div className={Style.profile_data}>
                 <h3>Profile stats</h3>
+                <Text>
+                  {percentageProgress}% of tutorials completed
+                </Text>
                 <div className={Style.profile_data_body}>
                     <div className={Style.profile_data_body_stats}>
                         <div className={Style.profile_data_body_stats_points}>
@@ -431,15 +449,20 @@ export default function Profile() {
                             <h4>Progress</h4>
                                 <div className={Style.profile_data_body_stats_points_value_div}>
                                     <div className={Style.percentage_bar}>
-                                        <div className={Style.filler} style={{ width: `${test_data.percentage}%` }}></div>
-                                        <span>{`${test_data.percentage}%`}</span>
+                                        <div className={Style.filler} style={{ width: `${percentageProgress}%` }}></div>
+                                        {/* <span>{`${percentageProgress}%`}</span> */}
+                                        <Text
+                                          color={"white"}
+                                        >
+                                          {`${percentageProgress}%`}
+                                        </Text>
                                     </div>
                                 </div>
                         </div>
                     </div>
                     <div className={Style.profile_data_body_last_tuto}>
                         <h4>Last Tutorial</h4>
-                        <LastTutorialsCard title="Learning Javascript 2" category="Javascript" ></LastTutorialsCard>
+                        <LastTutorialsCard title={lastTutorial.title} category="" id={lastTutorial.tutorial_id} ></LastTutorialsCard>
                     </div>
                 </div>
                 <Button color= "#343434" backgroundColor="#ffe6c4"
@@ -492,11 +515,16 @@ export default function Profile() {
                 <h3>Friends List</h3>
                 <div className={Style.profile_friends_body}>
                     {
-                    test_friends.map((friend, index) => (
+                    // test_friends.map((friend, index) => (
+                    //     <div key={index} className={Style.friend_row}>
+                    //         <span>{friend}</span>
+                    //     </div>
+                    // ))
+                      friendList?.map((friend, index) => (
                         <div key={index} className={Style.friend_row}>
-                            <span>{friend}</span>
-                        </div>
-                    ))
+                          <span>{friend.username + ", " + friend.status}</span>
+                        </div>  
+                      ))
                     }
                 </div>
                 <Button
@@ -537,7 +565,7 @@ export default function Profile() {
               </div>
             </div>
         </div>
-        <div className={Style.nft_container}>
+        {/* <div className={Style.nft_container}>
             <h3>My NFTS</h3>
             <ul className={Style.nft_container_body}>
                 {
@@ -547,7 +575,7 @@ export default function Profile() {
                 ))
                 }
             </ul>
-        </div>
+        </div> */}
       </div>
       <Footer />
       <TwoFAModal isOpen={isOpen} closeModal={onClose} qr_code={srcImg} wordlist={word_list}></TwoFAModal>

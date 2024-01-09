@@ -19,7 +19,8 @@ export default function Navbar() {
   const [showCodeHereModal, setCodeHereModal] = useState(false)
   const [showCommunityModal, setCommunityModal] = useState(false)
   const [showInformationModal, setInformationModal] = useState(false)
-  const [active, setActiveyar] = useState(true)
+  const [showProfileModal, setProfileModal] = useState(false)
+  const [_active, setActiveYar] = useState(false)
 
 
   const {
@@ -33,6 +34,8 @@ export default function Navbar() {
 
   const refreshState = () => {
     window.sessionStorage.setItem('provider', 'undefined')
+    window.sessionStorage.removeItem('token');
+    setActiveYar(true);
   }
 
   const toggleCodeHereModal = () => {
@@ -59,9 +62,19 @@ export default function Navbar() {
     setInformationModal(false);
   }
 
+  const toggleProfileModal = () => {
+    setProfileModal(true);
+  }
+
+  const toggleProfileModalLeave = () => {
+    setProfileModal(false);
+  }
+
   const disconnect = () => {
+    setActiveYar(false)
     refreshState()
     deactivate()
+    window.location.reload()
   }
 
   const handleConnection = async (error: Error): Promise<void> => {
@@ -80,7 +93,11 @@ export default function Navbar() {
     // @ts-ignore
     console.log('here')
     console.log('provider == ', provider)
-    if (provider) activate(connectors[provider], handleConnection)
+    if (provider && provider !== 'undefined') {
+      console.log('HEREEEREJREKLRKJZHEHKJRZJKEHRKJZEHJKERJHKEZHJKHRJKEZHJKRHJKEZHJKREKHJ')
+      activate(connectors[provider], handleConnection)
+    }
+    if (provider && provider !== 'undefined') setActiveYar(true)
   }, [])
 
 
@@ -90,7 +107,7 @@ export default function Navbar() {
         <div id="navbar-container">
           <div id="navbar-logo-container">
             <Image id='navbar-logo' src="/Logo_B2S.png" alt="logo" height="50" width="50" />
-            <Link  href={'/home'} passHref>
+            <Link href={'/home'} passHref>
               <span className="navbar-text-logo">Block2School</span>
             </Link>
           </div>
@@ -98,86 +115,102 @@ export default function Navbar() {
             <div id="navbar-links-main">
               <div className="scolldown-item">
                 <span id="navbar-drop-title" className='navbar-text' onMouseEnter={toggleCodeHereModal} onMouseLeave={toggleCodeHereModalLeave} >Codehere</span>
-                { showCodeHereModal && (
-                <div onMouseEnter={toggleCodeHereModal} onMouseLeave={toggleCodeHereModalLeave} className='dropdownContent'>
-                  <Link href={'/tutorials'} passHref>
-                    <div id='navbar-drop-link'>
-                      <span className="navbar-text">Tutorials</span>
-                    </div>
-                  </Link>             
-                  <Link href={'/challenges'} passHref>
-                  <div id='navbar-drop-link'>
-                      <span className="navbar-text">Challenges</span>
-                    </div>                  
-                  </Link>
-                </div>
+                {showCodeHereModal && (
+                  <div onMouseEnter={toggleCodeHereModal} onMouseLeave={toggleCodeHereModalLeave} className='dropdownContent'>
+                    <Link href={'/tutorials'} passHref>
+                      <div id='navbar-drop-link'>
+                        <span className="navbar-text">Tutorials</span>
+                      </div>
+                    </Link>
+                    <Link href={'/challenges'} passHref>
+                      <div id='navbar-drop-link'>
+                        <span className="navbar-text">Challenges</span>
+                      </div>
+                    </Link>
+                  </div>
                 )}
               </div>
               <div className="scolldown-item">
                 <span id="navbar-drop-title" className='navbar-text' onMouseEnter={toggleCommunityModal} onMouseLeave={toggleCommunityModalLeave}>Community</span>
-                { showCommunityModal && (
-                <div onMouseEnter={toggleCommunityModal} onMouseLeave={toggleCommunityModalLeave} className='dropdownContent'>
-                  <Link href={'/marketplace'} passHref>
-                  <div id='navbar-drop-link'>
-                      <span className="navbar-text">Marketplace</span>
-                    </div>                  
-                  </Link>             
-                  <Link href={'/forum'} passHref>
-                  <div id='navbar-drop-link'>
-                      <span className="navbar-text">Forum</span>
-                    </div>                  
-                  </Link>
-                </div>
+                {showCommunityModal && (
+                  <div onMouseEnter={toggleCommunityModal} onMouseLeave={toggleCommunityModalLeave} className='dropdownContent'>
+                    <Link href={'/marketplace'} passHref>
+                      <div id='navbar-drop-link'>
+                        <span className="navbar-text">Marketplace</span>
+                      </div>
+                    </Link>
+                    <Link href={'/forum'} passHref>
+                      <div id='navbar-drop-link'>
+                        <span className="navbar-text">Forum</span>
+                      </div>
+                    </Link>
+                  </div>
                 )}
               </div>
               <div className="scolldown-item">
-                <span  id="navbar-drop-title" className='navbar-text' onMouseEnter={toggleInformationModal} onMouseLeave={toggleInformationModalLeave}>Information</span>
-                { showInformationModal && (
-                <div onMouseEnter={toggleInformationModal} onMouseLeave={toggleInformationModalLeave} className='dropdownContent'>
-                  <Link href={'/faq'} passHref>
-                  <div id='navbar-drop-link'>
-                      <span className="navbar-text">FAQ</span>
-                    </div>                  
-                  </Link>             
-                  <Link href={'/terms-of-use'} passHref>
-                  <div id='navbar-drop-link'>
-                      <span className="navbar-text">Terms of Use</span>
-                    </div>                  
-                  </Link>
-                  <Link href={'/privacy-policy'} passHref>
-                  <div id='navbar-drop-link'>
-                      <span className="navbar-text">Privacy Policy</span>
-                    </div>                      
+                <span id="navbar-drop-title" className='navbar-text' onMouseEnter={toggleInformationModal} onMouseLeave={toggleInformationModalLeave}>Information</span>
+                {showInformationModal && (
+                  <div onMouseEnter={toggleInformationModal} onMouseLeave={toggleInformationModalLeave} className='dropdownContent'>
+                    <Link href={'/faq'} passHref>
+                      <div id='navbar-drop-link'>
+                        <span className="navbar-text">FAQ</span>
+                      </div>
                     </Link>
-                </div>
+                    <Link href={'/terms-of-use'} passHref>
+                      <div id='navbar-drop-link'>
+                        <span className="navbar-text">Terms of Use</span>
+                      </div>
+                    </Link>
+                    <Link href={'/privacy-policy'} passHref>
+                      <div id='navbar-drop-link'>
+                        <span className="navbar-text">Privacy Policy</span>
+                      </div>
+                    </Link>
+                  </div>
                 )}
               </div>
             </div>
           </div>
           <div id="navbar-mobile-part">
             {
-              active === true ?
-              <div>
-                <NavbarAllBalances/>
+              _active === false ? <ConnectionButton /> : <div className="scolldown-item">
+                <span id="navbar-drop-title" className='navbar-text' onMouseEnter={toggleProfileModal} onMouseLeave={toggleProfileModalLeave}>Account</span>
+                {showProfileModal && (
+                  <div onMouseEnter={toggleProfileModal} onMouseLeave={toggleProfileModalLeave} className='dropdownContent'>
+                    <Link href={'/profile-beta'} passHref>
+                      <div id='navbar-drop-link'>
+                        <span className="navbar-text">Profile</span>
+                      </div>
+                    </Link>
+                    {/* <Link href={'/terms-of-use'} passHref> */}
+                    <div id='navbar-drop-link-disconnect'>
+                      <span className="navbar-text" onClick={disconnect}>Disconnect</span>
+                    </div>
+                    {/* </Link> */}
+                  </div>
+                )}
               </div>
-                :
-                null
+
             }
             {
-              active === true ? <ConnectionButton /> : null
-
+              _active === true ?
+                <div>
+                  <NavbarAllBalances />
+                </div>
+                :
+                null
             }
             <ThemeSelector />
             <LanguageSwitcher />
           </div>
         </div>
         <button className="navbar-menu-button" onClick={handleToggleModal}>
-                ☰
-            </button>
+          ☰
+        </button>
       </div>
 
-        {/* Modal to display the navigation links */}
-        {showModal && (
+      {/* Modal to display the navigation links */}
+      {showModal && (
         <div className="navbar-modal">
           <div className="navbar-modal-content">
             <div className="navbar-modal-close" onClick={handleToggleModal}>
@@ -199,8 +232,8 @@ export default function Navbar() {
               <Link href={'/blog'} passHref>
                 <span className="navbar-modal-text">Blog</span>
               </Link>
-              <ConnectionButton/>
-              </div>
+              <ConnectionButton />
+            </div>
           </div>
         </div>
       )}
