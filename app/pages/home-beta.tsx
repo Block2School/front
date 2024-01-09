@@ -45,7 +45,7 @@ export default function Homepage() {
             <div className={styles.demo_image_hompage}>
             </div>
           </div>
-          <div className={styles.demo_div_1}>
+          <div className={styles.demo_div}>
           <div className={styles.demo_image_tutos}>
             </div>
             <div className={styles.demo_text}>
