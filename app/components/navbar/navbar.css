@@ -100,6 +100,15 @@
   transition: background-color 0.5s /* Smooth transition */
 }
 
+#navbar-drop-link-disconnect {
+  background-color: #510808;
+  transition: background-color 0.5s /* Smooth transition */
+}
+
+#navbar-drop-link-disconnect:hover {
+  background-color: #ac0606;
+}
+
 #navbar-drop-link:hover {
   background-color: #484848;
 }
