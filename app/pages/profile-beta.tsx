@@ -37,6 +37,9 @@ export default function Profile() {
   const [word_list, setWordList] = useState('')
   const [wallet, setWallet] = useState('')
   const [lastTutorial, setLasttutorial] = useState({})
+  const [nbCompletedTutorials, setNbCompletedTutorials] = useState<any>('0')
+  const [totalNbTutorials, setTotalNbTutorials] = useState<any>('100')
+  const [percentageProgress, setPercentageProgress] = useState<any>(Number(nbCompletedTutorials) * 100 / Number(totalNbTutorials))
 
   const test_data = {
     test_username: "MigoMax",
@@ -148,8 +151,10 @@ export default function Profile() {
           setYoutube(res.data.youtube)
           setPoints(res.data.points)
           setWallet(res.data.wallet)
-          // setNbCompletedTutorials(res.data.nb_completed_tutorials)
-          // setTotalNbTutorials(res.data.total_nb_tutorials)
+          setLasttutorial(res.data.last_completed_tutorials)
+          setNbCompletedTutorials(res.data.nb_completed_tutorials)
+          setTotalNbTutorials(res.data.total_nb_tutorials)
+          setPercentageProgress(Number(nbCompletedTutorials) * 100 / Number(totalNbTutorials))
         }
       })
   }
@@ -431,15 +436,15 @@ export default function Profile() {
                             <h4>Progress</h4>
                                 <div className={Style.profile_data_body_stats_points_value_div}>
                                     <div className={Style.percentage_bar}>
-                                        <div className={Style.filler} style={{ width: `${test_data.percentage}%` }}></div>
-                                        <span>{`${test_data.percentage}%`}</span>
+                                        <div className={Style.filler} style={{ width: `${percentageProgress}%` }}></div>
+                                        <span>{`${percentageProgress}%`}</span>
                                     </div>
                                 </div>
                         </div>
                     </div>
                     <div className={Style.profile_data_body_last_tuto}>
                         <h4>Last Tutorial</h4>
-                        <LastTutorialsCard title="Learning Javascript 2" category="Javascript" ></LastTutorialsCard>
+                        <LastTutorialsCard title={lastTutorial.title} category="" id={lastTutorial.tutorial_id} ></LastTutorialsCard>
                     </div>
                 </div>
                 <Button color= "#343434" backgroundColor="#ffe6c4"
@@ -537,7 +542,7 @@ export default function Profile() {
               </div>
             </div>
         </div>
-        <div className={Style.nft_container}>
+        {/* <div className={Style.nft_container}>
             <h3>My NFTS</h3>
             <ul className={Style.nft_container_body}>
                 {
@@ -547,7 +552,7 @@ export default function Profile() {
                 ))
                 }
             </ul>
-        </div>
+        </div> */}
       </div>
       <Footer />
       <TwoFAModal isOpen={isOpen} closeModal={onClose} qr_code={srcImg} wordlist={word_list}></TwoFAModal>
