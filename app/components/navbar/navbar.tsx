@@ -19,6 +19,7 @@ export default function Navbar() {
   const [showCodeHereModal, setCodeHereModal] = useState(false)
   const [showCommunityModal, setCommunityModal] = useState(false)
   const [showInformationModal, setInformationModal] = useState(false)
+  const [showProfileModal, setProfileModal] = useState(false)
   const [active, setActiveyar] = useState(true)
 
 
@@ -59,6 +60,14 @@ export default function Navbar() {
     setInformationModal(false);
   }
 
+  const toggleProfileModal = () => {
+    setProfileModal(true);
+  }
+
+  const toggleProfileModalLeave = () => {
+    setProfileModal(false);
+  }
+
   const disconnect = () => {
     refreshState()
     deactivate()
@@ -80,7 +89,10 @@ export default function Navbar() {
     // @ts-ignore
     console.log('here')
     console.log('provider == ', provider)
-    if (provider) activate(connectors[provider], handleConnection)
+    if (provider) {
+      activate(connectors[provider], handleConnection)
+      setActiveyar(false)
+    }
   }, [])
 
 
@@ -155,17 +167,33 @@ export default function Navbar() {
             </div>
           </div>
           <div id="navbar-mobile-part">
+          {
+              active === true ? <ConnectionButton /> :      <div className="scolldown-item">
+              <span  id="navbar-drop-title" className='navbar-text' onMouseEnter={toggleProfileModal} onMouseLeave={toggleProfileModalLeave}>Account</span>
+              { showProfileModal && (
+              <div onMouseEnter={toggleProfileModal} onMouseLeave={toggleProfileModalLeave} className='dropdownContent'>
+                <Link href={'/profile-beta'} passHref>
+                <div id='navbar-drop-link'>
+                    <span className="navbar-text">Profile</span>
+                  </div>                  
+                </Link>             
+                <Link href={'/terms-of-use'} passHref>
+                <div id='navbar-drop-link'>
+                    <span className="navbar-text">Disconnect</span>
+                  </div>                  
+                </Link>
+              </div>
+              )}
+            </div>
+              
+            }
             {
-              active === true ?
+              active === false ?
               <div>
                 <NavbarAllBalances/>
               </div>
                 :
                 null
-            }
-            {
-              active === true ? <ConnectionButton /> : null
-
             }
             <ThemeSelector />
             <LanguageSwitcher />
