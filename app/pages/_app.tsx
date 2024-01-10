@@ -41,40 +41,40 @@ const getLibrary = (provider: any): Web3Provider => {
   return library
 }
 
-Sentry.init({
-  dsn: "https://a453314469f5541ab6fa937c6f8d14a9@o4505866759634944.ingest.sentry.io/4505866778902528",
-  integrations: [
-    new Sentry.BrowserTracing({
-      tracePropagationTargets: [new RegExp(process.env.NEXT_PUBLIC_API_URL as string + "/*")],
-    }),
-    new Sentry.Replay(),
-  ],
-  tracesSampleRate: 1.0,
-  replaysSessionSampleRate: 0.1,
-  replaysOnErrorSampleRate: 1.0,
-});
+// Sentry.init({
+//   dsn: "https://a453314469f5541ab6fa937c6f8d14a9@o4505866759634944.ingest.sentry.io/4505866778902528",
+//   integrations: [
+//     new Sentry.BrowserTracing({
+//       tracePropagationTargets: [new RegExp(process.env.NEXT_PUBLIC_API_URL as string + "/*")],
+//     }),
+//     new Sentry.Replay(),
+//   ],
+//   tracesSampleRate: 1.0,
+//   replaysSessionSampleRate: 0.1,
+//   replaysOnErrorSampleRate: 1.0,
+// });
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter()
-  console.log('GA_ID: ', GA_ID)
-  ReactGA.initialize(GA_ID as string)
-  ReactGA.send({ hitType: "event", eventCategory: "pageview", eventAction: "pageview", eventLabel: router.pathname })
-  // ReactGA.pageview(router.pathname)
-  useEffect(() => {
-    const handleRouteChange = (url: string, { shallow }: { shallow: boolean }) => {
-      ReactGA.initialize(GA_ID as string)
-      ReactGA.send({ hitType: "pageview", page: url })
-      // ReactGA.send({ hitType: "event", eventCategory: "test_click", eventAction: "test_click", eventLabel: "TEST CLICK" })
-      console.log(`App is changing to ${url} ${shallow ? "with" : "without"} shallow routing`)
-    }
-    router.events.on("routeChangeComplete", handleRouteChange)
+  // console.log('GA_ID: ', GA_ID)
+  // ReactGA.initialize(GA_ID as string)
+  // ReactGA.send({ hitType: "event", eventCategory: "pageview", eventAction: "pageview", eventLabel: router.pathname })
+  // // ReactGA.pageview(router.pathname)
+  // useEffect(() => {
+  //   const handleRouteChange = (url: string, { shallow }: { shallow: boolean }) => {
+  //     ReactGA.initialize(GA_ID as string)
+  //     ReactGA.send({ hitType: "pageview", page: url })
+  //     // ReactGA.send({ hitType: "event", eventCategory: "test_click", eventAction: "test_click", eventLabel: "TEST CLICK" })
+  //     console.log(`App is changing to ${url} ${shallow ? "with" : "without"} shallow routing`)
+  //   }
+  //   router.events.on("routeChangeComplete", handleRouteChange)
 
-    // If the component is unmounted, unsubscribe
-    // from the event with the `off` method:
-    return () => {
-      router.events.off("routeChangeComplete", handleRouteChange)
-    }
-  }, [router.events])
+  //   // If the component is unmounted, unsubscribe
+  //   // from the event with the `off` method:
+  //   return () => {
+  //     router.events.off("routeChangeComplete", handleRouteChange)
+  //   }
+  // }, [router.events])
 
   return (
     <LanguageProvider>

@@ -483,10 +483,12 @@ export default function Profile() {
                                 </div>
                         </div>
                     </div>
-                    <div className={Style.profile_data_body_last_tuto}>
-                        <h4>Last Tutorial</h4>
-                        <LastTutorialsCard title={lastTutorial.title} category="" id={lastTutorial.tutorial_id} ></LastTutorialsCard>
-                    </div>
+                    {lastTutorial.title? 
+                                         <div className={Style.profile_data_body_last_tuto}>
+                                         <h4>Last Tutorial</h4>
+                                         <LastTutorialsCard title={lastTutorial.title} category="" id={lastTutorial.tutorial_id} ></LastTutorialsCard>
+                                     </div>
+                      :null}
                 </div>
                 <Button color= "#343434" backgroundColor="#ffe6c4"
                       onClick={() => {
