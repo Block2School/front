@@ -1,22 +1,18 @@
 import axios from "axios";
 import { useEffect, useRef, useState, useContext } from "react";
 import Navbar from "../../../components/navbar/navbar";
-import { Text, SimpleGrid, Box, useClipboard, ModalCloseButton, ModalContent, ModalOverlay, useDisclosure } from "@chakra-ui/react";
+import { Text, SimpleGrid, Box, useClipboard } from "@chakra-ui/react";
 import { serverURL, webSocketURL } from "../../../utils/globals";
-import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "react-bootstrap";
-import CustomButton from "../../../components/button/button";
+import { Button } from "react-bootstrap";
 import { useRouter } from "next/router";
-import Link from "next/link";
-import { useWebSocket } from "../../../context/WebSocketContext";
 import LoadingScreen from "../../../components/loading/loadingScreen";
-import challenge, { CustomModal } from "../../challenge";
+import { CustomModal } from "../../challenge";
 import MarkdownRenderer from "../../../components/markdown/markdown";
 import TutorialConsole from "../../../components/tutorialConsole/tutorialConsole";
 import MonacoEditorv2 from "../../../components/editor/monacoEditorv2";
 import UploadEditorv2 from "../../../components/editor/uploadEditorv2";
 import OptionEditorv2 from "../../../components/editor/optionEditorv2";
 import { LanguageContext } from "../../../components/LanguageSwitcher/language";
-import { AiFillBell } from "react-icons/ai";
 import { formatLanguageToServerLanguage, sendGAEvent } from "../../../utils/utils";
 
 
@@ -106,14 +102,14 @@ export default function ChallengesTemp() {
     challengeId: -1,
   });
 
-  const [socketInfo, setSocketInfo] = useState<{
-    nbr_success_test: number,
-    nbr_tests: number,
-    code: string,
-    nbr_char: number,
-    language: string,
-    userID: string,
-  }>();
+  // const [socketInfo, setSocketInfo] = useState<{
+  //   nbr_success_test: number,
+  //   nbr_tests: number,
+  //   code: string,
+  //   nbr_char: number,
+  //   language: string,
+  //   userID: string,
+  // }>();
 
   useEffect(() => {
     if (!challenge?.inputs) return;
@@ -141,12 +137,12 @@ export default function ChallengesTemp() {
     }
   }, [router])
 
-  function getRoomLink() {
-    let rawLink = (window != undefined) ? window?.location?.href : '';
-    const lastPos = rawLink?.lastIndexOf('/');
-    let link = rawLink?.substring(0, lastPos);
-    return link;
-  }
+  // function getRoomLink() {
+  //   let rawLink = (window != undefined) ? window?.location?.href : '';
+  //   const lastPos = rawLink?.lastIndexOf('/');
+  //   let link = rawLink?.substring(0, lastPos);
+  //   return link;
+  // }
   const { onCopy, value, hasCopied } = useClipboard(`http://localhost:3000/challengesTemp/` + roomID);
 
   const changeLang = (lang: React.SetStateAction<string>) => {
@@ -239,21 +235,21 @@ export default function ChallengesTemp() {
       router.push("/challenges");
   }, [roomID, uuid])
 
-  function fetchProfile() {
-    axios
-      .get(`${serverURL}:8080/user/profile`, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-          Authorization: 'Bearer ' + sessionStorage.getItem('token'),
-        },
-      })
-      .then((res) => {
-        if (res.status === 200) {
-          setPlayer({ username: res.data.username, uuid: res.data.uuid, points: res.data.points })
-        }
-      })
-  }
+  // function fetchProfile() {
+  //   axios
+  //     .get(`${serverURL}:8080/user/profile`, {
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         'Access-Control-Allow-Origin': '*',
+  //         Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+  //       },
+  //     })
+  //     .then((res) => {
+  //       if (res.status === 200) {
+  //         setPlayer({ username: res.data.username, uuid: res.data.uuid, points: res.data.points })
+  //       }
+  //     })
+  // }
 
   async function fetchRoom() {
     if (!roomID) {
@@ -460,82 +456,82 @@ export default function ChallengesTemp() {
     }
   }
 
-  //////////////////////// UPLOAD CODE /////////////////////////
+  // //////////////////////// UPLOAD CODE /////////////////////////
 
-  const uploadCode = () => {
-    setIsUploading(true);
+  // const uploadCode = () => {
+  //   setIsUploading(true);
 
-    const data = {
-      code: editorValue,
-      language: formatLanguageToServerLanguage(challenge?.language || '')
-    }
+  //   const data = {
+  //     code: editorValue,
+  //     language: formatLanguageToServerLanguage(challenge?.language || '')
+  //   }
 
-    axios.post(`${serverURL}:8080/challenges/submit_challenge/${challenge?.id}`,
-      data,
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-          'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-        }
-      }).then(res => {
-        console.log('res.data: ', res.data);
-        setResOutput(res.data.output);
-        setExpectedOutput(res.data.expected_output);
-        setResError(res.data.error_description);
-        setShowModal(true);
-        if (res.data.success === true) {
-          setModalTitle('Correct Answer');
-          setModalMessage('Congratulations');
-          let _testSuccessful = [...testSuccessful];
-          for (let idx: number = 0; idx < _testSuccessful.length; idx++) {
-            _testSuccessful[idx].successful = true;
-            _testSuccessful[idx].id = idx + 1;
-          }
-          setTestSuccessful(_testSuccessful);
-        } else {
-          setModalTitle('Wrong Answer');
-          setModalMessage('Try again');
-          let _testSuccessful = [...testSuccessful];
-          if (res.data.error_test_index > 0) {
-            for (let idx: number = 0; idx < _testSuccessful.length; idx++) {
-              if (idx === res.data.error_test_index - 1) {
-                _testSuccessful[idx].successful = false;
-                _testSuccessful[idx].id = idx + 1;
-              } else if (idx > res.data.error_test_index - 1) {
-                _testSuccessful[idx].successful = false;
-                _testSuccessful[idx].id = -1;
-              } else {
-                _testSuccessful[idx].successful = true;
-                _testSuccessful[idx].id = idx + 1;
-              }
-            }
-          } else {
-            for (let idx: number = 0; idx < _testSuccessful.length; idx++) {
-              _testSuccessful[idx].successful = false;
-              _testSuccessful[idx].id = idx + 1;
-            }
-          }
-          setTestSuccessful(_testSuccessful);
-        }
+  //   axios.post(`${serverURL}:8080/challenges/submit_challenge/${challenge?.id}`,
+  //     data,
+  //     {
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         'Access-Control-Allow-Origin': '*',
+  //         'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+  //       }
+  //     }).then(res => {
+  //       console.log('res.data: ', res.data);
+  //       setResOutput(res.data.output);
+  //       setExpectedOutput(res.data.expected_output);
+  //       setResError(res.data.error_description);
+  //       setShowModal(true);
+  //       if (res.data.success === true) {
+  //         setModalTitle('Correct Answer');
+  //         setModalMessage('Congratulations');
+  //         let _testSuccessful = [...testSuccessful];
+  //         for (let idx: number = 0; idx < _testSuccessful.length; idx++) {
+  //           _testSuccessful[idx].successful = true;
+  //           _testSuccessful[idx].id = idx + 1;
+  //         }
+  //         setTestSuccessful(_testSuccessful);
+  //       } else {
+  //         setModalTitle('Wrong Answer');
+  //         setModalMessage('Try again');
+  //         let _testSuccessful = [...testSuccessful];
+  //         if (res.data.error_test_index > 0) {
+  //           for (let idx: number = 0; idx < _testSuccessful.length; idx++) {
+  //             if (idx === res.data.error_test_index - 1) {
+  //               _testSuccessful[idx].successful = false;
+  //               _testSuccessful[idx].id = idx + 1;
+  //             } else if (idx > res.data.error_test_index - 1) {
+  //               _testSuccessful[idx].successful = false;
+  //               _testSuccessful[idx].id = -1;
+  //             } else {
+  //               _testSuccessful[idx].successful = true;
+  //               _testSuccessful[idx].id = idx + 1;
+  //             }
+  //           }
+  //         } else {
+  //           for (let idx: number = 0; idx < _testSuccessful.length; idx++) {
+  //             _testSuccessful[idx].successful = false;
+  //             _testSuccessful[idx].id = idx + 1;
+  //           }
+  //         }
+  //         setTestSuccessful(_testSuccessful);
+  //       }
 
-        setTimeout(() => {
-          setShowModal(false);
-        }, 3000);
-        setIsUploading(false);
-      }).catch(err => {
-        console.log('err: ', err);
-        setShowModal(true);
-        setModalTitle('Wrong Answer');
-        setModalMessage('Try again');
-        setTimeout(() => {
-          setShowModal(false);
-        }, 3000);
-        setIsUploading(false);
-      })
-  }
+  //       setTimeout(() => {
+  //         setShowModal(false);
+  //       }, 3000);
+  //       setIsUploading(false);
+  //     }).catch(err => {
+  //       console.log('err: ', err);
+  //       setShowModal(true);
+  //       setModalTitle('Wrong Answer');
+  //       setModalMessage('Try again');
+  //       setTimeout(() => {
+  //         setShowModal(false);
+  //       }, 3000);
+  //       setIsUploading(false);
+  //     })
+  // }
 
-  /////////////////////////////////////////////////////////
+  // /////////////////////////////////////////////////////////
 
   //////////////////// EXECUTE TEST //////////////////////
   const executeTest = (test_number: number) => {
