@@ -34,6 +34,8 @@ const GA_ID = process.env.NEXT_PUBLIC_GA_ID
 import { LanguageProvider } from "../components/LanguageSwitcher/language";
 import Script from 'next/script'
 import * as Sentry from "@sentry/react";
+import mixpanel from 'mixpanel-browser'
+import { MixPanelTracking } from '../services/mixpanel'
 
 const getLibrary = (provider: any): Web3Provider => {
   const library = new Web3Provider(provider)
@@ -66,6 +68,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       ReactGA.send({ hitType: "pageview", page: url })
       // ReactGA.send({ hitType: "event", eventCategory: "test_click", eventAction: "test_click", eventLabel: "TEST CLICK" })
       console.log(`App is changing to ${url} ${shallow ? "with" : "without"} shallow routing`)
+      MixPanelTracking.getInstance().pageViewed();
     }
     router.events.on("routeChangeComplete", handleRouteChange)
 
@@ -80,6 +83,12 @@ function MyApp({ Component, pageProps }: AppProps) {
     <LanguageProvider>
       <ChakraProvider>
         <Web3ReactProvider getLibrary={getLibrary}>
+          <Script
+            src={`https://tools.luckyorange.com/core/lo.js?site-id=795a5d80`}
+            strategy="afterInteractive"
+            async
+            defer
+          ></Script>
           <Script
             src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
           ></Script>

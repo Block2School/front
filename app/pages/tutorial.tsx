@@ -29,6 +29,7 @@ import UploadEditor from "../components/editor/uploadEditor";
 import { AiFillBell } from 'react-icons/ai';
 import { sendGAEvent } from "../utils/utils";
 import TutorialConsole from "../components/tutorialConsole/tutorialConsole";
+import { MixPanelTracking } from "../services/mixpanel";
 
 
 export interface ModalProps {
@@ -149,6 +150,7 @@ export default function Tutorial() {
       setTimeout(() => setIsLoading(false), 1000)
       setTimeout(() => console.log('tutorialInfos : ', tutorialInfos), 1000)
     })
+    MixPanelTracking.getInstance().TutorialViewed({ tutorial: { id: tutorialInfos.id, title: tutorialInfos.title } });
   }, [tutorialInfos, markdown])
 
   function editorDidMount(editor) {

@@ -16,6 +16,7 @@ import BuyNFTModal from "../components/modals/marketplaceModals/buyNFTModal";
 import ReactGA from 'react-ga4';
 import { sendGAEvent } from "../utils/utils";
 import AddAllowanceModal from "../components/modals/marketplaceModals/addAllowanceModal";
+import { MixPanelTracking } from "../services/mixpanel";
 
 interface NFT {
   id: string;
