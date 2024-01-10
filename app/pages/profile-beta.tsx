@@ -79,6 +79,29 @@ export default function Profile() {
     'Elon Musk',
   ]
 
+  const test_friendList = [
+    {
+      "username": "Migo",
+      "status": "Pending"
+    },
+    {
+      "username": "Gabriel",
+      "status": "Accepted"
+    },
+    {
+      "username": "Lorenzo",
+      "status": "Pending"
+    },
+    {
+      "username": "Migo",
+      "status": "Pending"
+    },
+    {
+      "username": "Migo",
+      "status": "Pending"
+    },
+  ]
+
   const testNFT = [
     {
       name: "Learning Javascript 1",
@@ -520,10 +543,14 @@ export default function Profile() {
                     //         <span>{friend}</span>
                     //     </div>
                     // ))
-                      friendList?.map((friend, index) => (
+                    friendList?.map((friend, index) => (
                         <div key={index} className={Style.friend_row}>
-                          <span>{friend.username + ", " + friend.status}</span>
-                        </div>  
+                          <span>{friend.username + " "}</span>
+                          {friend.status == "Pending" ? <span>{"(pending)"}</span>: null}
+                          <div className={Style.button_remove} onClick={() => deleteFriend(friend.friend_uuid)}>
+                            <span>-</span>
+                          </div>
+                        </div> 
                       ))
                     }
                 </div>

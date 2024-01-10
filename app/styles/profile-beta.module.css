@@ -194,7 +194,10 @@
 
 .friend_row {
     padding: 5px;
-    color: white
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between /* Changed from center to space-between */
 }
 
 .friend_row:hover {
@@ -202,6 +205,12 @@
     color: black;
     cursor: pointer;
     border-radius: 10px;
+    transition: background-color 1s;
+}
+
+.button_remove {
+    color: red;
+    font-weight: bold;
 }
 
 .nft_container {
