@@ -70,7 +70,6 @@ export default function ChallengesTemp() {
   let check: boolean = false;
   const [roomJoined, setRoomJoined] = useState(false);
   const [player, setPlayer] = useState<{ username: string, uuid: string, points: string }>({ username: "", uuid: "", points: "" })
-  const { testWs, setTestWs } = useWebSocket();
   const [lastMessage, setLastMessage] = useState();
   const [roomState, setRoomState] = useState<'waiting' | 'playing' | 'finished'>('waiting');
 
@@ -161,7 +160,6 @@ export default function ChallengesTemp() {
   const changeTheme = () => {
     setSwitchText(theme === 'vs-light' ? dictionary.challenge_page.challenge_switch_text1 : dictionary.challenge_page.challenge_switch_text2);
     setTheme(theme === 'vs-dark' ? 'vs-light' : 'vs-dark');
-    console.log('theme2: ', theme)
   }
 
   const editorDidMount = (editor: any) => {
@@ -180,7 +178,6 @@ export default function ChallengesTemp() {
         'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
       },
     })
-    console.log('res.data: ', res.data);
     setChallenge(res.data);
     setDefaultValue(res.data.start_code);
     setEditorValue(res.data.start_code);
@@ -238,7 +235,6 @@ export default function ChallengesTemp() {
   }, [room])
 
   useEffect(() => {
-    console.log(`[router.push ???]: roomID: ${roomID}, uuid: ${uuid}`);
     if (!roomID || !uuid)
       router.push("/challenges");
   }, [roomID, uuid])
@@ -264,14 +260,28 @@ export default function ChallengesTemp() {
       ws?.close();
       return;
     }
-    let res = await axios.get(`${serverURL}:8080/challenges/getRoomById/` + roomID, {
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
-      },
-    })
-    setRoom(res.data);
+    try {
+      let res = await axios.get(`${serverURL}:8080/challenges/getRoomById/` + roomID, {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
+        },
+      })
+      setRoom(res.data);
+    } catch (error) {
+      ws?.close();
+      setRoom({
+        master: '',
+        occupants: [{
+          userId: '',
+          username: '',
+        }],
+        maxTime: 0,
+        limitUser: 2,
+        challengeId: -1,
+      })
+    }
   }
 
   async function joinRoom() {
@@ -529,9 +539,7 @@ export default function ChallengesTemp() {
 
   //////////////////// EXECUTE TEST //////////////////////
   const executeTest = (test_number: number) => {
-    console.log('testSuccessful: ', testSuccessful)
     setIsUploading(true);
-    console.log('executeTest: ', test_number);
 
     const data = {
       code: editorValue,
@@ -547,15 +555,10 @@ export default function ChallengesTemp() {
           'Authorization': `Bearer ${sessionStorage.getItem('token')}`
         }
       }).then(res => {
-        console.log('res.data: ', res.data);
         setResOutput(res.data.output);
         setExpectedOutput(res.data.expected_output);
         setResError(res.data.error_description);
         let _testSuccessful = [...testSuccessful];
-        console.log('_testSuccessful: ', _testSuccessful);
-        console.log('_testSuccessful[test_number - 1]: ', _testSuccessful[test_number - 1]);
-        console.log('test_number: ', test_number);
-        console.log('length: ', _testSuccessful.length);
         _testSuccessful[test_number - 1].successful = res.data.success;
         _testSuccessful[test_number - 1].id = test_number;
         setTestSuccessful(_testSuccessful);
@@ -612,31 +615,24 @@ export default function ChallengesTemp() {
   useEffect(() => {
     console.log('ws: ', ws);
     ws?.addEventListener('close', () => {
-      console.log('niqueta mere 2')
       ws.close();
     });
     ws?.addEventListener('error', () => {
-      console.log('niqueta mere 1')
       ws.close();
     });
     if (ws?.readyState == WebSocket.CLOSED) {
-      console.log('ws.readyState CLOSED ?: ', ws.readyState);
       ws.close();
-    } else if (ws?.readyState == WebSocket.CLOSING) {
-      console.log('ws.readyState CLOSING ?: ', ws.readyState);
     }
   }, [ws])
 
   useEffect(() => {
     if (shouldSubmit === false) return;
-    console.log('shouldSubmit: ', shouldSubmit);
     socket_submit();
     setRoomState('finished');
   }, [shouldSubmit]);
 
   useEffect(() => {
     if (roomState === 'playing') {
-      console.log('playingTimer: ', playingTimer);
       handlePlayingTimer();
       return;
     }
@@ -658,7 +654,6 @@ export default function ChallengesTemp() {
           clearInterval(_timer);
           return prevTime;
         }
-        console.log('prevTime: ', prevTime);
         if (prevTime.seconds === 0) {
           return { minutes: prevTime.minutes - 1, seconds: 59 };
         } else {
@@ -668,6 +663,18 @@ export default function ChallengesTemp() {
     }, 1000);
 
     return () => clearInterval(_timer);
+  }
+
+  const [showUserSubmittedInfosID, setShowUserSubmittedInfosID] = useState(-1);
+  const [codeToBeDisplayed, setCodeToBeDisplayed] = useState('');
+
+  const showUserSubmittedInfos = (id: number, code: string) => {
+    setShowUserSubmittedInfosID(id);
+
+    console.log('challenge?.language: ', lang);
+    let _formated = "```" + lang + "\n" + code + "\n```";
+
+    setCodeToBeDisplayed(_formated);
   }
 
   if (roomState === 'waiting')
@@ -684,11 +691,44 @@ export default function ChallengesTemp() {
               {String(time.minutes).padStart(2, '0')}:{String(time.seconds).padStart(2, '0')}
             </div>
             <div id="users" style={{ height: "50%", width: "50%" }}>
-              <SimpleGrid columns={2} gap={6} height={"100%"}>
-                <Box bg='tomato'>{room?.occupants.at(0)?.username}</Box>
-                <Box bg='tomato'>{room?.occupants.at(1)?.username}</Box>  {/* Réfléchir implémentation Ami dans Box */}
-                <Box bg='tomato'>{room?.occupants.at(2)?.username}</Box>
-                <Box bg='tomato'>{room?.occupants.at(3)?.username}</Box>
+              <SimpleGrid
+                columns={2}
+                gap={6}
+                height={"100%"}
+                flexWrap={"wrap"}
+                alignItems={"stretch"}
+                gridAutoRows={"1fr"}
+              >
+                <Box
+                  bg='tomato'
+                  height={"100%"}
+                  paddingInline={"5%"}
+                >
+                  <Text>
+                    {(room?.occupants.at(0)) ? room?.occupants.at(0)?.username : 'Empty seat'}
+                  </Text>
+                </Box>
+                <Box
+                  bg='tomato'
+                  height={"100%"}
+                  paddingInline={"5%"}
+                >
+                  {(room?.occupants.at(1)) ? room?.occupants.at(1)?.username : 'Empty seat'}
+                </Box>
+                <Box
+                  bg='tomato'
+                  height={"100%"}
+                  paddingInline={"5%"}
+                >
+                  {(room?.occupants.at(2)) ? room?.occupants.at(2)?.username : 'Empty seat'}
+                </Box>
+                <Box
+                  bg='tomato'
+                  height={"100%"}
+                  paddingInline={"5%"}
+                >
+                  {(room?.occupants.at(3)) ? room?.occupants.at(3)?.username : 'Empty seat'}
+                </Box>
               </SimpleGrid>
             </div>
             <div id="options" style={{ display: "flex", justifyContent: "space-evenly", alignItems: "center", width: "50%", height: "150px" }}>
@@ -785,20 +825,18 @@ export default function ChallengesTemp() {
           }}>
             <div id="result"></div>
             <div id="users" style={{ height: "50%", width: "70%" }}>
-              <SimpleGrid columns={1} gap={6} height={"100%"}>
-                {/* <Box bg='tomato'> {roomResults.at(0)?.username + "\n" + "time spent: " + roomResults.at(0)?.time_spent + "\n"} {roomResults.at(0)?.passed_tests + "\n"} </Box>
-                <Box bg='tomato'> {roomResults.at(1)?.username + "\n"} {roomResults.at(1)?.passed_tests + "\n"} </Box>
-                <Box bg='tomato'> {roomResults.at(2)?.username + "\n"} {roomResults.at(2)?.passed_tests + "\n"} </Box>
-                <Box bg='tomato'> {roomResults.at(3)?.username + "\n"} {roomResults.at(3)?.passed_tests + "\n"} </Box> */}
+              <SimpleGrid
+                columns={1}
+                gap={6}
+                height={"100%"}
+                flexWrap={"wrap"}
+                alignItems={"stretch"}
+                gridAutoRows={"0.3fr"}
+              >
                 {
                   roomResults.map((item, index) => {
                     return (
                       <Box bg='tomato' key={index}>
-                        {/* display the username on the top left */}
-                        {/* display the number of tests passed / total number of test */}
-                        {/* display the time spent */}
-                        {/* display the number of characters */}
-                        {/* display a button on the right that displays the code in an alert */}
                         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "2%" }}>
                           <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "flex-start" }}>
                             <Text
@@ -810,9 +848,16 @@ export default function ChallengesTemp() {
                             <Text>Test passed: {item.passed_tests} / {item.total_tests}</Text>
                             <Text>Time spent: {item.time_spent} seconds</Text>
                             <Text>Number of characters used: {item.chars}</Text>
+                            {
+                              (showUserSubmittedInfosID === index) ?
+                                <div style={{ width: "100%", height: "150px", maxHeight: "10%", padding: "2%", overflow: "scroll" }}>
+                                  <MarkdownRenderer source={codeToBeDisplayed} />
+                                </div>
+                                : <></>
+                            }
                           </div>
                           <div>
-                            <Button onClick={() => alert(item.code)}>Code</Button>
+                            <Button onClick={() => { showUserSubmittedInfos(index, item.code) }}>Code</Button>
                           </div>
                         </div>
                       </Box>
@@ -821,7 +866,7 @@ export default function ChallengesTemp() {
                 }
               </SimpleGrid>
             </div>
-            <div id="options" style={{ display: "flex", justifyContent: "space-evenly", alignItems: "center", width: "50%", height: "150px" }}>
+            <div id="options" style={{ display: "flex", justifyContent: "space-evenly", alignItems: "center", width: "50%", height: "150px", paddingTop: "15%" }}>
               <Button onClick={() => quitLobby()}>Quitter</Button>
             </div>
           </div>
