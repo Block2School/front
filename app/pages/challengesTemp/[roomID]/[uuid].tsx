@@ -696,7 +696,7 @@ export default function ChallengesTemp() {
                 gridAutoRows={"1fr"}
               >
                 <Box
-                  bg='tomato'
+                  bg='#ffe6c4'
                   height={"100%"}
                   paddingInline={"5%"}
                 >
@@ -705,21 +705,21 @@ export default function ChallengesTemp() {
                   </Text>
                 </Box>
                 <Box
-                  bg='tomato'
+                  bg='#ffe6c4'
                   height={"100%"}
                   paddingInline={"5%"}
                 >
                   {(room?.occupants.at(1)) ? room?.occupants.at(1)?.username : 'Empty seat'}
                 </Box>
                 <Box
-                  bg='tomato'
+                  bg='#ffe6c4'
                   height={"100%"}
                   paddingInline={"5%"}
                 >
                   {(room?.occupants.at(2)) ? room?.occupants.at(2)?.username : 'Empty seat'}
                 </Box>
                 <Box
-                  bg='tomato'
+                  bg='#ffe6c4'
                   height={"100%"}
                   paddingInline={"5%"}
                 >
@@ -832,7 +832,7 @@ export default function ChallengesTemp() {
                 {
                   roomResults.map((item, index) => {
                     return (
-                      <Box bg='tomato' key={index}>
+                      <Box bg='#ffe6c4' key={index}>
                         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "2%" }}>
                           <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "flex-start" }}>
                             <Text
