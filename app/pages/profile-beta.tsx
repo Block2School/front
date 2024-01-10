@@ -162,6 +162,7 @@ export default function Profile() {
   }
 
   function fetchProfile() {
+    console.log('[fetchProfile]: token === ', sessionStorage.getItem('token'))
     axios
       .get(`${serverURL}:8080/user/v2/profile?n=1`, {
         headers: {
@@ -548,7 +549,7 @@ export default function Profile() {
                     friendList?.map((friend, index) => (
                         <div key={index} className={Style.friend_row}>
                           <span>{friend.username + " "}</span>
-                          {friend.status == "Pending" ? <span>{"(pending)"}</span>: null}
+                          {friend.status === "pending" ? <span>{"(pending)"}</span>: null}
                           <div className={Style.button_remove} onClick={() => deleteFriend(friend.friend_uuid)}>
                             <span>-</span>
                           </div>

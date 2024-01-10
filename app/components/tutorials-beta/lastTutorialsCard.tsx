@@ -4,7 +4,7 @@ import axios from 'axios';
 import styles from './tutorialsCard.module.css'
 import { color, Button } from '@chakra-ui/react';
 import Link from 'next/link'
-import { Box } from '@chakra-ui/react';
+import { Box, Text } from '@chakra-ui/react';
 
 export default function  LastTutorialsCard({title, category, score, id}:any) {
 
@@ -16,9 +16,12 @@ export default function  LastTutorialsCard({title, category, score, id}:any) {
         </div>
         <Link href={{pathname: "/tutorial", query: { tutorialId: id }}} passHref>
             <Box className={styles.buttonBox}>
-              <span>Start Again</span>
+              {/* <span>Start Again</span> */}
+              <Text
+                color={"black"}
+              >Start again</Text>
             </Box>
-          </Link>   
+          </Link>
        </div>
   )
 }

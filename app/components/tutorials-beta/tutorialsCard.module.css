@@ -139,7 +139,7 @@ color: #888;
 }
 
 .buttonBox:hover {
-    color: white;
+    background-color: white;
 }
 
 .buttonText {
