@@ -226,6 +226,23 @@ export default function Profile() {
       })
   }
 
+  function addFriendAsked(uuid: string) {
+    axios.post(`${serverURL}:8080/user/friends`, {
+      friend_uuid: uuid,
+    }, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        Authorization: 'Bearer ' + sessionStorage.getItem('token')
+      }
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          fetchFriends()
+        }
+      })
+  }
+
   function populateFriendList(friendsList: any) {
     var listContainer = $('#friends-list')
     listContainer.empty()
@@ -548,11 +565,17 @@ export default function Profile() {
                     // ))
                     friendList?.map((friend, index) => (
                         <div key={index} className={Style.friend_row}>
-                          <span>{friend.username + " "}</span>
+                          <Text overflow={"clip"} color="white">{friend.username + " "}</Text>
                           {friend.status === "pending" ? <span>{"(pending)"}</span>: null}
+                          {friend.status === "asking" ? <span>{"(asked)"}</span>: null}
+                          {(friend.status === "pending" || friend.status === "friend") ?
                           <div className={Style.button_remove} onClick={() => deleteFriend(friend.friend_uuid)}>
-                            <span>-</span>
-                          </div>
+                            <Text color="red">-</Text>
+                          </div> : null}
+                          {friend.status === "asking" ?
+                          <div className={Style.button_accept} onClick={() => addFriendAsked(friend.friend_uuid)}>
+                            <Text color="green">+</Text>
+                          </div> : null}
                         </div> 
                       ))
                     }
