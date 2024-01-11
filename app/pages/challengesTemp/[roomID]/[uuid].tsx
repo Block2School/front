@@ -143,7 +143,7 @@ export default function ChallengesTemp() {
   //   let link = rawLink?.substring(0, lastPos);
   //   return link;
   // }
-  const { onCopy, value, hasCopied } = useClipboard(`http://localhost:3000/challengesTemp/` + roomID);
+  const { onCopy, value, hasCopied } = useClipboard(`${serverURL}:3000/challengesTemp/` + roomID);
 
   const changeLang = (lang: React.SetStateAction<string>) => {
     setLang(lang);
