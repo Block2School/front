@@ -1,5 +1,6 @@
 import axios from "axios";
 import react, { useEffect, useState, useContext, useRef } from "react";
+import { webSocketURL } from "../utils/globals";
 import Navbar from "../components/navbar/navbar";
 import CustomButton from "../components/button/button";
 import { serverURL } from "../utils/globals";
@@ -7,7 +8,7 @@ import { LanguageContext } from "../components/LanguageSwitcher/language";
 import MarkdownRenderer from "../components/markdown/markdown";
 import TutorialConsole from "../components/tutorialConsole/tutorialConsole";
 import OptionEditor from "../components/editor/optionEditor";
-import OptionEditorv3 from "../components/editor/optionEditorv3";
+import OptionEditorv2 from "../components/editor/optionEditorv2";
 import MonacoEditor from "../components/editor/monacoEditor";
 import UploadEditor from "../components/editor/uploadEditor";
 import LoadingScreen from "../components/loading/loadingScreen";
@@ -16,7 +17,10 @@ import MonacoEditorv2 from "../components/editor/monacoEditorv2";
 import { formatLanguageToServerLanguage, sendGAEvent } from "../utils/utils";
 import { AiFillBell } from "react-icons/ai";
 import { Button, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure } from "@chakra-ui/react";
-import Image from 'next/image'
+
+import { useWebSocket } from "../context/WebSocketContext";
+import { json } from "stream/consumers";
+import { useRouter } from "next/router";
 
 export interface ModalProps {
   showModal: boolean;
@@ -50,14 +54,7 @@ export const CustomModal = (props: ModalProps) => {
         <ModalHeader>{modalTitle}</ModalHeader>
         <ModalCloseButton color="#ffe6c4" />
         <ModalBody>
-          <Image
-            src={"/man-yelling.png"}
-            alt="coach-yelling"
-            height={110}
-            width={110}
-            style={{ margin: "0 auto", display: "block" }}
-            />
-          {/* <img src="/man-yelling.png" id="coach-yelling" height={110} width={110} style={{ margin: "0 auto", display: "block" }} /> */}
+          <img src="/man-yelling.png" id="coach-yelling" height={110} width={110} style={{ margin: "0 auto", display: "block" }} />
           <p>{modalMessage}</p>
         </ModalBody>
         <ModalFooter>
@@ -77,7 +74,7 @@ export const CustomModal = (props: ModalProps) => {
   );
 };
 
-export default function Challenge() {
+export default function ChallengeFriends() {
   const customHTMLRef = useRef(null);
   const { dictionary } = useContext(LanguageContext);
   const [isLoading, setIsLoading] = useState(true);
@@ -94,6 +91,7 @@ export default function Challenge() {
   const [showModal, setShowModal] = useState(false);
   const [modalMessage, setModalMessage] = useState('');
   const [modalTitle, setModalTitle] = useState('');
+  const [playerUUID, setPlayer] = useState('');
 
   const [testSuccessful, setTestSuccessful] = useState<Array<{
     id: number,
@@ -111,6 +109,15 @@ export default function Challenge() {
     language: string,
     already_completed: boolean,
     completed_at: string,
+  }>();
+
+  const [socketInfo, setSocketInfo] = useState<{
+    nbr_success_test : number,
+    nbr_tests : number,
+    code : string,
+    nbr_char : number,
+    language : string,
+    userID : string,
   }>();
 
   useEffect(() => {
@@ -148,11 +155,15 @@ export default function Challenge() {
       setEditorValue(challenge.start_code);
       setDefaultValue(challenge.start_code);
       setIsLoading(false);
-
+      fetchProfile();
       axios.get(challenge.markdown_url).then((res) => {
         res.status === 200 ? setMarkdown(res.data) : setMarkdown('Error while loading markdown file');
       })
       setMarkdown(challenge.markdown_url);
+      let socket = new WebSocket(`ws://` + webSocketURL + `:8080/joinRoom/` + _roomId + `/` + playerUUID)
+
+      console.log(socket)
+
     })
   }, [])
 
@@ -233,6 +244,46 @@ export default function Challenge() {
           setTestSuccessful(_testSuccessful);
         }
 
+        //
+        //
+        //
+        // Code Here for sending code
+        let successTestNbr = 0;
+        for (let idx: number = 0; idx < testSuccessful.length; idx++) {
+          if (testSuccessful[idx].successful === true){
+            successTestNbr += 1;
+          }
+        };
+
+        fetchProfile();
+
+        const infos = {
+          nbr_success_test : successTestNbr,
+          nbr_tests : testSuccessful.length,
+          code : data.code,
+          nbr_char : data.code.length,
+          language : data.language,
+          userID : playerUUID,
+        }
+        setSocketInfo(infos);
+
+        let socketinfo = JSON.stringify(infos);
+        if (testWs) {
+          console.log("testWs dans Challenge.tsx")
+          console.log(testWs);
+          if (testWs.readyState === WebSocket.OPEN) {
+            testWs?.send(socketinfo);
+            console.log("socketinfo envoyé")
+          }
+        }
+
+        //
+        //
+        //
+        //
+
+
+
         setTimeout(() => {
           setShowModal(false);
         }, 3000);
@@ -291,6 +342,21 @@ export default function Challenge() {
     setLang(lang);
   }
 
+  function fetchProfile() {
+    axios.get(`${serverURL}:8080/user/profile`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+        },
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          setPlayer(res.data.uuid);
+        }
+      })
+  }
+
   return (
     (isLoading === true) ?
       <>
@@ -331,7 +397,7 @@ export default function Challenge() {
               </div>
             </div>
             <div id="editor">
-              <OptionEditorv3
+              <OptionEditorv2
                 changeLang={changeLang}
                 changeTheme={changeTheme}
                 switchText={switchText}
