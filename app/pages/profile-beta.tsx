@@ -565,16 +565,22 @@ export default function Profile() {
                     // ))
                     friendList?.map((friend, index) => (
                         <div key={index} className={Style.friend_row}>
-                          <Text overflow={"clip"} color="white">{friend.username + " "}</Text>
+                          <Text overflow={"clip"}>{friend.username + " "}</Text>
                           {friend.status === "pending" ? <span>{"(pending)"}</span>: null}
-                          {friend.status === "asking" ? <span>{"(asked)"}</span>: null}
+                          {friend.status === "asking" ? <span>{"(requested)"}</span>: null}
                           {(friend.status === "pending" || friend.status === "friend") ?
                           <div className={Style.button_remove} onClick={() => deleteFriend(friend.friend_uuid)}>
-                            <Text color="red">-</Text>
+                            <Text
+                              color="red"
+                              fontWeight={"bold"}
+                            >-</Text>
                           </div> : null}
                           {friend.status === "asking" ?
                           <div className={Style.button_accept} onClick={() => addFriendAsked(friend.friend_uuid)}>
-                            <Text color="green">+</Text>
+                            <Text
+                              fontWeight={"bold"}
+                              color="green"
+                            >+</Text>
                           </div> : null}
                         </div> 
                       ))
