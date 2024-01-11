@@ -467,6 +467,12 @@ export default function Profile() {
                 <span>{wallet}</span>
             </div>
         </div>
+        <div>
+        <HStack spacing='24px'>
+                    <Text fontSize="2xl" color="white">{label}</Text>
+                    <Switch size='lg' onChange={setup2FA}/>
+            </HStack>
+        </div>
         <div className={Style.profile_icons_container}>
             <AiFillYoutube className={Style.profile_icon} size={30}></AiFillYoutube>
             <AiFillTwitterCircle className={Style.profile_icon} size={30}></AiFillTwitterCircle>
