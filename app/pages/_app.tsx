@@ -25,6 +25,7 @@ import type { AppProps } from 'next/app'
 import { Web3ReactProvider } from '@web3-react/core'
 import { Web3Provider } from '@ethersproject/providers'
 import { ChakraProvider } from "@chakra-ui/react";
+import { WebSocketProvider } from '../context/WebSocketContext'
 
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
@@ -80,21 +81,23 @@ function MyApp({ Component, pageProps }: AppProps) {
     <LanguageProvider>
       <ChakraProvider>
         <Web3ReactProvider getLibrary={getLibrary}>
-          <Script
-            src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-          ></Script>
-          {/* 👇 gtag function definition. notice that we don't send page views at this point.  */}
-          <Script
-            id="gtag-init"
-            dangerouslySetInnerHTML={{
-              __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-          `,
-            }}
-          />
-          <Component {...pageProps} />
+          <WebSocketProvider>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+            ></Script>
+            {/* 👇 gtag function definition. notice that we don't send page views at this point.  */}
+            <Script
+              id="gtag-init"
+              dangerouslySetInnerHTML={{
+                __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+            `,
+              }}
+            />
+            <Component {...pageProps} />
+          </WebSocketProvider>
         </Web3ReactProvider>
       </ChakraProvider>
     </LanguageProvider>
