@@ -1,9 +1,3 @@
-@font-face {
-  font-family: "Sono";
-  /* src: url("../../public/Sono-Regular.ttf"); */
-  src:url("../../public/Sono-Regular.ttf")
-}
-
 #navbar-component {
   background-color: black;
   border-color: rgba(0,0,0,0);
@@ -13,7 +7,6 @@
   position: sticky;
   z-index: 999;
   height: 95px;
-  font-family: "Sono";
 }
 
 #navbar-container {
@@ -39,8 +32,6 @@
   display: block;
   font-size: 16px;
   line-height: 22px;
-  font-family: "Sono";
-
 }
 
 #navbar-links-main {
@@ -56,15 +47,14 @@
   padding: 0px 20px;
   background-clip: text;
   cursor: pointer;
+  font-family: "Euclid Circular B", sans-serif;
   font-size: 20px;
-  font-family: "Sono";
-
 }
 
 .navbar-text-logo {
   --bs-navbar-color:white;
   display: flex;
-  color: #ffe6c4;
+  color: white;
   -moz-box-align: center;
   align-items: center;
   height: 100px;
@@ -73,11 +63,10 @@
   cursor: pointer;
   font-weight: bold;
   font-size: 26px;
-  transition: background 1s;
 }
 
 .navbar-text-logo:hover {
-  background: #B4184C;
+  background: #ffe6c4;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -88,31 +77,6 @@
   justify-content: space-between;
 }
 
-#navbar-drop-title {
-  transition: color 0.5s; /* Smooth transition */
-}
-
-#navbar-drop-title:hover {
-  color: #ffcf8b;
-}
-
-#navbar-drop-link {
-  transition: background-color 0.5s /* Smooth transition */
-}
-
-#navbar-drop-link-disconnect {
-  background-color: #510808;
-  transition: background-color 0.5s /* Smooth transition */
-}
-
-#navbar-drop-link-disconnect:hover {
-  background-color: #ac0606;
-}
-
-#navbar-drop-link:hover {
-  background-color: #484848;
-}
-
 /* Styles for the mobile button to show/hide the modal */
 .navbar-menu-button {
   display: none; /* Hide the button on larger screens */
@@ -120,13 +84,6 @@
 
 #navbar-mobile-part {
   display: flex;
-}
-
-.dropdownContent {
-  background-color: black;
-  position: absolute;
-  width: fit-content;
-  height: fit-content;
 }
 
 /* Media Query for mobile layout */

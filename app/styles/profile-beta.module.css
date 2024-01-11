@@ -1,0 +1,229 @@
+@font-face {
+    font-family: "Sono";
+    /* src: url("../../public/Sono-Regular.ttf"); */
+    src:url("../public/Sono-Regular.ttf")
+}
+
+.main_container {
+    background: linear-gradient(black, rgb(38, 38, 38));
+    color: white;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow-y: scroll;
+    font-family: "Sono";
+}
+
+.central_profile_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: grey solid 1px;
+    width: 100vw;
+    margin: 20px;
+    padding-top: 20px;
+}
+
+.central_username_div{
+    margin-right: 20px;
+    font-weight: bolder;
+    font-size: 25px;
+}
+
+.central_pic_div {
+    
+}
+
+.central_wallet_div {
+    margin-left: 20px;
+    font-weight: bolder;
+    font-size: 25px;
+}
+
+.central_wallet_div:hover {
+    color: #ffe6c4;
+    cursor: pointer;
+}
+
+.profile_pic {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%; /* This makes it circular */
+    background-image: url('../public/hoodedPictureProfile.png');
+    background-size: cover; 
+    border: solid 2px #B4184C;
+}
+
+.profile_icons_container {
+    display: flex;
+    border-bottom: grey solid 1px;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    padding-bottom: 20px;
+}
+
+.profile_icon {
+    color: #B4184C;
+    margin: 0 20px;
+}
+
+.profile_icon:hover {
+    color: white;
+    cursor: pointer;
+}
+
+.profile_body {
+    display: flex;
+    width: 100vw;
+    height: fit-content;
+    max-width: 1300px;
+}
+
+.profile_data {
+    flex: 70%;
+    text-align: center;
+    margin: 15px;
+}
+
+.profile_friends {
+    flex: 30%; /* Takes 70% of the available space */
+    text-align: center;
+    margin: 15px;
+}
+
+.nft_container {
+    border-top: solid 1px grey;
+    width: 100vw;
+    text-align: center;
+    padding-top: 15px;
+}
+
+.profile_data_body {
+    width: 100%;
+    height: 300px;
+    max-height: 300px;
+    padding: 10px;
+    margin: 15px;
+    border: #212121 3px solid;
+    border-radius: 20px;
+    background-color: rgb(28, 28, 28);
+}
+
+.profile_friends_body {
+    width: 100%;
+    height: 300px;
+    max-height: 300px;
+    padding: 10px;
+    margin: 15px;
+    border: #212121 3px solid;
+    border-radius: 20px;
+    background-color: rgb(28, 28, 28);
+
+}
+
+.main_container h3 {
+    font-size: 20px;
+    font-weight: bolder;
+    color: #B4184C;
+}
+
+.profile_data_body {
+    display: flex;
+}
+
+.profile_data_body_stats {
+    flex: 70%;
+    height: 100px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.profile_data_body_stats_points {
+    flex: 33%;
+    width: 100%;
+    padding: 10px;
+}
+
+.profile_data_body_stats_points_value_div {
+    margin: 5px;
+    padding: 2px;
+}
+
+.percentage_bar {
+    width: 100%;
+    height: 20px;
+    background-color: rgb(28, 28, 28);
+    border: white solid 1px;
+}
+  
+.filler {
+    height: 100%;
+    background-color: #B4184C;
+    width: 100%;
+}
+  
+
+.profile_data_body_stats_points h4 {
+    font-size: 25px;
+    color: #ffe6c4;
+}
+
+.profile_data_body_last_tuto {
+    flex: 30%;
+    border-left: grey solid 1px;
+    height: 100%;
+    margin: 10px;
+}
+
+.profile_data_body_last_tuto h4{
+    font-size: 25px;
+    color: #ffe6c4;
+    margin-bottom: 10px;
+}
+
+.profile_friends_body {
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+}
+
+.friend_row {
+    padding: 5px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between /* Changed from center to space-between */
+}
+
+.friend_row:hover {
+    background-color: #ffe6c4;
+    color: black;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: background-color 1s;
+}
+
+.button_remove {
+    color: red;
+    font-weight: bold;
+}
+
+.nft_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.nft_container_body {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    max-width: 1300px;
+    gap: 10px;
+    margin: 20px;
+}
