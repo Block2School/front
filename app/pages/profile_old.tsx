@@ -14,13 +14,9 @@ import { serverURL } from '../utils/globals'
 import { wallet } from '../utils/profil-utils'
 import UserNFTView from '../components/profile/userNFT'
 import { sendGAEvent } from '../utils/utils'
-import { Text, Input, Link, Heading, Center, Button, Switch, HStack, useDisclosure, Box, space } from "@chakra-ui/react"
-import {AiFillYoutube, AiFillTwitterCircle, AiFillGithub} from 'react-icons/ai'
+import { Text, Input, Link, Heading, Center, Button, Switch, HStack, useDisclosure, Box } from "@chakra-ui/react"
 import QRCode from 'qrcode'
-import Style from '../styles/profile-beta.module.css'
-import NftCard from '../components/profile-beta/nftCard'
-import LastTutorialsCard from '../components/tutorials-beta/lastTutorialsCard';
-
+import { event } from 'react-ga'
 
 export default function Profile() {
 
@@ -35,105 +31,6 @@ export default function Profile() {
   const [srcImg, setSrcImg] = useState('')
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [word_list, setWordList] = useState('')
-  const [wallet, setWallet] = useState('')
-  const [lastTutorial, setLastTutorial] = useState<any>({})
-  const [nbCompletedTutorials, setNbCompletedTutorials] = useState<any>('0')
-  const [totalNbTutorials, setTotalNbTutorials] = useState<any>('100')
-  const [percentageProgress, setPercentageProgress] = useState<number>(0)
-  const [friendList, setFriendList] = useState<[{
-    friend_uuid: string,
-    status: string,
-    username: string
-  }]>()
-
-  const test_data = {
-    test_username: "MigoMax",
-    test_email: "jose.fernan@epitech.eu",
-    test_twitter:"twitter.com",
-    test_youtube:"youtube.com",
-    test_points:"6969",
-    test_srcImg:"",
-    test_account:"Show Wallet",
-    percentage: 60,
-    wallet: "wlkfzieflqsiosflizlIG",
-    "last_completed_tutorials": [
-      {
-        "title": "Last tuto",
-        "tutorial_id": "1"
-      }
-    ]
-  }
-
-  const test_friends = [
-    'Gabriel Knies',
-    'Matisse Page',
-    'Cyril Grosjean',
-    'Lorenzo Manoeuvre',
-    'Lucas Dudot',
-    'Elon Musk',
-    'Gabriel Knies',
-    'Matisse Page',
-    'Cyril Grosjean',
-    'Lorenzo Manoeuvre',
-    'Lucas Dudot',
-    'Elon Musk',
-  ]
-
-  const test_friendList = [
-    {
-      "username": "Migo",
-      "status": "Pending"
-    },
-    {
-      "username": "Gabriel",
-      "status": "Accepted"
-    },
-    {
-      "username": "Lorenzo",
-      "status": "Pending"
-    },
-    {
-      "username": "Migo",
-      "status": "Pending"
-    },
-    {
-      "username": "Migo",
-      "status": "Pending"
-    },
-  ]
-
-  const testNFT = [
-    {
-      name: "Learning Javascript 1",
-      language: "Javascript",
-      completed: true,
-      category: "Beginner",
-      shortDetails: "Begin your journey of learning JS!",
-      details:"In this tutorial you will discover the Javascript programming language, learn it's basic concepts and start the long but wonderful journey of web-programming. Do you think you can do it? We believe you can!",
-      price:"300$",
-      date_acquired:"01/01/2024"
-    },
-    {
-      name: "Learning Javascript 2",
-      language: "Javascript",
-      completed: true,
-      shortDetails: "Having fun with JS? Try these next level tricks!",
-      details:"After learning the basic and fundemantal syntax of Javascript, come try this tutorial to see it's neat tricks and understand why it is one of the most commonly used programming langugaes in the wolrd",
-      category: "Intermediate",
-      price:"300$",
-      date_acquired:"01/01/2024"
-    },
-    {
-      name: "Learning Javascript 3",
-      language: "Javascript",
-      completed: false,
-      shortDetails: "Become a master of Javascript, and know all it's secrets",
-      details:"This tutorial is for those who want to call themselves experts at Javascript. This tutorial shows what you need to know to truly be able to use Javascript in a professional setting, and understand it's complex features",
-      category: "Expert",
-      price:"300$",
-      date_acquired:"01/01/2024"
-    },
-  ]
 
   useEffect(() => {
     if (account !== '' && account !== undefined && account !== null) {
@@ -162,9 +59,8 @@ export default function Profile() {
   }
 
   function fetchProfile() {
-    console.log('[fetchProfile]: token === ', sessionStorage.getItem('token'))
     axios
-      .get(`${serverURL}:8080/user/v2/profile?n=1`, {
+      .get(`${serverURL}:8080/user/profile`, {
         headers: {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': '*',
@@ -173,20 +69,11 @@ export default function Profile() {
       })
       .then((res) => {
         if (res.status === 200) {
-          console.log('[fetchProfile]: res.data === ', res.data)
           setUsername(res.data.username)
           setEmail(res.data.email)
           setTwitter(res.data.twitter)
           setYoutube(res.data.youtube)
           setPoints(res.data.points)
-          setWallet(res.data.wallet)
-          if (res.data.last_completed_tutorials.length > 0)
-            setLastTutorial(res.data.last_completed_tutorials[0])
-          setNbCompletedTutorials(res.data.nb_completed_tutorials)
-          setTotalNbTutorials(res.data.total_nb_tutorials)
-          let _percentage = ((res.data.nb_completed_tutorials * 100) / res.data.total_nb_tutorials)
-          console.log('[fetchProfile]: _percentage === ', _percentage)
-          setPercentageProgress(_percentage)
         }
       })
   }
@@ -201,9 +88,7 @@ export default function Profile() {
     })
       .then((res) => {
         if (res.status === 200) {
-          console.log('[fetchFriends]: res.data === ', res.data);
-          populateFriendList(res.data.data) // TODO: delete
-          setFriendList(res.data.data)
+          populateFriendList(res.data.data)
         }
       })
   }
@@ -217,23 +102,6 @@ export default function Profile() {
       },
       data: {
         friend_uuid: uuid
-      }
-    })
-      .then((res) => {
-        if (res.status === 200) {
-          fetchFriends()
-        }
-      })
-  }
-
-  function addFriendAsked(uuid: string) {
-    axios.post(`${serverURL}:8080/user/friends`, {
-      friend_uuid: uuid,
-    }, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-        Authorization: 'Bearer ' + sessionStorage.getItem('token')
       }
     })
       .then((res) => {
@@ -355,24 +223,6 @@ export default function Profile() {
     QRCode.toDataURL(qr).then(setSrcImg);
   }
 
-  async function setup2FA() {
-    
-    let res = await axios.post(`${serverURL}:8080/user/authenticator/qrcode`, {
-      wordlist:null,
-    }, {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + sessionStorage.getItem('token'),
-        'Access-Control-Allow-Origin': '*',
-      }
-    })
-    console.log(res.data.qr)
-    console.log(res.data.wordlist)
-    setWordList(res.data.wordlist)
-    generate(res.data.qr)
-    onOpen()
-  }
-
   function searchForFriends() {
     var username = $('#search-friend-input').val()
     if (username === '') {
@@ -451,70 +301,93 @@ export default function Profile() {
     }
   }
 
+  async function setup2FA() {
+    
+    let res = await axios.post(`${serverURL}:8080/user/authenticator/qrcode`, {
+      wordlist:null,
+    }, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+        'Access-Control-Allow-Origin': '*',
+      }
+    })
+    console.log(res.data.qr)
+    console.log(res.data.wordlist)
+    setWordList(res.data.wordlist)
+    generate(res.data.qr)
+    onOpen()
+  }
+
   return (
     <>
       <Navbar />
-      <div className={Style.main_container}>
-        <div className={Style.central_profile_container}>
-            <div className={Style.central_username_div}>
-                <span>{username}</span>
-            </div>
-            <div className={Style.central_pic_div}>
-                <div className={Style.profile_pic}>
-                </div>
-            </div>
-            <div className={Style.central_wallet_div}>
-                <span>{wallet}</span>
-            </div>
-        </div>
-        <div className={Style.profile_icons_container}>
-            <AiFillYoutube className={Style.profile_icon} size={30}></AiFillYoutube>
-            <AiFillTwitterCircle className={Style.profile_icon} size={30}></AiFillTwitterCircle>
-            <AiFillGithub className={Style.profile_icon} size={30}></AiFillGithub>
-        </div>
-        <div className={Style.profile_body}>
-            <div className={Style.profile_data}>
-                <h3>Profile stats</h3>
-                <Text>
-                  {percentageProgress}% of tutorials completed
-                </Text>
-                <div className={Style.profile_data_body}>
-                    <div className={Style.profile_data_body_stats}>
-                        <div className={Style.profile_data_body_stats_points}>
-                            <h4>Points</h4>
-                                <div className={Style.profile_data_body_stats_points_value_div}>
-                                    <span>{points}</span>
-                                </div>
-                        </div>
-                        <div className={Style.profile_data_body_stats_points}>
-                            <h4>Progress</h4>
-                                <div className={Style.profile_data_body_stats_points_value_div}>
-                                    <div className={Style.percentage_bar}>
-                                        <div className={Style.filler} style={{ width: `${percentageProgress}%` }}></div>
-                                        {/* <span>{`${percentageProgress}%`}</span> */}
-                                        <Text
-                                          color={"white"}
-                                        >
-                                          {`${percentageProgress}%`}
-                                        </Text>
-                                    </div>
-                                </div>
-                        </div>
-                    </div>
-                    {lastTutorial.title? 
-                                         <div className={Style.profile_data_body_last_tuto}>
-                                         <h4>Last Tutorial</h4>
-                                         <LastTutorialsCard title={lastTutorial.title} category="" id={lastTutorial.tutorial_id} ></LastTutorialsCard>
-                                     </div>
-                      :null}
-                </div>
-                <Button color= "#343434" backgroundColor="#ffe6c4"
+      {account !== '' && account !== undefined && account !== null ? (
+        <>
+          <div>
+            <div id='profile-blur'></div>
+            <div id="profile-container">
+              <div id="profile-header">
+                <HStack spacing='24px'>
+                    <Box w="80%">
+                      <Center>
+                        <Text fontSize="4xl" color="white">Your wallet address: {account}</Text>
+                      </Center>
+                    </Box>
+                    <Text fontSize="2xl" color="white">{label}</Text>
+                    <Switch size='lg' onChange={setup2FA}/>
+                </HStack>
+              </div>
+              <div id="profile-body">
+                <div id="profile-body-left">
+                  <div id="profile-infos">
+                    <Text style={{ color: "greenyellow" }} id="profile-tuto-completed" className="profile-infos-text">You have completed 0 tutorials</Text>
+                    <Text className="profile-infos-label">Points :</Text>
+                    <Text className="profile-infos-text">{points}</Text>
+                    <Text className="profile-infos-label">Username :</Text>
+                    <Text className="profile-infos-text">{username}</Text>
+                    <Text className="profile-infos-label">Email :</Text>
+                    <Text className="profile-infos-text">{email}</Text>
+                    <Text className="profile-infos-label">Twitter :</Text>
+                    <Text className="profile-infos-text">{twitter}</Text>
+                    <Text className="profile-infos-label">Youtube :</Text>
+                    <Text className="profile-infos-text">{youtube}</Text>
+                  </div>
+                  <div className="profile-open-modal">
+                    <Button color= "#343434" backgroundColor="#ffe6c4"
                       onClick={() => {
                         sendGAEvent('Profile', 'button_click', 'Open Modal Change Infos')
                         openModal()
                       }}
-                >Change infos</Button>
-                 <div style={{ height: "50%", top: "26%" }} id="modal-change-infos">
+                    >Change infos</Button>
+                  </div>
+                </div>
+                <div id="profile-body-separator"></div>
+                <div id="profile-body-right">
+                  <div id="friends-container">
+                    <div id="friends-header">
+                      <Text style={{
+                        color: 'white',
+                        fontSize: '150%',
+                        fontWeight: 'bold',
+                        display: 'flex',
+                        alignContent: 'center',
+                      }}>Friends</Text>
+                    </div>
+                    <div id="friends-list"></div>
+                  </div>
+                  <div className="profile-open-modal">
+                    <Button
+                      style={{ color: "#343434", backgroundColor:"#ffe6c4" }}
+                      onClick={() => {
+                        sendGAEvent('Profile', 'button_click', 'Search Friend')
+                        searchFriend()
+                      }}
+                    >Add Friend</Button>
+                  </div>
+                </div>
+              </div>
+              <div style={{ height: "50%", top: "26%" }} id="modal-change-infos">
                 <div id="modal-change-infos-header">
                   <Text>Change infos</Text>
                   <Button color="#343434" backgroundColor="#ffe6c4"
@@ -553,47 +426,7 @@ export default function Profile() {
                   >Apply changes</Button>
                 </div>
               </div>
-            </div>
-            <div className={Style.profile_friends}>
-                <h3>Friends List</h3>
-                <div className={Style.profile_friends_body}>
-                    {
-                    // test_friends.map((friend, index) => (
-                    //     <div key={index} className={Style.friend_row}>
-                    //         <span>{friend}</span>
-                    //     </div>
-                    // ))
-                    friendList?.map((friend, index) => (
-                        <div key={index} className={Style.friend_row}>
-                          <Text overflow={"clip"}>{friend.username + " "}</Text>
-                          {friend.status === "pending" ? <span>{"(pending)"}</span>: null}
-                          {friend.status === "asking" ? <span>{"(requested)"}</span>: null}
-                          {(friend.status === "pending" || friend.status === "friend") ?
-                          <div className={Style.button_remove} onClick={() => deleteFriend(friend.friend_uuid)}>
-                            <Text
-                              color="red"
-                              fontWeight={"bold"}
-                            >-</Text>
-                          </div> : null}
-                          {friend.status === "asking" ?
-                          <div className={Style.button_accept} onClick={() => addFriendAsked(friend.friend_uuid)}>
-                            <Text
-                              fontWeight={"bold"}
-                              color="green"
-                            >+</Text>
-                          </div> : null}
-                        </div> 
-                      ))
-                    }
-                </div>
-                <Button
-                      style={{ color: "#343434", backgroundColor:"#ffe6c4" }}
-                      onClick={() => {
-                        sendGAEvent('Profile', 'button_click', 'Search Friend')
-                        searchFriend()
-                      }}
-                >Add Friend</Button>
-                 <div id="modal-search-friends">
+              <div id="modal-search-friends">
                 <div id="modal-search-friends-header">
                   <Text>Search friends</Text>
                   {/* <Button color="#343434" backgroundColor="#ffe6c4" onClick={() => methodDoesNotExist()}>Break the world</Button>; */}
@@ -623,19 +456,22 @@ export default function Profile() {
                 </div>
               </div>
             </div>
+          </div>
+          <UserNFTView />
+        </>
+      ) : (
+        <div
+          style={{
+            height: '81vh',
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Text color="white" fontSize="3xl">You must be connected to access profile page </Text>
         </div>
-        {/* <div className={Style.nft_container}>
-            <h3>My NFTS</h3>
-            <ul className={Style.nft_container_body}>
-                {
-                testNFT.map((tutos, index) => (
-                    <NftCard key={index} tutorial={tutos}></NftCard>
-                    // <h1>test</h1>
-                ))
-                }
-            </ul>
-        </div> */}
-      </div>
+      )}
       <Footer />
       <TwoFAModal isOpen={isOpen} closeModal={onClose} qr_code={srcImg} wordlist={word_list}></TwoFAModal>
     </>

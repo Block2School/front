@@ -177,7 +177,7 @@ export default function Navbar() {
                 <span id="navbar-drop-title" className='navbar-text' onMouseEnter={toggleProfileModal} onMouseLeave={toggleProfileModalLeave}>Account</span>
                 {showProfileModal && (
                   <div onMouseEnter={toggleProfileModal} onMouseLeave={toggleProfileModalLeave} className='dropdownContent'>
-                    <Link href={'/profile-beta'} passHref>
+                    <Link href={'/profile'} passHref>
                       <div id='navbar-drop-link'>
                         <span className="navbar-text">Profile</span>
                       </div>

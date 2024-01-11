@@ -1,246 +1,84 @@
-import { Spacer, Text, Button, Box, Center } from '@chakra-ui/react'
-import React, { useContext } from 'react'
-import { Carousel, Image } from 'react-bootstrap'
-import Footer from '../components/footer/footer'
-import Navbar from '../components/navbar/navbar'
-import Link from 'next/link'
-import { sendGAEvent } from '../utils/utils'
-import { LanguageContext } from '../components/LanguageSwitcher/language'
+// import { Inter } from 'next/font/google'
+import styles from '../styles/home-beta.module.css'
+import Navbar from '../components/navbar/navbar';
+import Footer from '../components/footer/footer';
+import DevProfile from "../components/devProfile/devProfile"
+import { serverURL } from "../utils/globals";
+import { useRouter } from 'next/router';
 
-export default function Home() {
-  const { dictionary } = useContext(LanguageContext)
 
+
+// const inter = Inter({ subsets: ['latin'] })
+
+export default function Homepage() {
+  const router = useRouter();
+
+  const goToSite = () => {
+    // window.location.replace('http://51.77.194.105:3000/');
+    router.push('/tutorials');
+  }
+
+  
   return (
-    <>
-      <Navbar />
-      <div id="home-container">
-        <div id="home-header">
-          <Center id='home-header-center' h="150px">
-            <Text id='home-header-title' fontSize='6xl' color="white">{dictionary.home_page.home_header_title}</Text>
-          </Center>
+    <main>
+      <Navbar></Navbar>
+      <div className={styles.main_div}>
+        <div className={styles.home_div}>
+          <div className={styles.catch_phrase}>
+            <h1 className={styles.title_catch_phrase}>Master <span className={styles.title_catch_phrase_color}>Web3.0</span> today</h1>
+            <span className={styles.title_body}>Learn the basics... </span><br />
+            <span className={styles.title_body}>Show your classmates...</span><br />
+            <span className={styles.title_body}>Create your coin!</span>
+            <div className={styles.enroll_button}>
+              <button className={styles.enroll_button_text} onClick={goToSite}>Start learning now !</button>
+            </div>
+          </div>
         </div>
-        <div id="home-body">
-          <div id="home-first-part">
-            <Spacer />
-            <div id="home-image-group">
-              <Image
-                id="home-eth-img"
-                src="/ethereum.png"
-                width={100}
-                height={100}
-                alt='ethereum'
-              />
-              <Image
-                id="home-btc-img"
-                src="/bitcoin.png"
-                width={100}
-                height={100}
-                alt='bitcoin'
-              />
-              <Image
-                id="home-web3-img"
-                src="/web3.png"
-                width={100}
-                height={100}
-                alt='web3'
-              />
-              <Image src="/Logo_B2S.png" id="home-b2c-img" height={100} width={100} alt=''/>
+        <div className={styles.middle_div}>
+          <div className={styles.demo_div}>
+            <div className={styles.demo_text}>
+              <h1 className={styles.demo_title}>Block2School</h1>
+              <span className={styles.demo_paragraph}>
+              In a world that is blooming with web 3 products, you can’t help but sense that it is still the beginning. It is the perfect time to start learning and creating with Web3. That is what Block2School wants to help you with! Enroll with us and unlock the whole new world. Become an expert in web3 by enrolling to our school!
+              </span>
             </div>
-            <div>
-              <Image
-                className="home-arrow"
-                id="home-arrow-left"
-                src="/curved_arrow.png"
-                alt='arrow'
-              />
+            <div className={styles.demo_image_hompage}>
             </div>
-            <Spacer id="spacer1" width={100}></Spacer>
-            <div id="home-first-part-paragraph">
-              <Text id="home-paragraph-title">
-                {dictionary.home_page.home_paragraph_title}
-              </Text>
-              <Spacer id="spacer" maxH={50} />
-              <div id="home-paragraph">
-                <Text>
-                  {dictionary.home_page.home_paragraph}
-                </Text>
-              </div>
-            </div>
-            <Spacer />
           </div>
-          <div id="#mobile-display-none1"
-            style={{
-              width: '100%',
-              height: '75px',
-            }}
-          ></div>
-          <div id="home-second-part">
-            <div id="home-second-part-paragraph">
-              <Text id="home-paragraph-start-title">{dictionary.home_page.home_paragraph_start_title}</Text>
-              <div id="home-paragraph-start">
-                <Text>
-                  {dictionary.home_page.home_paragraph_start}
-                </Text>
-              </div>
+          <div className={styles.demo_div}>
+          <div className={styles.demo_image_tutos}>
             </div>
-            <div>
-              <Image
-                className="home-arrow"
-                id="home-arrow-right"
-                src="/curved_arrow.png"
-                alt='arrow'
-              />
+            <div className={styles.demo_text}>
+              <h1 className={styles.demo_title}>Test your web3 code!</h1>
+              <span className={styles.demo_paragraph}>
+              True to it&apos;s name, Block2Scool will accompany you in every step of the way! No matter if you are a beginner just starting to learn how to code or an experienced tech dark wizard, we know you will find a place in our school! Here, you will be able to practice writing code, and more specifically web3 programs. By the end of the course, you will know how to write smart contracts, deploy blockchains, in other words, you’ll be capable of deploying your very own cryptocurrencies! 
+              </span>
             </div>
-            <div id="button-start">
-              <Button
-              onClick={() => {
-              sendGAEvent('home', 'button_click', 'Go to tuto through home')
-            }}>
-                <Link href={'/tutorials'} passHref>
-                  {dictionary.home_page.button_start}
-                </Link>
-              </Button>
-            </div>
-            <div id="coach">
-              <Image 
-                src="/man-yelling.png" 
-                id="coach-yelling" 
-                height={100} 
-                width={100}
-                alt=''
-              />
-            </div>
-            <Spacer maxW={200} />
           </div>
-          <div id="home-team" style={{
-            width: '100%',
-            height: '75px',
-            color: "white",
-            fontSize: "60px",
-            fontWeight: "bold",
-            textAlign: "center",
-            marginBottom: "50px"
-          }}>{dictionary.home_page.home_team}</div>
-            <div id="home-third-part">
-              <div>
-                <div className="flip-box">
-                  <div className="flip-box-inner">
-                    <div className="flip-box-front">
-                      <Image 
-                        id="home-picture-matisse"
-                        src="/profile-pictures/matisse.png"
-                        className="home-picture"
-                        width={100}
-                        alt='matisse'
-                      />
-                    </div>
-                    <div className="flip-box-back">
-                      <Text>Matisse Page</Text>
-                      <p>{dictionary.home_page.front_end_dev}</p>
-                    </div>
-                  </div>
-                </div> 
-              </div>
-              <div>
-                <div className="flip-box">
-                  <div className="flip-box-inner">
-                    <div className="flip-box-front">
-                      <Image
-                        id="home-picture-lorenzo"
-                        src="/profile-pictures/lorenzo.png"
-                        className="home-picture"
-                        width={100}
-                        alt='lorenzo'
-                      />
-                    </div>
-                    <div className="flip-box-back">
-                      <Text>Lorenzo Manoeuvre</Text>
-                      <p>{dictionary.home_page.front_end_dev}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <div className="flip-box">
-                  <div className="flip-box-inner">
-                    <div className="flip-box-front">
-                      <Image
-                        id="home-picture-lucas"
-                        src="/profile-pictures/lucas.png"
-                        className="home-picture"
-                        width={100}
-                        alt='lucas' 
-                      />
-                    </div>
-                    <div className="flip-box-back">
-                      <Text>Lucas Dudot</Text>
-                      <p>{dictionary.home_page.front_end_dev}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <div className="flip-box">
-                  <div className="flip-box-inner">
-                    <div className="flip-box-front">
-                      <Image
-                        id="home-picture-cyril"
-                        src="/profile-pictures/cyril.png"
-                        className="home-picture"
-                        width={100}
-                        alt='cyril'
-                      />
-                    </div>
-                    <div className="flip-box-back">
-                      <Text>Cyril Grosjean</Text>
-                      <p>{dictionary.home_page.back_end_dev}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <div className="flip-box">
-                  <div className="flip-box-inner">
-                    <div className="flip-box-front">
-                      <Image
-                        id="home-picture-gabriel"
-                        src="/profile-pictures/gabriel.png"
-                        className="home-picture"
-                        width={100}
-                        alt='gabriel'
-                      />
-                    </div>
-                    <div className="flip-box-back">
-                      <Text>Gabriel Knies</Text>
-                      <p>{dictionary.home_page.full_stack_blockchain_dev}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <div className="flip-box">
-                  <div className="flip-box-inner">
-                    <div className="flip-box-front">
-                      <Image
-                        id="home-picture-jose"
-                        src="/profile-pictures/jose.png"
-                        className="home-picture"
-                        width={100}
-                        alt='jose'
-                      />
-                      </div>
-                      <div className="flip-box-back">
-                        <Text>Jose Fernan</Text>
-                        <p>{dictionary.home_page.full_stack_dev}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+          <div className={styles.demo_div}>
+            <div className={styles.demo_text}>
+              <h1 className={styles.demo_title}>Meet your professors!</h1>
+              <span className={styles.demo_paragraph}>
+              Just like at school, your progress will be graded by our in-house virtual professors! That’s right, you can submit your code, and we’ll check if it runs! Try to solve our problems and climb the leaderboards. Can you become the number 1 student of the school?             </span>
             </div>
-            <Spacer height={100} />
+            <div className={styles.demo_image_teachers}>
+            </div>
+          </div>
+        </div>
+        <div className={styles.container}>
+          <h1 className={styles.title}>Meet our developers!</h1>
+          <div className={styles.profiles_div}>
+            <DevProfile name="Lucas Dudot" title="Front-End Developer" place="Olso, Sweden" profilePic="/iloveimg-resized/lucas-profile.jpeg" githubLink="https://github.com/Lucase84" linkedinLink="https://www.linkedin.com/in/lucas-dudot-a47122197/"></DevProfile>
+            <DevProfile name="Gabriel Knies" title="Full-Stack Developer" place="Sejeong, South Korea" profilePic="/iloveimg-resized/gabprofile.jpeg" githubLink="https://github.com/gabirel1" linkedinLink="https://www.linkedin.com/in/gabriel-knies/"></DevProfile>
+            <DevProfile name="Lorenzo Manoeuvre" title="Blockchain Developer" place="Los Angeles, USA" profilePic="/iloveimg-resized/lorenzoProfile.jpeg" githubLink="https://github.com/LorenzoMan" linkedinLink="https://www.linkedin.com/in/lorenzo-manoeuvre/"></DevProfile>
+            <DevProfile name="Matisse Page" title="Unit Tests - Web Design" place="Los Angeles, USA" profilePic="/iloveimg-resized/matisseProfile.jpeg" githubLink="https://github.com/matissepage" linkedinLink="https://www.linkedin.com/in/matisse-page/"></DevProfile>
+            <DevProfile name="Cyril Grosjean" title="Back-End Developer" place="Quebec City, Canada" profilePic="/iloveimg-resized/cyrilProfile.jpeg" githubLink="https://github.com/CyrilGrosjean" linkedinLink="https://www.linkedin.com/in/lucas-dudot-a47122197/"></DevProfile>
+            <DevProfile name="Jose Fernan" title="Web Developer" place="Seoul, South Korea" profilePic="/iloveimg-resized/joseProfile.jpg" githubLink="https://github.com/JoseFERNAN" linkedinLink="https://www.linkedin.com/in/jose-miguel-fernan-56670a112/"></DevProfile>
+          </div>
         </div>
       </div>
-      <Footer />
-    </>
+      <Footer></Footer>
+    </main>
+
   )
 }
