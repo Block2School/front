@@ -29,8 +29,8 @@ export default function Profile() {
   const web3 = new Web3('https://data-seed-prebsc-1-s1.binance.org:8545') // TESTNET
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
-  const [twitter, setTwitter] = useState('')
-  const [youtube, setYoutube] = useState('')
+  const [twitter, setTwitter] = useState('https://www.twitter.com')
+  const [youtube, setYoutube] = useState('https://www.youtube.com')
   const [points, setPoints] = useState('')
   const [srcImg, setSrcImg] = useState('')
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -135,31 +135,38 @@ export default function Profile() {
     },
   ]
 
+  const handleLinkClick = (link:any) => {
+    // window.location.href = link;
+    // open in new tab
+    window.open(link, '_blank');
+    console.log("LINK::::", link)
+  }
+
   useEffect(() => {
     if (account !== '' && account !== undefined && account !== null) {
       console.log("LORENZO")
       fetchProfile()
-      fetchSucces()
+      // fetchSucces()
       fetchFriends()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [account])
 
-  function fetchSucces() {
-    axios
-      .get(`${serverURL}:8080/tuto/success/me`, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-          Authorization: 'Bearer ' + sessionStorage.getItem('token')
-        }
-      })
-      .then((res) => {
-        if (res.status === 200) {
-          $("#profile-tuto-completed").text(`You have completed ${res.data.data[0].total_completions} tutorials`)
-        }
-      })
-  }
+  // function fetchSucces() {
+  //   axios
+  //     .get(`${serverURL}:8080/tuto/success/me`, {
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         'Access-Control-Allow-Origin': '*',
+  //         Authorization: 'Bearer ' + sessionStorage.getItem('token')
+  //       }
+  //     })
+  //     .then((res) => {
+  //       if (res.status === 200) {
+  //         $("#profile-tuto-completed").text(`You have completed ${res.data.data[0].total_completions} tutorials`)
+  //       }
+  //     })
+  // }
 
   function fetchProfile() {
     console.log('[fetchProfile]: token === ', sessionStorage.getItem('token'))
@@ -202,7 +209,7 @@ export default function Profile() {
       .then((res) => {
         if (res.status === 200) {
           console.log('[fetchFriends]: res.data === ', res.data);
-          populateFriendList(res.data.data) // TODO: delete
+          // populateFriendList(res.data.data) // TODO: delete
           setFriendList(res.data.data)
         }
       })
@@ -243,38 +250,38 @@ export default function Profile() {
       })
   }
 
-  function populateFriendList(friendsList: any) {
-    var listContainer = $('#friends-list')
-    listContainer.empty()
+  // function populateFriendList(friendsList: any) {
+  //   var listContainer = $('#friends-list')
+  //   listContainer.empty()
 
-    for (let index = 0; index < friendsList.length; index++) {
-      let children =
-        '<div id=friend-item-' + index + ' class="friend-item">' +
-        '<div class="friend-item-left">' +
-        '<div class="friend-item-circle">' +
-        '<img src="/icon-person.png" style="width: 20px; height: 20px; border-radius: 50%;"></img>' +
-        '</div>' +
-        '</div>' +
-        '<div class="friend-item-middle">' +
-        '<span style="font-size: 16px; font-weight: 600; margin: 0px;">' + friendsList[index].username + '</span>' +
-        '</div>' +
-        '<div class="friend-item-right">' +
-        '<img src="/minus.png" style="width: 20px; height: 20px; border-radius: 50%; filter: invert(1); cursor: pointer"></img>' +
-        '</div>' +
-        '</div>'
-      listContainer.append(children)
-      if (friendsList[index].status == "friend") {
-        $('#friend-item-' + index + ' .friend-item-left .friend-item-circle').css('background-color', 'greenyellow')
-        $('#friend-item-' + index + ' .friend-item-left .friend-item-circle').attr('title', 'Friend')
-      } else {
-        $('#friend-item-' + index + ' .friend-item-left .friend-item-circle').css('background-color', 'orange')
-        $('#friend-item-' + index + ' .friend-item-left .friend-item-circle').attr('title', 'Pending')
-      }
-      $('#friend-item-' + index + ' .friend-item-right').click(() => {
-        deleteFriend(friendsList[index].friend_uuid)
-      })
-    };
-  }
+  //   for (let index = 0; index < friendsList.length; index++) {
+  //     let children =
+  //       '<div id=friend-item-' + index + ' class="friend-item">' +
+  //       '<div class="friend-item-left">' +
+  //       '<div class="friend-item-circle">' +
+  //       '<img src="/icon-person.png" style="width: 20px; height: 20px; border-radius: 50%;"></img>' +
+  //       '</div>' +
+  //       '</div>' +
+  //       '<div class="friend-item-middle">' +
+  //       '<span style="font-size: 16px; font-weight: 600; margin: 0px;">' + friendsList[index].username + '</span>' +
+  //       '</div>' +
+  //       '<div class="friend-item-right">' +
+  //       '<img src="/minus.png" style="width: 20px; height: 20px; border-radius: 50%; filter: invert(1); cursor: pointer"></img>' +
+  //       '</div>' +
+  //       '</div>'
+  //     listContainer.append(children)
+  //     if (friendsList[index].status == "friend") {
+  //       $('#friend-item-' + index + ' .friend-item-left .friend-item-circle').css('background-color', 'greenyellow')
+  //       $('#friend-item-' + index + ' .friend-item-left .friend-item-circle').attr('title', 'Friend')
+  //     } else {
+  //       $('#friend-item-' + index + ' .friend-item-left .friend-item-circle').css('background-color', 'orange')
+  //       $('#friend-item-' + index + ' .friend-item-left .friend-item-circle').attr('title', 'Pending')
+  //     }
+  //     $('#friend-item-' + index + ' .friend-item-right').click(() => {
+  //       deleteFriend(friendsList[index].friend_uuid)
+  //     })
+  //   };
+  // }
 
   function saveModal() {
     var newUsername = $('#new-username-input').val()
@@ -474,9 +481,15 @@ export default function Profile() {
             </HStack>
         </div>
         <div className={Style.profile_icons_container}>
+          <div onClick={() => handleLinkClick(youtube)}>
             <AiFillYoutube className={Style.profile_icon} size={30}></AiFillYoutube>
+          </div>
+          <div onClick={() => handleLinkClick(twitter)}>
             <AiFillTwitterCircle className={Style.profile_icon} size={30}></AiFillTwitterCircle>
+            </div>
+            <div onClick={() => handleLinkClick("https://www.github.com")}>
             <AiFillGithub className={Style.profile_icon} size={30}></AiFillGithub>
+            </div>
         </div>
         <div className={Style.profile_body}>
             <div className={Style.profile_data}>
@@ -625,6 +638,7 @@ export default function Profile() {
               </div>
             </div>
         </div>
+        <UserNFTView />
         {/* <div className={Style.nft_container}>
             <h3>My NFTS</h3>
             <ul className={Style.nft_container_body}>
