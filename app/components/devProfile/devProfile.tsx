@@ -5,11 +5,13 @@ import { stringify } from 'querystring';
 export default function devProfile({name, title, place, profilePic, githubLink, linkedinLink}:any) {
 
     function goToGithub() {
-        window.location.href = githubLink
+        // window.location.href = githubLink
+        window.open(githubLink, "_blank")
     }
 
     function goToLinkedIn () {
-        window.location.href = linkedinLink
+        // window.location.href = linkedinLink
+        window.open(linkedinLink, "_blank")
     }
 
     return (

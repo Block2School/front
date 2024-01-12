@@ -84,6 +84,7 @@ export default function UserNFTView() {
     setUserNFT(nftArrayTmp);
   };
 
+  if (userNFT.length === 0) return null;
 
   return (
     <>
