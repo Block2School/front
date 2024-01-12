@@ -61,7 +61,7 @@ export default function ChallengesTemp() {
 
   const { roomID, uuid } = router.query;
   const [time, setTime] = useState({ minutes: 2, seconds: 0 });
-  const [playingTimer, setPlayingTimer] = useState({ minutes: 1, seconds: 0 });
+  const [playingTimer, setPlayingTimer] = useState({ minutes: 5, seconds: 0 });
   const [ws, setWs] = useState<WebSocket | null>(null);
   let check: boolean = false;
   const [roomJoined, setRoomJoined] = useState(false);
