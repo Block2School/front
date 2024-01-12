@@ -81,6 +81,8 @@ export default function ConnectionButton() {
       if (res.status === 200) {
         onClose2()
         sessionStorage.setItem('token', res.data.access_token)
+        console.log('setTokenReady, connectionButton: ');
+        window.location.reload()
       }
     })
   }
@@ -104,6 +106,8 @@ export default function ConnectionButton() {
             username: account || "",
           })
           sessionStorage.setItem('token', res.data.access_token)
+          console.log('USE_EFFECT[active], connectionButton: ', active);
+          window.location.reload()
         }
       }).catch((res) => {
         console.log('login catch(useEffect): ', res)
