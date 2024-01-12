@@ -90,6 +90,10 @@ export default function ConnectionButton() {
   useEffect(() => {
     console.log('[connection ?] active: ', active)
     console.log('[connection ?] account: ', account)
+
+    const _token = sessionStorage.getItem('token')
+    if (_token) return;
+
     if (active === true) {
       axios({
         method: 'post',
