@@ -29,8 +29,8 @@ export default function Profile() {
   const web3 = new Web3('https://data-seed-prebsc-1-s1.binance.org:8545') // TESTNET
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
-  const [twitter, setTwitter] = useState('')
-  const [youtube, setYoutube] = useState('')
+  const [twitter, setTwitter] = useState('https://www.twitter.com')
+  const [youtube, setYoutube] = useState('https://www.youtube.com')
   const [points, setPoints] = useState('')
   const [srcImg, setSrcImg] = useState('')
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -134,6 +134,11 @@ export default function Profile() {
       date_acquired:"01/01/2024"
     },
   ]
+
+  const handleLinkClick = (link:any) => {
+    window.location.href = link;
+    console.log("LINK::::", link)
+  }
 
   useEffect(() => {
     if (account !== '' && account !== undefined && account !== null) {
@@ -474,9 +479,15 @@ export default function Profile() {
             </HStack>
         </div>
         <div className={Style.profile_icons_container}>
+          <div onClick={() => handleLinkClick(youtube)}>
             <AiFillYoutube className={Style.profile_icon} size={30}></AiFillYoutube>
+          </div>
+          <div onClick={() => handleLinkClick(twitter)}>
             <AiFillTwitterCircle className={Style.profile_icon} size={30}></AiFillTwitterCircle>
+            </div>
+            <div onClick={() => handleLinkClick("https://www.github.com")}>
             <AiFillGithub className={Style.profile_icon} size={30}></AiFillGithub>
+            </div>
         </div>
         <div className={Style.profile_body}>
             <div className={Style.profile_data}>
@@ -625,6 +636,7 @@ export default function Profile() {
               </div>
             </div>
         </div>
+        <UserNFTView />
         {/* <div className={Style.nft_container}>
             <h3>My NFTS</h3>
             <ul className={Style.nft_container_body}>
