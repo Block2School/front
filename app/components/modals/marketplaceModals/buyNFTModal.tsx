@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import {
   VStack,
   Modal,
@@ -24,6 +24,7 @@ import NFT_INTERFACE from '../../../config/abi/nft.json';
 import NFT_INTERFACE2 from '../../../config/abi/nft2.json';
 import NFT_INTERFACE3 from '../../../config/abi/nft3.json';
 import { sendGAEvent } from '../../../utils/utils';
+import { LanguageContext } from '../../LanguageSwitcher/language';
 
 interface NFT {
   id: string;
@@ -41,6 +42,7 @@ export default function BuyNFTModal({ isOpenModal, closeModal, _nft }: { isOpenM
   const [successMessage, setSuccessMessage] = React.useState('');
   const [isError, setIsError] = React.useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { dictionary } = useContext(LanguageContext);
 
   const buyNFT = async () => {
     try {
@@ -86,7 +88,7 @@ export default function BuyNFTModal({ isOpenModal, closeModal, _nft }: { isOpenM
             fontWeight="bold"
             fontSize="2xl"
           >
-            Buying confirmation
+            {dictionary.buy_nft_modal.modal_header}
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody>
@@ -98,7 +100,7 @@ export default function BuyNFTModal({ isOpenModal, closeModal, _nft }: { isOpenM
               <Image src={_nft.image} alt={_nft.name} />
             </Center>
             <VStack spacing={4}>
-              <Text>Price: {_nft.price} {_nft.currency === "BNB" ? "BNB" : "B2ST"}</Text>
+              <Text>{dictionary.buy_nft_modal.modal_price}: {_nft.price} {_nft.currency === "BNB" ? "BNB" : "B2ST"}</Text>
               <Button
                 colorScheme="teal"
                 onClick={() => {
@@ -106,7 +108,7 @@ export default function BuyNFTModal({ isOpenModal, closeModal, _nft }: { isOpenM
                   buyNFT()
                 }}
               >
-                Buy
+                {dictionary.buy_nft_modal.modal_button}
               </Button>
             </VStack>
           </ModalBody>

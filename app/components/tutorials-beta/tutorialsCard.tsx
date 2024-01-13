@@ -1,14 +1,16 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import axios from 'axios';
 import styles from './tutorialsCard.module.css'
 import { color } from '@chakra-ui/react';
 import {Box, Text} from '@chakra-ui/react'
 import Link from 'next/link'
 import Image from 'next/image';
+import { LanguageContext } from '../LanguageSwitcher/language';
 
 export default function  TutorialCard({tutorial}:any) {
   const [showModal, setShowModal] = useState(true)
+  const { dictionary } = useContext(LanguageContext);
 
   const toggleModal = () => {
     setShowModal(!showModal);
@@ -31,7 +33,7 @@ export default function  TutorialCard({tutorial}:any) {
             <span>{tutorial.short_description}</span>
           </div>
           <div className={styles.timeline_post_details}>
-              {tutorial.is_completed ? (<span className={styles.completed_tag}>Completed</span>) : null}
+              {tutorial.is_completed ? (<span className={styles.completed_tag}>{dictionary.tutorials_card.completed}</span>) : null}
           </div>
         </div>
         ) : (
@@ -39,7 +41,7 @@ export default function  TutorialCard({tutorial}:any) {
           <p>{tutorial.details}</p>
           <Link href={{pathname: "/tutorial", query: { tutorialId: tutorial.id }}} passHref>
             <Box className={styles.buttonBox}>
-              <span>Start Tutorial</span>
+              <span>{dictionary.tutorials_card.start}</span>
             </Box>
           </Link>
         </div>

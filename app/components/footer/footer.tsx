@@ -1,15 +1,17 @@
 import { Center, Text } from '@chakra-ui/react'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { sendGAEvent } from '../../utils/utils'
 import CustomButton from '../button/button'
+import { LanguageContext } from "../LanguageSwitcher/language";
 
 // Changer le path pour les SVG absolument dégueulasse
 
 export default function Footer() {
 
   const [showModalFooter, setShowModalFooter] = useState(false);
+  const { dictionary } = useContext(LanguageContext);
 
   const handleToggleModalFooter = () => {
     setShowModalFooter(!showModalFooter);
@@ -28,10 +30,10 @@ export default function Footer() {
           <div id="footer-links-container">
             <div id="footer-links-main">
               <Link href="/terms-of-use">
-                <span className="footer-text">Terms of use</span>
+                <span className="footer-text">{dictionary.footer.footer_terms_of_use}</span>
               </Link>
               <Link href="/privacy-policy">
-                <span className="footer-text">Privacy Policy</span>
+                <span className="footer-text">{dictionary.footer.footer_privacy_policy}</span>
               </Link>
             </div>
           </div>
@@ -84,7 +86,7 @@ export default function Footer() {
                   fontSize="xl"
                   fontWeight="bold"
                   color="white"
-                >Help Us</Text>
+                >{dictionary.footer.footer_help_us}</Text>
                 <Image
                   src="/questionnaire-beta-qr-code"
                   alt="Questionnaire Beta QR Code"
@@ -145,10 +147,10 @@ export default function Footer() {
             </div>
             <div className="footer-modal-links">
               <Link href="/terms-of-use">
-                  <span className="footer-text">Terms of use</span>
+                  <span className="footer-text">{dictionary.footer.footer_terms_of_use}</span>
                 </Link>
               <Link href="/privacy-policy">
-                <span className="footer-text">Privacy Policy</span>
+                <span className="footer-text">{dictionary.footer.footer_privacy_policy}</span>
               </Link>
             </div>
           </div>
