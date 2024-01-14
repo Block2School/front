@@ -1,0 +1,121 @@
+.timeline_post {
+    margin-bottom: 20px;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: black;
+    border: 3px solid rgb(38, 38, 38);
+    border-radius: 20px;
+    transition: border 0.5s;
+}
+
+.timeline_post:hover {
+    border: 3px solid #ffe6c4;
+}
+
+.timeline_post_title {
+    color: white;
+}
+  
+.timeline_post_header {
+margin-bottom: 10px;
+}
+  
+.timeline_post_header h2 {
+font-size: 25px;
+margin-bottom: 5px;
+font-weight: bold;
+}
+  
+.timeline_post_header small {
+color: #888;
+}
+  
+.timeline_post_details {
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+  
+.timeline_post_details span {
+color: #888;
+font-size: 14px;
+}
+
+.category_name_post {
+    color: #B4184C;
+    font-weight: bold;
+}
+
+.forum_modal{
+    color: white;
+}
+
+.post_text_container {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-top: #888 solid 1px;
+    border-bottom: #888 solid 1px;
+    padding: 10px
+}
+
+.post_score {
+    color: #B4184C;
+    font-weight: bolder;
+}
+
+.forum_modal {
+    color: white;
+}
+
+.forum_modal_text {
+    font-size: 15px;
+}
+
+.comment_container h4{
+    color: white;
+    font-weight: bold;
+}
+
+.post_comment_div {
+    border-bottom: #888 solid 0.5px;
+    margin-top: 10px;
+    padding-bottom: 5px;
+}
+
+.comment_author_p {
+    font-size: 7px;
+}
+
+.comment_text_p {
+    font-size: 12px;
+}
+
+.search_posts {
+    margin-top: 20px
+}
+
+.search_posts form {
+    display: flex;
+  }
+    
+.search_posts input[type="text"] {
+flex: 1;
+margin-right: 10px;
+padding: 5px;
+border-radius: 3px;
+border: 1px solid #ccc;
+}
+  
+.search_posts button[type="submit"] {
+padding: 5px 10px;
+border-radius: 3px;
+border: none;
+background-color: #333;
+color: #fff;
+cursor: pointer;
+}
+    
+.search_posts button[type="submit"]:hover {
+background-color: #ffe6c4;
+color: black;
+}
