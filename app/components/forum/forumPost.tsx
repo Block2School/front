@@ -18,7 +18,7 @@ export default function  ForumPost({post}:any) {
   }
 
   useEffect(() => {
-    axios.get(`http://${serverURL}:8080/forum/post/` + post.id + `/comments`, {
+    axios.get(`${serverURL}:8080/forum/post/` + post.id + `/comments`, {
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
@@ -40,7 +40,7 @@ export default function  ForumPost({post}:any) {
     const token: string | null = sessionStorage.getItem('token')
     axios({
       method: 'POST',
-      url: `http://${serverURL}:8080/forum/comment/create`,
+      url: `${serverURL}:8080/forum/comment/create`,
       data: {
         "post_id": post.id,
         "text": commentInputValue,
