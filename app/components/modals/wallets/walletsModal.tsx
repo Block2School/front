@@ -8,6 +8,8 @@ import {
   ModalCloseButton,
 } from '@chakra-ui/react'
 import LoginOptions from './walletsLoginOptions'
+import { useContext } from 'react';
+import { LanguageContext } from '../../LanguageSwitcher/language'
 
 const SelectWalletModal = ({
     isOpen,
@@ -17,6 +19,8 @@ const SelectWalletModal = ({
     closeModal: any
   }) => {
 
+  const { dictionary } = useContext(LanguageContext);
+
   if (isOpen === false) {
     return null
   }
@@ -24,7 +28,7 @@ const SelectWalletModal = ({
     <Modal id="modal_popup" isOpen={isOpen} onClose={closeModal} isCentered preserveScrollBarGap>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader id="modal_popup">Select Wallet</ModalHeader>
+        <ModalHeader id="modal_popup">{dictionary.wallets_modal.modal_header}</ModalHeader>
         <ModalCloseButton _focus={{ boxShadow: 'none'}} id="close-modal"/>
         <ModalBody id="modal_popup" paddingBottom="1.5rem">
         <LoginOptions isOpen={isOpen} closeModal={closeModal}/>

@@ -31,6 +31,7 @@ import ErrorAlert from '../../alerts/errorAlert/errorAlert';
 import VAULT_INTERFACE from '../../../config/abi/vault.json';
 import VAULT_INTERFACE2 from '../../../config/abi/vault2.json';
 import SuccessAlert from '../../alerts/successAlert/successAlert';
+import { LanguageContext } from '../../LanguageSwitcher/language';
 
 export default function BuyB2STokenModal({ isOpenModal, closeModal }: { isOpenModal: boolean, closeModal: any }) {
   const [amountToBuy, setAmountToBuy] = React.useState(0);
@@ -42,6 +43,7 @@ export default function BuyB2STokenModal({ isOpenModal, closeModal }: { isOpenMo
   const [errorMessage, setErrorMessage] = React.useState('');
   const [successMessage, setSuccessMessage] = React.useState('');
   const [isError, setIsError] = React.useState(false);
+  const { dictionary } = React.useContext(LanguageContext);
   const _vaultContract_ = "0x3BeB448c642AF751e74c46641E57a9669c255885"
 
   useEffect(() => {
@@ -57,7 +59,7 @@ export default function BuyB2STokenModal({ isOpenModal, closeModal }: { isOpenMo
     console.log('account: ', account)
     if (!library || !account) {
       console.log('library: ', library, 'account: ', account, "not connected")
-      setErrorMessage('Please connect to your wallet first !')
+      setErrorMessage(dictionary.buy_b2st_modal.error_message_connect_wallet)
       setIsError(true);
       onOpen();
       return;
@@ -99,7 +101,7 @@ export default function BuyB2STokenModal({ isOpenModal, closeModal }: { isOpenMo
       let res = await _contract.depositBNB({ value: (amountToPay * 10 ** 18).toFixed(0).toString() })
       await res.wait()
       console.log('res: ', res)
-      setSuccessMessage('Transaction successful !')
+      setSuccessMessage(dictionary.buy_b2st_modal.success_message_transaction)
       setIsError(false);
       onOpen();
       setTimeout(() => {
@@ -108,7 +110,7 @@ export default function BuyB2STokenModal({ isOpenModal, closeModal }: { isOpenMo
       return;
     } catch (error) {
       console.log('error: ', error)
-      setErrorMessage('Transaction failed !')
+      setErrorMessage(dictionary.buy_b2st_modal.error_message_transaction)
       setIsError(true);
       onOpen();
       setTimeout(() => {
@@ -125,7 +127,7 @@ export default function BuyB2STokenModal({ isOpenModal, closeModal }: { isOpenMo
       <Modal id="modal_popup" isOpen={isOpenModal} onClose={closeModal} isCentered preserveScrollBarGap>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader id="modal_popup">Buy B2ST</ModalHeader>
+          <ModalHeader id="modal_popup">{dictionary.buy_b2st_modal.modal_header}</ModalHeader>
           <ModalCloseButton _focus={{ boxShadow: 'none' }} id="close-modal" />
           <ModalBody id="modal_popup" paddingBottom="1.5rem">
             <VStack>
@@ -152,13 +154,13 @@ export default function BuyB2STokenModal({ isOpenModal, closeModal }: { isOpenMo
               marginTop="1rem"
             >
               <CustomButton
-                name="Buy"
+                name={dictionary.buy_b2st_modal.buy}
                 id="buyB2ST2"
                 size="lg"
                 variant="success"
                 onClick={handleBuy}
                 disabled={amountToBuy === 0}
-                gap={undefined} srcImg={undefined} alt={undefined} hImg={undefined} wImg={undefined} borderRadius={undefined} />
+                gap={undefined} srcImg={undefined} alt={undefined} hImg={undefined} wImg={undefined} borderRadius={undefined} categoryGA={''} labelGA={''} />
             </Center>
           </ModalBody>
         </ModalContent>

@@ -25,6 +25,7 @@ import B2ST_INTERFACE_ from "../../../config/abi/B2ST2.json";
 import { ethers } from 'ethers';
 import { useWeb3React } from '@web3-react/core';
 import { Web3Provider } from '@ethersproject/providers';
+import { LanguageContext } from '../../LanguageSwitcher/language';
 
 export default function AddAllowanceModal({ isOpenModal, closeModal }: { isOpenModal: boolean, closeModal: any }) {
   const [amountToApprove, setAmountToApprove] = React.useState(0);
@@ -34,6 +35,7 @@ export default function AddAllowanceModal({ isOpenModal, closeModal }: { isOpenM
   const [errorMessage, setErrorMessage] = React.useState('');
   const [successMessage, setSuccessMessage] = React.useState('');
   const [isError, setIsError] = React.useState(false);
+  const { dictionary } = React.useContext(LanguageContext);
 
   useEffect(() => {
     console.log('library: ', library)
@@ -73,11 +75,11 @@ export default function AddAllowanceModal({ isOpenModal, closeModal }: { isOpenM
       <Modal isOpen={isOpenModal} onClose={closeModal} isCentered>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Approve B2ST Token</ModalHeader>
+          <ModalHeader>{dictionary.add_allowance_modal.modal_header}</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <VStack spacing={4}>
-              <Text>Approve B2ST Token to be used by the marketplace</Text>
+              <Text>{dictionary.add_allowance_modal.modal_body}</Text>
               <NumberInput
                 defaultValue={0}
                 min={0}
@@ -92,7 +94,7 @@ export default function AddAllowanceModal({ isOpenModal, closeModal }: { isOpenM
               </NumberInput>
               <CustomButton
                 onClick={handleAllowance}
-                name="Approve"
+                name={dictionary.add_allowance_modal.modal_button}
                 id="buyB2ST"
                 size="lg"
                 variant="success"

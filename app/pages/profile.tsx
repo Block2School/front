@@ -29,8 +29,11 @@ import Style from '../styles/profile-beta.module.css'
 import NftCard from '../components/profile-beta/nftCard'
 import LastTutorialsCard from '../components/tutorials-beta/lastTutorialsCard';
 
+import { LanguageContext } from '../components/LanguageSwitcher/language'
+
 export default function Profile() {
 
+  const { dictionary } = React.useContext(LanguageContext);
   const label = "2FA Authentificator"
   const { account } = useWeb3React()
   const web3 = new Web3('https://data-seed-prebsc-1-s1.binance.org:8545') // TESTNET
@@ -592,9 +595,9 @@ export default function Profile() {
         </div>
         <div className={Style.profile_body}>
             <div className={Style.profile_data}>
-                <h3>Profile stats</h3>
+                <h3>{dictionary.profile_page.profile_stats}</h3>
                 <Text>
-                  {percentageProgress}% of tutorials completed
+                  {percentageProgress}% {dictionary.profile_page.tutorials_completed}
                 </Text>
                 <div className={Style.profile_data_body}>
                     <div className={Style.profile_data_body_stats}>
@@ -605,7 +608,7 @@ export default function Profile() {
                                 </div>
                         </div>
                         <div className={Style.profile_data_body_stats_points}>
-                            <h4>Progress</h4>
+                            <h4>{dictionary.profile_page.progress}</h4>
                                 <div className={Style.profile_data_body_stats_points_value_div}>
                                     <div className={Style.percentage_bar}>
                                         <div className={Style.filler} style={{ width: `${percentageProgress}%` }}></div>
@@ -621,7 +624,7 @@ export default function Profile() {
                     </div>
                     {lastTutorial.title? 
                                          <div className={Style.profile_data_body_last_tuto}>
-                                         <h4>Last Tutorial</h4>
+                                         <h4>{dictionary.profile_page.last_tutorial}</h4>
                                          <LastTutorialsCard title={lastTutorial.title} category="" id={lastTutorial.tutorial_id} ></LastTutorialsCard>
                                      </div>
                       :null}
@@ -631,22 +634,22 @@ export default function Profile() {
                         sendGAEvent('Profile', 'button_click', 'Open Modal Change Infos')
                         openModal()
                       }}
-                >Change infos</Button>
+                >{dictionary.profile_page.change_infos}</Button>
                  <div style={{ height: "50%", top: "26%" }} id="modal-change-infos">
                 <div id="modal-change-infos-header">
-                  <Text>Change infos</Text>
+                  <Text>{dictionary.profile_page.change_infos}</Text>
                   <Button color="#343434" backgroundColor="#ffe6c4"
                     onClick={() => {
                       sendGAEvent('Profile', 'button_click', 'Close Modal Change Infos')
                       closeModalChangeInfos()
                     }}
                   >
-                    Close
+                    {dictionary.profile_page.close}
                   </Button>
                 </div>
                 <div style={{ height: '90%' }} id="modal-change-infos-body">
                   <div className="modal-change-infos-row">
-                    <Text color="white" fontSize="2xl">Username</Text>
+                    <Text color="white" fontSize="2xl">{dictionary.profile_page.username}</Text>
                     <Input id="new-username-input" defaultValue={username} width="400px"></Input>
                   </div>
                   <div className="modal-change-infos-row">
@@ -668,12 +671,12 @@ export default function Profile() {
                       sendGAEvent('Profile', 'button_click', 'Save Modal Change Infos')
                       saveModal()
                     }}
-                  >Apply changes</Button>
+                  >{dictionary.profile_page.apply_changes}</Button>
                 </div>
               </div>
             </div>
             <div className={Style.profile_friends}>
-                <h3>Friends List</h3>
+                <h3>{dictionary.profile_page.friend_list}</h3>
                 <div className={Style.profile_friends_body}>
                     {
                     friendList?.map((friend, index) => (
@@ -705,10 +708,10 @@ export default function Profile() {
                         sendGAEvent('Profile', 'button_click', 'Search Friend')
                         searchFriend()
                       }}
-                >Add Friend</Button>
+                >{dictionary.profile_page.add_friend}</Button>
                  <div id="modal-search-friends">
                 <div id="modal-search-friends-header">
-                  <Text>Search friends</Text>
+                  <Text>{dictionary.profile_page.search_friend}</Text>
                   {/* <Button color="#343434" backgroundColor="#ffe6c4" onClick={() => methodDoesNotExist()}>Break the world</Button>; */}
                   <Button color="#343434" backgroundColor="#ffe6c4"
                     onClick={() => {
@@ -716,7 +719,7 @@ export default function Profile() {
                       closeModalSearchFriends()
                     }}
                   >
-                    Close
+                    {dictionary.profile_page.close}
                   </Button>
                 </div>
                 <div id="modal-search-friends-body">
@@ -732,7 +735,7 @@ export default function Profile() {
                       sendGAEvent('Profile', 'button_click', 'Send Friend Request')
                       searchForFriends()
                     }}
-                  >Search</Button>
+                  >{dictionary.profile_page.search}</Button>
                 </div>
               </div>
             </div>
