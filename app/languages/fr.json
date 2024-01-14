@@ -1,27 +1,63 @@
 {
   "home_page": {
-    "home_header_title": "Bienvenue sur Block2School !",
-    "home_paragraph_title": "Notre équipe de développeurs vous aide à maîtriser les technologies blockchain grâce à des tutoriels intuitifs.",
-    "home_paragraph": "Block2School est le site idéal pour tout ceux intéressés par les technologies de la blockchain. Nous offrons un large éventail de tutoriels sur les technologies blockchain. Vous serez en mesure de comprendre la blockchain, comment elle fonctionne et comment elle peut être utilisée. Vous serez également à l'aise avec la création d'applications décentralisées et de smart contracts.",
-    "home_paragraph_start_title": "Commencez à apprendre dès maintenant !",
-    "home_paragraph_start": "Êtes-vous prêt à entrer dans le monde de la blockchain? Block2School est le meilleur endroit pour apprendre les bases des technologies blockchain. Vous apprendrez les bases à travers des exercices de code et des tutoriels complets pour développer vos compétences. Commencez maintenant!",
-    "button_start": "Commencer",
-    "home_team": "Notre équipe",
-    "front_end_dev": "Développeur Front-End",
-    "back_end_dev": "Développeur Back-End",
-    "full_stack_dev": "Développeur Full-Stack",
-    "full_stack_blockchain_dev": "Développeur Full-Stack & intégrateur Blockchain"
+    "title_catch_phrase": "Maîtrisez ",
+    "title_catch_phrase2": "le Web3.0",
+    "title_catch_phrase3": " aujourd'hui",
+    "title_body": "Apprenez les bases...",
+    "title_body1": "Montrez à vos collègues...",
+    "title_body2": "Créez votre crypto !",
+    "start_learning_now": "Commencer à apprendre !",
+    "demo_paragraph": "Dans un monde qui est en plein essor avec les produits Web3, vous ne pouvez pas vous empêcher de sentir que c'est encore le début. C'est le moment idéal pour commencer à apprendre et à créer avec Web3. C'est ce avec quoi Block2School veut vous aider ! Inscrivez-vous avec nous et débloquez le nouveau monde. Devenez un expert en web3 en vous inscrivant à notre école !",
+    "demo_paragraph1": "Fidèle à son nom, Block2Scool vous accompagnera à chaque étape du processus ! Peu importe si vous êtes un débutant qui commence tout juste à apprendre à coder ou un sorcier technique expérimenté, nous savons que vous trouverez une place dans notre école ! Ici, vous pourrez vous entraîner à écrire du code, et plus particulièrement à écrire des programmes web3. À la fin du cours, vous saurez comment rédiger des contrats intelligents, déployer des blockchains, en d'autres termes, vous serez capable de déployer vos propres crypto-monnaies !",
+    "demo_paragraph2": "Tout comme à l'école, vos progrès seront notés par nos professeurs virtuels internes ! C'est vrai, vous pouvez soumettre votre code, et nous vérifierons s'il fonctionne ! Essayez de résoudre nos problèmes et de grimper dans les classements. Pouvez-vous devenir l'élève numéro 1 de l'école ?",
+    "demo_title": "Testez votre code web3 !",
+    "demo_title1": "Découvrez vos professeurs !",
+    "meet_our_devs": "Découvrez nos développeurs !",
+    "devs": {
+      "dev1": {
+        "title": "Développeur Front-End",
+        "place": "Olso, Suède"
+      },
+      "dev2": {
+        "title": "Développeur Full-Stack",
+        "place": "Sejong, Corée du Sud"
+      },
+      "dev3": {
+        "title": "Développeur Full-Stack",
+        "place": "Long Beach, USA"
+      },
+      "dev4": {
+        "title": "Développeur Front-end - Web design",
+        "place": "Long Beach, USA"
+      },
+      "dev5": {
+        "title": "Développeur Back-End",
+        "place": "Quebec City, Canada"
+      },
+      "dev6": {
+        "title": "Web Developer",
+        "place": "Seoul, Corée du Sud"
+      }
+    }
   },
   "navbar": {
     "login": "Connexion",
-    "tutorials": "Tutoriaux"
+    "tutorials": "Tutoriels",
+    "terms_of_use": "Conditions d'utilisation",
+    "privacy_policy": "Politique de confidentialité",
+    "profile": "Profil",
+    "disconnect": "Déconnexion",
+    "code_here": "Coder",
+    "community": "Communauté",
+    "information": "Information"
   },
   "wallet": {
-    "connect_wallet": "Connection wallet",
-    "disconnect_wallet": "Déconnexion wallet"
+    "connect_wallet": "Connecter un wallet",
+    "disconnect_wallet": "Déconnexion wallet",
+    "wrong_network": "Mauvais réseau"
   },
   "faq": {
-    "faq": "Foire Au Question",
+    "faq": "Foire aux questions",
     "first_block_title": "Qu'est-ce que la blockchain ?",
     "first_block_contain": "La blockchain est un grand livre distribué qui constitue un registre public des transactions. C'est un système d'enregistrement qui est ouvert, immuable et vérifiable.",
     "second_block_title": "Qu'est-ce qu'un smart contract ?",
@@ -82,5 +118,83 @@
   "option_editorv2": {
     "tooltip_was_already_completed": "Vous avez déjà complété ce challenge",
     "tooltip_was_not_completed": "Vous n'avez pas encore complété ce challenge"
+  },
+  "footer": {
+    "footer_terms_of_use": "Conditions d'utilisation",
+    "footer_privacy_policy": "Politique de confidentialité",
+    "footer_help_us": "Nous aider"
+  },
+  "wallets_modal": {
+    "modal_header": "Connecter un wallet"
+  },
+  "tutorials": {
+    "languages": "Langages",
+    "paths": "Parcours",
+    "search": "Rechercher",
+    "placeholder_search": "Rechercher..."
+  },
+  "tutorials_card": {
+    "completed": "Complété",
+    "start": "Commencer le tutoriel"
+  },
+  "marketplace": {
+    "give_allowance": "Donner de l'autorisation",
+    "buy_b2st": "Acheter des B2ST",
+    "tooltip_label_connect": "Connectez d'abord votre wallet !",
+    "tooltip_label_nft_not_sale": "Ce NFT n'est pas en vente",
+    "price": "Prix",
+    "owner": "Propriétaire",
+    "buy": "Acheter"
+  },
+  "add_allowance_modal": {
+    "modal_header": "Approuver les B2ST",
+    "modal_body": "Veuillez entrer le montant de B2ST que vous souhaitez approuver.",
+    "modal_button": "Approuver"
+  },
+  "buy_nft_modal": {
+    "modal_header": "Acheter un NFT",
+    "modal_price": "Prix",
+    "modal_button": "Acheter"
+  },
+  "buy_b2st_modal": {
+    "modal_header": "Acheter des B2ST",
+    "buy": "Acheter",
+    "error_message_connect_wallet": "Veuillez vous connecter à votre wallet",
+    "error_message_transaction": "Transaction échouée",
+    "success_message_transaction": "Transaction réussie"
+  },
+  "profile_page": {
+    "profile_stats": "Statistiques du profil",
+    "tutorials_completed": " de tutoriels complétés",
+    "progress": "Progression",
+    "last_tutorial": "Dernier tutoriel complété",
+    "change_infos": "Changer les informations",
+    "close": "Fermer",
+    "username": "Nom d'utilisateur",
+    "apply_changes": "Sauvegarder",
+    "friend_list": "Liste d'amis",
+    "add_friend": "Ajouter un ami",
+    "add_friend_placeholder": "Entrez le nom d'utilisateur de votre ami",
+    "search_friend": "Rechercher un ami",
+    "search": "Rechercher"
+  },
+  "user_nft": {
+    "my_nft": "Mes NFTs",
+    "resell": "Revendre"
+  },
+  "my_nft_modal": {
+    "success_msg": "NFT mis en vente avec succès",
+    "error_msg": "Erreur lors de la mise en vente du NFT",
+    "reminder_msg": "N'oubliez pas que vous allez payer des frais de mis en vente de ",
+    "price": "Prix",
+    "sell": "Mettre en vente"
+  },
+  "challenge_with_friends": {
+    "copy_link": "Copier le lien",
+    "quit": "Quitter",
+    "test_passed": "Test réussi",
+    "time_spent": "Temps passé",
+    "seconds": "secondes",
+    "chars": "Nombre de caractères utilisés"
   }
 }

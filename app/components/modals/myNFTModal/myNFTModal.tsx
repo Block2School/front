@@ -29,6 +29,7 @@ import NFT_INTERFACE from '../../../config/abi/nft.json';
 import NFT_INTERFACE2 from '../../../config/abi/nft2.json';
 import NFT_INTERFACE3 from '../../../config/abi/nft3.json';
 import { sendGAEvent } from '../../../utils/utils';
+import { LanguageContext } from '../../LanguageSwitcher/language';
 
 interface NFT {
   id: string;
@@ -48,6 +49,7 @@ export default function MyNFTModal({ isOpenModal, closeModal, _nft, listingPrice
   const [sellCurrency, setSellCurrency] = useState<'BNB' | 'B2ST'>('BNB');
 
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { dictionary } = React.useContext(LanguageContext);
 
   useEffect(() => {
     setSellingPrice(_nft.price);
@@ -68,13 +70,13 @@ export default function MyNFTModal({ isOpenModal, closeModal, _nft, listingPrice
       const contract = new ethers.Contract("0x8fE921C13825003F02F46EF261589a3bb7bc7B98", NFT_INTERFACE3, signer);
       const tx = await contract.resellTokenV2(_nft.id, ethers.utils.parseEther(priceToSet.toString()).toString(), isBNB, { value: ethers.utils.parseEther(listingPrice.toString()).toString() });
       await tx.wait();
-      setSuccessMessage('NFT set on sale successfully !');
+      setSuccessMessage(dictionary.my_nft_modal.success_msg);
       setIsError(false);
       onOpen();
     } catch (error) {
       setIsError(true);
       console.log('error: ', error)
-      setErrorMessage('Error while setting NFT on sale !');
+      setErrorMessage(dictionary.my_nft_modal.error_msg);
       onOpen();
     }
   }
@@ -99,9 +101,9 @@ export default function MyNFTModal({ isOpenModal, closeModal, _nft, listingPrice
             </Center>
             <VStack spacing={4} mt={4}>
               <Text>
-                Please remember that you will be charged a listing fee of {listingPrice} BNB
+              {dictionary.my_nft_modal.reminder_msg} {listingPrice} BNB
               </Text>
-              <Text>Price: </Text>
+              <Text>{dictionary.my_nft_modal.price}: </Text>
               <HStack
                 spacing={4}
                 w="100%"
@@ -138,7 +140,7 @@ export default function MyNFTModal({ isOpenModal, closeModal, _nft, listingPrice
                   sellNFT()
                 }}
               >
-                Sell NFT ({sellCurrency})
+                {dictionary.my_nft_modal.sell} ({sellCurrency})
               </Button>
             </Center>
           </ModalBody>

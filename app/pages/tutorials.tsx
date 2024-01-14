@@ -5,44 +5,8 @@ import styles from '../styles/tutorials-beta.module.css'
 import axios from 'axios';
 import TutorialCard from '../components/tutorials-beta/tutorialsCard';
 import { serverURL } from '../utils/globals'
-
-
-const testData = [
-{
-  "title": "Test 1",
-  "category": "Javascript",
-  "is_completed": false
-},
-{
-  "title": "Test 2",
-  "category": "Javascript",
-  "is_completed": false
-},
-{
-  "title": "Test 3",
-  "category": "Javascript",
-},
-{
-  "title": "Test 4",
-  "category": "Javascript",
-},
-{
-  "title": "Test 5",
-  "category": "Javascript",
-},
-{
-  "title": "Test 6",
-  "category": "Javascript",
-  "is_completed": true
-},
-{
-  "title": "Test 7",
-  "category": "Javascript",
-  "is_completed": true
-},
-
-]
-
+import { useContext } from 'react';
+import { LanguageContext } from '../components/LanguageSwitcher/language';
 
 const TutorialBeta = () => {
   // const [isAdmin, setIsAdmin] = useState(false)
@@ -51,9 +15,7 @@ const TutorialBeta = () => {
   const [allCategories, setAllCategories] = useState([])
   const [allPaths, setAllPaths] = useState([])
   const [searchTitle, setSearchTitle] = useState("")
-
-  const paths = ['Web Dev', 'Data Science', 'Blockchain Dev'];
-  const test_categories = ['Javascript', 'C++', 'Python'];
+  const { dictionary } = useContext(LanguageContext);
 
   useEffect(() => {
     const token: string | null = sessionStorage.getItem('token')
@@ -157,13 +119,13 @@ const TutorialBeta = () => {
       <Navbar />
       <div className={styles.main_container}>
         <div className={styles.sidebar}>
-          <h2 className={styles.sidebar_title}>Languages</h2>
+          <h2 className={styles.sidebar_title}>{dictionary.tutorials.languages}</h2>
           <ul>
             {allCategories.map((language: any, index) => (
               <li key={index} onClick={() => filterTutorialsLanguage(language.name)} className={styles.category_choices}>{language.name}</li>
             ))}
           </ul>
-          <h2 className={styles.sidebar_title}>Path</h2>
+          <h2 className={styles.sidebar_title}>{dictionary.tutorials.paths}</h2>
           <ul>
             {allPaths.map((paths: any, index) => (
               <li key={index} onClick={() => filterTutorialsPath(paths.path)} className={styles.category_choices}>{paths.path}</li>
@@ -173,8 +135,8 @@ const TutorialBeta = () => {
       <div className={styles.forum_page}>
       <div className={styles.search_posts}>
         <form>
-          <input type="text" placeholder="Search..." />
-          <button type="submit">Search</button>
+          <input type="text" placeholder={dictionary.tutorials.placeholder_search} />
+          <button type="submit">{dictionary.tutorials.search}</button>
         </form>
       </div>
       <div className={styles.category_title_div}>

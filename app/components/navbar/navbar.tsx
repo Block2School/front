@@ -114,12 +114,12 @@ export default function Navbar() {
           <div id="navbar-links-container">
             <div id="navbar-links-main">
               <div className="scolldown-item">
-                <span id="navbar-drop-title" className='navbar-text' onMouseEnter={toggleCodeHereModal} onMouseLeave={toggleCodeHereModalLeave} >Codehere</span>
+                <span id="navbar-drop-title" className='navbar-text' onMouseEnter={toggleCodeHereModal} onMouseLeave={toggleCodeHereModalLeave} >{dictionary.navbar.code_here}</span>
                 {showCodeHereModal && (
                   <div onMouseEnter={toggleCodeHereModal} onMouseLeave={toggleCodeHereModalLeave} className='dropdownContent'>
                     <Link href={'/tutorials'} passHref>
                       <div id='navbar-drop-link'>
-                        <span className="navbar-text">Tutorials</span>
+                        <span className="navbar-text">{dictionary.navbar.tutorials}</span>
                       </div>
                     </Link>
                     <Link href={'/challenges'} passHref>
@@ -131,7 +131,7 @@ export default function Navbar() {
                 )}
               </div>
               <div className="scolldown-item">
-                <span id="navbar-drop-title" className='navbar-text' onMouseEnter={toggleCommunityModal} onMouseLeave={toggleCommunityModalLeave}>Community</span>
+                <span id="navbar-drop-title" className='navbar-text' onMouseEnter={toggleCommunityModal} onMouseLeave={toggleCommunityModalLeave}>{dictionary.navbar.community}</span>
                 {showCommunityModal && (
                   <div onMouseEnter={toggleCommunityModal} onMouseLeave={toggleCommunityModalLeave} className='dropdownContent'>
                     <Link href={'/marketplace'} passHref>
@@ -148,7 +148,7 @@ export default function Navbar() {
                 )}
               </div>
               <div className="scolldown-item">
-                <span id="navbar-drop-title" className='navbar-text' onMouseEnter={toggleInformationModal} onMouseLeave={toggleInformationModalLeave}>Information</span>
+                <span id="navbar-drop-title" className='navbar-text' onMouseEnter={toggleInformationModal} onMouseLeave={toggleInformationModalLeave}>{dictionary.navbar.information}</span>
                 {showInformationModal && (
                   <div onMouseEnter={toggleInformationModal} onMouseLeave={toggleInformationModalLeave} className='dropdownContent'>
                     <Link href={'/faq'} passHref>
@@ -158,12 +158,12 @@ export default function Navbar() {
                     </Link>
                     <Link href={'/terms-of-use'} passHref>
                       <div id='navbar-drop-link'>
-                        <span className="navbar-text">Terms of Use</span>
+                        <span className="navbar-text">{dictionary.navbar.terms_of_use}</span>
                       </div>
                     </Link>
                     <Link href={'/privacy-policy'} passHref>
                       <div id='navbar-drop-link'>
-                        <span className="navbar-text">Privacy Policy</span>
+                        <span className="navbar-text">{dictionary.navbar.privacy_policy}</span>
                       </div>
                     </Link>
                   </div>
@@ -179,12 +179,12 @@ export default function Navbar() {
                   <div onMouseEnter={toggleProfileModal} onMouseLeave={toggleProfileModalLeave} className='dropdownContent'>
                     <Link href={'/profile'} passHref>
                       <div id='navbar-drop-link'>
-                        <span className="navbar-text">Profile</span>
+                        <span className="navbar-text">{dictionary.navbar.profile}</span>
                       </div>
                     </Link>
                     {/* <Link href={'/terms-of-use'} passHref> */}
                     <div id='navbar-drop-link-disconnect'>
-                      <span className="navbar-text" onClick={disconnect}>Disconnect</span>
+                      <span className="navbar-text" onClick={disconnect}>{dictionary.navbar.disconnect}</span>
                     </div>
                     {/* </Link> */}
                   </div>
@@ -227,7 +227,7 @@ export default function Navbar() {
                 <span className="navbar-modal-text">FAQ</span>
               </Link>
               <Link href={'/profile'} passHref>
-                <span className="navbar-modal-text">My Profile</span>
+                <span className="navbar-modal-text">{dictionary.navbar.profile}</span>
               </Link>
               <Link href={'/blog'} passHref>
                 <span className="navbar-modal-text">Blog</span>

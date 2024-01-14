@@ -15,7 +15,6 @@ import OptionEditorv2 from "../../../components/editor/optionEditorv2";
 import { LanguageContext } from "../../../components/LanguageSwitcher/language";
 import { formatLanguageToServerLanguage, sendGAEvent } from "../../../utils/utils";
 
-
 export interface ModalProps {
   showModal: boolean;
   setShowModal: (showModal: boolean) => void;
@@ -682,7 +681,7 @@ export default function ChallengesTemp() {
             flexDirection: "column", justifyContent: "center", alignItems: "center",
             height: "calc(100vh - 95px)", width: "100%"
           }}>
-            <Button onClick={onCopy}>Copier le lien</Button>
+            <Button onClick={onCopy}>{dictionary.challenge_with_friends.copy_link}</Button>
             <div id="time" style={{ color: "#ffe6c4", fontSize: "85px", justifyContent: "center", alignItems: "center", height: "175px" }}>
               {String(time.minutes).padStart(2, '0')}:{String(time.seconds).padStart(2, '0')}
             </div>
@@ -728,7 +727,7 @@ export default function ChallengesTemp() {
               </SimpleGrid>
             </div>
             <div id="options" style={{ display: "flex", justifyContent: "space-evenly", alignItems: "center", width: "50%", height: "150px" }}>
-              <Button onClick={() => quitLobby()}>Quitter</Button>
+              <Button onClick={() => quitLobby()}>{dictionary.challenge_with_friends.quit}</Button>
             </div>
           </div>
         </div>
@@ -841,9 +840,9 @@ export default function ChallengesTemp() {
                             >
                               {item.username}
                             </Text>
-                            <Text>Test passed: {item.passed_tests} / {item.total_tests}</Text>
-                            <Text>Time spent: {item.time_spent} seconds</Text>
-                            <Text>Number of characters used: {item.chars}</Text>
+                            <Text>{dictionary.challenge_with_friends.test_passed}: {item.passed_tests} / {item.total_tests}</Text>
+                            <Text>{dictionary.challenge_with_friends.time_spent}: {item.time_spent} {dictionary.challenge_with_friends.seconds}</Text>
+                            <Text>{dictionary.challenge_with_friends.chars}: {item.chars}</Text>
                             {
                               (showUserSubmittedInfosID === index) ?
                                 <div style={{ width: "100%", height: "150px", maxHeight: "10%", padding: "2%", overflow: "scroll" }}>
@@ -863,7 +862,7 @@ export default function ChallengesTemp() {
               </SimpleGrid>
             </div>
             <div id="options" style={{ display: "flex", justifyContent: "space-evenly", alignItems: "center", width: "50%", height: "150px", paddingTop: "15%" }}>
-              <Button onClick={() => quitLobby()}>Quitter</Button>
+              <Button onClick={() => quitLobby()}>{dictionary.challenge_with_friends.quit}</Button>
             </div>
           </div>
         </div>
