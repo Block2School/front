@@ -10,25 +10,16 @@ import $ from 'jquery'
 import axios from 'axios'
 import SelectWalletModal from '../components/modals/wallets/walletsModal'
 import TwoFAModal from '../components/modals/2FA/TwoFAModal'
-import EraseTwoFAModal from '../components/modals/2FA/EraseTwoFAModal'
-import ReactivateTwoFAModal from '../components/modals/2FA/ReactivateTwoFAModal'
 import { serverURL } from '../utils/globals'
 import { wallet } from '../utils/profil-utils'
 import UserNFTView from '../components/profile/userNFT'
 import { sendGAEvent } from '../utils/utils'
-import { Text, Input, Link, Heading, Center, Button, Switch, HStack, useDisclosure, Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton } from "@chakra-ui/react"
+import { Text, Input, Link, Heading, Center, Button, Switch, HStack, useDisclosure, Box, space } from "@chakra-ui/react"
 import {AiFillYoutube, AiFillTwitterCircle, AiFillGithub} from 'react-icons/ai'
 import QRCode from 'qrcode'
 import Style from '../styles/profile-beta.module.css'
 import NftCard from '../components/profile-beta/nftCard'
 import LastTutorialsCard from '../components/tutorials-beta/lastTutorialsCard';
-
 import { LanguageContext } from '../components/LanguageSwitcher/language'
 
 export default function Profile() {
@@ -55,10 +46,6 @@ export default function Profile() {
     status: string,
     username: string
   }]>()
-
-  const [isOpen2, setIsOpen2] = useState(false)
-  const [isOpen3, setIsOpen3] = useState(false)
-  const [state2FASwitch, setState2FASwitch] = useState(false)
 
   const test_data = {
     test_username: "MigoMax",
@@ -376,6 +363,24 @@ export default function Profile() {
     QRCode.toDataURL(qr).then(setSrcImg);
   }
 
+  async function setup2FA() {
+    
+    let res = await axios.post(`${serverURL}:8080/user/authenticator/qrcode`, {
+      wordlist:null,
+    }, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+        'Access-Control-Allow-Origin': '*',
+      }
+    })
+    console.log(res.data.qr)
+    console.log(res.data.wordlist)
+    setWordList(res.data.wordlist)
+    generate(res.data.qr)
+    onOpen()
+  }
+
   function searchForFriends() {
     var username = $('#search-friend-input').val()
     if (username === '') {
@@ -454,112 +459,6 @@ export default function Profile() {
     }
   }
 
-  const openSecondModal = () => {
-    setIsOpen2(true);
-  };
-
-  const closeSecondModal = () => {
-    setIsOpen2(false);
-  };
-
-  const openThirdModal = () => {
-    setIsOpen3(true);
-  };
-
-  const closeThirdModal = () => {
-    setIsOpen3(false);
-  };
-
-  useEffect (() => {
-    axios.get(`${serverURL}:8080/user/authenticator`,{
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + sessionStorage.getItem('token'),
-        'Access-Control-Allow-Origin': '*',
-      }
-    }).then( res => {
-      console.log(res.data.has_authenticator)
-      if(res.data.has_authenticator === true)
-        setState2FASwitch(true)
-      else
-        setState2FASwitch(false)
-    })
-  })
-
-  async function handle2FA(event: { target: { checked: any } }) {
-    if (event.target.checked === true) {
-      setup2FA()
-    } else {
-      openSecondModal()
-    }
-  }
-
-  async function handleReactivate() {
-    openThirdModal()
-  }
-
-  async function setup2FA () {
-    console.log("ici")
-    let res = await axios.post(`${serverURL}:8080/user/authenticator/qrcode`, {
-      wordlist:null,
-    }, {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + sessionStorage.getItem('token'),
-        'Access-Control-Allow-Origin': '*',
-      }
-    }).then(res => {
-      console.log("ici2")
-      if (res.status === 200) {
-        console.log(res.data.qr)
-        console.log(res.data.wordlist)
-        setWordList(res.data.wordlist)
-        generate(res.data.qr)
-        onOpen()
-      }
-    }).catch(res => {
-      console.log("zeubi")
-      handleReactivate()
-    })
-  }
-
-  async function remove2FA(words :string) {
-    console.log(words)
-    let res = await axios.delete(`${serverURL}:8080/user/authenticator/qrcode`,{
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + sessionStorage.getItem('token'),
-        'Access-Control-Allow-Origin': '*',
-      },
-      data: {wordlist:words}
-    })
-  }
-
-  async function check2FA() {
-    let res = await axios.get(`${serverURL}:8080/user/authenticator`,{
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + sessionStorage.getItem('token'),
-        'Access-Control-Allow-Origin': '*',
-      }
-    })
-    if (res.data.has_authenticator === true) {
-      return true
-    } else {
-      return false
-    }
-  }
-
-  async function handleState2FA() {
-    console.log("handleState2FA")
-    let check = await check2FA() 
-    if (check === true) {
-      setState2FASwitch(true)
-    } else {
-      setState2FASwitch(false)
-    }
-  }
-
   return (
     <>
       <Navbar />
@@ -577,10 +476,10 @@ export default function Profile() {
             </div>
         </div>
         <div>
-          <HStack spacing='24px'>
-            <Text fontSize="2xl" color="white">{label}</Text>
-            <Switch size='lg' isChecked={state2FASwitch} onChange={handle2FA}/>
-          </HStack>
+        <HStack spacing='24px'>
+                    <Text fontSize="2xl" color="white">{label}</Text>
+                    <Switch size='lg' onChange={setup2FA}/>
+            </HStack>
         </div>
         <div className={Style.profile_icons_container}>
           <div onClick={() => handleLinkClick(youtube)}>
@@ -755,8 +654,6 @@ export default function Profile() {
       </div>
       <Footer />
       <TwoFAModal isOpen={isOpen} closeModal={onClose} qr_code={srcImg} wordlist={word_list}></TwoFAModal>
-      <EraseTwoFAModal isOpen={isOpen2} closeModal={closeSecondModal} erase2FA={remove2FA} handleState2FA={handleState2FA} ></EraseTwoFAModal>
-      <ReactivateTwoFAModal isOpen={isOpen3} closeModal={closeThirdModal} generate={generate} handleState2FA={handleState2FA} ></ReactivateTwoFAModal>
     </>
   )
 }
