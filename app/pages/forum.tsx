@@ -203,7 +203,7 @@ useEffect(() => {
 };
 
   useEffect(() => {
-    axios.get(`http://localhost:8080/forum/all`, {
+    axios.get(`http://${serverURL}:8080/forum/all`, {
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
@@ -220,7 +220,7 @@ useEffect(() => {
     const token: string | null = sessionStorage.getItem('token')
     axios({
       method: 'POST',
-      url: `http://localhost:8080/forum/create`,
+      url: `http://${serverURL}:8080/forum/create`,
       data: {
         "title": formData.title,
         "description": formData.description,

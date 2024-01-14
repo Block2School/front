@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios';
 import styles from './forumPost.module.css'
 import PostComment from './forumPostComment';
+import { serverURL } from '../../utils/globals';
 import Image from 'next/image';
 
 export default function  ForumPost({post}:any) {
@@ -17,7 +18,7 @@ export default function  ForumPost({post}:any) {
   }
 
   useEffect(() => {
-    axios.get(`http://localhost:8080/forum/post/` + post.id + `/comments`, {
+    axios.get(`http://${serverURL}:8080/forum/post/` + post.id + `/comments`, {
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
@@ -39,7 +40,7 @@ export default function  ForumPost({post}:any) {
     const token: string | null = sessionStorage.getItem('token')
     axios({
       method: 'POST',
-      url: `http://localhost:8080/forum/comment/create`,
+      url: `http://${serverURL}:8080/forum/comment/create`,
       data: {
         "post_id": post.id,
         "text": commentInputValue,
