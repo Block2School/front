@@ -202,5 +202,25 @@
     "time_spent": "Time spent",
     "seconds": "seconds",
     "chars": "Number of characters used"
+  },
+  "blog_card": {
+    "published": "Published"
+  },
+  "article_body": {
+    "author": "Author",
+    "published_on": "Published on",
+    "edited_on": "Edited on"
+  },
+  "forum": {
+    "hottest_posts": "Hottest posts",
+    "profile": "Profile",
+    "create_post": "Create post",
+    "posted_in": "Posted in",
+    "by": "by",
+    "comments": "Comments",
+    "title": "Title",
+    "create_your_post": "Create your own post",
+    "category": "Category",
+    "submit": "Submit"
   }
 }
