@@ -1,9 +1,10 @@
 import React from 'react'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import axios from 'axios';
 import styles from './forumPost.module.css'
 import PostComment from './forumPostComment';
 import { serverURL } from '../../utils/globals';
+import { LanguageContext } from '../LanguageSwitcher/language';
 import Image from 'next/image';
 
 export default function  ForumPost({post}:any) {
@@ -12,6 +13,7 @@ export default function  ForumPost({post}:any) {
   const [allComments, setAllComments] = useState([])
   const [commentInputValue, setCommentInputValue] = useState('')
   const [test, settest] = useState()
+  const { dictionary } = useContext(LanguageContext)
 
   const toggleModal = () => {
     setShowModal(!showModal)
@@ -59,7 +61,7 @@ export default function  ForumPost({post}:any) {
     <div className={styles.timeline_post}> {/* add class name to container */}
         <div onClick={() => toggleModal()} className={styles.timeline_post_header}> {/* add class name to header */}
         <h2 className={styles.timeline_post_title}>{post.title}</h2>
-        <small>Posted in <span className={styles.category_name_post}>{post.category}</span> by {post.author_uuid} | {post.timestamp}</small>
+        <small>{dictionary.forum.posted_in} <span className={styles.category_name_post}>{post.category}</span> {dictionary.forum.by} {post.author_uuid} | {post.timestamp}</small>
         </div>
         {/* {
           post.image? (
@@ -67,7 +69,7 @@ export default function  ForumPost({post}:any) {
         ) : null
         } */}
         <div className={styles.timeline_post_details}> {/* add class name to details */}
-        {showModal? null : (<span>comments</span>)}
+        {showModal? null : (<span>{dictionary.forum.comments}</span>)}
         <h5 className={styles.post_score}>{allComments.length}</h5>
         </div>
         {showModal? (
@@ -76,21 +78,24 @@ export default function  ForumPost({post}:any) {
             <span className={styles.forum_modal_text}>{post.description}</span><br></br>
           </div>
           <div className={styles.comment_container}>
-            <h4>Comments</h4>
+            <h4>{dictionary.forum.comments}</h4>
             {
-              allComments.map((comment) => (
-                <PostComment comment={comment}></PostComment>))
+              allComments.map((comment, index) => (
+                <PostComment key={index} comment={comment}></PostComment>))
             }
           </div>
           {isConnected? 
                     <div className={styles.search_posts}> {/* add class name to section */}
                       <form onSubmit={handleSubmitComment}>
                         <input 
-                          type="text" 
+                          type="text"
+                          style={{
+                            color: 'black',
+                          }}
                           value={commentInputValue} 
                           onChange={(e) => setCommentInputValue(e.target.value)}
                         />
-                        <button type="submit">Submit</button>
+                        <button type="submit">{dictionary.forum.submit}</button>
                       </form>
                   </div>:
                   null}

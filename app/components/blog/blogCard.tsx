@@ -4,11 +4,15 @@ import {
 } from '@chakra-ui/react';
 import Link from 'next/link';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { LanguageContext } from '../LanguageSwitcher/language';
 
 const BlogCard = ({
   id, title, author, markdownUrl, publicationDate, shortDescription, editDate
 }: { id: number, title: string, author: string, markdownUrl: string, publicationDate: number, shortDescription: string, editDate: number }) => {
+
+  const { dictionary } = useContext(LanguageContext);
+
   return (
     <Link href={{
       pathname: '/article',
@@ -30,7 +34,7 @@ const BlogCard = ({
           fontWeight='light'
           fontSize='sm'
           paddingBottom='2%'
-        >Published: {publicationDate}</Text>
+        >{dictionary.blog_card.published}: {publicationDate}</Text>
         <Text
           width='80%'
         >{shortDescription}</Text>

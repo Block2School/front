@@ -196,5 +196,25 @@
     "time_spent": "Temps passé",
     "seconds": "secondes",
     "chars": "Nombre de caractères utilisés"
+  },
+  "blog_card": {
+    "published": "Publié"
+  },
+  "article_body": {
+    "author": "Auteur",
+    "published_on": "Publié le",
+    "edited_on": "Modifié le"
+  },
+  "forum": {
+    "hottest_posts": "Posts les plus populaires",
+    "profile": "Profil",
+    "create_post": "Créer un post",
+    "posted_in": "Posté dans",
+    "by": "par",
+    "comments": "Commentaires",
+    "title": "Titre",
+    "create_your_post": "Créer votre post",
+    "category": "Categorie",
+    "submit": "Soumettre"
   }
 }
