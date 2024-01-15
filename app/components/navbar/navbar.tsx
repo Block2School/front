@@ -10,7 +10,8 @@ import ConnectionButton from '../wallet/connectionButton'
 import NavbarAllBalances from '../wallet/navbarAllBalances'
 import { ThemeSelector } from '../themeSelector/themeSelector'
 import { LanguageContext, LanguageSwitcher } from "../LanguageSwitcher/language";
-import { BiUser } from 'react-icons/bi'
+// import Icon from '@chakra-ui/icon'
+import { BiX } from 'react-icons/bi'
 
 export default function Navbar() {
 
@@ -21,7 +22,7 @@ export default function Navbar() {
   const [showInformationModal, setInformationModal] = useState(false)
   const [showProfileModal, setProfileModal] = useState(false)
   const [_active, setActiveYar] = useState(false)
-
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
 
   const {
     library,
@@ -89,6 +90,25 @@ export default function Navbar() {
   };
 
   useEffect(() => {
+    window.addEventListener('resize', handleResize);
+  }, []);
+
+  const handleResize = () => {
+    if (window.innerWidth > 1000) {
+      console.log('window.innerWidth > 1000')
+      setIsSmallScreen(false);
+    } else {
+      console.log('window.innerWidth < 1000')
+      setIsSmallScreen(true);
+    }
+  }
+
+  useEffect(() => {
+    console.log('isSmallScreen: ', isSmallScreen)
+    if (showModal === true && isSmallScreen === false) setShowModal(false);
+  }, [isSmallScreen]);
+
+  useEffect(() => {
     const provider = window.sessionStorage.getItem('provider')
     // @ts-ignore
     console.log('here')
@@ -142,6 +162,11 @@ export default function Navbar() {
                     <Link href={'/forum'} passHref>
                       <div id='navbar-drop-link'>
                         <span className="navbar-text">Forum</span>
+                      </div>
+                    </Link>
+                    <Link href={'/blog'} passHref>
+                      <div id='navbar-drop-link'>
+                        <span className="navbar-text">Blog</span>
                       </div>
                     </Link>
                   </div>
@@ -214,7 +239,11 @@ export default function Navbar() {
         <div className="navbar-modal">
           <div className="navbar-modal-content">
             <div className="navbar-modal-close" onClick={handleToggleModal}>
-              &times;
+              {/* <Icon as={BiX} w={8} h={8} /> */}
+              <BiX
+                size={32}
+                color="white"
+              />
             </div>
             <div className="navbar-modal-links">
               <Link href={'/tutorials'} passHref>
