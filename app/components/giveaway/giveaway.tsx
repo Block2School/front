@@ -44,6 +44,8 @@ export default function Giveaway() {
       first_amount -= 1
     })
     try {
+      console.log('amount: ', amount)
+      console.log('adresses: ', adresses)
       const tx = await _contract.monthlyGiveaway(amount, adresses)
       await tx.wait();
       setSuccessMessage("Giveaway is correctly executed");
