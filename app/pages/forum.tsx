@@ -11,6 +11,7 @@ import Link from 'next/link';
 import axios from 'axios';
 import ForumPost from '../components/forum/forumPost';
 import { LanguageContext } from '../components/LanguageSwitcher/language';
+import { BiX } from 'react-icons/bi';
 
 // const posts = [
 //   {
@@ -314,7 +315,10 @@ const Forum = () => {
           <div className={styles.navbar_modal}>
             <div className={styles.navbar_modal_content}>
               <div className={styles.navbar_modal_close} onClick={() => setCreateModel(!createModel)}>
-                &times;
+                <BiX
+                  size={32}
+                  color="white"
+                />
               </div>
               <div className={styles.navbar_modal_links}>
                 <h1 className={styles.navbar_modal_title}>{dictionary.forum.create_your_post}</h1>
