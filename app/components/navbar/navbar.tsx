@@ -144,6 +144,11 @@ export default function Navbar() {
                         <span className="navbar-text">Forum</span>
                       </div>
                     </Link>
+                    <Link href={'/blog'} passHref>
+                      <div id='navbar-drop-link'>
+                        <span className="navbar-text">Blog</span>
+                      </div>
+                    </Link>
                   </div>
                 )}
               </div>
