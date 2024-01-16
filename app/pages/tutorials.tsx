@@ -89,6 +89,13 @@ const TutorialBeta = () => {
     console.log(filteredTutorials)
   }
 
+  const filterTutorialsWithSearch = (search: any) => {
+    const Search = allTutorials.filter((tutorial: any) => tutorial.title.toLowerCase().includes(search.toLowerCase()))
+    setFilteredTutorials(Search)
+    setSearchTitle(search)
+    console.log(filteredTutorials)
+  }
+
   // useEffect(() => {
   //   const token: string | null = sessionStorage.getItem('token')
   //   if (token === null) {
@@ -135,7 +142,7 @@ const TutorialBeta = () => {
       <div className={styles.forum_page}>
       <div className={styles.search_posts}>
         <form>
-          <input type="text" placeholder={dictionary.tutorials.placeholder_search} />
+          <input type="text" placeholder={dictionary.tutorials.placeholder_search} onChange={(e) => filterTutorialsWithSearch(e.target.value)} />
           <button type="submit">{dictionary.tutorials.search}</button>
         </form>
       </div>
