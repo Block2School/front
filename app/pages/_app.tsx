@@ -75,10 +75,10 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   //   // If the component is unmounted, unsubscribe
   //   // from the event with the `off` method:
-  //   return () => {
-  //     router.events.off("routeChangeComplete", handleRouteChange)
-  //   }
-  // }, [router.events])
+    return () => {
+      router.events.off("routeChangeComplete", handleRouteChange)
+    }
+  }, [router.events])
 
   return (
     <LanguageProvider>

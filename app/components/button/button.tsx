@@ -1,5 +1,6 @@
 import { Button, Image, Text, HStack, useColorModeValue } from '@chakra-ui/react';
 import { sendGAEvent } from '../../utils/utils';
+import { MixPanelTracking } from '../../services/mixpanel';
 
 export default function CustomButton({ id, name, srcImg, alt, size, disabled, variant, onClick, hImg, wImg, gap, borderRadius, categoryGA = "Button", labelGA = "Clicking on the button"}: { gap: any, id: any, name: any, srcImg: any, alt: any, size: any, disabled: any, variant: any, onClick: any, hImg: any, wImg: any, borderRadius: any, categoryGA: string, labelGA: string }) {
 
@@ -10,6 +11,7 @@ export default function CustomButton({ id, name, srcImg, alt, size, disabled, va
         console.log('category: ', categoryGA)
         console.log('label: ', labelGA)
         sendGAEvent(categoryGA, 'button_click', labelGA)
+        MixPanelTracking.getInstance().buttonClicked(`${categoryGA} - ${labelGA}`);
         onClick();
     }
 

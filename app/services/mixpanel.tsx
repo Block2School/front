@@ -27,6 +27,10 @@ export class MixPanelTracking {
     this.track("page_viewed")
   }
 
+  public buttonClicked(name: string) {
+    this.track("button_clicked", {name})
+  }
+
   public TutorialViewed({tutorial}: {tutorial: any}) {
     this.track("tutoriel_viewed", {
       id: tutorial.id,
