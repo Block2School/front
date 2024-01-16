@@ -25,6 +25,7 @@ import type { AppProps } from 'next/app'
 import { Web3ReactProvider } from '@web3-react/core'
 import { Web3Provider } from '@ethersproject/providers'
 import { ChakraProvider } from "@chakra-ui/react";
+import { WebSocketProvider } from '../context/WebSocketContext'
 
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
@@ -43,22 +44,22 @@ const getLibrary = (provider: any): Web3Provider => {
   return library
 }
 
-Sentry.init({
-  dsn: "https://a453314469f5541ab6fa937c6f8d14a9@o4505866759634944.ingest.sentry.io/4505866778902528",
-  integrations: [
-    new Sentry.BrowserTracing({
-      tracePropagationTargets: [new RegExp(process.env.NEXT_PUBLIC_API_URL as string + "/*")],
-    }),
-    new Sentry.Replay(),
-  ],
-  tracesSampleRate: 1.0,
-  replaysSessionSampleRate: 0.1,
-  replaysOnErrorSampleRate: 1.0,
-});
+// Sentry.init({
+//   dsn: "https://a453314469f5541ab6fa937c6f8d14a9@o4505866759634944.ingest.sentry.io/4505866778902528",
+//   integrations: [
+//     new Sentry.BrowserTracing({
+//       tracePropagationTargets: [new RegExp(process.env.NEXT_PUBLIC_API_URL as string + "/*")],
+//     }),
+//     new Sentry.Replay(),
+//   ],
+//   tracesSampleRate: 1.0,
+//   replaysSessionSampleRate: 0.1,
+//   replaysOnErrorSampleRate: 1.0,
+// });
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter()
-  console.log('GA_ID: ', GA_ID)
+
   ReactGA.initialize(GA_ID as string)
   ReactGA.send({ hitType: "event", eventCategory: "pageview", eventAction: "pageview", eventLabel: router.pathname })
   // ReactGA.pageview(router.pathname)
@@ -72,17 +73,18 @@ function MyApp({ Component, pageProps }: AppProps) {
     }
     router.events.on("routeChangeComplete", handleRouteChange)
 
-    // If the component is unmounted, unsubscribe
-    // from the event with the `off` method:
-    return () => {
-      router.events.off("routeChangeComplete", handleRouteChange)
-    }
-  }, [router.events])
+  //   // If the component is unmounted, unsubscribe
+  //   // from the event with the `off` method:
+  //   return () => {
+  //     router.events.off("routeChangeComplete", handleRouteChange)
+  //   }
+  // }, [router.events])
 
   return (
     <LanguageProvider>
       <ChakraProvider>
         <Web3ReactProvider getLibrary={getLibrary}>
+        <WebSocketProvider>
           <Script
             src={`https://tools.luckyorange.com/core/lo.js?site-id=795a5d80`}
             strategy="afterInteractive"
@@ -104,6 +106,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             }}
           />
           <Component {...pageProps} />
+          </WebSocketProvider>
         </Web3ReactProvider>
       </ChakraProvider>
     </LanguageProvider>

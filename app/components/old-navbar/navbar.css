@@ -1,0 +1,162 @@
+#navbar-component {
+  background-color: black;
+  border-color: rgba(0,0,0,0);
+  inset: 0px 0px 20px;
+  display: block;
+  overflow: visible;
+  position: sticky;
+  z-index: 999;
+  height: 95px;
+}
+
+#navbar-container {
+  margin: 0px auto;
+  max-width: 1300px;
+  width: 100%;
+  -moz-box-align: center;
+  align-items: center;
+  -moz-box-pack: justify;
+  justify-content: space-between;
+  display: flex;
+  border-color: rgba(0,0,0,0);
+}
+
+#navbar-logo-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+#navbar-links-container {
+  display: block;
+  font-size: 16px;
+  line-height: 22px;
+}
+
+#navbar-links-main {
+  display: flex;
+}
+
+.navbar-text {
+  --bs-navbar-color:white;
+  display: flex;
+  -moz-box-align: center;
+  align-items: center;
+  height: 40px;
+  padding: 0px 20px;
+  background-clip: text;
+  cursor: pointer;
+  font-family: "Euclid Circular B", sans-serif;
+  font-size: 20px;
+}
+
+.navbar-text-logo {
+  --bs-navbar-color:white;
+  display: flex;
+  color: white;
+  -moz-box-align: center;
+  align-items: center;
+  height: 100px;
+  padding: 0px 4px;
+  background-clip: text;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 26px;
+}
+
+.navbar-text-logo:hover {
+  background: #ffe6c4;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+#balances {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+/* Styles for the mobile button to show/hide the modal */
+.navbar-menu-button {
+  display: none; /* Hide the button on larger screens */
+}
+
+#navbar-mobile-part {
+  display: flex;
+}
+
+/* Media Query for mobile layout */
+@media screen and (max-width: 1000px) { 
+
+  .navbar-menu-button {
+    display: block; /* Display the button on mobile */
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 3rem;
+    cursor: pointer;
+    color: #ffe6c4;
+  }
+
+  #navbar-mobile-part {
+    display: none;
+  }
+
+  .navbar-text-logo {
+    background-color: red;
+  }
+
+  #navbar-links-container {
+    display: none;
+  }
+
+  #navbar-logo-container {
+    text-align: center;
+  }
+
+  #navbar-hide-mobile {
+    display: none;
+  }
+
+  /* Modal styles */
+  .navbar-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+  }
+
+  .navbar-modal-content {
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 1rem;
+    max-width: 90%;
+    max-height: 90%;
+    overflow-y: auto;
+  }
+
+  .navbar-modal-close {
+    font-size: 1.5rem;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+
+  .navbar-modal-links {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .navbar-modal-text {
+    padding: 0.5rem;
+    font-size: 1.2rem;
+  }
+}

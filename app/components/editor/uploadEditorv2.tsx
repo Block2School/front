@@ -19,7 +19,6 @@ export const TestAreaModal = ({
 }) => {
 
   if (showModal === false) {
-    console.log('NULL')
     return null;
   }
 

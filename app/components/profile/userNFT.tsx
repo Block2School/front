@@ -2,10 +2,11 @@ import { useWeb3React } from '@web3-react/core';
 import { ethers } from 'ethers';
 import NFT_INTERFACE2 from '../../config/abi/nft2.json';
 import NFT_INTERFACE3 from '../../config/abi/nft3.json';
-import React, { useEffect } from 'react'
+import React, { useEffect, useContext } from 'react'
 import { Text, Image, Center, Heading, Button, Flex, Link, Spacer, useDisclosure } from '@chakra-ui/react';
 import MyNFTModal from '../modals/myNFTModal/myNFTModal';
 import { sendGAEvent } from '../../utils/utils';
+import { LanguageContext } from '../LanguageSwitcher/language';
 
 export default function UserNFTView() {
   const [userNFT, setUserNFT] = React.useState<any>([]);
@@ -13,6 +14,7 @@ export default function UserNFTView() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [nftToResell, setNFTToResell] = React.useState<any>({});
   const [listingPrice, setListingPrice] = React.useState<string>('');
+  const { dictionary } = React.useContext(LanguageContext);
 
   useEffect(() => {
     if (!library || !account) return;
@@ -59,38 +61,17 @@ export default function UserNFTView() {
     setListingPrice(ethers.utils.formatEther(res2));
     console.log('res2: ', res2)
     console.log('res22: ', ethers.utils.formatEther(res2))
-
-    // nftArrayTmp.push({
-    //   id: "1",
-    //   name: "NFT 1",
-    //   image: nftArrayTmp[0].image,
-    //   price: nftArrayTmp[0].price,
-    //   owner: nftArrayTmp[0].owner,
-    // })
-    // nftArrayTmp.push({
-    //   id: "2",
-    //   name: "NFT 2",
-    //   image: nftArrayTmp[0].image,
-    //   price: nftArrayTmp[0].price,
-    //   owner: nftArrayTmp[0].owner,
-    // })
-    // nftArrayTmp.push({
-    //   id: "3",
-    //   name: "NFT 3",
-    //   image: nftArrayTmp[0].image,
-    //   price: nftArrayTmp[0].price,
-    //   owner: nftArrayTmp[0].owner,
-    // })
     setUserNFT(nftArrayTmp);
   };
 
+  if (userNFT.length === 0) return null;
 
   return (
     <>
       <div>
         {/* make a carousel with the nfts */}
         <Center>
-          <Text fontSize="2xl" fontWeight="bold">My NFTs</Text>
+          <Text fontSize="2xl" fontWeight="bold">{dictionary.user_nft.my_nft}</Text>
         </Center>
         {/* the carousel just takes one row and the user has to move to the left or right to see the other nfts */}
         <div
@@ -124,7 +105,7 @@ export default function UserNFTView() {
                       colorScheme="teal"
                       variant="outline"
                     >
-                      Resell
+                      {dictionary.user_nft.resell}
                     </Button>
                   </Center>
                 </Flex>

@@ -16,7 +16,7 @@ export default function LoginOptions({ isOpen, closeModal}: { isOpen: boolean, c
       <CustomButton id='coinbase' srcImg="/coinbase_wallet_appicon.svg" alt="Coinbase Wallet Logo" wImg={25} hImg={25} gap={3} name="Coinbase Wallet" variant="outline" borderRadius="3px" onClick={() => {
         activate(connectors.coinbaseWallet)
         setProvider('coinbaseWallet')
-        window.location.reload()
+        // window.location.reload()
         { isOpen = false}
         closeModal()
       }} size={undefined} disabled={undefined} categoryGA={"Button"} labelGA={"Coinbase Wallet Connection"} />
@@ -25,18 +25,18 @@ export default function LoginOptions({ isOpen, closeModal}: { isOpen: boolean, c
         onClick={() => {
           activate(connectors.injected)
           setProvider('injected')
-          window.location.reload()
+          // window.location.reload()
           { isOpen = false}
           closeModal()
-        }} srcImg="metamask_appicon.svg" alt="MetaMask Logo" wImg={25} hImg={25} gap={3} size={undefined} disabled={undefined} borderRadius={undefined} categoryGA={"Button"} labelGA={"Metamask connection"} />
+        }} srcImg="/metamask_appicon.svg" alt="MetaMask Logo" wImg={25} hImg={25} gap={3} size={undefined} disabled={undefined} borderRadius={undefined} categoryGA={"Button"} labelGA={"Metamask connection"} />
       <CustomButton name="Binance Wallet" id="binance" variant="outline"
         onClick={() => {
           activate(connectors.binanceWallet)
           setProvider('binanceWallet')
-          window.location.reload()
+          // window.location.reload()
           { isOpen = false}
           closeModal()
-        }} srcImg="binance_wallet_appicon.svg" alt="Binance Wallet Logo" wImg={25} hImg={25} gap={3} size={undefined} disabled={undefined} borderRadius={undefined} categoryGA={"Button"} labelGA={"Binance Wallet connection"} />
+        }} srcImg="/binance_wallet_appicon.svg" alt="Binance Wallet Logo" wImg={25} hImg={25} gap={3} size={undefined} disabled={undefined} borderRadius={undefined} categoryGA={"Button"} labelGA={"Binance Wallet connection"} />
     </VStack>
   )
 }

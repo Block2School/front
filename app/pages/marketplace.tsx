@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Navbar from '../components/navbar/navbar'
 import Footer from '../components/footer/footer'
 import { Link, Text, Tooltip, useDisclosure } from "@chakra-ui/react";
@@ -17,6 +17,7 @@ import ReactGA from 'react-ga4';
 import { sendGAEvent } from "../utils/utils";
 import AddAllowanceModal from "../components/modals/marketplaceModals/addAllowanceModal";
 import { MixPanelTracking } from "../services/mixpanel";
+import { LanguageContext } from '../components/LanguageSwitcher/language';
 
 interface NFT {
   id: string;
@@ -29,6 +30,7 @@ interface NFT {
 }
 
 export default function Marketplace() {
+  const { dictionary } = useContext(LanguageContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
   // get a second isOpen, onOpen, onClose
   const { isOpen: isOpenBuyNFTModal, onOpen: onOpenBuyNFTModal, onClose: onCloseBuyNFTModal } = useDisclosure();
@@ -37,17 +39,7 @@ export default function Marketplace() {
   const [nftToBuyIndex, setNFTToBuyIndex] = useState<number>(0);
   const [isError, setIsError] = useState<Boolean>(false);
   const { account, library, chainId, activate, deactivate, active } = useWeb3React<Web3Provider>();
-  // const [nfts, setNFTs] = useState<NFT[]>([{
-  //   id: "1",
-  //   name: "B2ST",
-  //   image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTK2nG24AYDm6FOEC7jIfgubO96GbRso2Xshu1f8abSYQ&s",
-  //   price: 1,
-  // }, {
-  //   id: "2",
-  //   name: "B2ST2",
-  //   image: "https://s2.dmcdn.net/v/UXVFb1ZjBTr7NcEaF/x1080",
-  //   price: 1,
-  // }]);
+
   const [nfts, setNFTs] = useState<NFT[]>([]);
   const [nftToBuy, setNFTToBuy] = useState<NFT>({
     id: "",
@@ -146,14 +138,14 @@ export default function Marketplace() {
           </div>
           <div style={{ float: "right", paddingRight: '2%' }}>
             <Tooltip
-              label='Please connect to your wallet first !'
+              label={dictionary.marketplace.tooltip_label_connect}
               isDisabled={active}
               shouldWrapChildren
               placement="left"
               hasArrow
             >
               <CustomButton
-                name="Give Allowance"
+                name={dictionary.marketplace.give_allowance}
                 id="buyB2ST"
                 size="lg"
                 variant="success"
@@ -164,14 +156,14 @@ export default function Marketplace() {
               />
             </Tooltip>
             <Tooltip
-              label='Please connect to your wallet first !'
+              label={dictionary.marketplace.tooltip_label_connect}
               isDisabled={active}
               shouldWrapChildren
               placement="left"
               hasArrow
             >
               <CustomButton
-                name="Buy B2ST"
+                name={dictionary.marketplace.buy_b2st}
                 id="buyB2ST"
                 size="lg"
                 variant="success"
@@ -188,7 +180,7 @@ export default function Marketplace() {
               {nfts.map((nft) => (
                 <GridItem key={nft.id}>
                   <Tooltip
-                    label="This NFT is not for sale"
+                    label={dictionary.marketplace.tooltip_label_nft_not_sale}
                     isDisabled={(nft.price == "0.0") ? false : true}
                     shouldWrapChildren
                     placement="top"
@@ -201,7 +193,7 @@ export default function Marketplace() {
                           {nft.name}
                         </Heading>
                         <Text fontSize="l" fontWeight="bold" mb={2}>
-                          Price: {nft.price} {nft.currency === "BNB" ? "BNB" : "B2ST"}
+                        {dictionary.marketplace.price}: {nft.price} {nft.currency === "BNB" ? "BNB" : "B2ST"}
                         </Text>
                         <Flex align="center">
                           <Link href={`https://testnet.bscscan.com/address/${nft.owner}`} isExternal>
@@ -211,7 +203,7 @@ export default function Marketplace() {
                               mr={2}
                               cursor={"pointer"}
                             >
-                              Owner: {nft.owner.substring(0, 10)}...
+                              {dictionary.marketplace.owner}: {nft.owner.substring(0, 10)}...
                             </Text>
                           </Link>
                           <Spacer />
@@ -223,7 +215,7 @@ export default function Marketplace() {
                             }}
                             disabled={(nft.price == "0.0") ? true : false}
                           >
-                            Buy
+                            {dictionary.marketplace.buy}
                           </Button>
                         </Flex>
                       </Box>

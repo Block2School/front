@@ -7,7 +7,7 @@ import { LanguageContext } from "../components/LanguageSwitcher/language";
 import MarkdownRenderer from "../components/markdown/markdown";
 import TutorialConsole from "../components/tutorialConsole/tutorialConsole";
 import OptionEditor from "../components/editor/optionEditor";
-import OptionEditorv2 from "../components/editor/optionEditorv2";
+import OptionEditorv3 from "../components/editor/optionEditorv3";
 import MonacoEditor from "../components/editor/monacoEditor";
 import UploadEditor from "../components/editor/uploadEditor";
 import LoadingScreen from "../components/loading/loadingScreen";
@@ -16,6 +16,7 @@ import MonacoEditorv2 from "../components/editor/monacoEditorv2";
 import { formatLanguageToServerLanguage, sendGAEvent } from "../utils/utils";
 import { AiFillBell } from "react-icons/ai";
 import { Button, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure } from "@chakra-ui/react";
+import Image from 'next/image'
 
 export interface ModalProps {
   showModal: boolean;
@@ -49,7 +50,14 @@ export const CustomModal = (props: ModalProps) => {
         <ModalHeader>{modalTitle}</ModalHeader>
         <ModalCloseButton color="#ffe6c4" />
         <ModalBody>
-          <img src="/man-yelling.png" id="coach-yelling" height={110} width={110} style={{ margin: "0 auto", display: "block" }} />
+          <Image
+            src={"/man-yelling.png"}
+            alt="coach-yelling"
+            height={110}
+            width={110}
+            style={{ margin: "0 auto", display: "block" }}
+            />
+          {/* <img src="/man-yelling.png" id="coach-yelling" height={110} width={110} style={{ margin: "0 auto", display: "block" }} /> */}
           <p>{modalMessage}</p>
         </ModalBody>
         <ModalFooter>
@@ -224,6 +232,7 @@ export default function Challenge() {
           }
           setTestSuccessful(_testSuccessful);
         }
+
         setTimeout(() => {
           setShowModal(false);
         }, 3000);
@@ -322,7 +331,7 @@ export default function Challenge() {
               </div>
             </div>
             <div id="editor">
-              <OptionEditorv2
+              <OptionEditorv3
                 changeLang={changeLang}
                 changeTheme={changeTheme}
                 switchText={switchText}

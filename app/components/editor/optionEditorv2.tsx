@@ -1,5 +1,5 @@
 import CustomSwitch from "../switch/customSwitch";
-import { Checkbox, Select, Tooltip } from "@chakra-ui/react";
+import { Checkbox, Select, Tooltip, Text } from "@chakra-ui/react";
 import { useEffect, useState, useContext } from "react";
 import { LanguageContext } from "../LanguageSwitcher/language";
 
@@ -9,14 +9,16 @@ export default function OptionEditorv2({
   selectDefaultText,
   changeLang,
   language,
-  wasAlreadyCompleted
+  wasAlreadyCompleted,
+  playingTimer
 }: {
   switchText: string,
   changeTheme: any,
   selectDefaultText: string,
   changeLang: any,
   language: string,
-  wasAlreadyCompleted: boolean
+  wasAlreadyCompleted: boolean,
+  playingTimer : {minutes: number, seconds :number}
 }) {
 
   const [displayLanguage, setDisplayLanguage] = useState('');
@@ -61,10 +63,14 @@ export default function OptionEditorv2({
           />
         </Tooltip>
       </div>
+      <Text fontSize="xl" color="blue.500" paddingLeft={"1%"} paddingRight={"1%"}>
+        {String(playingTimer.minutes).padStart(2, '0')}:{String(playingTimer.seconds).padStart(2, '0')}
+      </Text>
       <Select w="30" variant="filled" id="lang_choice"
         onChange={(e) => changeLang(e.target.value)}
+        defaultValue={language}
       >
-        <option value="">{selectDefaultText}</option>
+        {/* <option value="">{selectDefaultText}</option> */}
         <option value={language}>{displayLanguage}</option>
       </Select>
       <CustomSwitch switchText={switchText} changeTheme={changeTheme} />

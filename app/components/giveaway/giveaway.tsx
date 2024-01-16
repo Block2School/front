@@ -44,6 +44,8 @@ export default function Giveaway() {
       first_amount -= 1
     })
     try {
+      console.log('amount: ', amount)
+      console.log('adresses: ', adresses)
       const tx = await _contract.monthlyGiveaway(amount, adresses)
       await tx.wait();
       setSuccessMessage("Giveaway is correctly executed");
@@ -66,10 +68,10 @@ export default function Giveaway() {
       let rawLeaderboard = res.data;
       console.log('RES.DATA: ', res.data);
       console.log('rawLeaderboard: ', rawLeaderboard);
-      let formatedLeaderboard: any = rawLeaderboard.map((user: { username: any; points: any; rank: any; user_uuid: any; }) => {
+      let formatedLeaderboard: any = rawLeaderboard.map((user: { username: any; points: any; rank: any; user_uuid: any; wallet_address: any }) => {
         return {
           username: user.username,
-          wallet_adress: user.username,
+          wallet_adress: user.wallet_address,
           points: user.points,
           rank: user.rank,
           user_uuid: user.user_uuid

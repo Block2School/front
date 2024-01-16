@@ -27,9 +27,10 @@ export default function adminTutorialNavBar({state, next, back, setTitle, setCat
                   onChange={(e) => setSelectedMarkdown(e.target.value)}
                 >
                    
-                  {availableMarkdowns.map((mrkdown, index) => {
+                  {availableMarkdowns.map((mrkdown: any, index: number) => {
                     return (
-                      <Select value={mrkdown} key={index}>{mrkdown}</Select>
+                      // <Select value={mrkdown} key={index}>{mrkdown}</Select>
+                      <option value={mrkdown} key={index}>{mrkdown}</option>
                     )
                   })}
                 </Select>

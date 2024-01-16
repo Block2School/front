@@ -1,0 +1,147 @@
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+.timeline_post {
+    margin-bottom: 20px;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: black;
+    border: 3px solid rgb(38, 38, 38);
+    border-radius: 20px;
+    margin-right: 15px;
+    transition: background-color 1s;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    animation: fadeIn 1s;
+}
+
+.timeline_post:hover {
+    background-color: #1c1c1c;
+    cursor: pointer;
+}
+
+.timeline_post_title {
+    color: white;
+}
+  
+.timeline_post_header {
+margin-bottom: 10px;
+}
+  
+.timeline_post_header h2 {
+font-size: 18px;
+margin-bottom: 5px;
+font-weight: bolder;
+}
+  
+.timeline_post_header small {
+color: #888;
+}
+  
+.timeline_post_details {
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+  
+.timeline_post_details span {
+    font-size: 14px;
+    font-weight: bold;
+    color: rgb(9, 255, 0);
+}
+
+.category_name_post {
+    color: #B4184C;
+    font-weight: bold;
+}
+
+.category_name_post:hover {
+    color: #c133ba;
+    font-weight: bold;
+}
+
+.timeline_post_last {
+    margin-bottom: 20px;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: black;
+    border: 3px solid rgb(38, 38, 38);
+    border-radius: 20px;
+    margin-right: 15px;
+}
+
+.timeline_post_last:hover {
+    border: 3px solid #ffe6c4;
+}
+
+.timeline_post_title_last {
+    color: white;
+}
+  
+.timeline_post_header_last {
+margin-bottom: 10px;
+}
+  
+.timeline_post_header_last h2 {
+font-size: 15px;
+margin-bottom: 5px;
+}
+  
+.timeline_post_header_last small {
+color: #888;
+}
+  
+
+.tuto_short_details_container {
+    margin-bottom: 10px;
+}
+
+.tuto_short_details_container span{
+    color:white;
+    font-size: 12px;
+}
+
+.tutorial_modal_container {
+    text-align: center;
+}
+
+
+
+.tutorial_modal_container button[type="submit"] {
+    padding: 5px 10px;
+    border-radius: 3px;
+    border: none;
+    background-color: #333;
+    color: black;
+    cursor: pointer;
+    text-align: center;
+    margin: 20px;
+}
+        
+.tutorial_modal_container button[type="submit"]:hover {
+    background-color: #ffe6c4;
+    color: black;
+}
+
+.buttonBox {
+    background-color: #ffe6c4;
+    width: fit-content;
+    height: fit-content;
+    padding: 10px;
+    border-radius: 20px;
+    border: 2px solid white;
+    cursor: pointer;
+}
+
+.buttonBox:hover {
+    background-color: white;
+}
+
+.buttonText {
+    color: black;
+}

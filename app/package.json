@@ -65,6 +65,8 @@
     "react-toastify": "^9.1.1",
     "rehype-raw": "^6.1.1",
     "remark-gfm": "^3.0.1",
+    "socket.io": "^4.7.3",
+    "socket.io-client": "^4.7.3",
     "web3": "^1.7.3"
   },
   "devDependencies": {
