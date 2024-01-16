@@ -35,6 +35,8 @@ const GA_ID = process.env.NEXT_PUBLIC_GA_ID
 import { LanguageProvider } from "../components/LanguageSwitcher/language";
 import Script from 'next/script'
 import * as Sentry from "@sentry/react";
+import mixpanel from 'mixpanel-browser'
+import { MixPanelTracking } from '../services/mixpanel'
 
 const getLibrary = (provider: any): Web3Provider => {
   const library = new Web3Provider(provider)
@@ -57,18 +59,19 @@ const getLibrary = (provider: any): Web3Provider => {
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter()
-  // console.log('GA_ID: ', GA_ID)
-  // ReactGA.initialize(GA_ID as string)
-  // ReactGA.send({ hitType: "event", eventCategory: "pageview", eventAction: "pageview", eventLabel: router.pathname })
-  // // ReactGA.pageview(router.pathname)
-  // useEffect(() => {
-  //   const handleRouteChange = (url: string, { shallow }: { shallow: boolean }) => {
-  //     ReactGA.initialize(GA_ID as string)
-  //     ReactGA.send({ hitType: "pageview", page: url })
-  //     // ReactGA.send({ hitType: "event", eventCategory: "test_click", eventAction: "test_click", eventLabel: "TEST CLICK" })
-  //     console.log(`App is changing to ${url} ${shallow ? "with" : "without"} shallow routing`)
-  //   }
-  //   router.events.on("routeChangeComplete", handleRouteChange)
+
+  ReactGA.initialize(GA_ID as string)
+  ReactGA.send({ hitType: "event", eventCategory: "pageview", eventAction: "pageview", eventLabel: router.pathname })
+  // ReactGA.pageview(router.pathname)
+  useEffect(() => {
+    const handleRouteChange = (url: string, { shallow }: { shallow: boolean }) => {
+      ReactGA.initialize(GA_ID as string)
+      ReactGA.send({ hitType: "pageview", page: url })
+      // ReactGA.send({ hitType: "event", eventCategory: "test_click", eventAction: "test_click", eventLabel: "TEST CLICK" })
+      console.log(`App is changing to ${url} ${shallow ? "with" : "without"} shallow routing`)
+      MixPanelTracking.getInstance().pageViewed();
+    }
+    router.events.on("routeChangeComplete", handleRouteChange)
 
   //   // If the component is unmounted, unsubscribe
   //   // from the event with the `off` method:
@@ -81,22 +84,28 @@ function MyApp({ Component, pageProps }: AppProps) {
     <LanguageProvider>
       <ChakraProvider>
         <Web3ReactProvider getLibrary={getLibrary}>
-          <WebSocketProvider>
-            <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-            ></Script>
-            {/* 👇 gtag function definition. notice that we don't send page views at this point.  */}
-            <Script
-              id="gtag-init"
-              dangerouslySetInnerHTML={{
-                __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-            `,
-              }}
-            />
-            <Component {...pageProps} />
+        <WebSocketProvider>
+          <Script
+            src={`https://tools.luckyorange.com/core/lo.js?site-id=795a5d80`}
+            strategy="afterInteractive"
+            async
+            defer
+          ></Script>
+          <Script
+            src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+          ></Script>
+          {/* 👇 gtag function definition. notice that we don't send page views at this point.  */}
+          <Script
+            id="gtag-init"
+            dangerouslySetInnerHTML={{
+              __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+          `,
+            }}
+          />
+          <Component {...pageProps} />
           </WebSocketProvider>
         </Web3ReactProvider>
       </ChakraProvider>
