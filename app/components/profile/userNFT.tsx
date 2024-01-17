@@ -1,6 +1,5 @@
 import { useWeb3React } from '@web3-react/core';
 import { ethers } from 'ethers';
-import NFT_INTERFACE2 from '../../config/abi/nft2.json';
 import NFT_INTERFACE3 from '../../config/abi/nft3.json';
 import React, { useEffect, useContext } from 'react'
 import { Text, Image, Center, Heading, Button, Flex, Link, Spacer, useDisclosure } from '@chakra-ui/react';
@@ -26,12 +25,10 @@ export default function UserNFTView() {
 
   const fetchUserNFT = async () => {
     if (!library || !account) return;
-    // const contractAddress: string = "0xe06855c206CE89A23b480246Cbc208c5A6deAAF8";
     const contractAddress: string = "0x8fE921C13825003F02F46EF261589a3bb7bc7B98";
     const _provider = new ethers.providers.Web3Provider(library?.provider);
     const signer = _provider.getSigner();
 
-    // let contract = new ethers.Contract(contractAddress, NFT_INTERFACE2, signer);
     let contract = new ethers.Contract(contractAddress, NFT_INTERFACE3, signer);
     let res = await contract.fetchMyNFTs();
 
@@ -55,12 +52,9 @@ export default function UserNFTView() {
       }
       nftArrayTmp.push(_nft);
     }
-    console.log('nftArrayTmp: ', nftArrayTmp)
 
     let res2 = await contract.getListingPrice();
     setListingPrice(ethers.utils.formatEther(res2));
-    console.log('res2: ', res2)
-    console.log('res22: ', ethers.utils.formatEther(res2))
     setUserNFT(nftArrayTmp);
   };
 
@@ -69,11 +63,9 @@ export default function UserNFTView() {
   return (
     <>
       <div>
-        {/* make a carousel with the nfts */}
         <Center>
           <Text fontSize="2xl" fontWeight="bold">{dictionary.user_nft.my_nft}</Text>
         </Center>
-        {/* the carousel just takes one row and the user has to move to the left or right to see the other nfts */}
         <div
           style={{
             display: 'flex',

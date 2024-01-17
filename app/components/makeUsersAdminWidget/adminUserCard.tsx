@@ -10,12 +10,9 @@ export default function userCard({person}:any) {
 
   useEffect(() => {
     setToken(sessionStorage.getItem('token') || '');
-    // ToDo: get markdown list
   }, []);
 
   const handleClick = () => {
-    console.log("Banning user: " + person.name);
-    console.log("banning user ID: " +person.id);
     axios({
       method: 'POST',
       url: `${serverURL}:8080/admin/unmod`,

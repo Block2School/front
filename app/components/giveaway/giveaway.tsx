@@ -1,10 +1,7 @@
 import { Box, Button, Input, Select, Table, Td, Text, Th, Tr } from "@chakra-ui/react";
 import React, { useEffect, useState, useContext } from "react";
-import moment from "moment";
 import axios from "axios";
 import { serverURL } from "../../utils/globals";
-import MyEditor from "../editor/monacoEditor";
-import MarkdownRenderer from "../markdown/markdown";
 import { LanguageContext } from "../LanguageSwitcher/language";
 import { ethers } from "ethers";
 import { Web3Provider } from "@ethersproject/providers";
@@ -44,21 +41,17 @@ export default function Giveaway() {
       first_amount -= 1
     })
     try {
-      console.log('amount: ', amount)
-      console.log('adresses: ', adresses)
       const tx = await _contract.monthlyGiveaway(amount, adresses)
       await tx.wait();
       setSuccessMessage("Giveaway is correctly executed");
       setIsError(false);
     } catch (error) {
       setIsError(false)
-      console.log('error giveaway: ', error)
       setErrorMessage('Error while executing the giveaway');
     }
   }
 
   useEffect(() => {
-    console.log('HI IM HERE')
     axios.get(`${serverURL}:8080/challenges/leaderboard/top_10_monthly`, {
       headers: {
         'Content-Type': 'application/json',
@@ -66,8 +59,6 @@ export default function Giveaway() {
       }
     }).then(res => {
       let rawLeaderboard = res.data;
-      console.log('RES.DATA: ', res.data);
-      console.log('rawLeaderboard: ', rawLeaderboard);
       let formatedLeaderboard: any = rawLeaderboard.map((user: { username: any; points: any; rank: any; user_uuid: any; wallet_address: any }) => {
         return {
           username: user.username,
@@ -77,10 +68,7 @@ export default function Giveaway() {
           user_uuid: user.user_uuid
         }
       });
-      console.log('formatedLeaderboard: ', formatedLeaderboard);
       setLeaderboard(formatedLeaderboard);
-
-      console.log('leaderboard1: ', res.data.data);
     })
   }, []);
 

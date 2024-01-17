@@ -1,5 +1,4 @@
 import {
-  VStack,
   Modal,
   ModalOverlay,
   ModalContent,

@@ -31,7 +31,6 @@ export const TestAreaModal = ({
           <ModalBody>
             <Box display="flex" alignItems="center" justifyContent="space-between">
               <div
-                // make it so that the text is above the textarea
                 style={{
                   display: "flex",
                   flexDirection: "column",
@@ -52,7 +51,6 @@ export const TestAreaModal = ({
                 />
               </div>
               <div
-                // make it so that the text is above the textarea
                 style={{
                   display: "flex",
                   flexDirection: "column",
@@ -108,7 +106,6 @@ export const TestArea = ({
         <div
           onClick={() => {
             onOpen();
-            console.log("isOpen: ", isOpen)
           }}
         >
           <Text

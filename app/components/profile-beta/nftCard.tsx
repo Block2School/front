@@ -1,8 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
-import axios from 'axios';
 import styles from './nftCard.module.css'
-import { color } from '@chakra-ui/react';
 
 export default function  nftCard({tutorial}:any) {
   const [showModal, setShowModal] = useState(true)

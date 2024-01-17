@@ -1,15 +1,11 @@
 import axios from "axios";
 import react, { useEffect, useState, useContext, useRef } from "react";
 import Navbar from "../components/navbar/navbar";
-import CustomButton from "../components/button/button";
 import { serverURL } from "../utils/globals";
 import { LanguageContext } from "../components/LanguageSwitcher/language";
 import MarkdownRenderer from "../components/markdown/markdown";
 import TutorialConsole from "../components/tutorialConsole/tutorialConsole";
-import OptionEditor from "../components/editor/optionEditor";
 import OptionEditorv3 from "../components/editor/optionEditorv3";
-import MonacoEditor from "../components/editor/monacoEditor";
-import UploadEditor from "../components/editor/uploadEditor";
 import LoadingScreen from "../components/loading/loadingScreen";
 import UploadEditorv2 from "../components/editor/uploadEditorv2";
 import MonacoEditorv2 from "../components/editor/monacoEditorv2";
@@ -57,7 +53,6 @@ export const CustomModal = (props: ModalProps) => {
             width={110}
             style={{ margin: "0 auto", display: "block" }}
             />
-          {/* <img src="/man-yelling.png" id="coach-yelling" height={110} width={110} style={{ margin: "0 auto", display: "block" }} /> */}
           <p>{modalMessage}</p>
         </ModalBody>
         <ModalFooter>
@@ -131,7 +126,6 @@ export default function Challenge() {
         'Authorization': `Bearer ${sessionStorage.getItem('token')}`
       }
     }).then(res => {
-      console.log('res.data: ', res.data);
       const challenge = {
         id: res.data?.id || -1,
         inputs: res.data?.inputs || [],
@@ -165,14 +159,11 @@ export default function Challenge() {
   }
 
   const changeTheme = () => {
-    console.log('theme: ', theme)
     setSwitchText(theme === 'vs-light' ? dictionary.challenge_page.challenge_switch_text1 : dictionary.challenge_page.challenge_switch_text2);
     setTheme(theme === 'vs-dark' ? 'vs-light' : 'vs-dark');
-    console.log('theme2: ', theme)
   }
 
   const editorDidMount = (editor: any) => {
-    console.log('editorDidMount: ', editor);
     customHTMLRef.current = editor;
   }
 
@@ -193,7 +184,6 @@ export default function Challenge() {
           'Authorization': `Bearer ${sessionStorage.getItem('token')}`
         }
       }).then(res => {
-        console.log('res.data: ', res.data);
         setResOutput(res.data.output);
         setExpectedOutput(res.data.expected_output);
         setResError(res.data.error_description);
@@ -238,7 +228,6 @@ export default function Challenge() {
         }, 3000);
         setIsUploading(false);
       }).catch(err => {
-        console.log('err: ', err);
         setShowModal(true);
         setModalTitle('Wrong Answer');
         setModalMessage('Try again');
@@ -250,9 +239,7 @@ export default function Challenge() {
   }
 
   const executeTest = (test_number: number) => {
-    console.log('testSuccessful: ', testSuccessful)
     setIsUploading(true);
-    console.log('executeTest: ', test_number);
 
     const data = {
       code: editorValue,
@@ -268,7 +255,6 @@ export default function Challenge() {
           'Authorization': `Bearer ${sessionStorage.getItem('token')}`
         }
       }).then(res => {
-        console.log('res.data: ', res.data);
         setResOutput(res.data.output);
         setExpectedOutput(res.data.expected_output);
         setResError(res.data.error_description);
@@ -278,13 +264,8 @@ export default function Challenge() {
         setTestSuccessful(_testSuccessful);
         setIsUploading(false);
       }).catch(err => {
-        console.log('err: ', err);
         setIsUploading(false);
       })
-    // setTimeout(() => {
-    //   setIsUploading(false);
-    // }, 3000)
-    console.log('testSuccessful2: ', testSuccessful)
   }
 
   const changeLang = (lang: React.SetStateAction<string>) => {
@@ -315,7 +296,6 @@ export default function Challenge() {
               </div>
               <div
                 style={{
-                  // make it so that the console is always at the bottom of the page
                   position: "absolute",
                   bottom: 0,
                   width: "50%",

@@ -34,14 +34,6 @@ export const getFullDisplayBalance = (balance: BigNumber, decimals = 18, display
   return getBalanceAmount(balance, decimals).toFixed(displayDecimals)
 }
 
-// export const formatNumber = (number: number, minPrecision = 2, maxPrecision = 2) => {
-//   const options = {
-//     minimumFractionDigits: minPrecision,
-//     maximumFractionDigits: maxPrecision,
-//   }
-//   return number.toLocaleString(undefined, options)
-// }
-
 /**
  * Method to format the display of wei given an EthersBigNumber object
  * Note: does NOT round
@@ -65,7 +57,6 @@ export const formatBigNumberToFixed = (number: EthersBigNumber, displayDecimals 
  * i.e. Formats 9763410526137450427.1196 into 9.763 (3 display decimals)
  */
 export const formatFixedNumber = (number: FixedNumber, displayDecimals = 18, decimals = 18) => {
-  // Remove decimal
   const [leftSide] = number.toString().split('.')
   return formatBigNumber(EthersBigNumber.from(leftSide), displayDecimals, decimals)
 }

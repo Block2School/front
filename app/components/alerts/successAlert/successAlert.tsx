@@ -38,7 +38,6 @@ export default function SuccessAlert({ successMessage, isOpen, onClose }: { succ
             }}
           >
             <AlertDialogHeader fontSize="lg" fontWeight="bold">
-              {/* div that centers the content and put the two content one under the other */}
               <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                 <BiCheckCircle
                   style={{

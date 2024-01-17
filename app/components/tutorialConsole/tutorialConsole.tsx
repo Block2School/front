@@ -19,23 +19,12 @@ export default function TutorialConsole(props: TutorialConsoleProps) {
       <Box>
         <div
           style={{
-            // make the div take the full width
             width: "100%",
-
-            // align content vertically
             alignItems: "center",
-
-            // add a border
             border: "1px solid #ccc",
-            // add some padding
-
-            // add a background color
             backgroundColor: "#f5f5f5",
-            // add a box shadow
             boxShadow: "0 0 10px rgba(0, 0, 0, 0.15)",
-            // add a transition
-            transition: "height 0.3s",
-            // overflow: "scroll"
+            transition: "height 0.3s"
           }}
         >
           <Grid
@@ -64,7 +53,6 @@ export default function TutorialConsole(props: TutorialConsoleProps) {
             </Flex>
           </Grid>
 
-          {/* but the iconButton on the right side */}
         </div>
         <Collapse
           in={show}
@@ -75,7 +63,6 @@ export default function TutorialConsole(props: TutorialConsoleProps) {
             paddingLeft={"4"}
             bg="gray.100"
             transition="height 0.3s"
-            // overflow={"scroll"}
           >
             <Text
               fontSize={"md"}
@@ -85,7 +72,6 @@ export default function TutorialConsole(props: TutorialConsoleProps) {
               Ouput:
             </Text>
             <Text
-              // multiple lines
               whiteSpace="pre-wrap"
               color={"black"}
             >
@@ -99,7 +85,6 @@ export default function TutorialConsole(props: TutorialConsoleProps) {
               Expected output:
             </Text>
             <Text
-              // multiple lines
               whiteSpace="pre-wrap"
               color={"black"}
             >

@@ -2,25 +2,17 @@ import axios from "axios";
 import react, { useEffect, useState, useContext, useRef } from "react";
 import { webSocketURL } from "../utils/globals";
 import Navbar from "../components/navbar/navbar";
-import CustomButton from "../components/button/button";
 import { serverURL } from "../utils/globals";
 import { LanguageContext } from "../components/LanguageSwitcher/language";
 import MarkdownRenderer from "../components/markdown/markdown";
 import TutorialConsole from "../components/tutorialConsole/tutorialConsole";
-import OptionEditor from "../components/editor/optionEditor";
 import OptionEditorv2 from "../components/editor/optionEditorv2";
-import MonacoEditor from "../components/editor/monacoEditor";
-import UploadEditor from "../components/editor/uploadEditor";
 import LoadingScreen from "../components/loading/loadingScreen";
 import UploadEditorv2 from "../components/editor/uploadEditorv2";
 import MonacoEditorv2 from "../components/editor/monacoEditorv2";
 import { formatLanguageToServerLanguage, sendGAEvent } from "../utils/utils";
 import { AiFillBell } from "react-icons/ai";
 import { Button, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure } from "@chakra-ui/react";
-
-import { useWebSocket } from "../context/WebSocketContext";
-import { json } from "stream/consumers";
-import { useRouter } from "next/router";
 
 export interface ModalProps {
   showModal: boolean;
@@ -138,7 +130,6 @@ export default function ChallengeFriends() {
         'Authorization': `Bearer ${sessionStorage.getItem('token')}`
       }
     }).then(res => {
-      console.log('res.data: ', res.data);
       const challenge = {
         id: res.data?.id || -1,
         inputs: res.data?.inputs || [],
@@ -161,9 +152,6 @@ export default function ChallengeFriends() {
       })
       setMarkdown(challenge.markdown_url);
       let socket = new WebSocket(`ws://` + webSocketURL + `:8080/joinRoom/` + _roomId + `/` + playerUUID)
-
-      console.log(socket)
-
     })
   }, [])
 
@@ -176,14 +164,11 @@ export default function ChallengeFriends() {
   }
 
   const changeTheme = () => {
-    console.log('theme: ', theme)
     setSwitchText(theme === 'vs-light' ? dictionary.challenge_page.challenge_switch_text1 : dictionary.challenge_page.challenge_switch_text2);
     setTheme(theme === 'vs-dark' ? 'vs-light' : 'vs-dark');
-    console.log('theme2: ', theme)
   }
 
   const editorDidMount = (editor: any) => {
-    console.log('editorDidMount: ', editor);
     customHTMLRef.current = editor;
   }
 
@@ -204,7 +189,6 @@ export default function ChallengeFriends() {
           'Authorization': `Bearer ${sessionStorage.getItem('token')}`
         }
       }).then(res => {
-        console.log('res.data: ', res.data);
         setResOutput(res.data.output);
         setExpectedOutput(res.data.expected_output);
         setResError(res.data.error_description);
@@ -244,10 +228,6 @@ export default function ChallengeFriends() {
           setTestSuccessful(_testSuccessful);
         }
 
-        //
-        //
-        //
-        // Code Here for sending code
         let successTestNbr = 0;
         for (let idx: number = 0; idx < testSuccessful.length; idx++) {
           if (testSuccessful[idx].successful === true){
@@ -268,28 +248,12 @@ export default function ChallengeFriends() {
         setSocketInfo(infos);
 
         let socketinfo = JSON.stringify(infos);
-        if (testWs) {
-          console.log("testWs dans Challenge.tsx")
-          console.log(testWs);
-          if (testWs.readyState === WebSocket.OPEN) {
-            testWs?.send(socketinfo);
-            console.log("socketinfo envoyé")
-          }
-        }
-
-        //
-        //
-        //
-        //
-
-
 
         setTimeout(() => {
           setShowModal(false);
         }, 3000);
         setIsUploading(false);
       }).catch(err => {
-        console.log('err: ', err);
         setShowModal(true);
         setModalTitle('Wrong Answer');
         setModalMessage('Try again');
@@ -301,9 +265,7 @@ export default function ChallengeFriends() {
   }
 
   const executeTest = (test_number: number) => {
-    console.log('testSuccessful: ', testSuccessful)
     setIsUploading(true);
-    console.log('executeTest: ', test_number);
 
     const data = {
       code: editorValue,
@@ -319,7 +281,6 @@ export default function ChallengeFriends() {
           'Authorization': `Bearer ${sessionStorage.getItem('token')}`
         }
       }).then(res => {
-        console.log('res.data: ', res.data);
         setResOutput(res.data.output);
         setExpectedOutput(res.data.expected_output);
         setResError(res.data.error_description);
@@ -329,13 +290,8 @@ export default function ChallengeFriends() {
         setTestSuccessful(_testSuccessful);
         setIsUploading(false);
       }).catch(err => {
-        console.log('err: ', err);
         setIsUploading(false);
       })
-    // setTimeout(() => {
-    //   setIsUploading(false);
-    // }, 3000)
-    console.log('testSuccessful2: ', testSuccessful)
   }
 
   const changeLang = (lang: React.SetStateAction<string>) => {

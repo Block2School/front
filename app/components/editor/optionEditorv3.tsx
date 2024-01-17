@@ -30,7 +30,6 @@ export default function OptionEditorv3({
     else if (language == "R") setDisplayLanguage("r");
     else if (language == "solidity") setDisplayLanguage("solidity");
     else setDisplayLanguage("");
-    console.log("displayLanguage is: ", displayLanguage);
   }, [])
 
   return (

@@ -27,15 +27,12 @@ export default function userAdmin() {
       },
     }).then((res) => {
       let userList_ : Array<{uuid: string, wallet_address: string, is_banned: number}> = [] ;
-
-      // console.log(res.data.data)
       res.data.data.forEach(e => {
         userList_.push(e);
       });
       setUserList(userList_);
     }
     );
-    // ToDo: get markdown list
   }, []);
   const personList = userList.map(person => <UserCard person={person}/>);
   

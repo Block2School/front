@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Text, Image, Box, Badge, Center } from '@chakra-ui/react';
+import { Text, Image, Box } from '@chakra-ui/react';
 
 export default function TutorialCategoryCard({ name, image, description, callback }: { name: string, image: string, description: string, callback: any }) {
   return (

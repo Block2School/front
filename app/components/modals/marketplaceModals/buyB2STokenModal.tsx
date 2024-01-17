@@ -17,7 +17,6 @@ import {
   Center,
   useDisclosure
 } from '@chakra-ui/react'
-// import { tokenPrice } from '../../../utils/globals';
 import CustomButton from '../../button/button';
 import Web3 from "web3";
 import { Contract } from 'web3-eth-contract';
@@ -36,7 +35,7 @@ import { LanguageContext } from '../../LanguageSwitcher/language';
 export default function BuyB2STokenModal({ isOpenModal, closeModal }: { isOpenModal: boolean, closeModal: any }) {
   const [amountToBuy, setAmountToBuy] = React.useState(0);
   const [tokenPrice, setTokenPrice] = React.useState('0');
-  const [amountToPay, setAmountToPay] = React.useState(0); // amountToPay = amountToBuy * tokenPrice
+  const [amountToPay, setAmountToPay] = React.useState(0);
   const { account, library, chainId, activate, deactivate, active } = useWeb3React<Web3Provider>();
   const web3 = new Web3('https://data-seed-prebsc-1-s1.binance.org:8545'); // TESTNET
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -47,18 +46,13 @@ export default function BuyB2STokenModal({ isOpenModal, closeModal }: { isOpenMo
   const _vaultContract_ = "0x3BeB448c642AF751e74c46641E57a9669c255885"
 
   useEffect(() => {
-    // setAmountToPay(amountToBuy * parseFloat(tokenPrice || '0'))
-    // token price is in B2ST per BNB
     if (tokenPrice === '0')
       return;
     setAmountToPay(amountToBuy / parseFloat(tokenPrice || '0'))
   }, [amountToBuy])
 
   useEffect(() => {
-    console.log('library: ', library)
-    console.log('account: ', account)
     if (!library || !account) {
-      console.log('library: ', library, 'account: ', account, "not connected")
       setErrorMessage(dictionary.buy_b2st_modal.error_message_connect_wallet)
       setIsError(true);
       onOpen();
@@ -74,7 +68,6 @@ export default function BuyB2STokenModal({ isOpenModal, closeModal }: { isOpenMo
       await getExchangeRate();
     }
     fetchData();
-    console.log('EHERE')
   }, [library, account])
 
   const getExchangeRate = async () => {
@@ -82,25 +75,18 @@ export default function BuyB2STokenModal({ isOpenModal, closeModal }: { isOpenMo
     const signer = _provider.getSigner();
     const _contract = new ethers.Contract('0x118d967aB149de6aE0E461f74Da40aD1322fFb8d', VAULT_INTERFACE2, signer)
     let res = await _contract.getExchangeRate();
-    console.log('res-exchangeRate: ', res)
     let price: string = ethers.utils.formatEther(res);
-    console.log('price: ', price)
-    console.log('res: ', res)
     setTokenPrice(price);
   }
 
   const handleBuy = async () => {
     const _provider = new ethers.providers.Web3Provider(library?.provider);
     const signer = await _provider.getSigner();
-    console.log('signer: ', signer)
     const _contract = new ethers.Contract('0x118d967aB149de6aE0E461f74Da40aD1322fFb8d', VAULT_INTERFACE2, signer)
-    console.log('_contract: ', _contract)
     let _contract2 = new ethers.Contract('0x532a532C2C755677b86B14089cd7daa1f8DdbCC3', B2ST_INTERFACE_, signer)
-    console.log('_contract2: ', _contract2)
     try {
       let res = await _contract.depositBNB({ value: (amountToPay * 10 ** 18).toFixed(0).toString() })
       await res.wait()
-      console.log('res: ', res)
       setSuccessMessage(dictionary.buy_b2st_modal.success_message_transaction)
       setIsError(false);
       onOpen();
@@ -109,7 +95,6 @@ export default function BuyB2STokenModal({ isOpenModal, closeModal }: { isOpenMo
       }, 1500)
       return;
     } catch (error) {
-      console.log('error: ', error)
       setErrorMessage(dictionary.buy_b2st_modal.error_message_transaction)
       setIsError(true);
       onOpen();
@@ -131,7 +116,6 @@ export default function BuyB2STokenModal({ isOpenModal, closeModal }: { isOpenMo
           <ModalCloseButton _focus={{ boxShadow: 'none' }} id="close-modal" />
           <ModalBody id="modal_popup" paddingBottom="1.5rem">
             <VStack>
-              {/* A number input from Chakra UI */}
               <HStack>
                 <NumberInput
                   defaultValue={0}
@@ -146,7 +130,6 @@ export default function BuyB2STokenModal({ isOpenModal, closeModal }: { isOpenMo
                 </NumberInput>
                 <Text>B2ST</Text>
               </HStack>
-              {/* display amountToPay with only 5 digits after the . */}
               <p>= {amountToPay.toFixed(5)} BNB</p>
               <p>1 BNB = {tokenPrice} B2ST</p>
             </VStack>

@@ -10,7 +10,6 @@ export const getAPI = async (url: string) => {
       },
     });
   } catch (error) {
-    console.log(error);
     return { success: false, error };
   }
 };
@@ -25,7 +24,6 @@ export const postAPI = async (url: string, data: any) => {
       },
     });
   } catch (error) {
-    console.log(error);
     return { success: false, error };
   }
 };
@@ -40,7 +38,6 @@ export const putAPI = async (url: string, data: any) => {
       },
     });
   } catch (error) {
-    console.log(error);
     return { success: false, error };
   }
 }
@@ -55,7 +52,6 @@ export const patchAPI = async (url: string, data: any) => {
       },
     });
   } catch (error) {
-    console.log(error);
     return { success: false, error };
   }
 }
@@ -70,7 +66,6 @@ export const deleteAPI = async (url: string) => {
       },
     });
   } catch (error) {
-    console.log(error);
     return { success: false, error };
   }
 }

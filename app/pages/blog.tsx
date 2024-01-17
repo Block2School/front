@@ -40,7 +40,6 @@ export default function Blog() {
         },
       })
       .then((res) => {
-        console.log('articles: ', res.data.data)
         setArticles(
           res.data.data
             ?.sort((a: BlogProps, b: BlogProps) => b.id - a.id)

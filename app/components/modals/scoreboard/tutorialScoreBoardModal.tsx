@@ -38,9 +38,6 @@ const ScoreBoardModal = ({ isOpen, closeModal, scoreboard}: {isOpen:boolean, clo
       }
     }).then(res => {
       setRequest(false);
-      // setScore(score);
-      console.log(res.data);
-      console.log("scoreboard => ", scoreboard.data);
     })
   })
 

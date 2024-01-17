@@ -1,6 +1,4 @@
 import React from 'react'
-import { useState } from 'react'
-import axios from 'axios';
 import styles from './forumPost.module.css'
 
 export default function  PostComment({comment}:any) {

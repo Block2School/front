@@ -11,11 +11,9 @@ export default function userCard({person}:any) {
 
   useEffect(() => {
     setToken(sessionStorage.getItem('token') || '');
-    // ToDo: get markdown list
   }, []);
 
     const handleClick = () => {
-      console.log("Unbanning user ID: " +person.uuid);
       axios({
         method: 'POST',
         url: `${serverURL}:8080/admin/unban`,

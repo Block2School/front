@@ -7,9 +7,6 @@ export default function CustomButton({ id, name, srcImg, alt, size, disabled, va
     const color = useColorModeValue("black", "white");
 
     const handleClick = () => {
-        // print the category and label of the button clicked
-        console.log('category: ', categoryGA)
-        console.log('label: ', labelGA)
         sendGAEvent(categoryGA, 'button_click', labelGA)
         MixPanelTracking.getInstance().buttonClicked(`${categoryGA} - ${labelGA}`);
         onClick();

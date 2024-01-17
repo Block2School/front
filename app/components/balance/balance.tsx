@@ -12,7 +12,6 @@ type BalanceProps = {
 }
 
 const Balance: FunctionComponent<BalanceProps> = ({ account, library }) => {
-  // const web3 = new Web3('https://bsc-dataseed1.binance.org:443'); // MAINNET
   const web3 = new Web3('https://data-seed-prebsc-1-s1.binance.org:8545'); // TESTNET
   const [balanceBNB, setBalanceBNB] = useState("");
   const [balanceCustomToken, setBalanceCustomToken] = useState(0);
@@ -30,10 +29,7 @@ const Balance: FunctionComponent<BalanceProps> = ({ account, library }) => {
       let contract: Contract | undefined = getTokenContract('ZLDKC', true);
       if (contract) {
         contract.methods.balanceOf(account).call().then((res: any) => {
-          console.log('CustomTokenBalance : ', res);
-          console.log('ZLDKC : getFullDisplayBalance : ', getFullDisplayBalance(res, 8, 2));
           let r: number = parseFloat(getFullDisplayBalance(res, 8, 2));
-          console.log('CustomTokenBalance r: ', r);
           setBalanceCustomToken(r);
         });
       }
