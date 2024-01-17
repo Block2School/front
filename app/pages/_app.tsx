@@ -66,7 +66,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     const handleRouteChange = (url: string, { shallow }: { shallow: boolean }) => {
       ReactGA.initialize(GA_ID as string)
       ReactGA.send({ hitType: "pageview", page: url })
-      console.log(`App is changing to ${url} ${shallow ? "with" : "without"} shallow routing`)
+      // console.log(`App is changing to ${url} ${shallow ? "with" : "without"} shallow routing`)
       MixPanelTracking.getInstance().pageViewed();
     }
     router.events.on("routeChangeComplete", handleRouteChange)

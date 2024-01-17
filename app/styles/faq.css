@@ -4,7 +4,9 @@
   height: 100%;
   flex-direction: column;
   background-color: #343434;
-  background-image: url("../../../Images\ B2S/NewProject.svg");
+  /* background-image: url("../../../Images\ B2S/NewProject.svg"); */
+  /* background-image is stored in public/ */
+  background-image: url("/NewProject.svg");
   z-index: 1000;
 }
 
