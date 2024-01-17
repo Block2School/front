@@ -11,10 +11,6 @@ export default function UserAdmin() {
   const [userList, setUserList] = useState([{}]);
   const [bannedUserList, setBannedUserList] = useState([{}]);
 
-  // let userList_ : Array<{uuid: string, wallet_address: string, is_banned: number}> = [] ;
-  // let bannedUserList_: Array<{uuid: string, wallet_address: string, is_banned: number}> = [] ;
-
-
   useEffect(() => {
     setToken(sessionStorage.getItem('token') || '');
     axios({
@@ -29,7 +25,6 @@ export default function UserAdmin() {
       let userList_ : Array<{uuid: string, wallet_address: string, is_banned: number}> = [] ;
       let bannedUserList_: Array<{uuid: string, wallet_address: string, is_banned: number}> = [] ;
 
-      // console.log(res.data.data)
       res.data.data.forEach((e: any) => {
         if (e.is_banned == 0) {
           userList_.push(e);
@@ -41,7 +36,6 @@ export default function UserAdmin() {
       setBannedUserList(bannedUserList_);
     }
     );
-    // ToDo: get markdown list
   }, []);
 
   const personList = userList.map(person => <UserCard person={person}/>);

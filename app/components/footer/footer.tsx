@@ -6,8 +6,6 @@ import { sendGAEvent } from '../../utils/utils'
 import CustomButton from '../button/button'
 import { LanguageContext } from "../LanguageSwitcher/language";
 
-// Changer le path pour les SVG absolument dégueulasse
-
 export default function Footer() {
 
   const [showModalFooter, setShowModalFooter] = useState(false);
@@ -76,7 +74,6 @@ export default function Footer() {
               rel="noreferrer"
               onClick={() => {
                 sendGAEvent('Footer', 'button_click', 'Help Us')
-                console.log('HELP US !!!')
               }}
             >
               <Center
@@ -104,7 +101,6 @@ export default function Footer() {
               rel="noreferrer"
               onClick={() => {
                 sendGAEvent('Footer', 'button_click', 'Our github')
-                console.log('Our github !!!')
               }}
             >
               <Center
@@ -138,7 +134,6 @@ export default function Footer() {
           <button className='footer-menu-button' onClick={handleToggleModalFooter}>?</button>
         </div>
       </div>
-            {/* Modal to display the navigation links */}
             {showModalFooter && (
         <div className="footer-modal">
           <div className="footer-modal-content">

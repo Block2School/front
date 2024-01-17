@@ -26,7 +26,6 @@ export default function FAQ() {
       },
     }).then((res) => {
       setFaqList(res.data)
-      autocomplete(document.getElementById("faq-search") as HTMLInputElement, res.data.map((faq: any) => faq.question));
     })
   }
 
@@ -34,92 +33,6 @@ export default function FAQ() {
   const color = useColorModeValue("black", "black");
 
   const { dictionary } = useContext(LanguageContext);
-
-  function autocomplete(inp: HTMLInputElement, arr: string[]) {
-    let currentFocus: number;
-  
-    inp.addEventListener("input", function (e: Event) {
-      const val = (this).value;
-      closeAllLists();
-      if (!val) {
-        setSearchInput("");
-        return false;
-      }
-      currentFocus = -1;
-  
-      const a = document.createElement("DIV");
-      a.setAttribute("id", (this).id + "autocomplete-list");
-      a.setAttribute("class", "autocomplete-items");
-      (this).parentNode?.appendChild(a);
-  
-      for (let i = 0; i < arr.length; i++) {
-        if (arr[i].toLocaleLowerCase().includes(val.toLocaleLowerCase())) {
-          const b = document.createElement("DIV");
-          let index = arr[i].toLowerCase().indexOf(val.toLowerCase());
-          b.innerHTML = arr[i].substr(0, index);
-          b.innerHTML += "<strong>" + arr[i].substr(index, val.length) + "</strong>";
-          b.innerHTML += arr[i].substr(index + val.length);
-          b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
-  
-          b.addEventListener("click", function (e: Event) {
-            const input = this.getElementsByTagName("input")[0];
-            inp.value = input.value;
-            setSearchInput(input.value);
-            closeAllLists();
-          });
-  
-          if (a.childElementCount <= 9)
-            a.appendChild(b);
-        }
-      }
-    });
-  
-    inp.addEventListener("keydown", function (e: KeyboardEvent) {
-      const x = document.getElementById((this).id + "autocomplete-list");
-      if (x) {
-        const divElements = x.getElementsByTagName("div");
-        if (e.keyCode == 40) {
-          currentFocus++;
-          addActive(divElements);
-        } else if (e.keyCode == 38) {
-          currentFocus--;
-          addActive(divElements);
-        } else if (e.keyCode == 13) {
-          e.preventDefault();
-          if (currentFocus > -1) {
-            if (x) divElements[currentFocus].click();
-          }
-        }
-      }
-    });
-  
-    function addActive(x: HTMLCollectionOf<Element>) {
-      if (!x) return false;
-      removeActive(x);
-      if (currentFocus >= x.length) currentFocus = 0;
-      if (currentFocus < 0) currentFocus = x.length - 1;
-      x[currentFocus].classList.add("autocomplete-active");
-    }
-  
-    function removeActive(x: HTMLCollectionOf<Element>) {
-      for (let i = 0; i < x.length; i++) {
-        x[i].classList.remove("autocomplete-active");
-      }
-    }
-  
-    function closeAllLists(elmnt?: Element) {
-      const x = document.getElementsByClassName("autocomplete-items");
-      for (let i = 0; i < x.length; i++) {
-        if (elmnt != x[i] && elmnt != inp) {
-          x[i].parentNode?.removeChild(x[i]);
-        }
-      }
-    }
-  
-    document.addEventListener("click", function (e: Event) {
-      closeAllLists(e.target as Element);
-    });
-  }
 
   function openModal() {
     $('#faq-contact-title-input').val('')
@@ -157,6 +70,22 @@ export default function FAQ() {
             />
           </div>
           <div id="faq-questions">
+            <div className="faq-question">
+              <h2 className="chakra-heading css-1dklj6k">What is a smart contract ?</h2>
+              <p className="chakra-text css-0">A smart contract is a contract that is written in code and executed on a blockchain.</p>
+            </div>
+            <div className="faq-question">
+              <h2 className="chakra-heading css-1dklj6k">What is a smart contract ?</h2>
+              <p className="chakra-text css-0">A smart contract is a contract that is written in code and executed on a blockchain.</p>
+            </div>
+            <div className="faq-question">
+              <h2 className="chakra-heading css-1dklj6k">What is a smart contract ?</h2>
+              <p className="chakra-text css-0">A smart contract is a contract that is written in code and executed on a blockchain.</p>
+            </div>
+            <div className="faq-question">
+              <h2 className="chakra-heading css-1dklj6k">What is a smart contract ?</h2>
+              <p className="chakra-text css-0">A smart contract is a contract that is written in code and executed on a blockchain.</p>
+            </div>
               {faqList.map((question, index) => {
                   if (searchInput.length > 0) {
                     if (

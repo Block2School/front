@@ -56,11 +56,6 @@ export default function Challenges() {
             "Access-Control-Allow-Origin": "*",
           },
         }).then((res) => {
-          if (res.data == true) {
-            console.log("Room created");
-          } else {
-            console.log("Error creating room");
-          }
         });
     }
   }
@@ -90,7 +85,6 @@ export default function Challenges() {
   }, [])
 
   useEffect(() => {
-    console.log('HI IM HERE [CHALLENGE_USE_EFFECT]')
     axios.get(`${serverURL}:8080/challenges/leaderboard`, {
       headers: {
         'Content-Type': 'application/json',
@@ -98,8 +92,6 @@ export default function Challenges() {
       }
     }).then(res => {
       let rawLeaderboard = res.data;
-      console.log('RES.DATA: ', res.data);
-      console.log('rawLeaderboard: ', rawLeaderboard);
       let formatedLeaderboard: any = rawLeaderboard.map((user: { username: any; points: any; rank: any; user_uuid: any; }) => {
         return {
           username: user.username,
@@ -108,19 +100,9 @@ export default function Challenges() {
           user_uuid: user.user_uuid
         }
       });
-      // for (let idx = 4; idx < 20; idx++) {
-      //   formatedLeaderboard.push({
-      //     username: "User" + idx,
-      //     points: idx,
-      //     rank: idx,
-      //     user_uuid: "uuid" + idx
-      //   })
-      // }
-      console.log('formatedLeaderboard: ', formatedLeaderboard);
       setLeaderboard(formatedLeaderboard);
 
-      console.log('leaderboard1: ', res.data.data);
-      setTimeout(() => { setIsLoading(false); console.log('leaderboard2: ', leaderboard) }, 500);
+      setTimeout(() => { setIsLoading(false);}, 500);
     })
   }, []);
 
@@ -133,19 +115,15 @@ export default function Challenges() {
       }
     }).then(res => {
       let rawUserRank = res.data;
-      console.log('RES.DATA: ', res.data);
-      console.log('rawUserRank: ', rawUserRank);
       let formatedUserRank = {
         username: rawUserRank?.username,
         points: rawUserRank?.points,
         rank: rawUserRank?.rank,
         user_uuid: rawUserRank?.user_uuid
       };
-      console.log('formatedUserRank: ', formatedUserRank);
       setUserRank(formatedUserRank);
 
-      console.log('userRank1: ', res.data.data);
-      setTimeout(() => { setIsLoading(false); console.log('userRank2: ', userRank) }, 500);
+      setTimeout(() => { setIsLoading(false); }, 500);
     })
   }, [])
 

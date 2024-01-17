@@ -1,14 +1,12 @@
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
-import { VStack, useDisclosure, Button, Text, HStack } from "@chakra-ui/react";
+import { VStack, useDisclosure } from "@chakra-ui/react";
 
 import SelectWalletModal from "../components/modals/wallets/walletsModal";
 import { useWeb3React } from "@web3-react/core";
 import { connectors } from "../components/wallet/injectors";
-import { CheckCircleIcon, WarningIcon } from "@chakra-ui/icons";
 import Navbar from "../components/navbar/navbar";
 import Footer from "../components/footer/footer";
-import Balance from "../components/balance/balance";
 import LoginTitle from "../components/login/loginTitle";
 import LoginInformation from "../components/login/loginInformation";
 
@@ -33,16 +31,12 @@ const Login: NextPage = () => {
   };
 
   const handleConnection = async (error: Error): Promise<void> => {
-    console.log('error: ', error);
-    console.log('error.name: ', error.name);
-    if (error.name === 'UnsupportedChainIdError') {
-      // display warning
+    if (error.name === 'UnsupportedChainIdError') {y
     }
   }
 
   useEffect(() => {
     const provider = window.sessionStorage.getItem("provider");
-    console.log('provider2: ', provider)
     if (provider) activate(connectors[provider], handleConnection);
   });
 

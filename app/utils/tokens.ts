@@ -1,6 +1,5 @@
 import Web3 from "web3";
 import { Contract } from 'web3-eth-contract';
-// const web3 = new Web3('https://bsc-dataseed1.binance.org:443'); // MAINNET
 const web3 = new Web3('https://data-seed-prebsc-1-s1.binance.org:8545'); // TESTNET
 import BEP20_INTERFACE from '../config/abi/bep20.json';
 import { AbiItem } from 'web3-utils';
@@ -35,8 +34,6 @@ export { getTokenAddress };
 const getTokenContract = (token: string, testnet: boolean): Contract | undefined => {
   let tokenAddress = getTokenAddress(token, testnet);
   if (tokenAddress && token === 'B2ST') {
-    console.log('B2ST_INTERFACE', B2ST_INTERFACE)
-    console.log('tokenAddress', tokenAddress)
     return new web3.eth.Contract(
       B2ST_INTERFACE as AbiItem[],
       tokenAddress

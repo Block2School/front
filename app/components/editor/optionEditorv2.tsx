@@ -32,7 +32,6 @@ export default function OptionEditorv2({
     else if (language == "R") setDisplayLanguage("r");
     else if (language == "solidity") setDisplayLanguage("solidity");
     else setDisplayLanguage("");
-    console.log("displayLanguage is: ", displayLanguage);
   }, [])
 
   return (
@@ -70,7 +69,6 @@ export default function OptionEditorv2({
         onChange={(e) => changeLang(e.target.value)}
         defaultValue={language}
       >
-        {/* <option value="">{selectDefaultText}</option> */}
         <option value={language}>{displayLanguage}</option>
       </Select>
       <CustomSwitch switchText={switchText} changeTheme={changeTheme} />

@@ -45,7 +45,6 @@ export default function MyNFTModal({ isOpenModal, closeModal, _nft, listingPrice
   const [successMessage, setSuccessMessage] = React.useState('');
   const [sellingPrice, setSellingPrice] = React.useState(_nft.price);
   const [isError, setIsError] = React.useState(false);
-  // sellCurrency can either be BNB or B2ST
   const [sellCurrency, setSellCurrency] = useState<'BNB' | 'B2ST'>('BNB');
 
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -56,17 +55,10 @@ export default function MyNFTModal({ isOpenModal, closeModal, _nft, listingPrice
   }, [_nft.price]);
 
   const sellNFT = async () => {
-    console.log('sellNFT: ', _nft);
     const priceToSet: string = sellingPrice;
     try {
-      console.log('sellNFT: priceToSet: ', priceToSet);
-      console.log('sellNFT: priceToSet2: ', ethers.utils.parseEther(priceToSet.toString()));
-      // convert priceToSet to wei
-      console.log('sellNFT: sellCurrency: ', sellCurrency)
       const signer = library?.getSigner(account);
       const isBNB: boolean = sellCurrency === 'BNB';
-      console.log('sellNFT: isBNB: ', isBNB);
-      // const contract = new ethers.Contract("0xe06855c206CE89A23b480246Cbc208c5A6deAAF8", NFT_INTERFACE2, signer);
       const contract = new ethers.Contract("0x8fE921C13825003F02F46EF261589a3bb7bc7B98", NFT_INTERFACE3, signer);
       const tx = await contract.resellTokenV2(_nft.id, ethers.utils.parseEther(priceToSet.toString()).toString(), isBNB, { value: ethers.utils.parseEther(listingPrice.toString()).toString() });
       await tx.wait();
@@ -75,7 +67,6 @@ export default function MyNFTModal({ isOpenModal, closeModal, _nft, listingPrice
       onOpen();
     } catch (error) {
       setIsError(true);
-      console.log('error: ', error)
       setErrorMessage(dictionary.my_nft_modal.error_msg);
       onOpen();
     }
@@ -120,7 +111,6 @@ export default function MyNFTModal({ isOpenModal, closeModal, _nft, listingPrice
                     <NumberDecrementStepper />
                   </NumberInputStepper>
                 </NumberInput>
-                {/* add a dropdown field */}
                 <Select
                   value={sellCurrency}
                   w="20%"

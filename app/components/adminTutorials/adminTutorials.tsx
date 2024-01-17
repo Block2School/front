@@ -38,7 +38,6 @@ export default function AdminBlog() {
     }).then((res) => {
       let markdowns_: Array<{title: string, markdown_url: string}> = res.data.markdown_list;
       let _markdown_: Array<string> = markdowns_.map((element: any) => {
-        console.log(element.markdown_url)
         return element.markdown_url;
       });
       let _availableMarkdowns = availableMarkdowns.filter((element: string) => {
@@ -46,7 +45,6 @@ export default function AdminBlog() {
       });
       setAvailableMarkdowns([..._availableMarkdowns, ..._markdown_]);
     }).catch((err) => {
-      console.log('err == ', err);
     })
   }, []);
 
@@ -69,8 +67,6 @@ export default function AdminBlog() {
       content: editorContent,
     }
 
-    console.log('data == ', createMkData);
-
     axios({
       method: 'POST',
       url: `${serverURL}:8080/admin/tuto/create_markdown`,
@@ -81,7 +77,6 @@ export default function AdminBlog() {
         Authorization: `Bearer ${token}`,
       },
     }).then((res) => {
-      console.log('res == ', res);
       const data = res.data;
       let markdownUrl: string | undefined = data?.markdown_url?.url;
       if (markdownUrl) {
@@ -102,7 +97,6 @@ export default function AdminBlog() {
       input: '',
       points: 0,
     }
-    console.log('data == ', data);
 
     axios({
       method: 'POST',
@@ -111,7 +105,7 @@ export default function AdminBlog() {
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`
       },
     }).then((res) => {
       if (res.data.success === true) {
@@ -127,14 +121,12 @@ export default function AdminBlog() {
     height: '94%', width: '100%',
     overflow: 'scroll',
     backgroundColor: '#202020'
-    // cursor: 'pointer'
   }}>
     <div
       style={{
         height: '100%',
         width: '100%',
-        overflow: 'scroll',
-        // maxHeight: '650px'
+        overflow: 'scroll'
       }}
     >
       <MyEditor
@@ -151,9 +143,7 @@ export default function AdminBlog() {
         flexDirection: 'column',
         width: '100%',
         height: '100%',
-        backgroundColor: '#202020',
-        // paddingLeft: '0.5%',
-        // paddingRight: '0.5%',
+        backgroundColor: '#202020'
       }}
     >
       <div
@@ -166,7 +156,7 @@ export default function AdminBlog() {
           borderBottomWidth: '1px',
           borderBottomColor: 'white',
           paddingLeft: '0.5%',
-          paddingRight: '0.5%',
+          paddingRight: '0.5%'
         }}
       >
         <MarkdownRenderer
@@ -183,14 +173,12 @@ export default function AdminBlog() {
     height: '94%', width: '100%',
     overflow: 'scroll',
     backgroundColor: '#202020'
-    // cursor: 'pointer'
   }}>
     <div
       style={{
         height: '100%',
         width: '100%',
-        overflow: 'scroll',
-        // maxHeight: '650px'
+        overflow: 'scroll'
       }}
     >
       <MyEditor
@@ -209,14 +197,12 @@ export default function AdminBlog() {
     height: '94%', width: '100%',
     overflow: 'scroll',
     backgroundColor: '#202020'
-    // cursor: 'pointer'
   }}>
     <div
       style={{
         height: '100%',
         width: '100%',
-        overflow: 'scroll',
-        // maxHeight: '650px'
+        overflow: 'scroll'
       }}
     >
       <MyEditor

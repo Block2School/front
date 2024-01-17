@@ -38,7 +38,6 @@ export default function ErrorAlert({ errorMessage, isOpen, onClose }: { errorMes
             }}
           >
             <AlertDialogHeader fontSize="lg" fontWeight="bold">
-              {/* div that centers the content and put the two content one under the other */}
               <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                 <BiErrorCircle
                   style={{

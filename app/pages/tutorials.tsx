@@ -9,7 +9,6 @@ import { useContext } from 'react';
 import { LanguageContext } from '../components/LanguageSwitcher/language';
 
 const TutorialBeta = () => {
-  // const [isAdmin, setIsAdmin] = useState(false)
   const [filteredTutorials, setFilteredTutorials] = useState([])
   const [allTutorials, setAllTutorials] = useState([])
   const [allCategories, setAllCategories] = useState([])
@@ -29,9 +28,6 @@ const TutorialBeta = () => {
       }).then(res => {
         setAllTutorials(res.data.data);
         setFilteredTutorials(res.data.data)
-        console.log('all TUTO: ', res.data.data);
-        console.log("IS ADMIN")
-        // setTimeout(() => { setIsLoading(false); console.log('categories2: ', categories) }, 500);
       })
     } else {
       axios.get(`${serverURL}:8080/tuto/v2/all`, {
@@ -42,9 +38,6 @@ const TutorialBeta = () => {
       }).then(res => {
         setAllTutorials(res.data.data);
         setFilteredTutorials(res.data.data)
-        console.log('all TUTO: ', res.data.data);
-        console.log("NOT ADMIN")
-        // setTimeout(() => { setIsLoading(false); console.log('categories2: ', categories) }, 500);
       })
     }
   }, []);
@@ -57,8 +50,6 @@ const TutorialBeta = () => {
       }
     }).then(res => {
       setAllCategories(res.data.data);
-      console.log('ALL categories: ', res.data.data);
-      // setTimeout(() => { setIsLoading(false); console.log('categories2: ', categories) }, 500);
     })
   }, []);
 
@@ -70,8 +61,6 @@ const TutorialBeta = () => {
       }
     }).then(res => {
       setAllPaths(res.data.data);
-      console.log('ALL paths: ', res.data.data);
-      // setTimeout(() => { setIsLoading(false); console.log('categories2: ', categories) }, 500);
     })
   }, []);
 
@@ -79,47 +68,19 @@ const TutorialBeta = () => {
     const Filt = allTutorials.filter((tutorial: any) => tutorial.category == filter)
     setFilteredTutorials(Filt)
     setSearchTitle(filter)
-    console.log(filteredTutorials)
   }
 
   const filterTutorialsPath = (path: any) => {
     const Path = allTutorials.filter((tutorial: any) => tutorial.path == path)
     setFilteredTutorials(Path)
     setSearchTitle(path)
-    console.log(filteredTutorials)
   }
 
   const filterTutorialsWithSearch = (search: any) => {
     const Search = allTutorials.filter((tutorial: any) => tutorial.title.toLowerCase().includes(search.toLowerCase()))
     setFilteredTutorials(Search)
     setSearchTitle(search)
-    console.log(filteredTutorials)
   }
-
-  // useEffect(() => {
-  //   const token: string | null = sessionStorage.getItem('token')
-  //   if (token === null) {
-  //     setIsAdmin(false)
-  //     return
-  //   }
-
-  //   axios.get(`http://localhost:8080/isAdmin`, {
-  //     headers: {
-  //       'Authorization': `Bearer ${token}`,
-  //       'Content-Type': 'application/json',
-  //       'Access-Control-Allow-Origin': '*'
-  //     }
-  //   }).then(res => {
-  //     console.log('ZEBI TA GUEULE')
-  //     if (res.data.data && res.data.data.isAdmin === true) {
-  //       setIsAdmin(true);
-  //     }
-  //   }).catch(err => {
-  //     setIsAdmin(false);
-  //     console.log('ERR: ', err);
-  //   });
-  //   // setIsAdmin(false)
-  // }, [])
 
   return (
     <>
@@ -160,8 +121,6 @@ const TutorialBeta = () => {
       </div>
       </div>
       <div className={styles.sidebar}>
-          {/* <h2 className={styles.sidebar_title_right}>Last Tutorial</h2>
-          <LastTutorialsCard title="Learning Javascript 2" category="Javascript"></LastTutorialsCard> */}
       </div>
     </div>
       <Footer />

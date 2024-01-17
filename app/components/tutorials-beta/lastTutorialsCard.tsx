@@ -16,7 +16,6 @@ export default function  LastTutorialsCard({title, category, score, id}:any) {
         </div>
         <Link href={{pathname: "/tutorial", query: { tutorialId: id }}} passHref>
             <Box className={styles.buttonBox}>
-              {/* <span>Start Again</span> */}
               <Text
                 color={"black"}
               >Start again</Text>

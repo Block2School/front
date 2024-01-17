@@ -6,7 +6,6 @@ export const sendGAEvent = (category: string, action: string, label: string) => 
     action: action,
     label: label
   })
-  console.log(`GA Event: ${category} - ${action} - ${label}`)
 }
 
 export const formatLanguageToServerLanguage = (language: string): string => {

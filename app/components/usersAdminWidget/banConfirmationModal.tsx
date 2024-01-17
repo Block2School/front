@@ -11,11 +11,9 @@ export default function banModal({person, closeModal}:any) {
 
   useEffect(() => {
     setToken(sessionStorage.getItem('token') || '');
-    // ToDo: get markdown list
   }, []);
 
   const handleClick = () => {
-    console.log("banning user ID: " +person.uuid);
     axios({
       method: 'POST',
       url: `${serverURL}:8080/admin/ban`,

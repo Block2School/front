@@ -1,6 +1,5 @@
 import Editor from "@monaco-editor/react";
 import { useEffect, useState } from "react";
-// import Editor, { useMonaco } from "@monaco-editor/react";
 
 export default function MonacoEditor({
   theme, lang, onChange,
@@ -12,7 +11,6 @@ export default function MonacoEditor({
   height: string, width: string
 }) {
 
-  // const monaco = useMonaco();
   const [usedLang, setUsedLang] = useState(lang);
 
   useEffect(() => {
@@ -23,7 +21,6 @@ export default function MonacoEditor({
     else if (lang == "R") setUsedLang("r");
     else if (lang == "solidity") setUsedLang("solidity");
     else setUsedLang("javascript");
-    console.log("usedLang is: ", usedLang);
   }, [lang, usedLang]);
 
   return (

@@ -27,7 +27,6 @@ export default function  ForumPost({post}:any) {
       }
     }).then(res => {
       setAllComments(res.data.data)
-      console.log('ALL Comments: ', allComments);
     })
   }, []);
 
@@ -53,22 +52,16 @@ export default function  ForumPost({post}:any) {
         Authorization: `Bearer ${token}`,
       },
     }).then((res) => {
-      console.log('res == ', res);
     });
   }
 
   return (
-    <div className={styles.timeline_post}> {/* add class name to container */}
-        <div onClick={() => toggleModal()} className={styles.timeline_post_header}> {/* add class name to header */}
+    <div className={styles.timeline_post}>
+        <div onClick={() => toggleModal()} className={styles.timeline_post_header}>
         <h2 className={styles.timeline_post_title}>{post.title}</h2>
         <small>{dictionary.forum.posted_in} <span className={styles.category_name_post}>{post.category}</span> {dictionary.forum.by} {post.author_uuid} | {post.timestamp}</small>
         </div>
-        {/* {
-          post.image? (
-        <Image width={500} height={350} src={post.image} alt="hello"/>
-        ) : null
-        } */}
-        <div className={styles.timeline_post_details}> {/* add class name to details */}
+        <div className={styles.timeline_post_details}>
         {showModal? null : (<span>{dictionary.forum.comments}</span>)}
         <h5 className={styles.post_score}>{allComments.length}</h5>
         </div>
@@ -85,7 +78,7 @@ export default function  ForumPost({post}:any) {
             }
           </div>
           {isConnected? 
-                    <div className={styles.search_posts}> {/* add class name to section */}
+                    <div className={styles.search_posts}>
                       <form onSubmit={handleSubmitComment}>
                         <input 
                           type="text"

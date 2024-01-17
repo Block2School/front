@@ -8,7 +8,6 @@ export default function UploadEditor({ isUploading, uploadCode }: { isUploading:
   const [isConnected, setIsConnected] = useState(false);
 
   const uploadCodeModified = () => {
-    console.log('uploadCodeModified')
     const token = sessionStorage.getItem('token');
     if (token) setIsConnected(true); else setIsConnected(false);
     if (!token) return;

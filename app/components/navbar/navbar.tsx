@@ -10,7 +10,6 @@ import ConnectionButton from '../wallet/connectionButton'
 import NavbarAllBalances from '../wallet/navbarAllBalances'
 import { ThemeSelector } from '../themeSelector/themeSelector'
 import { LanguageContext, LanguageSwitcher } from "../LanguageSwitcher/language";
-// import Icon from '@chakra-ui/icon'
 import { BiX } from 'react-icons/bi'
 
 export default function Navbar() {
@@ -30,7 +29,6 @@ export default function Navbar() {
     account,
     activate,
     deactivate,
-    // active,
   } = useWeb3React()
 
   const refreshState = () => {
@@ -80,8 +78,6 @@ export default function Navbar() {
 
   const handleConnection = async (error: Error): Promise<void> => {
     if (error.name === 'UnsupportedChainIdError') {
-      // display warning
-      console.log('ERROR WRONG CHAIN')
     }
   }
 
@@ -95,26 +91,20 @@ export default function Navbar() {
 
   const handleResize = () => {
     if (window.innerWidth > 1000) {
-      console.log('window.innerWidth > 1000')
       setIsSmallScreen(false);
     } else {
-      console.log('window.innerWidth < 1000')
       setIsSmallScreen(true);
     }
   }
 
   useEffect(() => {
-    console.log('isSmallScreen: ', isSmallScreen)
     if (showModal === true && isSmallScreen === false) setShowModal(false);
   }, [isSmallScreen]);
 
   useEffect(() => {
     const provider = window.sessionStorage.getItem('provider')
     // @ts-ignore
-    console.log('here')
-    console.log('provider == ', provider)
     if (provider && provider !== 'undefined') {
-      console.log('HEREEEREJREKLRKJZHEHKJRZJKEHRKJZEHJKERJHKEZHJKHRJKEZHJKRHJKEZHJKREKHJ')
       activate(connectors[provider], handleConnection)
     }
     if (provider && provider !== 'undefined') setActiveYar(true)
@@ -207,11 +197,9 @@ export default function Navbar() {
                         <span className="navbar-text">{dictionary.navbar.profile}</span>
                       </div>
                     </Link>
-                    {/* <Link href={'/terms-of-use'} passHref> */}
                     <div id='navbar-drop-link-disconnect'>
                       <span className="navbar-text" onClick={disconnect}>{dictionary.navbar.disconnect}</span>
                     </div>
-                    {/* </Link> */}
                   </div>
                 )}
               </div>
@@ -234,12 +222,10 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* Modal to display the navigation links */}
       {showModal && (
         <div className="navbar-modal">
           <div className="navbar-modal-content">
             <div className="navbar-modal-close" onClick={handleToggleModal}>
-              {/* <Icon as={BiX} w={8} h={8} /> */}
               <BiX
                 size={32}
                 color="white"

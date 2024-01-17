@@ -5,7 +5,6 @@
 
 @font-face {
   font-family: "Sono";
-  /* src: url("../../public/Sono-Regular.ttf"); */
   src:url("../public//Sono-Regular.ttf")
 }
 
@@ -75,7 +74,7 @@
 
 .tuto_list {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Create three equal-width columns */
+    grid-template-columns: repeat(3, 1fr);
     gap: 10px;
 }
 

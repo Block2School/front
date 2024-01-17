@@ -12,7 +12,6 @@ export default function uploadWidgetTutorials() {
     const [tutorialCheck, setTutorialCheck] = useState(false);
 
     const uploadTutorial = () => {
-        console.log("Uploading tutorial: " + tutorialTitle);
         axios({
           method: 'post',
           url: "http://www.localhost:8080/tuto/create",
@@ -50,10 +49,3 @@ export default function uploadWidgetTutorials() {
     </div>
   )
 }
-
-// title: str = None
-// markdownUrl: str = None
-// category: str = None
-// answer: str = None
-// startCode: str = None
-// shouldBeCheck: bool = None

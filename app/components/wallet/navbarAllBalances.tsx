@@ -30,10 +30,7 @@ export default function NavbarAllBalances() {
       let contract: Contract | undefined = getTokenContract('ZLDKC', true);
       if (contract) {
         contract.methods.balanceOf(account).call().then((res: any) => {
-          console.log('CustomTokenBalance : ', res);
-          console.log('ZLDKC : getFullDisplayBalance : ', getFullDisplayBalance(res, 8, 2));
           let r: number = parseFloat(getFullDisplayBalance(res, 8, 2));
-          console.log('CustomTokenBalance r: ', r);
           setBalanceCustomToken(r);
         });
       }
@@ -45,13 +42,7 @@ export default function NavbarAllBalances() {
       let contract: Contract | undefined = getTokenContract('B2ST', true);
       if (contract) {
         contract.methods.balanceOf(account).call().then((res: any) => {
-          console.log('CustomTokenBalance B2ST : ', res);
           let formatedRes: string = web3.utils.fromWei(res, 'ether');
-          console.log('CustomTokenBalance B2ST formatedRes: ', formatedRes);
-          console.log('B2ST : getFullDisplayBalance : ', getFullDisplayBalance(res, 8, 2));
-          // let r: number = parseFloat(getFullDisplayBalance(res, 8, 2));
-          // let r: string = getFullDisplayBalance(res, 8, 2);
-          // console.log('CustomTokenBalance B2ST r: ', r);
           setBalanceB2ST(formatedRes);
         });
       }
@@ -63,10 +54,7 @@ export default function NavbarAllBalances() {
       let contract: Contract | undefined = getTokenContract('ETH', true);
       if (contract) {
         contract.methods.balanceOf(account).call().then((res: any) => {
-          console.log('ETH BALANCE : ', res);
-          console.log('ETH : getFullDisplayBalance : ', getFullDisplayBalance(res, 8, 2));
           let r: number = parseFloat(web3.utils.fromWei(res, 'ether'));
-          console.log('CustomTokenBalance r: ', r);
           setBalanceETH(r);
         });
       }
@@ -79,7 +67,6 @@ export default function NavbarAllBalances() {
         {active ? (
           <>
             <div id="balances">
-              {/* <NavbarBalance balanceToken={balanceETH} ImgSrc="/ethereum-eth-logo.svg" alt="ETH logo"/> */}
               <NavbarBalance balanceToken={balanceB2ST} ImgSrc="/Logo_B2S.png" alt="B2S logo" _decimal={2}/>
               <NavbarBalance balanceToken={balanceBNB} ImgSrc="/Binance-BNB-Icon2-Logo.wine.svg" alt="BNB logo" _decimal={3}/>
             </div>

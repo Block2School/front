@@ -38,10 +38,7 @@ export default function AddAllowanceModal({ isOpenModal, closeModal }: { isOpenM
   const { dictionary } = React.useContext(LanguageContext);
 
   useEffect(() => {
-    console.log('library: ', library)
-    console.log('account: ', account)
     if (!library || !account) {
-      console.log('library: ', library, 'account: ', account, "not connected")
       setErrorMessage('Please connect to your wallet first !')
       setIsError(true);
       onOpen();
@@ -52,18 +49,14 @@ export default function AddAllowanceModal({ isOpenModal, closeModal }: { isOpenM
   }, [library, account]);
 
   const handleAllowance = async () => {
-    console.log('handleAllowance');
     if (!library || !account)
       return;
     const signer = library?.getSigner(account);
     let _contract2 = new ethers.Contract('0x04eBEb70673F5eC6fFAE5607A2EFa11D36E17EA8', B2ST_INTERFACE_, signer)
     try {
-      console.log('amountToApprove: ', amountToApprove.toString());
       let res = await _contract2.approve('0x8fE921C13825003F02F46EF261589a3bb7bc7B98', ethers.utils.parseUnits(amountToApprove.toString(), 18));
       await res.wait();
-      console.log('res: ', res)
     } catch (error) {
-      console.log('WTF THERE IS AN ERROR: ', error)
     }
   }
 

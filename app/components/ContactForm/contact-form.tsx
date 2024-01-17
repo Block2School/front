@@ -1,4 +1,3 @@
-// import 'react-toastify/dist/ReactToastify.min.css';
 import { useForm } from 'react-hook-form';
 import emailjs from 'emailjs-com';
 import { ToastContainer, toast } from 'react-toastify';
@@ -40,17 +39,12 @@ const ContactForm = () => {
         subject,
         message
       };
-      console.log(templateParams);
-      console.log(serviceId)
-      console.log(templateId)
-      console.log(userId)
 
       await emailjs.send(serviceId, templateId, templateParams, userId);
 
       reset();
       toastifySuccess();
     } catch (e) {
-      console.log(e);
     }
   };
 
@@ -65,7 +59,6 @@ const ContactForm = () => {
             <div className='col-12 text-center'>
               <div className='contactForm'>
                 <form id='contact-form' onSubmit={handleSubmit(onSubmit)} noValidate>
-                  {/* Row 1 of form */}
                   <div className='row formRow'>
                     <div className='col-6'>
                       <Input
@@ -93,7 +86,6 @@ const ContactForm = () => {
                       ></Input>
                     </div>
                   </div>
-                  {/* Row 2 of form */}
                   <div className='row formRow'>
                     <div className='col'>
                       <Input
@@ -110,7 +102,6 @@ const ContactForm = () => {
                       ></Input>
                     </div>
                   </div>
-                  {/* Row 3 of form */}
                   <div className='row formRow'>
                     <div className='col'>
                       <Textarea

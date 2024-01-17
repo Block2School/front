@@ -1,4 +1,3 @@
-// import { Inter } from 'next/font/google'
 import styles from '../styles/home-beta.module.css'
 import Navbar from '../components/navbar/navbar';
 import Footer from '../components/footer/footer';
@@ -8,15 +7,12 @@ import { useRouter } from 'next/router';
 import { LanguageContext } from "../components/LanguageSwitcher/language";
 import React, { useContext } from 'react';
 
-// const inter = Inter({ subsets: ['latin'] })
-
 export default function Homepage() {
   const router = useRouter();
 
   const { dictionary } = useContext(LanguageContext);
 
   const goToSite = () => {
-    // window.location.replace('http://51.77.194.105:3000/');
     router.push('/tutorials');
   }
 

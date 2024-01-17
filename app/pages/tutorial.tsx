@@ -8,11 +8,6 @@ import ScoreBoardModal from "../components/modals/scoreboard/tutorialScoreBoardM
 import { useRouter } from "next/router";
 import {
   useDisclosure,
-  Spinner,
-  Select,
-  Switch,
-  HStack,
-  Text,
   Button,
   Modal,
   ModalOverlay,
@@ -148,7 +143,6 @@ export default function Tutorial() {
       setDefaultValue(tutorialInfos.startCode)
       setShowError(false)
       setTimeout(() => setIsLoading(false), 1000)
-      setTimeout(() => console.log('tutorialInfos : ', tutorialInfos), 1000)
     })
     MixPanelTracking.getInstance().TutorialViewed({ tutorial: { id: tutorialInfos.id, title: tutorialInfos.title } });
   }, [tutorialInfos, markdown])
@@ -159,7 +153,6 @@ export default function Tutorial() {
   }
 
   function changeLang(lang: React.SetStateAction<string>) {
-    console.log('lang => ', lang)
     setLang(lang)
   }
 
@@ -178,21 +171,16 @@ export default function Tutorial() {
         Authorization: 'Bearer ' + sessionStorage.getItem('token'),
       }
     }).then(res => {
-      console.log(res.data);
       setScoreBoard(res.data);
       onOpen();
-      console.log("ZEUBI => ", scoreBoard);
     })
   }
 
   async function sendUserCode(code: string) {
-    console.log("check =>")
-    console.log(editorValue.length)
     let execute = true
     if (lang == "solidity") {
       execute = false
     }
-    console.log("in sending user code");
     let res = await axios.post(`${serverURL}:8080/tuto/complete`, {
       source_code: code, tutorial_id: tutorialId, total_completions: 100, language: lang, characters: editorValue.length, lines: lineCount, exec: execute
     }, {
@@ -202,7 +190,6 @@ export default function Tutorial() {
         'Access-Control-Allow-Origin': '*',
       }
     })
-    console.log("sending following data => ", res.data)
     return res.data;
   }
 
@@ -220,10 +207,7 @@ export default function Tutorial() {
     if (editorValue.length > 0) {
       let res = await sendUserCode(editorValue);
       setResError(res.error ? res.error : '');
-      console.log('res.error => ', res.error);
-      console.log('res => ', res)
       setResOutput(res.received ? res.received : '[Nothing]');
-      console.log('res.received => ', res.received);
       if (res.is_correct == true) {
         setShowModal(true);
         setModalTitle('Correct Answer');
@@ -244,14 +228,6 @@ export default function Tutorial() {
       setIsUploading(false)
       return
     }
-    // else if (editorValue.length > 0 && tutorialInfos.shouldBeCheck == true) {
-    //   if (editorValue === tutorialInfos.answer) {
-    //     alert('Correct answer')
-    //   } else {
-    //     console.log(editorValue + " || " + tutorialInfos.answer)
-    //     alert('Wrong answer')
-    //   }
-    // }
   }
 
   return (
@@ -276,12 +252,10 @@ export default function Tutorial() {
             </div>
             <div
               style={{
-                // make it so that the console is always at the bottom of the page
                 position: "absolute",
                 bottom: 0,
                 width: "50%",
                 maxHeight: "60%",
-                // overflow: 'scroll'
                 overflowY: "scroll",
               }}
             >

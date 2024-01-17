@@ -7,9 +7,6 @@ import BuyB2STokenModal from "../components/modals/marketplaceModals/buyB2SToken
 import { Web3Provider } from "@ethersproject/providers";
 import { useWeb3React } from "@web3-react/core";
 import { Box, Container, Grid, GridItem, Heading, Image, Button, Flex, Spacer } from "@chakra-ui/react";
-import Web3 from "web3";
-import NFT_INTERFACE from '../config/abi/nft.json';
-import NFT_INTERFACE2 from '../config/abi/nft2.json';
 import NFT_INTERFACE3 from '../config/abi/nft3.json';
 import { ethers } from "ethers";
 import BuyNFTModal from "../components/modals/marketplaceModals/buyNFTModal";
@@ -32,7 +29,6 @@ interface NFT {
 export default function Marketplace() {
   const { dictionary } = useContext(LanguageContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  // get a second isOpen, onOpen, onClose
   const { isOpen: isOpenBuyNFTModal, onOpen: onOpenBuyNFTModal, onClose: onCloseBuyNFTModal } = useDisclosure();
   const { isOpen: isOpenAddAllowanceModal, onOpen: onOpenAddAllowanceModal, onClose: onCloseAddAllowanceModal } = useDisclosure();
 
@@ -52,18 +48,10 @@ export default function Marketplace() {
   });
 
   useEffect(() => {
-    console.log('library: ', library)
-    // setIsError(false);
-    console.log('account: ', account)
     if (!library || !account) {
-      console.log('library: ', library, 'account: ', account, "not connected")
-      // setErrorMessage('Please connect to your wallet first !')
-      // setIsError(true);
-      // onOpen();
       return;
     }
     setIsError(false);
-    // onClose();
   }, [account, library])
 
   useEffect(() => {
@@ -78,16 +66,10 @@ export default function Marketplace() {
   const fetchNFTs = async () => {
     if (!library || !account)
       return;
-    console.log('salut')
-    console.log('library.provider: ', library?.provider)
-    // let contractAddress: string = "0x814ed598FBBcD0AA466f1a0aAEE8603Ae55b96D3"
-    // let contractAddress: string = "0xe06855c206CE89A23b480246Cbc208c5A6deAAF8"
     let contractAddress: string = "0x8fE921C13825003F02F46EF261589a3bb7bc7B98"
     const _provider = new ethers.providers.Web3Provider(library?.provider);
     const signer = _provider.getSigner();
 
-    // let contract = new ethers.Contract(contractAddress, NFT_INTERFACE, signer);
-    // let contract = new ethers.Contract(contractAddress, NFT_INTERFACE2, signer);
     let contract = new ethers.Contract(contractAddress, NFT_INTERFACE3, signer);
     let res = await contract.fetchMarketItems();
 
@@ -110,15 +92,11 @@ export default function Marketplace() {
         currencyAddress: _nftCurrencyAddress,
       }
       nftArrayTmp.push(_nft);
-      // setNFTs(prevState => [...prevState, _nft]);
     }
-    console.log('nftArrayTmp: ', nftArrayTmp)
     setNFTs(nftArrayTmp);
   };
 
   const handleBuyNFT = (nft: NFT) => {
-    console.log(nft);
-    // let contract = "0x814ed598FBBcD0AA466f1a0aAEE8603Ae55b96D3";
     setNFTToBuyIndex(parseInt(nft.id) - 1);
     setNFTToBuy(nft);
     onOpenBuyNFTModal();
@@ -128,9 +106,7 @@ export default function Marketplace() {
     <>
       <Navbar />
       <div style={{ minHeight: "100vh" }}>
-        {/* header with the title */}
         <div style={{ height: "100px", paddingTop: '1%' }}>
-          {/* place both content on opposite side */}
           <div style={{ float: "left", paddingLeft: '2%' }}>
             <Text fontSize="4xl" fontWeight="bold">
               Marketplace
@@ -235,7 +211,6 @@ export default function Marketplace() {
       <BuyNFTModal
         isOpenModal={isOpenBuyNFTModal}
         closeModal={onCloseBuyNFTModal}
-        // _nft={nfts[nftToBuyIndex]}
         _nft={nftToBuy}
       />
       <AddAllowanceModal
